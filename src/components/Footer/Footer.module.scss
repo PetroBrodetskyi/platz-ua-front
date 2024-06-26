@@ -1,0 +1,14 @@
+@import 'src/styles/mixins';
+
+.footer {
+    background-color: var(--dark-bg);
+    color: var(--white);
+    text-align: center;
+    padding: 40px;
+
+    .container {
+        p {
+            margin: 0;
+        }
+    }
+}

@@ -1,0 +1,31 @@
+@import 'src/styles/mixins';
+
+.categories {
+    background-color: var(--light-bg);
+    padding: 40px;
+
+    .container {
+        h2 {
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 1rem;
+
+            li {
+                background-color: var(--white);
+                padding: 1rem;
+                border: 1px solid var(--light-grey);
+                cursor: pointer;
+                @include transition(background-color);
+
+                &:hover {
+                    background-color: var(--light-green);
+                }
+            }
+        }
+    }
+}

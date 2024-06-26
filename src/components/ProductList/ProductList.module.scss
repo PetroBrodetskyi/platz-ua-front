@@ -1,0 +1,58 @@
+@import 'src/styles/mixins';
+
+.productList {
+    background-color: var(--light-bg);
+    padding: 40px;
+
+    .container {
+        h2 {
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+    }
+
+    .listFlex {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .productItem {
+        background-color: var(--white);
+        padding: 1rem;
+        border: 1px solid var(--light-grey);
+        @include transition(box-shadow);
+        flex: 1 1 200px;
+
+        .product {
+            .productImage {
+                img {
+                    max-width: 100%;
+                }
+            }
+
+            .productInfo {
+                h3 {
+                    margin: 0.5rem 0 0;
+                }
+
+                p {
+                    margin: 0;
+                    color: var(--dark-green);
+                    font-weight: bold;
+                }
+            }
+        }
+
+        &:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+    }
+}

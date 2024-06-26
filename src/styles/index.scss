@@ -1,0 +1,34 @@
+@import 'reset';
+@import 'fonts';
+
+:root {
+    //colors
+    --white: #ffffff;
+    --light-green: #bedbb0;
+    --dark-green: #9dc888;
+    --black: #161616;
+    --blue: #8fa1d0;
+    --rose: #e09cb5;
+    --black-form: #151515;
+    --dark-bg: #1f1f1f;
+    --dark-bg-sidebar: #121212;
+    --dark-grey: rgba(255, 255, 255, 0.5);
+    --light-grey: rgba(255, 255, 255, 0.3);
+    --dark-grey-line: rgba(255, 255, 255, 0.1);
+    --light-bg: #f6f6f7;
+    --violet-bg: #ecedfd;
+    --dark-violet: #5255bc;
+    --light-violet: #7b7ede;
+
+    //fonts
+    --font-family: 'Poppins', sans-serif;
+
+}
+
+body {
+    font-family: var(--font-family);
+    font-size: 14px;
+    color: var(--theme-default-body);
+    background-color: var(--thema-default-bg-cl);
+    overflow-x: hidden;
+}

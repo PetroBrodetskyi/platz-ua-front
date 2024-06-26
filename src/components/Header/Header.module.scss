@@ -1,0 +1,57 @@
+@import 'src/styles/mixins';
+
+.header {
+    background-color: var(--white);
+    padding: 40px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .searchBar {
+        display: flex;
+
+        input {
+            padding: 0.5rem;
+            border: 1px solid var(--light-grey);
+            border-right: none;
+            outline: none;
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            background-color: var(--blue);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            @include transition(background-color);
+
+            &:hover {
+                background-color: var(--dark-violet);
+            }
+        }
+    }
+
+    .userMenu {
+        button {
+            padding: 0.5rem 1rem;
+            background-color: var(--dark-green);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            @include transition(background-color);
+
+            &:hover {
+                background-color: var(--dark-violet);
+            }
+        }
+    }
+}
