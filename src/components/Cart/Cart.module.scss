@@ -1,0 +1,62 @@
+@import 'src/styles/mixins';
+
+.cart {
+    padding: 2rem;
+    background-color: var(--light-bg);
+
+    h2 {
+        margin-bottom: 1rem;
+    }
+
+    .cartItems {
+        list-style: none;
+        padding: 0;
+
+        .cartItem {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: var(--white);
+            border: 1px solid var(--light-grey);
+            margin-bottom: 1rem;
+
+            .quantityControl {
+                display: flex;
+                align-items: center;
+
+                button {
+                    padding: 0.5rem 1rem;
+                    margin: 0 0.5rem;
+                    background-color: var(--light-green);
+                    border: none;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: var(--dark-green);
+                    }
+                }
+
+                span {
+                    margin: 0 0.5rem;
+                }
+            }
+
+            button {
+                padding: 0.5rem 1rem;
+                background-color: var(--rose);
+                border: none;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: var(--dark-violet);
+                }
+            }
+        }
+    }
+
+    .total {
+        margin-top: 2rem;
+        font-weight: bold;
+    }
+}

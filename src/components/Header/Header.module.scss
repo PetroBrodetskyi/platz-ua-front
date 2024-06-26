@@ -1,56 +1,80 @@
 @import 'src/styles/mixins';
 
 .header {
-    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--light-bg);
+    border-bottom: 1px solid var(--light-grey);
     padding: 40px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
     .container {
         display: flex;
         justify-content: space-between;
         align-items: center;
-    }
+        width: 100%;
 
-    .logo {
-        font-size: 1.5rem;
-        font-weight: bold;
-    }
-
-    .searchBar {
-        display: flex;
-
-        input {
-            padding: 0.5rem;
-            border: 1px solid var(--light-grey);
-            border-right: none;
-            outline: none;
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
         }
 
-        button {
-            padding: 0.5rem 1rem;
-            background-color: var(--blue);
-            color: var(--white);
-            border: none;
-            cursor: pointer;
-            @include transition(background-color);
+        .searchBar {
+            display: flex;
+            align-items: center;
 
-            &:hover {
-                background-color: var(--dark-violet);
+            input {
+                padding: 0.5rem;
+                border: 1px solid var(--light-grey);
+                border-radius: 4px 0 0 4px;
+            }
+
+            button {
+                padding: 0.5rem 1rem;
+                border: 1px solid var(--light-grey);
+                border-left: none;
+                background-color: var(--light-green);
+                cursor: pointer;
+
+                &:hover {
+                    background-color: var(--dark-green);
+                }
             }
         }
-    }
 
-    .userMenu {
-        button {
-            padding: 0.5rem 1rem;
-            background-color: var(--dark-green);
-            color: var(--white);
-            border: none;
-            cursor: pointer;
-            @include transition(background-color);
+        .userMenu {
+            display: flex;
+            align-items: center;
 
-            &:hover {
-                background-color: var(--dark-violet);
+            button {
+                margin-left: 1rem;
+                padding: 0.5rem 1rem;
+                border: 1px solid var(--light-grey);
+                background-color: var(--rose);
+                cursor: pointer;
+
+                &:hover {
+                    background-color: var(--dark-violet);
+                }
+            }
+
+            .cartIcon {
+                margin-left: 1rem;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+
+                .icon {
+                    font-size: 1.5rem;
+                }
+
+                .badge {
+                    margin-left: 0.5rem;
+                    background-color: var(--blue);
+                    color: var(--white);
+                    border-radius: 50%;
+                    padding: 0.2rem 0.5rem;
+                }
             }
         }
     }
