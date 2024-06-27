@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import scss from './Categories.module.scss';
 import data from './products.json';
+import { getCategoryIcon, getSubcategoryIcon } from './icons.jsx';
 
 const Categories = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -34,6 +35,7 @@ const Categories = () => {
               value={product.name}
               onClick={handleCategoryChange}
             >
+              {getCategoryIcon(product.name)}
               {product.name}
             </button>
           ))}
@@ -52,6 +54,7 @@ const Categories = () => {
                     value={subcategory}
                     onClick={handleSubcategoryChange}
                   >
+                    {getSubcategoryIcon(subcategory)}
                     {subcategory}
                   </button>
                 ))}

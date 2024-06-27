@@ -18,8 +18,11 @@
 
         .categoryButton,
         .subcategoryButton {
+            display: flex;
+            align-items: center;
             background-color: var(--white);
             padding: 16px;
+            border: 1px solid var(--light-grey);
             cursor: pointer;
             @include transition(background-color);
 
@@ -30,6 +33,10 @@
             &.active {
                 background-color: var(--light-green);
                 border-color: var(--green);
+            }
+
+            svg {
+                margin-right: 8px; // Відступ для іконки
             }
         }
 
