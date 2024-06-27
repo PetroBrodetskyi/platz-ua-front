@@ -1,0 +1,53 @@
+@import 'src/styles/mixins';
+
+.searchLocation {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    input {
+        padding: 8px;
+        border: 1px solid var(--light-grey);
+        border-radius: 4px 0 0 4px;
+        font-size: 14px;
+        width: 400px;
+    }
+
+    .clearButton {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .icon {
+        width: 16px;
+        height: 16px;
+        stroke: var(--black);
+    }
+
+    .searchResults {
+        background-color: #fff;
+        max-height: 200px;
+        overflow-y: auto;
+        position: absolute;
+        width: 100%;
+        z-index: 10;
+        margin-top: 152px;
+        border-top: none;
+        border-radius: 0 0 4px 4px;
+
+        .resultItem {
+            padding: 10px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #f1f1f1;
+            }
+        }
+    }
+}

@@ -1,11 +1,11 @@
 @import 'src/styles/mixins';
 
 .cart {
-    padding: 2rem;
+    padding: 32px;
     background-color: var(--light-bg);
 
     h2 {
-        margin-bottom: 1rem;
+        margin-bottom: 16px;
     }
 
     .cartItems {
@@ -16,18 +16,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem;
+            padding: 16px;
             background-color: var(--white);
             border: 1px solid var(--light-grey);
-            margin-bottom: 1rem;
+            margin-bottom: 16px;
 
             .quantityControl {
                 display: flex;
                 align-items: center;
 
                 button {
-                    padding: 0.5rem 1rem;
-                    margin: 0 0.5rem;
+                    padding: 8px 16px;
+                    margin: 0 8px;
                     background-color: var(--light-green);
                     border: none;
                     cursor: pointer;
@@ -38,12 +38,12 @@
                 }
 
                 span {
-                    margin: 0 0.5rem;
+                    margin: 0 8px;
                 }
             }
 
             button {
-                padding: 0.5rem 1rem;
+                padding: 8px 16px;
                 background-color: var(--rose);
                 border: none;
                 cursor: pointer;
@@ -56,7 +56,7 @@
     }
 
     .total {
-        margin-top: 2rem;
+        margin-top: 32px;
         font-weight: bold;
     }
 }

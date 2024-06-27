@@ -21,12 +21,12 @@
     .listFlex {
         display: flex;
         flex-wrap: wrap;
-        gap: 1rem;
+        gap: 16px;
     }
 
     .productItem {
         background-color: var(--white);
-        padding: 1rem;
+        padding: 16px;
         border: 1px solid var(--light-grey);
         @include transition(box-shadow);
         flex: 1 1 200px;
@@ -40,7 +40,7 @@
 
             .productInfo {
                 h3 {
-                    margin: 0.5rem 0 0;
+                    margin: 8px 0 0;
                 }
 
                 p {

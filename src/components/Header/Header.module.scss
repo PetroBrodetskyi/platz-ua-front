@@ -15,7 +15,7 @@
         width: 100%;
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 24px;
             font-weight: bold;
         }
 
@@ -24,13 +24,13 @@
             align-items: center;
 
             input {
-                padding: 0.5rem;
+                padding: 8px;
                 border: 1px solid var(--light-grey);
                 border-radius: 4px 0 0 4px;
             }
 
             button {
-                padding: 0.5rem 1rem;
+                padding: 8px 16px;
                 border: 1px solid var(--light-grey);
                 border-left: none;
                 background-color: var(--light-green);
@@ -47,8 +47,8 @@
             align-items: center;
 
             button {
-                margin-left: 1rem;
-                padding: 0.5rem 1rem;
+                margin-left: 16px;
+                padding: 8px 16px;
                 border: 1px solid var(--light-grey);
                 background-color: var(--rose);
                 cursor: pointer;
@@ -59,21 +59,21 @@
             }
 
             .cartIcon {
-                margin-left: 1rem;
+                margin-left: 16px;
                 display: flex;
                 align-items: center;
                 cursor: pointer;
 
                 .icon {
-                    font-size: 1.5rem;
+                    font-size: 24px;
                 }
 
                 .badge {
-                    margin-left: 0.5rem;
+                    margin-left: 8px;
                     background-color: var(--blue);
                     color: var(--white);
                     border-radius: 50%;
-                    padding: 0.2rem 0.5rem;
+                    padding: 4px 8px;
                 }
             }
         }
