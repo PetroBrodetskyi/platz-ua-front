@@ -26,7 +26,6 @@ const Categories = () => {
   return (
     <div className={scss.categories}>
       <div className={scss.container}>
-        <h2>Categories</h2>
         <div className={scss.categoryButtons}>
           {sortedProducts.map((product, index) => (
             <button
@@ -42,7 +41,6 @@ const Categories = () => {
         </div>
         {selectedCategory && (
           <div className={scss.subcategories}>
-            <h3>Subcategories</h3>
             <div className={scss.subcategoryButtons}>
               {sortedProducts
                 .find((product) => product.name === selectedCategory)

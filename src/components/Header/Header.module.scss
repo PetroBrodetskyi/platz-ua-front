@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: var(--light-bg);
+    background-color: var(--light-green);
     border-bottom: 1px solid var(--light-grey);
     padding: 40px;
 
@@ -13,6 +13,16 @@
         justify-content: space-between;
         align-items: center;
         width: 100%;
+
+        .iconFlex {
+            display: flex;
+        }
+
+        .logoFlex {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
 
         .logo {
             font-size: 24px;

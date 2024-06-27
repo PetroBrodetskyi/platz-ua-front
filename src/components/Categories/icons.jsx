@@ -1,13 +1,14 @@
 import React from 'react';
 import { AiOutlineAudio } from "react-icons/ai";
 import { MdOutlinePhonelink, MdOutlineMapsHomeWork, MdMapsHomeWork, MdOutlineToys, MdEmojiFoodBeverage, MdPhoneIphone, MdOutlineLaptopChromebook, MdTabletMac, MdOutlineDesktopWindows } from "react-icons/md";
-import { FaBookDead, FaCar } from "react-icons/fa";
-import { FaComputer } from "react-icons/fa6";
+import { FaBookDead, FaCar, FaBaby } from "react-icons/fa";
+import { FaComputer, FaChessBoard } from "react-icons/fa6";
 import { GiClothes } from "react-icons/gi";
-import { PiPottedPlantBold, PiHammerBold, PiLampPendantBold, PiForkKnifeBold, PiBowlSteamBold, PiBroomFill, PiBathtubBold, PiTelevisionSimpleFill, PiVideoCameraBold } from "react-icons/pi";
-import { RiScales2Line } from "react-icons/ri";
+import { LuToyBrick } from "react-icons/lu";
+import { PiPottedPlantBold, PiHammerBold, PiLampPendantBold, PiForkKnifeBold, PiBowlSteamBold, PiBroomFill, PiBathtubBold, PiTelevisionSimpleFill, PiVideoCameraBold, PiSwordBold, PiBooksBold } from "react-icons/pi";
+import { RiScales2Line, RiRobot3Line, RiBearSmileLine } from "react-icons/ri";
 import { SiGumtree } from "react-icons/si";
-import { TbPoint, TbSofa, TbBatteryCharging2, TbPlaystationSquare, TbMicrowave, TbWashTumbleDry } from "react-icons/tb";
+import { TbPoint, TbSofa, TbBatteryCharging2, TbPlaystationSquare, TbMicrowave, TbWashTumbleDry, TbCarSuv, TbPuzzle } from "react-icons/tb";
 
 const categoryIcons = {
   'електроніка': <MdOutlinePhonelink />,
@@ -15,7 +16,6 @@ const categoryIcons = {
   'дім': <MdOutlineMapsHomeWork />,
   'сад': <SiGumtree />,
   'одяг': <GiClothes />,
-  'книги': <FaBookDead />,
   'іграшки': <MdOutlineToys />,
   'продукти': <MdEmojiFoodBeverage />,
   'default': <TbPoint />
@@ -23,15 +23,16 @@ const categoryIcons = {
 
 const subcategoryIcons = {
   'декор': <PiPottedPlantBold />,
+  'книги': <PiBooksBold />,
   'інструменти': <PiHammerBold />,
   'освітлення': <PiLampPendantBold />,
   'побутова техніка': <RiScales2Line />,
   'посуд': <PiBowlSteamBold />,
-  'приладдя для кухні': <PiForkKnifeBold />,
-  'приладдя для прибирання': <PiBroomFill />,
+  'для кухні': <PiForkKnifeBold />,
+  'для прибирання': <PiBroomFill />,
   'сантехніка': <PiBathtubBold />,
   'планшети': <MdTabletMac />,
-  'пристрої для зарядки': <TbBatteryCharging2 />,
+  'зарядки': <TbBatteryCharging2 />,
   'для кухні': <TbMicrowave />,
   'пральні машини': <TbWashTumbleDry />,
   'аудіотехніка': <AiOutlineAudio />,
@@ -49,7 +50,14 @@ const subcategoryIcons = {
   'жіночий одяг': <GiClothes />,
   'взуття': <GiClothes />,
   'художня література': <FaBookDead />,
-  'ляльки': <MdOutlineToys />,
+  'настільні': <FaChessBoard />,
+  'іграшкова зброя': <PiSwordBold />,
+  'інтерактивні': <RiRobot3Line />,
+  'конструктори': <LuToyBrick />,
+  'машинки': <TbCarSuv />,
+  'ляльки': <FaBaby />,
+  'пазли': <TbPuzzle />,
+  'плюшеві': <RiBearSmileLine />,
   'продукти харчування': <MdEmojiFoodBeverage />,
   'default': <TbPoint />
 };

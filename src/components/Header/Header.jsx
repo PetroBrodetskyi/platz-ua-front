@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import scss from './Header.module.scss';
-import Navbar from '../Navbar/Navbar';
+// import Navbar from '../Navbar/Navbar';
 import SearchLocation from '../SearchLocation/SearchLocation';
 
 
@@ -13,7 +13,12 @@ const Header = () => {
   return (
     <header className={scss.header}>
       <div className={scss.container}>
-        <div className={scss.logo}>PlatzUA</div>
+        <div className={scss.logoFlex}>
+          <NavLink to="/" className={scss.logoLink}>
+              <h1 className={scss.logo}>PlatzUA</h1>
+              <h3>для українців у Німеччині</h3>
+          </NavLink>
+        </div>
         <SearchLocation />
         <div className={scss.userMenu}>
           <button>Sign In</button>
@@ -25,7 +30,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <Navbar />
+      {/* <Navbar /> */}
     </header>
   );
 };
