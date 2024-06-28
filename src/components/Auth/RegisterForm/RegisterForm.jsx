@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import css from './RegisterForm.module.scss';
+import SubmitButton from '../../SubmitButton/SubmitButton';
 
 const RegisterForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -18,10 +19,10 @@ const RegisterForm = () => {
     };
 
     return (
-        <section className={css.auth_page}>
+        <section className={css.authPage}>
             <div className={css.form}>
                 <div>
-                    <ul className={css.auth_nav}>
+                    <ul className={css.authNav}>
                         <li>
                             <NavLink className={css.classNavLink} to="/auth/register">Registration</NavLink>
                         </li>
@@ -30,7 +31,7 @@ const RegisterForm = () => {
                         </li>
                     </ul>
                 </div>
-                <form onSubmit={handleSubmit(onSubmit)} className={css.auth_form}>
+                <form onSubmit={handleSubmit(onSubmit)} className={css.authForm}>
                     <div>
                         <input
                             {...register('username', { required: 'Name is required' })}
@@ -61,7 +62,7 @@ const RegisterForm = () => {
                         {errors.password && <p>{errors.password.message}</p>}
                     </div>
 
-                    <button type="submit">Register Now</button>
+                    <SubmitButton buttonText="Реєстрація" onSubmit={handleSubmit(onSubmit)} />
                 </form>
             </div>
         </section>
