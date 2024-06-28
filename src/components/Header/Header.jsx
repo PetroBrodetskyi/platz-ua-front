@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import scss from './Header.module.scss';
-import Navbar from '../Navbar/Navbar';
+// import Navbar from '../Navbar/Navbar';
 import SearchLocation from '../SearchLocation/SearchLocation';
 
 const Header = () => {
@@ -31,7 +31,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <Navbar />
+      {/* <Navbar /> */}
     </header>
   );
 };

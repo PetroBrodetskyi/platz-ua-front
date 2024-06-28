@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { RiEyeCloseLine } from "react-icons/ri";
+import { HiOutlineEye } from "react-icons/hi";
 import css from './LoginForm.module.scss';
 import SubmitButton from '../../SubmitButton/SubmitButton';
 
@@ -36,7 +38,7 @@ const LoginForm = () => {
                         <input
                             {...register('email', { required: 'Email is required', pattern: { value: /^\S+@\S+$/i, message: 'Invalid email address' } })}
                             type="text"
-                            placeholder="Enter your email"
+                            placeholder="Введіть ваш email"
                         />
                         {errors.email && <p>{errors.email.message}</p>}
                     </div>
@@ -45,15 +47,17 @@ const LoginForm = () => {
                         <input
                             {...register('password', { required: 'Password is required', minLength: { value: 8, message: 'Password must be at least 8 characters' } })}
                             type={showPassword ? 'text' : 'password'}
-                            placeholder="Enter your password"
+                            placeholder="Введіть ваш пароль"
                         />
                         <button type="button" className={css.eye} onClick={passwordVisibility}>
-                            👁️
+                            {showPassword ? <HiOutlineEye color="grey" /> : <RiEyeCloseLine color="grey" />}
                         </button>
                         {errors.password && <p>{errors.password.message}</p>}
                     </div>
 
-                    <SubmitButton buttonText="Логін" onSubmit={handleSubmit(onSubmit)} />
+                    <div className={css.buttonWrapper}>
+                        <SubmitButton buttonText="Логін" onSubmit={handleSubmit(onSubmit)} />
+                    </div>
                 </form>
             </div>
         </section>
