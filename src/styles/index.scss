@@ -19,6 +19,8 @@
     --violet-bg: #ecedfd;
     --dark-violet: #5255bc;
     --light-violet: #7b7ede;
+    --red: #cc0000;
+    --dark-yellow: #cc9900;
 
     //fonts
     --font-family: 'Poppins', sans-serif;
@@ -28,7 +30,5 @@
 body {
     font-family: var(--font-family);
     font-size: 14px;
-    color: var(--theme-default-body);
-    background-color: var(--thema-default-bg-cl);
     overflow-x: hidden;
 }

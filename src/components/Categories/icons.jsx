@@ -1,6 +1,6 @@
 import React from 'react';
 import { AiOutlineAudio } from "react-icons/ai";
-import { MdOutlinePhonelink, MdOutlineMapsHomeWork, MdMapsHomeWork, MdOutlineToys, MdEmojiFoodBeverage, MdPhoneIphone, MdOutlineLaptopChromebook, MdTabletMac, MdOutlineDesktopWindows, MdOutlineChildFriendly, MdElectricScooter } from "react-icons/md";
+import { MdOutlinePhonelink, MdOutlineMapsHomeWork, MdMapsHomeWork, MdOutlineToys, MdEmojiFoodBeverage, MdPhoneIphone, MdOutlineLaptopChromebook, MdTabletMac, MdOutlineDesktopWindows, MdOutlineChildFriendly, MdElectricScooter, MdFitnessCenter } from "react-icons/md";
 import { FaBookDead, FaCar, FaBaby, FaCarBattery, FaTrailer } from "react-icons/fa";
 import { FaComputer, FaChessBoard } from "react-icons/fa6";
 import { GiClothes, GiBilledCap, GiLargeDress } from "react-icons/gi";
@@ -78,6 +78,7 @@ const subcategoryIcons = {
   'кемпери': <TbCamper />,
   'органічні продукти': <TbCarrot />,
   'таксі': <PiTaxiBold />,
+  'спорт': <MdFitnessCenter />,
   'default': <TbPoint />
 };
 

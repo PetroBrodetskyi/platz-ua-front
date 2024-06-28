@@ -37,12 +37,18 @@ $gap-mobile: 8px;
             font-size: 24px;
             padding: 0;
 
+            @include transition(top, right);
+
             @media (max-width: $tablet) {
                 font-size: 20px;
+                top: -24px;
+                right: 16px;
             }
 
             @media (max-width: $mobile) {
                 font-size: 16px;
+                top: -16px;
+                right: 8px;
             }
         }
 
@@ -61,7 +67,50 @@ $gap-mobile: 8px;
             }
         }
 
-        .categoryButton,
+        .categoryButton {
+            display: flex;
+            align-items: center;
+            background-color: var(--white);
+            padding: 16px;
+            font-size: 16px;
+            cursor: pointer;
+            @include transition(background-color);
+
+            @media (max-width: $desktop) {
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            @media (max-width: $tablet) {
+                padding: 8px;
+                font-size: 12px;
+            }
+
+            &:hover {
+                background-color: #ffcc00;
+                color: var(--white);
+            }
+
+            &.active {
+                background-color: var(--dark-violet);
+                color: var(--white);
+            }
+
+            svg {
+                margin-right: 8px;
+
+                @media (max-width: $desktop) {
+                    width: 20px;
+                    height: 20px;
+                }
+
+                @media (max-width: $tablet) {
+                    width: 16px;
+                    height: 16px;
+                }
+            }
+        }
+
         .subcategoryButton {
             display: flex;
             align-items: center;
@@ -82,12 +131,13 @@ $gap-mobile: 8px;
             }
 
             &:hover {
-                background-color: var(--light-green);
+                background-color: var(--dark-violet);
+                color: var(--white);
             }
 
             &.active {
-                background-color: var(--light-green);
-                border-color: var(--green);
+                background-color: #ffcc00;
+                color: var(--white);
             }
 
             svg {

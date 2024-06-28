@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import scss from './Header.module.scss';
 import { PiShoppingCartBold } from "react-icons/pi";
 import SearchLocation from '../SearchLocation/SearchLocation';
+import SubmitButton from '../SubmitButton/SubmitButton'
 import Logo from '../Logo/Logo';
 
 const Header = () => {
@@ -14,7 +15,8 @@ const Header = () => {
         <SearchLocation />
         <div className={scss.userMenu}>
           <NavLink to="/login">
-            <button>Sign In</button>
+            {/* <button>Sign In</button> */}
+            <SubmitButton buttonText="Увійти" />
           </NavLink>
           <div className={scss.cartIcon}>
             <NavLink to="/cart">

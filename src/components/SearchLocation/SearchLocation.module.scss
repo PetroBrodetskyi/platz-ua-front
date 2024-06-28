@@ -6,9 +6,9 @@
     align-items: center;
 
     input {
-        padding: 8px;
-        border: 1px solid var(--light-grey);
-        border-radius: 4px 0 0 4px;
+        padding: 10px;
+        border: none;
+        border-radius: 20px;
         font-size: 14px;
         width: 100%;
 
@@ -39,7 +39,7 @@
     }
 
     .searchResults {
-        background-color: #fff;
+        background-color: var(--white);
         max-height: 200px;
         overflow-y: auto;
         position: absolute;

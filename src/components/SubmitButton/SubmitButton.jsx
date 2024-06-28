@@ -1,3 +1,4 @@
+import { PiSignInBold } from "react-icons/pi";
 import scss from './SubmitButton.module.scss';
 
 const SubmitButton = ({ buttonText, onSubmit, onClick }) => {
@@ -36,6 +37,17 @@ const SubmitButton = ({ buttonText, onSubmit, onClick }) => {
                     onClick={onSubmit}
                 >
                     {buttonText}
+                </button>
+            );
+        case 'Увійти':
+            return (
+                <button
+                    className={scss.buttonSignIn}
+                    type="button"
+                    onClick={onClick}
+                >
+                    {buttonText}
+                    <PiSignInBold />
                 </button>
             );
         default:
