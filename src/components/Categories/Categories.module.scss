@@ -1,8 +1,24 @@
 @import 'src/styles/mixins';
 
+$categories-padding-desktop: 40px;
+$categories-padding-tablet: 30px;
+$categories-padding-mobile: 20px;
+
+$gap-desktop: 16px;
+$gap-tablet: 12px;
+$gap-mobile: 8px;
+
 .categories {
     background-color: var(--light-bg);
-    padding: 40px;
+    padding: $categories-padding-desktop;
+
+    @media (max-width: 1440px) {
+        padding: $categories-padding-tablet;
+    }
+
+    @media (max-width: 768px) {
+        padding: $categories-padding-mobile;
+    }
 
     .container {
         h2 {
@@ -13,7 +29,15 @@
         .subcategoryButtons {
             display: flex;
             flex-wrap: wrap;
-            gap: 16px;
+            gap: $gap-desktop;
+
+            @media (max-width: 1440px) {
+                gap: $gap-tablet;
+            }
+
+            @media (max-width: 768px) {
+                gap: $gap-mobile;
+            }
         }
 
         .categoryButton,

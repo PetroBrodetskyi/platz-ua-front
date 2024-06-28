@@ -1,0 +1,112 @@
+@import 'src/styles/mixins';
+
+$mobile: 375px;
+$tablet: 768px;
+$desktop: 1440px;
+
+.logoFlex {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.logoLink {
+    text-decoration: none;
+}
+
+.logoBackground {
+    background: var(--white);
+    padding: 18px 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    display: inline-block;
+}
+
+.logo {
+    font-size: 38px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+
+    @media (max-width: $tablet) {
+        font-size: 28px;
+    }
+
+    @media (max-width: $mobile) {
+        font-size: 22px;
+    }
+
+    .logoLetterP,
+    .logoLetterL,
+    .logoLetterA,
+    .logoLetterT,
+    .logoLetterZ {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .logoLetterP {
+        color: #000;
+        background: linear-gradient(to bottom, #000 0%, #444 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .logoLetterL {
+        color: #ff0000;
+        background: linear-gradient(to bottom, #ff0000 0%, #cc0000 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .logoLetterA {
+        color: #ffcc00;
+        background: linear-gradient(to bottom, #ffcc00 0%, #cc9900 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .logoLetterT {
+        color: #000;
+        background: linear-gradient(to bottom, #000 0%, #444 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .logoLetterZ {
+        color: #ff0000;
+        background: linear-gradient(to bottom, #ff0000 0%, #cc0000 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .logoLetterU {
+        font-size: 18px;
+        vertical-align: super;
+        color: #0057b7;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+        margin-left: 2px;
+
+        @media (max-width: $tablet) {
+            font-size: 16px;
+        }
+
+        @media (max-width: $mobile) {
+            font-size: 14px;
+        }
+    }
+
+    .logoLetterA2 {
+        font-size: 18px;
+        vertical-align: super;
+        color: #ffd700;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+
+        @media (max-width: $tablet) {
+            font-size: 16px;
+        }
+
+        @media (max-width: $mobile) {
+            font-size: 14px;
+        }
+    }
+}

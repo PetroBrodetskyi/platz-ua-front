@@ -1,5 +1,9 @@
 @import 'src/styles/mixins';
 
+$auth-form-width-desktop: 360px;
+$auth-form-width-tablet: 300px;
+$auth-form-width-mobile: 240px;
+
 .authPage {
     display: flex;
     justify-content: center;
@@ -13,6 +17,16 @@
     padding: 32px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: $auth-form-width-desktop;
+
+    @media (max-width: 768px) {
+        width: $auth-form-width-tablet;
+    }
+
+    @media (max-width: 480px) {
+        width: $auth-form-width-mobile;
+        padding: 24px;
+    }
 }
 
 .authNav {
@@ -45,8 +59,8 @@
 
 .authForm {
     display: flex;
-    width: 360px;
     flex-direction: column;
+    width: 100%;
 
     div {
         margin-bottom: 16px;
@@ -54,7 +68,7 @@
 
     input {
         width: 100%;
-        padding: 8px;
+        padding: 12px;
         border: 1px solid #ddd;
         border-radius: 4px;
         transition: border-color 0.3s;

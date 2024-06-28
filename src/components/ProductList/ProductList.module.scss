@@ -1,27 +1,50 @@
 @import 'src/styles/mixins';
 
+$product-list-padding-desktop: 40px;
+$product-list-padding-tablet: 30px;
+$product-list-padding-mobile: 20px;
+
+$gap-desktop: 16px;
+$gap-tablet: 12px;
+$gap-mobile: 8px;
+
 .productList {
     background-color: var(--light-bg);
-    padding: 40px;
+    padding: $product-list-padding-desktop;
+
+    @media (max-width: 1440px) {
+        padding: $product-list-padding-tablet;
+    }
+
+    @media (max-width: 768px) {
+        padding: $product-list-padding-mobile;
+    }
 
     .container {
         h2 {
-            margin-bottom: 1rem;
+            margin-bottom: 16px;
         }
 
         ul {
             list-style: none;
             padding: 0;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-    }
+            gap: $gap-desktop;
 
-    .listFlex {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px;
+            @media (max-width: 1440px) {
+                gap: $gap-tablet;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            @media (max-width: 768px) {
+                gap: $gap-mobile;
+                grid-template-columns: repeat(1, 1fr);
+            }
+
+            @media (min-width: 1440px) {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
     }
 
     .productItem {

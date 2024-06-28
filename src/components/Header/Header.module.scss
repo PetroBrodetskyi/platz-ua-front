@@ -1,5 +1,9 @@
 @import 'src/styles/mixins';
 
+$mobile: 375px;
+$tablet: 768px;
+$desktop: 1440px;
+
 .header {
     display: flex;
     flex-direction: column;
@@ -8,120 +12,27 @@
     border-bottom: 1px solid var(--light-grey);
     padding: 30px 40px;
 
+    @media (max-width: $tablet) {
+        padding: 20px 30px;
+    }
+
+    @media (max-width: $mobile) {
+        padding: 15px 20px;
+    }
+
     .container {
         display: flex;
+        gap: 20px;
         justify-content: space-between;
         align-items: center;
         width: 100%;
 
+        @media (max-width: $tablet) {
+            flex-direction: column;
+        }
+
         .iconFlex {
             display: flex;
-        }
-
-        .logoFlex {
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .logoLink {
-            text-decoration: none;
-        }
-
-        .logoBackground {
-            background: var(--white);
-            padding: 18px 30px;
-            border-radius: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-            display: inline-block;
-        }
-
-        .logo {
-            font-size: 38px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-
-            .logoLetterP,
-            .logoLetterL,
-            .logoLetterA,
-            .logoLetterT,
-            .logoLetterZ {
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-            }
-
-            .logoLetterP {
-                color: #000;
-                background: linear-gradient(to bottom, #000 0%, #444 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
-
-            .logoLetterL {
-                color: #ff0000;
-                background: linear-gradient(to bottom, #ff0000 0%, #cc0000 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
-
-            .logoLetterA {
-                color: #ffcc00;
-                background: linear-gradient(to bottom, #ffcc00 0%, #cc9900 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
-
-            .logoLetterT {
-                color: #000;
-                background: linear-gradient(to bottom, #000 0%, #444 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
-
-            .logoLetterZ {
-                color: #ff0000;
-                background: linear-gradient(to bottom, #ff0000 0%, #cc0000 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
-
-            .logoLetterU {
-                font-size: 20px;
-                vertical-align: super;
-                color: #0057b7;
-                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-                margin-left: 4px;
-            }
-
-            .logoLetterA2 {
-                font-size: 20px;
-                vertical-align: super;
-                color: #ffd700;
-                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-            }
-        }
-
-        .searchBar {
-            display: flex;
-            align-items: center;
-
-            input {
-                padding: 8px;
-                border: 1px solid var(--light-grey);
-                border-radius: 4px 0 0 4px;
-            }
-
-            button {
-                padding: 8px 16px;
-                border: 1px solid var(--light-grey);
-                border-left: none;
-                background-color: var(--light-green);
-                cursor: pointer;
-
-                &:hover {
-                    background-color: var(--dark-green);
-                }
-            }
         }
 
         .userMenu {
@@ -131,16 +42,23 @@
             button {
                 margin-left: 16px;
                 padding: 8px 16px;
-                border: 1px solid var(--light-grey);
-                background-color: var(--rose);
+                background-color: #cc0000;
+                color: var(--white);
+                border-radius: 20px;
                 cursor: pointer;
 
                 &:hover {
                     background-color: var(--dark-violet);
                 }
+
+                @media (max-width: $tablet) {
+                    margin-left: 0;
+                    margin-top: 10px;
+                }
             }
 
             .cartIcon {
+                position: relative;
                 margin-left: 16px;
                 display: flex;
                 align-items: center;
@@ -151,11 +69,19 @@
                 }
 
                 .badge {
-                    margin-left: 8px;
-                    background-color: var(--blue);
+                    position: absolute;
+                    top: -8px;
+                    right: -8px;
+                    background-color: #ffcc00;
                     color: var(--white);
                     border-radius: 50%;
                     padding: 4px 8px;
+                    font-size: 12px;
+                }
+
+                @media (max-width: $tablet) {
+                    margin-left: 0;
+                    margin-top: 10px;
                 }
             }
         }

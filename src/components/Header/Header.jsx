@@ -1,8 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import scss from './Header.module.scss';
-// import Navbar from '../Navbar/Navbar';
+import { PiShoppingCartBold } from "react-icons/pi";
 import SearchLocation from '../SearchLocation/SearchLocation';
+import Logo from '../Logo/Logo';
 
 const Header = () => {
   const handleSearchResults = (results) => {
@@ -12,21 +13,7 @@ const Header = () => {
   return (
     <header className={scss.header}>
       <div className={scss.container}>
-        <div className={scss.logoFlex}>
-          <NavLink to="/" className={scss.logoLink}>
-            <div className={scss.logoBackground}>
-              <h1 className={scss.logo}>
-                <span className={scss.logoLetterP}>P</span>
-                <span className={scss.logoLetterL}>l</span>
-                <span className={scss.logoLetterA}>a</span>
-                <span className={scss.logoLetterT}>t</span>
-                <span className={scss.logoLetterZ}>z</span>
-                <span className={scss.logoLetterU}>U</span>
-                <span className={scss.logoLetterA2}>A</span>
-              </h1>
-            </div>
-          </NavLink>
-        </div>
+        <Logo />
         <SearchLocation />
         <div className={scss.userMenu}>
           <NavLink to="/login">
@@ -34,7 +21,7 @@ const Header = () => {
           </NavLink>
           <div className={scss.cartIcon}>
             <NavLink to="/cart">
-              <span role="img" aria-label="cart">🛒</span>
+              <div><PiShoppingCartBold color='white'/></div>
               <span className={scss.badge}>3</span>
             </NavLink>
           </div>
