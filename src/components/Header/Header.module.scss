@@ -4,9 +4,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: var(--light-green);
+    background-color: rgba(13, 13, 14, 0.804);
     border-bottom: 1px solid var(--light-grey);
-    padding: 40px;
+    padding: 30px 40px;
 
     .container {
         display: flex;
@@ -24,9 +24,81 @@
             cursor: pointer;
         }
 
+        .logoLink {
+            text-decoration: none;
+        }
+
+        .logoBackground {
+            background: var(--white);
+            padding: 18px 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            display: inline-block;
+        }
+
         .logo {
-            font-size: 24px;
+            font-size: 38px;
             font-weight: bold;
+            display: flex;
+            align-items: center;
+
+            .logoLetterP,
+            .logoLetterL,
+            .logoLetterA,
+            .logoLetterT,
+            .logoLetterZ {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            }
+
+            .logoLetterP {
+                color: #000;
+                background: linear-gradient(to bottom, #000 0%, #444 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .logoLetterL {
+                color: #ff0000;
+                background: linear-gradient(to bottom, #ff0000 0%, #cc0000 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .logoLetterA {
+                color: #ffcc00;
+                background: linear-gradient(to bottom, #ffcc00 0%, #cc9900 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .logoLetterT {
+                color: #000;
+                background: linear-gradient(to bottom, #000 0%, #444 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .logoLetterZ {
+                color: #ff0000;
+                background: linear-gradient(to bottom, #ff0000 0%, #cc0000 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .logoLetterU {
+                font-size: 20px;
+                vertical-align: super;
+                color: #0057b7;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+                margin-left: 4px;
+            }
+
+            .logoLetterA2 {
+                font-size: 20px;
+                vertical-align: super;
+                color: #ffd700;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            }
         }
 
         .searchBar {
