@@ -6,9 +6,6 @@ import SearchLocation from '../SearchLocation/SearchLocation';
 import Logo from '../Logo/Logo';
 
 const Header = () => {
-  const handleSearchResults = (results) => {
-    console.log('Search results:', results);
-  };
 
   return (
     <header className={scss.header}>

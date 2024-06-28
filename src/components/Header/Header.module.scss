@@ -37,10 +37,10 @@ $desktop: 1440px;
 
         .userMenu {
             display: flex;
+            gap: 20px;
             align-items: center;
 
             button {
-                margin-left: 16px;
                 padding: 8px 16px;
                 background-color: #cc0000;
                 color: var(--white);
@@ -53,7 +53,6 @@ $desktop: 1440px;
 
                 @media (max-width: $tablet) {
                     margin-left: 0;
-                    margin-top: 10px;
                 }
             }
 
