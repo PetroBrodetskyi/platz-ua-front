@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import scss from './Categories.module.scss';
 import data from './products.json';
+import { MdOutlineFilterList, MdOutlineFilterListOff } from "react-icons/md";
 import { getCategoryIcon, getSubcategoryIcon } from './icons.jsx';
 
 const Categories = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubcategories, setSelectedSubcategories] = useState([]);
+  const [categoriesVisible, setCategoriesVisible] = useState(true);
 
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
@@ -21,25 +23,37 @@ const Categories = () => {
     );
   };
 
+  const handleToggleCategories = () => {
+    if (categoriesVisible) {
+      setSelectedCategory(null);
+    }
+    setCategoriesVisible(!categoriesVisible);
+  };
+
   const sortedProducts = data.products.sort((a, b) => a.name.localeCompare(b.name));
 
   return (
     <div className={scss.categories}>
       <div className={scss.container}>
-        <div className={scss.categoryButtons}>
-          {sortedProducts.map((product, index) => (
-            <button
-              key={index}
-              className={`${scss.categoryButton} ${selectedCategory === product.name ? scss.active : ''}`}
-              value={product.name}
-              onClick={handleCategoryChange}
-            >
-              {getCategoryIcon(product.name)}
-              {product.name}
-            </button>
-          ))}
-        </div>
-        {selectedCategory && (
+        <button className={scss.toggleButton} onClick={handleToggleCategories}>
+          {categoriesVisible ? <MdOutlineFilterList /> : <MdOutlineFilterList />}
+        </button>
+        {categoriesVisible && (
+          <div className={scss.categoryButtons}>
+            {sortedProducts.map((product, index) => (
+              <button
+                key={index}
+                className={`${scss.categoryButton} ${selectedCategory === product.name ? scss.active : ''}`}
+                value={product.name}
+                onClick={handleCategoryChange}
+              >
+                {getCategoryIcon(product.name)}
+                {product.name}
+              </button>
+            ))}
+          </div>
+        )}
+        {categoriesVisible && selectedCategory && (
           <div className={scss.subcategories}>
             <div className={scss.subcategoryButtons}>
               {sortedProducts
