@@ -12,11 +12,11 @@ $gap-mobile: 8px;
     background-color: var(--light-bg);
     padding: $product-list-padding-desktop;
 
-    @media (max-width: 1440px) {
+    @media (max-width: $desktop) {
         padding: $product-list-padding-tablet;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: $tablet) {
         padding: $product-list-padding-mobile;
     }
 
@@ -31,17 +31,17 @@ $gap-mobile: 8px;
             display: grid;
             gap: $gap-desktop;
 
-            @media (max-width: 1440px) {
+            @media (max-width: $desktop) {
                 gap: $gap-tablet;
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            @media (max-width: 768px) {
+            @media (max-width: $tablet) {
                 gap: $gap-mobile;
                 grid-template-columns: repeat(1, 1fr);
             }
 
-            @media (min-width: 1440px) {
+            @media (min-width: $desktop) {
                 grid-template-columns: repeat(3, 1fr);
             }
         }

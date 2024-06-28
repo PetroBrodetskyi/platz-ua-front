@@ -12,11 +12,11 @@ $gap-mobile: 8px;
     background-color: var(--light-bg);
     padding: $categories-padding-desktop;
 
-    @media (max-width: 1440px) {
+    @media (max-width: $desktop) {
         padding: $categories-padding-tablet;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: $tablet) {
         padding: $categories-padding-mobile;
     }
 
@@ -31,11 +31,11 @@ $gap-mobile: 8px;
             flex-wrap: wrap;
             gap: $gap-desktop;
 
-            @media (max-width: 1440px) {
+            @media (max-width: $desktop) {
                 gap: $gap-tablet;
             }
 
-            @media (max-width: 768px) {
+            @media (max-width: $tablet) {
                 gap: $gap-mobile;
             }
         }
@@ -50,12 +50,12 @@ $gap-mobile: 8px;
             cursor: pointer;
             @include transition(background-color);
 
-            @media (max-width: 1440px) {
+            @media (max-width: $desktop) {
                 padding: 12px;
                 font-size: 14px;
             }
 
-            @media (max-width: 768px) {
+            @media (max-width: $tablet) {
                 padding: 8px;
                 font-size: 12px;
             }
@@ -72,12 +72,12 @@ $gap-mobile: 8px;
             svg {
                 margin-right: 8px;
 
-                @media (max-width: 1440px) {
+                @media (max-width: $desktop) {
                     width: 20px;
                     height: 20px;
                 }
 
-                @media (max-width: 768px) {
+                @media (max-width: $tablet) {
                     width: 16px;
                     height: 16px;
                 }
