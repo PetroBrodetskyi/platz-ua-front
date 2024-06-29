@@ -15,7 +15,6 @@ const Header = () => {
         <SearchLocation />
         <div className={scss.userMenu}>
           <NavLink to="/login">
-            {/* <button>Sign In</button> */}
             <SubmitButton buttonText="Увійти" />
           </NavLink>
           <div className={scss.cartIcon}>
