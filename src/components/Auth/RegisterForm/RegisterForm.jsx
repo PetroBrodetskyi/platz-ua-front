@@ -26,10 +26,10 @@ const RegisterForm = () => {
                 <div>
                     <ul className={css.authNav}>
                         <li>
-                            <NavLink className={css.classNavLink} to="/auth/register">Registration</NavLink>
+                            <NavLink className={css.classNavLink} to="/auth/register">Реєстрація</NavLink>
                         </li>
                         <li>
-                            <NavLink className={css.classNavLink} to="/auth/login">Log In</NavLink>
+                            <NavLink className={css.classNavLink} to="/auth/login">Вхід</NavLink>
                         </li>
                     </ul>
                 </div>

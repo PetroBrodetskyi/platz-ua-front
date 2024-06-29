@@ -33,11 +33,6 @@ $gap-mobile: 8px;
 
             @media (max-width: $desktop) {
                 gap: $gap-tablet;
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            @media (max-width: $tablet) {
-                gap: $gap-mobile;
                 grid-template-columns: repeat(1, 1fr);
             }
 
