@@ -36,7 +36,7 @@ const Categories = () => {
     <div className={scss.categories}>
       <div className={scss.container}>
         <button className={scss.toggleButton} onClick={handleToggleCategories}>
-          {categoriesVisible ? <MdOutlineFilterList /> : <MdOutlineFilterList />}
+          {categoriesVisible ? <MdOutlineFilterList /> : <MdOutlineFilterListOff />}
         </button>
         {categoriesVisible && (
           <div className={scss.categoryButtons}>
