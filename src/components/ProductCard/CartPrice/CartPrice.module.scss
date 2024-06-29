@@ -1,0 +1,30 @@
+@import 'src/styles/mixins';
+
+.dateCartPrice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+
+    .cartPrice {
+        display: flex;
+        align-items: center;
+    }
+
+    .cartIcon {
+        cursor: pointer;
+        margin-right: 8px;
+    }
+
+    .productPrice {
+        color: var(--red);
+        font-weight: bold;
+        font-size: 30px;
+        margin-bottom: 4px;
+    }
+
+    .addedDate {
+        font-size: 14px;
+        color: var(--grey);
+    }
+}
