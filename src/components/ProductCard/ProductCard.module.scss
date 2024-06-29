@@ -18,13 +18,23 @@
     display: flex;
     flex: 1;
 
+    @media (max-width: $tablet) {
+        display: flex;
+        gap: 16px;
+        flex-direction: column;
+        }
+
     .productImage {
         flex-shrink: 0;
 
         img {
-            max-width: 300px;
-            max-height: 300px;
+            width: 100%;
             object-fit: cover;
+
+            @media (min-width: $tablet) {
+                max-width: 300px;
+                max-height: 300px;
+                }
         }
     }
 
