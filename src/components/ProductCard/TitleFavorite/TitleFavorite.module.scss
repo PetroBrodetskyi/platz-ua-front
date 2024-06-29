@@ -12,6 +12,10 @@
 
     .favoriteIcon {
         cursor: pointer;
+
+        &.favorite {
+            color: red;
+        }
     }
 }
 

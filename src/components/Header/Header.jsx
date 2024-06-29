@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import scss from './Header.module.scss';
-import { PiShoppingCartBold } from "react-icons/pi";
+import { PiShoppingCart } from "react-icons/pi";
 import SearchLocation from '../SearchLocation/SearchLocation';
 import SubmitButton from '../SubmitButton/SubmitButton'
 import Logo from '../Logo/Logo';
@@ -19,7 +19,7 @@ const Header = () => {
           </NavLink>
           <div className={scss.cartIcon}>
             <NavLink to="/cart">
-              <div><PiShoppingCartBold color='white'/></div>
+              <div><PiShoppingCart color='rgba(13, 13, 14, 0.804)'/></div>
               <span className={scss.badge}>3</span>
             </NavLink>
           </div>

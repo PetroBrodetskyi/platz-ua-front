@@ -1,17 +1,10 @@
+import React from 'react';
 import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
 import scss from '../ProductCard/ProductCard.module.scss';
+import products from './products.json';
 
 const ProductCard = () => {
-  const products = [
-    { id: 1, name: 'Газонокосарка', price: '€100', description: 'Потужна газонокосарка для вашого саду', condition: 'Новий', addedDate: '2024-06-29' },
-    { id: 2, name: 'Пилосос', price: '€200', description: 'Високоякісний пилосос з великою потужністю', condition: 'Б/в', addedDate: '2024-06-28' },
-    { id: 3, name: 'Диван', price: '€300', description: 'Зручний та стильний диван для вашого дому', condition: 'Новий', addedDate: '2024-06-27' },
-    { id: 4, name: 'Матрац', price: '€100', description: 'Комфортний матрац для здорового сну', condition: 'Б/в', addedDate: '2024-06-26' },
-    { id: 5, name: 'Велосипед', price: '€200', description: 'Спортивний велосипед для активного відпочинку', condition: 'Новий', addedDate: '2024-06-25' },
-    { id: 6, name: 'Mazda 6', price: '€300', description: 'Надійний автомобіль з відмінними характеристиками', condition: 'Б/в', addedDate: '2024-06-24' },
-  ];
-
   return (
     <>
       {products.map((product) => (
