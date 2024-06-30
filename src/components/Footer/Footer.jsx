@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className={scss.footer}>
       <div className={scss.container}>
-        <p>&copy; {new Date().getFullYear()} PlatzUA. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} PlatzUA.</p>
       </div>
     </footer>
   );

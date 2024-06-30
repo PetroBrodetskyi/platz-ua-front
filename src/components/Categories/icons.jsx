@@ -1,15 +1,15 @@
 import React from 'react';
 import { AiOutlineAudio } from "react-icons/ai";
-import { MdOutlinePhonelink, MdOutlineMapsHomeWork, MdMapsHomeWork, MdOutlineToys, MdEmojiFoodBeverage, MdPhoneIphone, MdOutlineLaptopChromebook, MdTabletMac, MdOutlineDesktopWindows, MdOutlineChildFriendly, MdElectricScooter, MdFitnessCenter } from "react-icons/md";
+import { MdOutlinePhonelink, MdOutlineMapsHomeWork, MdOutlineToys, MdEmojiFoodBeverage, MdPhoneIphone, MdOutlineLaptopChromebook, MdTabletMac, MdOutlineDesktopWindows, MdOutlineChildFriendly, MdElectricScooter, MdFitnessCenter } from "react-icons/md";
 import { FaBookDead, FaCar, FaBaby, FaCarBattery, FaTrailer } from "react-icons/fa";
 import { FaComputer, FaChessBoard } from "react-icons/fa6";
-import { GiClothes, GiBilledCap, GiLargeDress } from "react-icons/gi";
-import { LuToyBrick } from "react-icons/lu";
-import { PiPottedPlantBold, PiHammerBold, PiLampPendantBold, PiForkKnifeBold, PiBowlSteamBold, PiBroomFill, PiBathtubBold, PiTelevisionSimpleFill, PiVideoCameraBold, PiSwordBold, PiBooksBold, PiSneakerBold, PiPantsFill, PiTruckTrailerFill, PiMotorcycleBold, PiMopedBold, PiTaxiBold } from "react-icons/pi";
+import { GiClothes, GiBilledCap, GiLargeDress, GiCakeSlice, GiTomato, GiSlicedMushroom } from "react-icons/gi";
+import { LuApple, LuSoup, LuToyBrick, LuVegan } from "react-icons/lu";
+import { PiPottedPlantBold, PiHammerBold, PiLampPendantBold, PiForkKnifeBold, PiBowlSteamBold, PiBroomFill, PiBathtubBold, PiTelevisionSimpleFill, PiVideoCameraBold, PiSwordBold, PiBooksBold, PiSneakerBold, PiPantsFill, PiTruckTrailerFill, PiMotorcycleBold, PiMopedBold, PiTaxiBold, PiMartiniBold } from "react-icons/pi";
 import { RiScales2Line, RiRobot3Line, RiBearSmileLine, RiCustomerService2Fill } from "react-icons/ri";
 import { SiGumtree } from "react-icons/si";
 import { GrBike } from "react-icons/gr";
-import { TbPoint, TbSofa, TbBatteryCharging2, TbPlaystationSquare, TbMicrowave, TbWashTumbleDry, TbCarSuv, TbPuzzle, TbCarrot, TbCamper } from "react-icons/tb";
+import { TbPoint, TbSofa, TbBatteryCharging2, TbPlaystationSquare, TbMicrowave, TbWashTumbleDry, TbCarSuv, TbPuzzle, TbCarrot, TbCamper, TbEggs } from "react-icons/tb";
 import { ImWrench } from "react-icons/im";
 
 const categoryIcons = {
@@ -79,6 +79,14 @@ const subcategoryIcons = {
   'органічні продукти': <TbCarrot />,
   'таксі': <PiTaxiBold />,
   'спорт': <MdFitnessCenter />,
+  'десерти': <GiCakeSlice />,
+  'напої': <PiMartiniBold />,
+  'веганські': <LuVegan />,
+  'органічні': <GiTomato />,
+  'дієтичні': <TbEggs />,
+  'місцеві': <GiSlicedMushroom />,
+  'домашня кухня': <LuSoup />,
+  'здорові': <LuApple />,
   'default': <TbPoint />
 };
 

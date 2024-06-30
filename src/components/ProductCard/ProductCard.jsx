@@ -11,10 +11,9 @@ const ProductCard = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/announcements');
+        const response = await axios.get('http://localhost:5000/api/announcements');
         setProducts(response.data);
 
-        // Встановлюємо початкові улюблені продукти
         const initialFavorites = response.data.filter(product => product.favorite);
         setFavorites(initialFavorites.map(product => product.id));
       } catch (error) {
