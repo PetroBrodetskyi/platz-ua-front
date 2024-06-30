@@ -6,9 +6,7 @@ const ProductList = () => {
     <div className={scss.productList}>
       <div className={scss.container}>
         <h2>Найновіші</h2>
-        <ul className={scss.listFlex}>
-          <ProductCard />
-        </ul>
+        <ProductCard />
       </div>
     </div>
   );

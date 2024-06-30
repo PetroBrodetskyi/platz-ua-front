@@ -4,10 +4,6 @@ $product-list-padding-desktop: 20px 40px;
 $product-list-padding-tablet: 30px;
 $product-list-padding-mobile: 20px;
 
-$gap-desktop: 16px;
-$gap-tablet: 12px;
-$gap-mobile: 8px;
-
 .productList {
     background-color: var(--light-bg);
     padding: $product-list-padding-desktop;
@@ -28,16 +24,18 @@ $gap-mobile: 8px;
         ul {
             list-style: none;
             padding: 0;
-            display: grid;
-            gap: $gap-desktop;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: space-between;
 
             @media (max-width: $desktop) {
-                gap: $gap-tablet;
-                grid-template-columns: repeat(1, 1fr);
+                gap: 12px;
             }
 
-            @media (min-width: $desktop) {
-                grid-template-columns: repeat(2, 1fr);
+            @media (max-width: $tablet) {
+                gap: 8px;
+                flex-direction: column;
             }
         }
     }
