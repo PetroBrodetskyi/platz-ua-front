@@ -7,6 +7,7 @@ import Footer from '../Footer/Footer';
 import Home from '../../pages/Home/Home';
 import Cart from '../Cart/Cart';
 import AuthPage from '../../pages/AuthPage/AuthPage';
+import AddProductPage from '../../pages/AddProductPage/AddProductPage';
 
 const AppBar = () => {
   return (
@@ -22,6 +23,7 @@ const AppBar = () => {
             <Route path="/auth/:id" element={<AuthPage />} />
             <Route path="/login" element={<AuthPage />} />
             <Route path="/register" element={<AuthPage />} />
+            <Route path="/add-product" element={<AddProductPage />} />
           </Routes>
         </main>
         <Footer />
