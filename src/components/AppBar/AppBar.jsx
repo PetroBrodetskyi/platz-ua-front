@@ -23,7 +23,7 @@ const AppBar = () => {
             <Route path="/auth/:id" element={<AuthPage />} />
             <Route path="/login" element={<AuthPage />} />
             <Route path="/register" element={<AuthPage />} />
-            <Route path="/add-product" element={<AddProductPage />} />
+            <Route path="/addproduct" element={<AddProductPage />} />
           </Routes>
         </main>
         <Footer />
