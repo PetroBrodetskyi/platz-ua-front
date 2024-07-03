@@ -3,13 +3,13 @@
 .header {
     display: flex;
     align-items: center;
-    // background-color: rgba(13, 13, 14, 0.804);
     background: linear-gradient(to right,
-            rgba(13, 13, 14, 0.804) 0%, rgba(13, 13, 14, 0.804) 20%,
-            #DD0000 20%, #DD0000 40%,
-            #FFCE00 40%, #FFCE00 60%,
-            #0057b7 60%, #0057b7 80%,
-            #ffd700 80%, #ffd700 100%);
+            rgba(13, 13, 14, 0.804) 0%, rgba(13, 13, 14, 0.804) 6%,
+            #DD0000 6%, #DD0000 12%,
+            #FFCE00 12%, #FFCE00 18%,
+            #0057b7 18%, #0057b7 24%,
+            #ffd700 24%, #ffd700 30%,
+            #ffffff 30%, #ffffff 100%);
     border-bottom: 1px solid var(--light-grey);
     padding: 30px 0;
 
@@ -18,7 +18,7 @@
     }
 
     @media (min-width: $desktop) {
-        padding: 30px 40px;
+        padding: 30px 30px 30px 110px;
     }
 
     .container {

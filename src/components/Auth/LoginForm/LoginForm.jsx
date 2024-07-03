@@ -3,6 +3,7 @@ import { useNavigate, NavLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { RiEyeCloseLine } from "react-icons/ri";
 import { HiOutlineEye } from "react-icons/hi";
+import axios from 'axios'; // Додаємо axios для надсилання запитів
 import css from './LoginForm.module.scss';
 import SubmitButton from '../../SubmitButton/SubmitButton';
 
@@ -15,9 +16,17 @@ const LoginForm = () => {
         setShowPassword(!showPassword);
     };
 
-    const onSubmit = (data) => {
-        console.log(data);
-        navigate('/home');
+    const onSubmit = async (data) => {
+        try {
+            const response = await axios.post('http://localhost:5000/api/users/login', data);
+            console.log(response.data);
+            // Збережіть токен або іншу необхідну інформацію в localStorage або стані програми
+            localStorage.setItem('token', response.data.token);
+            navigate('/home');
+        } catch (error) {
+            console.error('Login failed:', error);
+            // Обробка помилки, якщо необхідно
+        }
     };
 
     return (

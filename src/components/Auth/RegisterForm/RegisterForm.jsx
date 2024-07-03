@@ -15,9 +15,26 @@ const RegisterForm = () => {
         setShowPassword(!showPassword);
     };
 
-    const onSubmit = (data) => {
-        console.log(data);
-        navigate('/home');
+    const onSubmit = async (data) => {
+        try {
+            const response = await fetch('http://localhost:5000/api/users/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const result = await response.json();
+            console.log(result);
+            navigate('/home');
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     return (
@@ -36,11 +53,20 @@ const RegisterForm = () => {
                 <form onSubmit={handleSubmit(onSubmit)} className={css.authForm}>
                     <div>
                         <input
-                            {...register('username', { required: 'Name is required' })}
+                            {...register('name', { required: 'Name is required' })}
                             type="text"
                             placeholder="Введіть ваше ім'я"
                         />
-                        {errors.username && <p>{errors.username.message}</p>}
+                        {errors.name && <p>{errors.name.message}</p>}
+                    </div>
+
+                    <div>
+                        <input
+                            {...register('phone', { required: 'Phone is required', pattern: { value: /^\+38\(\d{3}\)\d{3}-\d{2}-\d{2}$/, message: 'Invalid phone number' } })}
+                            type="text"
+                            placeholder="Введіть ваш телефон"
+                        />
+                        {errors.phone && <p>{errors.phone.message}</p>}
                     </div>
 
                     <div>
