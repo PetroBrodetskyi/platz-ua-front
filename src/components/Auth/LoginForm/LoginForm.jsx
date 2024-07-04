@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate, NavLink } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, NavLink, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { RiEyeCloseLine } from "react-icons/ri";
 import { HiOutlineEye } from "react-icons/hi";
@@ -11,6 +11,7 @@ const LoginForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
 
     const passwordVisibility = () => {
         setShowPassword(!showPassword);
@@ -18,16 +19,22 @@ const LoginForm = () => {
 
     const onSubmit = async (data) => {
         try {
-            const response = await axios.post('http://localhost:5000/api/users/login', data);
+            const response = await axios.post('https://platz-ua-back.vercel.app/api/users/login', data);
             console.log(response.data);
-            // Збережіть токен або іншу необхідну інформацію в localStorage або стані програми
             localStorage.setItem('token', response.data.token);
             navigate('/home');
         } catch (error) {
             console.error('Login failed:', error);
-            // Обробка помилки, якщо необхідно
         }
     };
+
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const message = params.get('message');
+        if (message) {
+            alert(message);
+        }
+    }, [location]);
 
     return (
         <section className={css.authPage}>

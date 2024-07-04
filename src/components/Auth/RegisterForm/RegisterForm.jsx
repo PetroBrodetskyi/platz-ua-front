@@ -3,6 +3,7 @@ import { useNavigate, NavLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { RiEyeCloseLine } from "react-icons/ri";
 import { HiOutlineEye } from "react-icons/hi";
+import axios from 'axios';
 import css from './RegisterForm.module.scss';
 import SubmitButton from '../../SubmitButton/SubmitButton';
 
@@ -17,20 +18,8 @@ const RegisterForm = () => {
 
     const onSubmit = async (data) => {
         try {
-            const response = await fetch('https://platz-ua-back.vercel.app/api/users/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const result = await response.json();
-            console.log(result);
+            const response = await axios.post('https://platz-ua-back.vercel.app/api/users/register', data);
+            console.log(response.data);
             navigate('/home');
         } catch (error) {
             console.error('Error:', error);
@@ -62,9 +51,9 @@ const RegisterForm = () => {
 
                     <div>
                         <input
-                            {...register('phone', { required: 'Phone is required', pattern: { value: /^\+38\(\d{3}\)\d{3}-\d{2}-\d{2}$/, message: 'Invalid phone number' } })}
+                            {...register('phone', { required: 'Phone is required', pattern: { value: /^\+38\(\d{3}\)\d{3}-\d{2}-\д{2}$/, message: 'Invalid phone number' } })}
                             type="text"
-                            placeholder="Введіть ваш телефон"
+                            placeholder="Введіть ваш номер телефону"
                         />
                         {errors.phone && <p>{errors.phone.message}</p>}
                     </div>
