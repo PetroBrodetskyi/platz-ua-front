@@ -9,6 +9,8 @@ import Cart from '../Cart/Cart';
 import LoginPage from '../../pages/LoginPage/LoginPage';
 import RegisterPage from '../../pages/RegisterPage/RegisterPage';
 import AddProductPage from '../../pages/AddProductPage/AddProductPage';
+import VerifyEmailPage from '../../pages/VerifyEmailPage/VerifyEmailPage';
+
 
 const AppBar = () => {
   return (
@@ -18,6 +20,7 @@ const AppBar = () => {
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/verify-email" element={<VerifyEmailPage />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/products" element={<ProductList />} />
             <Route path="/cart" element={<Cart />} />
