@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import LoginForm from '../../components/Auth/LoginForm/LoginForm';
-import RegisterForm from '../../components/Auth/RegisterForm/RegisterForm';
 
-const AuthPage = () => {
+const LoginPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const params = new URLSearchParams(location.search);
@@ -17,9 +16,9 @@ const AuthPage = () => {
 
     return (
         <div>
-            {location.pathname === '/auth/login' ? <LoginForm /> : <RegisterForm />}
+            <LoginForm />
         </div>
     );
 };
 
-export default AuthPage;
+export default LoginPage;

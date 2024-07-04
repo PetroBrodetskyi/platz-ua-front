@@ -6,7 +6,8 @@ import ProductList from '../ProductList/ProductList';
 import Footer from '../Footer/Footer';
 import Home from '../../pages/Home/Home';
 import Cart from '../Cart/Cart';
-import AuthPage from '../../pages/AuthPage/AuthPage';
+import LoginPage from '../../pages/LoginPage/LoginPage';
+import RegisterPage from '../../pages/RegisterPage/RegisterPage';
 import AddProductPage from '../../pages/AddProductPage/AddProductPage';
 
 const AppBar = () => {
@@ -20,9 +21,8 @@ const AppBar = () => {
             <Route path="/categories" element={<Categories />} />
             <Route path="/products" element={<ProductList />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/auth/:id" element={<AuthPage />} />
-            <Route path="/login" element={<AuthPage />} />
-            <Route path="/register" element={<AuthPage />} />
+            <Route path="/auth/login" element={<LoginPage />} />
+            <Route path="/auth/register" element={<RegisterPage />} />
             <Route path="/addproduct" element={<AddProductPage />} />
           </Routes>
         </main>

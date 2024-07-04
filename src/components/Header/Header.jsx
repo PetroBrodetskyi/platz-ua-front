@@ -4,18 +4,17 @@ import scss from './Header.module.scss';
 import { PiShoppingCart } from "react-icons/pi";
 import { MdOutlineFavoriteBorder } from 'react-icons/md';
 import SearchLocation from '../SearchLocation/SearchLocation';
-import SubmitButton from '../SubmitButton/SubmitButton'
+import SubmitButton from '../SubmitButton/SubmitButton';
 import Logo from '../Logo/Logo';
 
 const Header = () => {
-
   return (
     <header className={scss.header}>
       <div className={scss.container}>
         <Logo />
         <SearchLocation />
         <div className={scss.userMenu}>
-          <NavLink to="/login">
+          <NavLink to="/auth/login">
             <SubmitButton buttonText="Увійти" />
           </NavLink>
           <div className={scss.iconsFlex}>
@@ -30,7 +29,7 @@ const Header = () => {
                 <div><MdOutlineFavoriteBorder color='rgba(13, 13, 14, 0.804)'/></div>
                 <span className={scss.badge}>3</span>
               </NavLink>
-              </div>
+            </div>
           </div>
         </div>
       </div>
