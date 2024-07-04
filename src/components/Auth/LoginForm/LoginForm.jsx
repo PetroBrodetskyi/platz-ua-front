@@ -3,7 +3,7 @@ import { useNavigate, NavLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { RiEyeCloseLine } from "react-icons/ri";
 import { HiOutlineEye } from "react-icons/hi";
-import axios from 'axios'; // Додаємо axios для надсилання запитів
+import axios from 'axios';
 import css from './LoginForm.module.scss';
 import SubmitButton from '../../SubmitButton/SubmitButton';
 
