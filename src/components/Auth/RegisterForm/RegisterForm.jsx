@@ -51,7 +51,7 @@ const RegisterForm = () => {
 
                     <div>
                         <input
-                            {...register('phone', { required: 'Phone is required', pattern: { value: /^\+38\(\d{3}\)\d{3}-\d{2}-\д{2}$/, message: 'Invalid phone number' } })}
+                            {...register('phone', { required: 'Phone is required', pattern: { value: /^\+38\(\d{3}\)\d{3}-\d{2}-\d{2}$/, message: 'Invalid phone number' } })}
                             type="text"
                             placeholder="Введіть ваш номер телефону"
                         />
