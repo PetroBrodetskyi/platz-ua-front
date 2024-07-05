@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import scss from './Categories.module.scss';
 import data from './products.json';
 import { MdOutlineFilterList, MdOutlineFilterListOff } from "react-icons/md";
 import { getCategoryIcon, getSubcategoryIcon } from './icons.jsx';
 
-const Categories = () => {
+const Categories = ({ onSubcategoriesChange }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubcategories, setSelectedSubcategories] = useState([]);
   const [categoriesVisible, setCategoriesVisible] = useState(true);
+
+  useEffect(() => {
+    if (onSubcategoriesChange) {
+      onSubcategoriesChange(selectedSubcategories);
+    }
+  }, [selectedSubcategories, onSubcategoriesChange]);
 
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
