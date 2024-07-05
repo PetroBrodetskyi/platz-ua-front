@@ -11,7 +11,7 @@ const ProductCard = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/announcements');
+        const response = await axios.get('https://platz-ua-back.vercel.api/products');
         setProducts(response.data);
 
         const initialFavorites = response.data.filter(product => product.favorite);
