@@ -42,10 +42,10 @@ const LoginForm = () => {
                 <div>
                     <ul className={css.authNav}>
                         <li>
-                            <NavLink className={css.classNavLink} to="/auth/register">Реєстрація</NavLink>
+                            <NavLink className={css.classNavLink} to="/register">Реєстрація</NavLink>
                         </li>
                         <li>
-                            <NavLink className={css.classNavLink} to="/auth/login">Вхід</NavLink>
+                            <NavLink className={css.classNavLink} to="/login">Вхід</NavLink>
                         </li>
                     </ul>
                 </div>

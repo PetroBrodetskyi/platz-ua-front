@@ -14,7 +14,7 @@ const Header = () => {
         <Logo />
         <SearchLocation />
         <div className={scss.userMenu}>
-          <NavLink to="/auth/login">
+          <NavLink to="/login">
             <SubmitButton buttonText="Увійти" />
           </NavLink>
           <div className={scss.iconsFlex}>
