@@ -1,28 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import SubmitButton from '../SubmitButton/SubmitButton';
 import scss from './AddProductForm.module.scss';
+import productsData from '../Categories/products.json';
 
 const AddProductForm = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }, watch } = useForm();
+  const [categories, setCategories] = useState([]);
+  const [subcategories, setSubcategories] = useState([]);
+  const selectedCategory = watch('category');
+
+  useEffect(() => {
+    setCategories(productsData.products);
+  }, []);
+
+  useEffect(() => {
+    const selectedCat = categories.find(cat => cat.name === selectedCategory);
+    if (selectedCat) {
+      setSubcategories(selectedCat.categories);
+    } else {
+      setSubcategories([]);
+    }
+  }, [selectedCategory, categories]);
 
   const onSubmit = async (data) => {
-    const { name, price, description, condition, locationPLZ, locationCity, galleryImage1, galleryImage2, galleryImage3, views } = data;
+    const { name, price, description, condition, PLZ, city, image1, image2, image3, category, subcategory1, subcategory2, subcategory3 } = data;
 
     const formData = new FormData();
     formData.append('name', name);
     formData.append('price', price);
     formData.append('description', description);
     formData.append('condition', condition);
-    formData.append('locationPLZ', locationPLZ);
-    formData.append('locationCity', locationCity);
-    formData.append('galleryImage1', galleryImage1[0]);
-    formData.append('galleryImage2', galleryImage2[0]);
-    formData.append('galleryImage3', galleryImage3[0]);
-    formData.append('views', views);
+    formData.append('PLZ', PLZ);
+    formData.append('city', city);
+    formData.append('image1', image1[0]);
+    formData.append('image2', image2[0]);
+    formData.append('image3', image3[0]);
+    formData.append('category', category);
+    formData.append('subcategory1', subcategory1);
+    formData.append('subcategory2', subcategory2);
+    formData.append('subcategory3', subcategory3);
 
     try {
-      const response = await axios.post('https://platz-ua-back.vercel.api/products', formData, {
+      const response = await axios.post('https://platz-ua-back.vercel.app/api/products', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -50,7 +71,7 @@ const AddProductForm = () => {
 
       <div className={scss.formGroup}>
         <label htmlFor="description">Опис:</label>
-        <input id="description" type="text" {...register('description', { required: true })} />
+        <textarea id="description" {...register('description', { required: true })}></textarea>
         {errors.description && <span>Це поле обов'язкове</span>}
       </div>
 
@@ -72,33 +93,75 @@ const AddProductForm = () => {
       </div>
 
       <div className={scss.formGroup}>
-        <label htmlFor="locationPLZ">Поштовий індекс:</label>
-        <input id="locationPLZ" type="text" {...register('locationPLZ', { required: true })} />
-        {errors.locationPLZ && <span>Це поле обов'язкове</span>}
+        <label htmlFor="PLZ">Поштовий індекс:</label>
+        <input id="PLZ" type="text" {...register('PLZ', { required: true })} />
+        {errors.PLZ && <span>Це поле обов'язкове</span>}
       </div>
 
       <div className={scss.formGroup}>
-        <label htmlFor="locationCity">Місто:</label>
-        <input id="locationCity" type="text" {...register('locationCity', { required: true })} />
-        {errors.locationCity && <span>Це поле обов'язкове</span>}
+        <label htmlFor="city">Місто:</label>
+        <input id="city" type="text" {...register('city', { required: true })} />
+        {errors.city && <span>Це поле обов'язкове</span>}
       </div>
 
       <div className={scss.formGroup}>
-        <label htmlFor="galleryImage1">Зображення 1:</label>
-        <input id="galleryImage1" type="file" {...register('galleryImage1')} />
+        <label htmlFor="image1">Зображення 1:</label>
+        <input id="image1" type="file" {...register('image1')} />
       </div>
 
       <div className={scss.formGroup}>
-        <label htmlFor="galleryImage2">Зображення 2:</label>
-        <input id="galleryImage2" type="file" {...register('galleryImage2')} />
+        <label htmlFor="image2">Зображення 2:</label>
+        <input id="image2" type="file" {...register('image2')} />
       </div>
 
       <div className={scss.formGroup}>
-        <label htmlFor="galleryImage3">Зображення 3:</label>
-        <input id="galleryImage3" type="file" {...register('galleryImage3')} />
+        <label htmlFor="image3">Зображення 3:</label>
+        <input id="image3" type="file" {...register('image3')} />
       </div>
 
-      <button type="submit">Додати оголошення</button>
+      <div className={scss.formGroup}>
+        <label htmlFor="category">Категорія:</label>
+        <select id="category" {...register('category', { required: true })}>
+          <option value="">Виберіть категорію</option>
+          {categories.map(cat => (
+            <option key={cat.name} value={cat.name}>{cat.name}</option>
+          ))}
+        </select>
+        {errors.category && <span>Це поле обов'язкове</span>}
+      </div>
+
+      <div className={scss.formGroup}>
+        <label htmlFor="subcategory1">Підкатегорія 1:</label>
+        <select id="subcategory1" {...register('subcategory1', { required: true })}>
+          <option value="">Виберіть підкатегорію</option>
+          {subcategories.map(subcat => (
+            <option key={subcat} value={subcat}>{subcat}</option>
+          ))}
+        </select>
+        {errors.subcategory1 && <span>Це поле обов'язкове</span>}
+      </div>
+
+      <div className={scss.formGroup}>
+        <label htmlFor="subcategory2">Підкатегорія 2:</label>
+        <select id="subcategory2" {...register('subcategory2')}>
+          <option value="">Виберіть підкатегорію</option>
+          {subcategories.map(subcat => (
+            <option key={subcat} value={subcat}>{subcat}</option>
+          ))}
+        </select>
+      </div>
+
+      <div className={scss.formGroup}>
+        <label htmlFor="subcategory3">Підкатегорія 3:</label>
+        <select id="subcategory3" {...register('subcategory3')}>
+          <option value="">Виберіть підкатегорію</option>
+          {subcategories.map(subcat => (
+            <option key={subcat} value={subcat}>{subcat}</option>
+          ))}
+        </select>
+      </div>
+
+      <SubmitButton buttonText="Розмістити"/>
     </form>
   );
 };

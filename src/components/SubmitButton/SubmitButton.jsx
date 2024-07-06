@@ -32,7 +32,7 @@ const SubmitButton = ({ buttonText, onSubmit, onClick }) => {
         case 'Розмістити':
             return (
                 <button
-                    className={scss.buttonAdd}
+                    className={scss.button}
                     type="button"
                     onClick={onSubmit}
                 >
