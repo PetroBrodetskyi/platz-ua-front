@@ -11,11 +11,11 @@ const ProductCard = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('https://platz-ua-back.vercel.api/products');
+        const response = await axios.get('http://localhost:5000/api/products/public');
         setProducts(response.data);
 
         const initialFavorites = response.data.filter(product => product.favorite);
-        setFavorites(initialFavorites.map(product => product.id));
+        setFavorites(initialFavorites.map(product => product._id));
       } catch (error) {
         console.error('Error fetching products:', error);
       }
@@ -35,20 +35,20 @@ const ProductCard = () => {
   return (
     <ul className={scss.list}>
       {products.map((product) => (
-        <li key={product.id} className={scss.productItem}>
+        <li key={product._id} className={scss.productItem}>
           <div className={scss.product}>
             <div className={scss.productImage}>
               <img
-                src={product.gallery.image1}
+                src={product.image1}
                 alt={product.name}
               />
             </div>
             <div className={scss.productInfo}>
               <TitleFavorite
                 name={product.name}
-                id={product.id}
+                id={product._id}
                 onFavoriteToggle={toggleFavorite}
-                isFavorite={favorites.includes(product.id)}
+                isFavorite={favorites.includes(product._id)}
               />
               <p>{product.description}</p>
               <p>{product.condition}</p>

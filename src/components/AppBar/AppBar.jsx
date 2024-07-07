@@ -1,8 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import scss from './AppBar.module.scss';
 import Header from '../Header/Header';
-import Categories from '../Categories/Categories';
-import ProductList from '../ProductList/ProductList';
 import Footer from '../Footer/Footer';
 import Home from '../../pages/Home/Home';
 import Cart from '../Cart/Cart';
@@ -19,12 +17,10 @@ const AppBar = () => {
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/categories" element={<Categories />} />
-            <Route path="/products" element={<ProductList />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/addproduct" element={<AddProductPage />} />
+            <Route path="/create" element={<AddProductPage />} />
           </Routes>
         </main>
         <Footer />
