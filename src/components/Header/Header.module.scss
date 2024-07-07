@@ -17,7 +17,7 @@
     }
 
     @media (min-width: $desktop) {
-        padding: 30px;
+        padding: 30px 40px;
     }
 
     .container {
@@ -42,7 +42,7 @@
             }
 
             @media (min-width: $desktop) {
-                gap: 14px;
+                justify-content: space-between;
             }
 
             .iconsFlex {
@@ -70,7 +70,7 @@
                     background-color: #0057b7;
                     color: var(--white);
                     border-radius: 50%;
-                    padding: 4px 8px;
+                    padding: 2px 8px;
                     font-size: 12px;
                 }
 
