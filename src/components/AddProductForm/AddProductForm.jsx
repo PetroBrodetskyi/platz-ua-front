@@ -25,22 +25,20 @@ const AddProductForm = () => {
   }, [selectedCategory, categories]);
 
   const onSubmit = async (data) => {
-    const { name, price, description, condition, PLZ, city, image1, image2, image3, category, subcategory1, subcategory2, subcategory3 } = data;
-
     const formData = new FormData();
-    formData.append('name', name);
-    formData.append('price', price);
-    formData.append('description', description);
-    formData.append('condition', condition);
-    formData.append('PLZ', PLZ);
-    formData.append('city', city);
-    formData.append('image1', image1[0]);
-    formData.append('image2', image2[0]);
-    formData.append('image3', image3[0]);
-    formData.append('category', category);
-    formData.append('subcategory1', subcategory1);
-    formData.append('subcategory2', subcategory2);
-    formData.append('subcategory3', subcategory3);
+    formData.append('name', data.name);
+    formData.append('price', data.price);
+    formData.append('description', data.description);
+    formData.append('condition', data.condition);
+    formData.append('PLZ', data.PLZ);
+    formData.append('city', data.city);
+    formData.append('image1', data.image1[0]);
+    formData.append('image2', data.image2[0]);
+    formData.append('image3', data.image3[0]);
+    formData.append('category', data.category);
+    formData.append('subcategory1', data.subcategory1);
+    formData.append('subcategory2', data.subcategory2);
+    formData.append('subcategory3', data.subcategory3);
 
     try {
       const response = await axios.post('https://platz-ua-back.vercel.app/api/products', formData, {
