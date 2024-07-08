@@ -8,18 +8,16 @@
     input {
         background-color: var(--white);
         padding: 14px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        border: none;
+        border: 2px solid var(--black);
         outline: none;
-        width: 100%;
+        width: 280px;
 
         @media (min-width: $tablet) {
-            width: 300px;
+            width: 390px;
         }
 
         @media (min-width: $desktop) {
-            width: 500px;
+            width: 900px;
         }
     }
 
