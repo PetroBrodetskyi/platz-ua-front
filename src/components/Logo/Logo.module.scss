@@ -9,19 +9,13 @@
     text-decoration: none;
 }
 
-.logoBackground {
-    background: var(--white);
-    padding: 22px 60px;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-    display: inline-block;
-}
-
 .logo {
     font-size: 38px;
     font-weight: bold;
     display: flex;
     align-items: center;
+    background-color: #fff;
+    padding: 0 18px;
 
     @media (max-width: $tablet) {
         font-size: 28px;
@@ -35,50 +29,45 @@
     .logoLetterL,
     .logoLetterA,
     .logoLetterT,
-    .logoLetterZ {
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    .logoLetterZ,
+    .logoLetterU,
+    .logoLetterA2 {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2), 3px 3px 6px rgba(0, 0, 0, 0.3);
     }
 
     .logoLetterP {
         color: #000;
-        background: linear-gradient(to bottom, #000 0%, #444 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        background: linear-gradient(to bottom, #fff 0%, #fff 100%);
+        
     }
 
     .logoLetterL {
-        color: #ff0000;
-        background: linear-gradient(to bottom, #ff0000 0%, #cc0000 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: #ff0202;
+        background: linear-gradient(to bottom, #fff 0%, #fff 100%);
     }
 
     .logoLetterA {
-        color: #ffcc00;
-        background: linear-gradient(to bottom, #ffcc00 0%, #cc9900 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: gold;
+        background: linear-gradient(to bottom, #fff 0%, #fff 100%);
     }
 
     .logoLetterT {
         color: #000;
-        background: linear-gradient(to bottom, #000 0%, #444 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        background: linear-gradient(to bottom, #fff 0%, #fff 100%);
     }
 
     .logoLetterZ {
-        color: #ff0000;
-        background: linear-gradient(to bottom, #ff0000 0%, #cc0000 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: #ff0202;
+        background: linear-gradient(to bottom, #fff 0%, #fff 100%);
     }
 
     .logoLetterU {
         font-size: 18px;
         vertical-align: super;
         color: #0057b7;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
         margin-left: 2px;
 
         @media (max-width: $tablet) {
@@ -94,7 +83,6 @@
         font-size: 18px;
         vertical-align: super;
         color: #ffd700;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
 
         @media (max-width: $tablet) {
             font-size: 16px;
