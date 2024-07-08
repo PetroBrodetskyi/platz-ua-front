@@ -7,22 +7,32 @@ import scss from './ProductCard.module.scss';
 const ProductCard = () => {
   const [products, setProducts] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [exchangeRate, setExchangeRate] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // const response = await axios.get('http://localhost:5000/api/products/public');
         const response = await axios.get('https://platz-ua-back.vercel.app/api/products/public');
         setProducts(response.data);
 
         const initialFavorites = response.data.filter(product => product.favorite);
         setFavorites(initialFavorites.map(product => product._id));
       } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error('Помилка при отриманні продуктів:', error);
+      }
+    };
+
+    const fetchExchangeRate = async () => {
+      try {
+        const response = await axios.get('https://platz-ua-back.vercel.app/api/exchange-rate');
+        setExchangeRate(parseFloat(response.data.sale));
+      } catch (error) {
+        console.error('Помилка при отриманні курсу обміну:', error);
       }
     };
 
     fetchProducts();
+    fetchExchangeRate();
   }, []);
 
   const toggleFavorite = (productId) => {
@@ -45,15 +55,25 @@ const ProductCard = () => {
               />
             </div>
             <div className={scss.productInfo}>
-              <TitleFavorite
-                name={product.name}
-                id={product._id}
-                onFavoriteToggle={toggleFavorite}
-                isFavorite={favorites.includes(product._id)}
-              />
-              <p>{product.description}</p>
-              <p>{product.condition}</p>
-              <CartPrice price={product.price} addedDate={product.addedDate} />
+              <div>
+                <TitleFavorite
+                  name={product.name}
+                  id={product._id}
+                  onFavoriteToggle={toggleFavorite}
+                  isFavorite={favorites.includes(product._id)}
+                />
+                  <p>{product.description}</p>
+              </div>
+              <div>
+                <p>{product.condition}</p>
+                {exchangeRate !== null && (
+                  <CartPrice 
+                    price={product.price} 
+                    addedDate={product.addedDate} 
+                    exchangeRate={exchangeRate} 
+                  />
+                  )}
+              </div>
             </div>
           </div>
         </li>

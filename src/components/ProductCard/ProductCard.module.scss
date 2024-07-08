@@ -1,5 +1,9 @@
 @import 'src/styles/mixins';
 
+.list {
+    display: flex;
+}
+
 .productItem {
     display: flex;
     background-color: var(--white);
@@ -7,7 +11,7 @@
     border: 1px solid var(--light-grey);
     @include transition(box-shadow);
     margin-bottom: 16px;
-    flex: 1 1 200px;
+    flex: 1 1 calc(50% - 16px);
 
     &:hover {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -42,9 +46,5 @@
         justify-content: space-between;
         padding-left: 16px;
         flex: 1;
-
-        p {
-            margin: 4px 0;
-        }
     }
 }
