@@ -3,11 +3,13 @@
 .wrapper {
     display: flex;
     flex-direction: column;
+    
     min-height: 100vh;
 }
 
 .appBar {
     flex: 1;
     display: flex;
+    justify-content: space-between;
     flex-direction: column;
 }
