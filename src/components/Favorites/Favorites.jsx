@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts } from '../../redux/features/productsSlice';
+import { FaTrash } from 'react-icons/fa';
 import scss from './Favorites.module.scss';
+import { toggleFavorite } from '../../redux/features/favoritesSlice';
 
 const Favorites = () => {
   const dispatch = useDispatch();
@@ -17,9 +19,10 @@ const Favorites = () => {
 
   const favoriteProducts = products.filter(product => favorites.includes(product._id));
 
-  if (loading) {
-    return <div>Завантаження...</div>;
-  }
+  const handleRemoveFromFavorites = (productId) => {
+    console.log('Remove product with ID:', productId);
+    dispatch(toggleFavorite(productId));
+  };
 
   return (
     <div className={scss.favorite}>
@@ -32,6 +35,17 @@ const Favorites = () => {
             <li key={product._id} className={scss.favoriteItem}>
               <h2>{product.name}</h2>
               <p>{product.description}</p>
+              <img src={product.image1} alt={product.name} className={scss.productImage} />
+              <div>
+                <p>Ціна: {product.price}</p>
+                <p>Стан: {product.condition}</p>
+                <button
+                  onClick={() => handleRemoveFromFavorites(product._id)}
+                  className={scss.removeButton}
+                >
+                  Видалити <FaTrash className={scss.trashIcon} />
+                </button>
+              </div>
             </li>
           ))}
         </ul>
