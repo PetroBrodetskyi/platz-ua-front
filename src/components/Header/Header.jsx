@@ -27,7 +27,7 @@ const Header = ({ onClick }) => {
               </NavLink>
             </div>
             <div className={scss.favoriteIcon}>
-              <NavLink to="/favorite">
+              <NavLink to="/favorites">
                 <div><MdOutlineFavoriteBorder color='rgba(13, 13, 14, 0.804)'/></div>
               </NavLink>
             </div>

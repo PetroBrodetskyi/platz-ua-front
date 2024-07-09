@@ -1,14 +1,16 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchProducts, fetchExchangeRate, toggleFavorite } from '../../redux/features/productsSlice';
+import { fetchProducts, fetchExchangeRate } from '../../redux/features/productsSlice';
+import { toggleFavorite } from '../../redux/features/favoritesSlice';
 import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
 import scss from './ProductCard.module.scss';
 
 const ProductCard = () => {
   const dispatch = useDispatch();
-  const { products, favorites, exchangeRate, loading } = useSelector((state) => state.products);
+  const { products, exchangeRate, loading } = useSelector((state) => state.products);
+  const favorites = useSelector((state) => state.favorites.items);
 
   useEffect(() => {
     dispatch(fetchProducts());
