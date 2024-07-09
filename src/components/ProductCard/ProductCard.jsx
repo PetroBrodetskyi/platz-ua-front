@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
-import Loader from '../Loader/Loader';
 import scss from './ProductCard.module.scss';
 
 const ProductCard = () => {
@@ -14,7 +13,6 @@ const ProductCard = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        setLoading(true);
         const response = await axios.get('https://platz-ua-back.vercel.app/api/products/public');
         setProducts(response.data);
 
@@ -22,25 +20,19 @@ const ProductCard = () => {
         setFavorites(initialFavorites.map(product => product._id));
       } catch (error) {
         console.error('Помилка при отриманні продуктів:', error);
-      } finally {
-        setLoading(false);
       }
     };
 
     const fetchExchangeRate = async () => {
       try {
-        setLoading(true);
         const response = await axios.get('https://platz-ua-back.vercel.app/api/exchange-rate');
         setExchangeRate(parseFloat(response.data.sale));
       } catch (error) {
         console.error('Помилка при отриманні курсу обміну:', error);
-      } finally {
-        setLoading(false);
       }
     };
 
-    fetchProducts();
-    fetchExchangeRate();
+    Promise.all([fetchProducts(), fetchExchangeRate()]).finally(() => setLoading(false));
   }, []);
 
   const toggleFavorite = (productId) => {
@@ -50,10 +42,6 @@ const ProductCard = () => {
       setFavorites([...favorites, productId]);
     }
   };
-
-  if (loading) {
-    return <Loader />;
-  }
 
   return (
     <ul className={scss.list}>
