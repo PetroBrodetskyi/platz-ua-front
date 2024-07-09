@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import icons from '../../assets/icons/icons.svg';
+import { IoClose } from "react-icons/io5";
 import scss from './SearchLocation.module.scss';
 
 const SearchLocation = ({ onSearch }) => {
@@ -53,13 +53,12 @@ const SearchLocation = ({ onSearch }) => {
         placeholder="PLZ або місто..." 
         value={searchQuery}
         onChange={handleChange}
+        className={scss.placeholder}
       />
       
       {searchQuery && (
         <button className={scss.clearButton} onClick={handleClearInput}>
-          <svg className={scss.icon}>
-            <use href={`${icons}#icon-close`}></use>
-          </svg>
+          <IoClose />
         </button>
       )}
 
