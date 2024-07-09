@@ -4,7 +4,7 @@ import './styles/index.scss';
 
 const App = () => {
   return (
-    <BrowserRouter basename="/platz-ua-front/">
+    <BrowserRouter basename="/platz-ua-front">
       <Routes>
         <Route path="/*" element={<AppBar />} />
       </Routes>
