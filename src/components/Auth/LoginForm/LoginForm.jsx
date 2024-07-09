@@ -1,17 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, NavLink, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { RiEyeCloseLine } from "react-icons/ri";
 import { HiOutlineEye } from "react-icons/hi";
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../../redux/features/authSlice.js';
 import css from './LoginForm.module.scss';
 import SubmitButton from '../../SubmitButton/SubmitButton';
 
 const LoginForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [showPassword, setShowPassword] = useState(false);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
+    const { loading, error } = useSelector(state => state.auth);
 
     const passwordVisibility = () => {
         setShowPassword(!showPassword);
@@ -19,12 +22,10 @@ const LoginForm = () => {
 
     const onSubmit = async (data) => {
         try {
-            const response = await axios.post('https://platz-ua-back.vercel.app/api/users/login', data);
-            console.log(response.data);
-            localStorage.setItem('token', response.data.token);
-            navigate('/home');
-        } catch (error) {
-            console.error('Login failed:', error);
+            const result = await dispatch(login(data)).unwrap();
+            navigate('/');
+        } catch (err) {
+            console.error('Login failed:', err);
         }
     };
 
@@ -72,8 +73,9 @@ const LoginForm = () => {
                     </div>
 
                     <div className={css.buttonWrapper}>
-                        <SubmitButton buttonText="Логін" onSubmit={handleSubmit(onSubmit)} />
+                        <SubmitButton buttonText="Логін" onSubmit={handleSubmit(onSubmit)} disabled={loading} />
                     </div>
+                    {error && <p className={css.error}>{error}</p>}
                 </form>
             </div>
         </section>

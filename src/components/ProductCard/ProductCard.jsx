@@ -1,47 +1,19 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchProducts, fetchExchangeRate, toggleFavorite } from '../../redux/features/productsSlice';
 import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
 import scss from './ProductCard.module.scss';
 
 const ProductCard = () => {
-  const [products, setProducts] = useState([]);
-  const [favorites, setFavorites] = useState([]);
-  const [exchangeRate, setExchangeRate] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const { products, favorites, exchangeRate, loading } = useSelector((state) => state.products);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get('https://platz-ua-back.vercel.app/api/products/public');
-        setProducts(response.data);
-
-        const initialFavorites = response.data.filter(product => product.favorite);
-        setFavorites(initialFavorites.map(product => product._id));
-      } catch (error) {
-        console.error('Помилка при отриманні продуктів:', error);
-      }
-    };
-
-    const fetchExchangeRate = async () => {
-      try {
-        const response = await axios.get('https://platz-ua-back.vercel.app/api/exchange-rate');
-        setExchangeRate(parseFloat(response.data.sale));
-      } catch (error) {
-        console.error('Помилка при отриманні курсу обміну:', error);
-      }
-    };
-
-    Promise.all([fetchProducts(), fetchExchangeRate()]).finally(() => setLoading(false));
-  }, []);
-
-  const toggleFavorite = (productId) => {
-    if (favorites.includes(productId)) {
-      setFavorites(favorites.filter((id) => id !== productId));
-    } else {
-      setFavorites([...favorites, productId]);
-    }
-  };
+    dispatch(fetchProducts());
+    dispatch(fetchExchangeRate());
+  }, [dispatch]);
 
   return (
     <ul className={scss.list}>
@@ -59,7 +31,7 @@ const ProductCard = () => {
                 <TitleFavorite
                   name={product.name}
                   id={product._id}
-                  onFavoriteToggle={toggleFavorite}
+                  onFavoriteToggle={() => dispatch(toggleFavorite(product._id))}
                   isFavorite={favorites.includes(product._id)}
                 />
                 <p>{product.description}</p>

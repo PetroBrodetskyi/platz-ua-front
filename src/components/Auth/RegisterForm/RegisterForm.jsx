@@ -3,14 +3,17 @@ import { useNavigate, NavLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { RiEyeCloseLine } from "react-icons/ri";
 import { HiOutlineEye } from "react-icons/hi";
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { register as registerUser } from '../../../redux/features/authSlice.js';
 import css from './RegisterForm.module.scss';
 import SubmitButton from '../../SubmitButton/SubmitButton';
 
 const RegisterForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [showPassword, setShowPassword] = useState(false);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { loading, error } = useSelector(state => state.auth);
 
     const passwordVisibility = () => {
         setShowPassword(!showPassword);
@@ -18,11 +21,10 @@ const RegisterForm = () => {
 
     const onSubmit = async (data) => {
         try {
-            const response = await axios.post('https://platz-ua-back.vercel.app/api/users/register', data);
-            console.log(response.data);
-            navigate('/home');
-        } catch (error) {
-            console.error('Error:', error);
+            const result = await dispatch(registerUser(data)).unwrap();
+            navigate('/');
+        } catch (err) {
+            console.error('Error:', err);
         }
     };
 
@@ -80,8 +82,9 @@ const RegisterForm = () => {
                     </div>
 
                     <div className={css.buttonWrapper}>
-                        <SubmitButton buttonText="Реєстрація" onSubmit={handleSubmit(onSubmit)} />
+                        <SubmitButton buttonText="Реєстрація" onSubmit={handleSubmit(onSubmit)} disabled={loading} />
                     </div>
+                    {error && <p className={css.error}>{error}</p>}
                 </form>
             </div>
         </section>

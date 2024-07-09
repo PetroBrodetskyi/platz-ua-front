@@ -10,6 +10,7 @@ const Cart = lazy(() => import('../Cart/Cart'));
 const LoginPage = lazy(() => import('../../pages/LoginPage/LoginPage'));
 const RegisterPage = lazy(() => import('../../pages/RegisterPage/RegisterPage'));
 const AddProductPage = lazy(() => import('../../pages/AddProductPage/AddProductPage'));
+const Favorite = lazy(() => import('../../pages/Favorites/Favorites'));
 
 const AppBar = () => {
   return (
@@ -24,6 +25,7 @@ const AppBar = () => {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/create" element={<AddProductPage />} />
+              <Route path="/favorite" element={<Favorite />} />
             </Routes>
           </Suspense>
         </main>

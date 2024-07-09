@@ -1,14 +1,17 @@
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import AppBar from './components/AppBar/AppBar';
+import store from './redux/store';
 import './styles/index.scss';
 
 const App = () => {
   return (
-    <BrowserRouter basename="/platz-ua-front/">
-      <Routes>
-        <Route path="/*" element={<AppBar />} />
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter basename="/platz-ua-front/">
+        <AppBar />
+      </BrowserRouter>
+    </Provider>
   );
 };
 
