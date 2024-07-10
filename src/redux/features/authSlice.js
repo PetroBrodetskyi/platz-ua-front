@@ -11,14 +11,16 @@ export const register = createAsyncThunk('auth/register', async (credentials) =>
   return response.data;
 });
 
+const initialState = {
+  user: null,
+  token: localStorage.getItem('token') || null,
+  loading: false,
+  error: null,
+};
+
 const authSlice = createSlice({
   name: 'auth',
-  initialState: {
-    user: null,
-    token: null,
-    loading: false,
-    error: null,
-  },
+  initialState,
   reducers: {
     logout: (state) => {
       state.user = null;

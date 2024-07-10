@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 import SubmitButton from '../SubmitButton/SubmitButton';
 import scss from './AddProductForm.module.scss';
 import productsData from '../Categories/products.json';
@@ -12,6 +13,7 @@ const AddProductForm = () => {
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const selectedCategory = watch('category');
+  const token = useSelector((state) => state.auth.token);
 
   useEffect(() => {
     setCategories(productsData.products);
@@ -27,46 +29,52 @@ const AddProductForm = () => {
   }, [selectedCategory, categories]);
 
   const onSubmit = async (data) => {
-    console.log('Form data:', data);
-    const formData = new FormData();
-    formData.append('name', data.name);
-    formData.append('price', data.price);
-    formData.append('description', data.description);
-    formData.append('condition', data.condition);
-    formData.append('PLZ', data.PLZ);
-    formData.append('city', data.city);
+  console.log('Форма надсилається');
+  console.log('Дані форми:', data);
+  console.log('Token:', token);
 
-    if (data.image1 && data.image1.length > 0) {
-      formData.append('image1', data.image1[0]);
-      console.log('Image 1:', data.image1[0]);
-    }
-    if (data.image2 && data.image2.length > 0) {
-      formData.append('image2', data.image2[0]);
-      console.log('Image 2:', data.image2[0]);
-    }
-    if (data.image3 && data.image3.length > 0) {
-      formData.append('image3', data.image3[0]);
-      console.log('Image 3:', data.image3[0]);
-    }
+  const formData = new FormData();
+  formData.append('name', data.name);
+  formData.append('price', data.price);
+  formData.append('description', data.description);
+  formData.append('condition', data.condition);
+  formData.append('PLZ', data.PLZ);
+  formData.append('city', data.city);
 
-    formData.append('category', data.category);
-    formData.append('subcategory1', data.subcategory1);
-    formData.append('subcategory2', data.subcategory2);
-    formData.append('subcategory3', data.subcategory3);
+  if (data.image1 && data.image1.length > 0) {
+    formData.append('image1', data.image1[0]);
+  }
+  if (data.image2 && data.image2.length > 0) {
+    formData.append('image2', data.image2[0]);
+  }
+  if (data.image3 && data.image3.length > 0) {
+    formData.append('image3', data.image3[0]);
+  }
 
-    try {
-      const response = await axios.post('http://localhost:5000/api/products', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-      console.log('Product created:', response.data);
-      navigate('/');
-    } catch (error) {
-      console.error('Error creating product:', error);
+  formData.append('category', data.category);
+  formData.append('subcategory1', data.subcategory1);
+  formData.append('subcategory2', data.subcategory2);
+  formData.append('subcategory3', data.subcategory3);
+
+  try {
+    const response = await axios.post('http://localhost:5000/api/products', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`
+      }
+    });
+    console.log('Product created:', response.data);
+    navigate('/');
+  } catch (error) {
+    console.error('Error creating product:', error);
+    if (error.response) {
+      console.error('Response data:', error.response.data);
+      console.error('Response status:', error.response.status);
+      console.error('Response headers:', error.response.headers);
     }
-  };
+  }
+};
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={scss.form}>
@@ -174,7 +182,7 @@ const AddProductForm = () => {
         </select>
       </div>
 
-      <SubmitButton buttonText="Розмістити"/>
+      <SubmitButton buttonText="Розмістити" />
     </form>
   );
 };
