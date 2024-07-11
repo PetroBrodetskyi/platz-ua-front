@@ -42,13 +42,13 @@ const AddProductForm = () => {
   formData.append('city', data.city);
 
   if (data.image1 && data.image1.length > 0) {
-    formData.append('image1', data.image1[0]);
+    formData.append('image', data.image1[0]);
   }
   if (data.image2 && data.image2.length > 0) {
-    formData.append('image2', data.image2[0]);
+    formData.append('image', data.image2[0]);
   }
   if (data.image3 && data.image3.length > 0) {
-    formData.append('image3', data.image3[0]);
+    formData.append('image', data.image3[0]);
   }
 
   formData.append('category', data.category);
@@ -126,7 +126,7 @@ const AddProductForm = () => {
       </div>
 
       <div className={scss.formGroup}>
-        <label htmlFor="image1">Зображення 1:</label>
+        <label htmlFor="image">Зображення 1:</label>
         <input id="image1" type="file" {...register('image1')} />
       </div>
 

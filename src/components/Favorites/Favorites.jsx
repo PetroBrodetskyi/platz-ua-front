@@ -17,7 +17,7 @@ const Favorites = () => {
     }
   }, [dispatch, products.length]);
 
-  const favoriteProducts = products.filter(product => favorites.includes(product._id));
+  const favoriteProducts = products.filter(product => favorites.includes(product._id)).reverse();
 
   const handleRemoveFromFavorites = (productId) => {
     console.log('Remove product with ID:', productId);

@@ -11,7 +11,7 @@ const initialState = {
 
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
   const response = await axios.get('https://platz-ua-back.vercel.app/api/products/public');
-  return response.data;
+  return response.data.reverse();;
 });
 
 export const fetchExchangeRate = createAsyncThunk('products/fetchExchangeRate', async () => {
