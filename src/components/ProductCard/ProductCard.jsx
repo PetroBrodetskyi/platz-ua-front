@@ -6,10 +6,11 @@ import { toggleFavorite } from '../../redux/features/favoritesSlice';
 import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
 import scss from './ProductCard.module.scss';
+import PlzCity from './PlzCity/PlzCity';
 
 const ProductCard = () => {
   const dispatch = useDispatch();
-  const { products, exchangeRate, loading } = useSelector((state) => state.products);
+  const { products, exchangeRate } = useSelector((state) => state.products);
   const favorites = useSelector((state) => state.favorites.items);
 
   useEffect(() => {
@@ -39,11 +40,18 @@ const ProductCard = () => {
                 <p>{product.description}</p>
               </div>
               <div>
-                <p>{product.condition}</p>
+                <PlzCity
+                  plz={product.PLZ}
+                  city={product.city}
+                />
+              </div>
+              <div>
                 {exchangeRate !== null && (
                   <CartPrice 
+                    
+                    condition={product.condition}
                     price={product.price} 
-                    addedDate={product.addedDate} 
+                    addedDate={product.createdAt} 
                     exchangeRate={exchangeRate} 
                   />
                 )}
