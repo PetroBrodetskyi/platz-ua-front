@@ -17,10 +17,12 @@ const Favorites = () => {
     }
   }, [dispatch, products.length]);
 
-  const favoriteProducts = products.filter(product => favorites.includes(product._id)).reverse();
+  const favoriteProducts = favorites.map(favId => 
+    products.find(product => product._id === favId)
+  ).filter(product => product !== undefined).reverse();
 
   const handleRemoveFromFavorites = (productId) => {
-    console.log('Remove product with ID:', productId);
+    console.log('Видалення товару з ID:', productId);
     dispatch(toggleFavorite(productId));
   };
 
@@ -35,6 +37,8 @@ const Favorites = () => {
             <li key={product._id} className={scss.favoriteItem}>
               <h2>{product.name}</h2>
               <p>{product.description}</p>
+              <p>{product.PLZ}</p>
+              <p>{product.city}</p>
               <img src={product.image1} alt={product.name} className={scss.productImage} />
               <div>
                 <p>Ціна: {product.price}</p>
