@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import scss from './Header.module.scss';
+import { FaRegUser } from "react-icons/fa6";
 import { PiShoppingCartBold, PiSignInBold } from "react-icons/pi";
 import { MdOutlineFavoriteBorder, MdOutlineDirectionsRun } from 'react-icons/md';
 import SearchLocation from '../SearchLocation/SearchLocation';
@@ -13,11 +14,15 @@ const Header = ({ onClick }) => {
         <Logo />
         <SearchLocation />
         <div className={scss.userMenu}>
+          <NavLink to="/user">
+            <button type="button" className={scss.userButton} onClick={onClick}>
+              <FaRegUser />  
+            </button>
+          </NavLink>
           <NavLink to="/login">
             <button type="button" className={scss.loginButton} onClick={onClick}>
               <MdOutlineDirectionsRun />  
               <PiSignInBold />
-              
             </button>
           </NavLink>
           <div className={scss.iconsFlex}>

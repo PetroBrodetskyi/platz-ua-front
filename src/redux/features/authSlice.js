@@ -12,7 +12,25 @@ export const register = createAsyncThunk('auth/register', async (credentials) =>
 });
 
 export const fetchUserById = createAsyncThunk('auth/fetchUserById', async (userId) => {
+  if (!userId) {
+    console.error("User ID is missing");
+    throw new Error("User ID is required");
+  }
+  console.log('Fetching user with ID:', userId);
   const response = await axios.get(`https://platz-ua-back.vercel.app/api/users/${userId}`);
+  console.log('User data:', response.data);
+  return response.data;
+});
+
+
+export const updateUserDetails = createAsyncThunk('auth/updateUserDetails', async (formData, { getState }) => {
+  const { auth } = getState();
+  const response = await axios.patch(`https://platz-ua-back.vercel.app/api/users/${auth.user._id}`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${auth.token}`,
+    },
+  });
   return response.data;
 });
 
@@ -74,6 +92,18 @@ const authSlice = createSlice({
         state.owner = action.payload;
       })
       .addCase(fetchUserById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(updateUserDetails.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateUserDetails.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(updateUserDetails.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
