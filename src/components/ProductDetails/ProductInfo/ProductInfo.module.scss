@@ -1,0 +1,39 @@
+@import 'src/styles/mixins';
+
+$gap-desktop: 40px;
+$gap-tablet: 12px;
+$gap-mobile: 8px;
+
+.details {
+    display: flex;
+    flex-direction: column;
+    gap: $gap-mobile;
+
+    @media (min-width: $tablet) {
+        gap: $gap-tablet;
+        flex: 1;
+    }
+
+    @media (min-width: $desktop) {
+        gap: $gap-desktop;
+    }
+
+    .namePrice {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+
+        @media (min-width: $mobile) {
+            flex-direction: row;
+        }
+
+        h2 {
+            margin: 0;
+        }
+
+        .priceContainer {
+            display: flex;
+            gap: 10px;
+        }
+    }
+}

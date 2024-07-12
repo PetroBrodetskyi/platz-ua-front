@@ -6,10 +6,7 @@ $productDetail-padding-mobile: 20px;
 
 $gap-desktop: 40px;
 $gap-tablet: 12px;
-$gap-mobile: 8px;
-
-$product-image-tablet-width: 400px;
-$product-image-desktop-width: 600px;
+$gap-mobile: 10px;
 
 .productDetails {
     background-color: var(--light-bg);
@@ -29,59 +26,9 @@ $product-image-desktop-width: 600px;
         gap: $gap-desktop;
     }
 
-    .images {
+    .userProduct {
         display: flex;
         flex-direction: column;
-        gap: $gap-mobile;
-
-        @media (min-width: $tablet) {
-            gap: $gap-tablet;
-            width: 100%;
-            max-width: $product-image-tablet-width;
-        }
-
-        @media (min-width: $desktop) {
-            gap: $gap-desktop;
-            max-width: $product-image-desktop-width;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-    }
-
-    .details {
-        display: flex;
-        flex-direction: column;
-        gap: $gap-mobile;
-
-        @media (min-width: $tablet) {
-            gap: $gap-tablet;
-            flex: 1;
-        }
-
-        @media (min-width: $desktop) {
-            gap: $gap-desktop;
-        }
-
-        .namePrice {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            @media (min-width: $mobile) {
-                flex-direction: row;
-            }
-
-            h2 {
-                margin: 0;
-            }
-
-            .priceContainer {
-                display: flex;
-                gap: 10px;
-            }
-        }
+        gap: 12px;
     }
 }
