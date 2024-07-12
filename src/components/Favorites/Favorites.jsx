@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchProducts } from '../../redux/features/productsSlice';
 import { FaTrash } from 'react-icons/fa';
 import scss from './Favorites.module.scss';
@@ -9,7 +10,6 @@ const Favorites = () => {
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites.items);
   const products = useSelector((state) => state.products.products);
-  const loading = useSelector((state) => state.products.loading);
 
   useEffect(() => {
     if (products.length === 0) {
@@ -17,9 +17,10 @@ const Favorites = () => {
     }
   }, [dispatch, products.length]);
 
-  const favoriteProducts = favorites.map(favId => 
-    products.find(product => product._id === favId)
-  ).filter(product => product !== undefined).reverse();
+  const favoriteProducts = favorites
+    .map(favId => products.find(product => product._id === favId))
+    .filter(product => product !== undefined)
+    .reverse();
 
   const handleRemoveFromFavorites = (productId) => {
     console.log('Видалення товару з ID:', productId);
@@ -35,11 +36,13 @@ const Favorites = () => {
         <ul>
           {favoriteProducts.map((product) => (
             <li key={product._id} className={scss.favoriteItem}>
-              <h2>{product.name}</h2>
+              <Link to={`/product/${product._id}`}>
+                <h2>{product.name}</h2>
+                <img src={product.image1} alt={product.name} className={scss.productImage} />
+              </Link>
               <p>{product.description}</p>
               <p>{product.PLZ}</p>
               <p>{product.city}</p>
-              <img src={product.image1} alt={product.name} className={scss.productImage} />
               <div>
                 <p>Ціна: {product.price}</p>
                 <p>Стан: {product.condition}</p>

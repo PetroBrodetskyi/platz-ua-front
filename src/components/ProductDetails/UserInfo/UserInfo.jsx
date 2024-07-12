@@ -10,7 +10,9 @@ const UserInfo = ({ owner }) => {
       <img src={owner.avatarURL} alt={owner.name} className={scss.avatar} />
       <div className={scss.details}>
         <p className={scss.name}>Ім'я: {owner.name}</p>
-        <p className={scss.phone}>Телефон: {owner.phone}</p>
+        <p className={scss.phone}>
+          Телефон: <a href={`tel:${owner.phone}`}>{owner.phone}</a>
+        </p>
       </div>
     </div>
   );

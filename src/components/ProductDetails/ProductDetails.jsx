@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import CreateCondition from '../ProductCard/CreateCondition/CreateCondition';
 import { fetchProducts, fetchExchangeRate } from '../../redux/features/productsSlice';
 import { fetchUserById } from '../../redux/features/authSlice';
 import scss from './ProductDetails.module.scss';
-import CartPrice from '../ProductCard/CartPrice/CartPrice';
-// import UserInfo from '../UserInfo/UserInfo';
+import ProductsGalery from './ProductsGalery/ProductsGalery';
+import ProductInfo from './ProductInfo/ProductInfo';
+import UserInfo from './UserInfo/UserInfo';
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -14,7 +14,7 @@ const ProductDetails = () => {
   const products = useSelector((state) => state.products.products);
   const exchangeRate = useSelector((state) => state.products.exchangeRate);
   const product = products.find((product) => product._id === productId);
-//   const owner = useSelector((state) => state.auth.owner);
+  const owner = useSelector((state) => state.auth.owner);
 
   useEffect(() => {
     if (!products.length) {
@@ -24,8 +24,9 @@ const ProductDetails = () => {
   }, [dispatch, products.length]);
 
   useEffect(() => {
-    if (product) {
-      dispatch(fetchUserById(product.ownerId));
+    if (product && product.owner) {
+      console.log("Fetching user with id:", product.owner);
+      dispatch(fetchUserById(product.owner));
     }
   }, [dispatch, product]);
 
@@ -35,26 +36,9 @@ const ProductDetails = () => {
 
   return (
     <div className={scss.productDetails}>
-      <div className={scss.images}>
-        {product.image1 && <img src={product.image1} alt={product.name} />}
-        {product.image2 && <img src={product.image2} alt={product.name} />}
-        {product.image3 && <img src={product.image3} alt={product.name} />}
-      </div>
-      <div className={scss.details}>
-        <div className={scss.namePrice}>
-          <h2>{product.name}</h2>
-          {exchangeRate !== null && (
-            <div className={scss.priceContainer}>
-              <CartPrice price={product.price} exchangeRate={exchangeRate} />
-            </div>
-          )}
-        </div>
-        <p>{product.description}</p>
-        <CreateCondition addedDate={product.createdAt} condition={product.condition} />
-        <p>PLZ: {product.PLZ}</p>
-        <p>Місто: {product.city}</p>
-      </div>
-      {/* <UserInfo owner={owner} /> */}
+      <ProductsGalery images={{ image1: product.image1, image2: product.image2, image3: product.image3 }} />
+      <ProductInfo product={product} exchangeRate={exchangeRate} />
+      <UserInfo owner={owner} />
     </div>
   );
 };
