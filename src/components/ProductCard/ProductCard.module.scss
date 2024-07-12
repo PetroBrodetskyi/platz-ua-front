@@ -9,7 +9,6 @@
     background-color: var(--white);
     padding: 16px;
     border: 1px solid var(--light-grey);
-    cursor: pointer;
     @include transition(box-shadow);
     margin-bottom: 16px;
     flex: 1 1 calc(50% - 16px);
@@ -44,6 +43,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            cursor: pointer;
         }
     }
 
