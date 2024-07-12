@@ -12,29 +12,32 @@ $gap-mobile: 8px;
     background-color: var(--light-bg);
     padding: $productDetail-padding-mobile;
     display: flex;
+    flex-direction: column;
     gap: $gap-mobile;
 
     @media (min-width: $tablet) {
+        flex-direction: row;
         padding: $productDetail-padding-tablet;
+        gap: $gap-tablet;
     }
 
     @media (min-width: $desktop) {
-        gap: $gap-desktop;
         padding: $productDetail-padding-desktop;
+        gap: $gap-desktop;
     }
 
     .images {
         display: flex;
+        flex-direction: column;
         gap: $gap-mobile;
 
         @media (min-width: $tablet) {
             gap: $gap-tablet;
+            width: 600px;
         }
 
         @media (min-width: $desktop) {
             gap: $gap-desktop;
-            flex-direction: column;
-            width: 600px;
         }
 
         img {
@@ -50,16 +53,21 @@ $gap-mobile: 8px;
 
         @media (min-width: $tablet) {
             gap: $gap-tablet;
+            flex: 1;
         }
 
         @media (min-width: $desktop) {
             gap: $gap-desktop;
-            flex: 1;
         }
 
         .namePrice {
             display: flex;
             justify-content: space-between;
+            align-items: center;
+
+            @media (min-width: $mobile) {
+                flex-direction: row;
+            }
 
             h2 {
                 margin: 0;
