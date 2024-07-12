@@ -1,4 +1,4 @@
-import scss from './ProductInfo.module.sxss';
+import scss from './ProductInfo.module.scss';
 import CreateCondition from '../../ProductCard/CreateCondition/CreateCondition';
 import CartPrice from '../../ProductCard/CartPrice/CartPrice';
 
