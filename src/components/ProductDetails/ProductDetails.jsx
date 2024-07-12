@@ -3,8 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import CreateCondition from '../ProductCard/CreateCondition/CreateCondition';
 import { fetchProducts, fetchExchangeRate } from '../../redux/features/productsSlice';
+import { fetchUserById } from '../../redux/features/authSlice';
 import scss from './ProductDetails.module.scss';
 import CartPrice from '../ProductCard/CartPrice/CartPrice';
+// import UserInfo from '../UserInfo/UserInfo';
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -12,6 +14,7 @@ const ProductDetails = () => {
   const products = useSelector((state) => state.products.products);
   const exchangeRate = useSelector((state) => state.products.exchangeRate);
   const product = products.find((product) => product._id === productId);
+//   const owner = useSelector((state) => state.auth.owner);
 
   useEffect(() => {
     if (!products.length) {
@@ -19,6 +22,12 @@ const ProductDetails = () => {
       dispatch(fetchExchangeRate());
     }
   }, [dispatch, products.length]);
+
+  useEffect(() => {
+    if (product) {
+      dispatch(fetchUserById(product.ownerId));
+    }
+  }, [dispatch, product]);
 
   if (!product) {
     return <p>Продукт не знайдено</p>;
@@ -45,6 +54,7 @@ const ProductDetails = () => {
         <p>PLZ: {product.PLZ}</p>
         <p>Місто: {product.city}</p>
       </div>
+      {/* <UserInfo owner={owner} /> */}
     </div>
   );
 };

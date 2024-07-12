@@ -11,8 +11,14 @@ export const register = createAsyncThunk('auth/register', async (credentials) =>
   return response.data;
 });
 
+export const fetchUserById = createAsyncThunk('auth/fetchUserById', async (userId) => {
+  const response = await axios.get(`https://platz-ua-back.vercel.app/api/users/${userId}`);
+  return response.data;
+});
+
 const initialState = {
   user: null,
+  owner: null,
   token: localStorage.getItem('token') || null,
   loading: false,
   error: null,
@@ -24,6 +30,7 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.user = null;
+      state.owner = null;
       state.token = null;
       localStorage.removeItem('token');
     },
@@ -55,6 +62,18 @@ const authSlice = createSlice({
         localStorage.setItem('token', action.payload.token);
       })
       .addCase(register.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(fetchUserById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchUserById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.owner = action.payload;
+      })
+      .addCase(fetchUserById.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
