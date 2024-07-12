@@ -11,6 +11,7 @@ const LoginPage = lazy(() => import('../../pages/LoginPage/LoginPage'));
 const RegisterPage = lazy(() => import('../../pages/RegisterPage/RegisterPage'));
 const AddProductPage = lazy(() => import('../../pages/AddProductPage/AddProductPage'));
 const FavoritesPage = lazy(() => import('../../pages/FavoritesPage/FavoritesPage'));
+const ProductDetailPage = lazy(() => import('../../pages/ProductDetailPage/ProductDetailPage'));
 
 const AppBar = () => {
   return (
@@ -25,7 +26,8 @@ const AppBar = () => {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/create" element={<AddProductPage />} />
-              <Route path="/favorites" element={<FavoritesPage />} /> {/* Шлях повинен бути '/favorites' */}
+              <Route path="/favorites" element={<FavoritesPage />} />
+              <Route path="/product/:productId" element={<ProductDetailPage />} />
             </Routes>
           </Suspense>
         </main>

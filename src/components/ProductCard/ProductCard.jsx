@@ -1,27 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
 import { fetchProducts, fetchExchangeRate } from '../../redux/features/productsSlice';
 import { toggleFavorite } from '../../redux/features/favoritesSlice';
+import { useNavigate } from 'react-router-dom';
 import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
 import scss from './ProductCard.module.scss';
 import PlzCity from './PlzCity/PlzCity';
+import CreateCondition from './CreateCondition/CreateCondition';
 
 const ProductCard = () => {
   const dispatch = useDispatch();
   const { products, exchangeRate } = useSelector((state) => state.products);
   const favorites = useSelector((state) => state.favorites.items);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(fetchExchangeRate());
   }, [dispatch]);
 
+  const handleProductClick = (productId) => {
+    navigate(`/product/${productId}`);
+  };
+
   return (
     <ul className={scss.list}>
       {products.map((product) => (
-        <li key={product._id} className={scss.productItem}>
+        <li key={product._id} className={scss.productItem} onClick={() => handleProductClick(product._id)}>
           <div className={scss.product}>
             <div className={scss.productImage}>
               <img
@@ -39,22 +45,27 @@ const ProductCard = () => {
                 />
                 <p>{product.description}</p>
               </div>
-              <div>
-                <PlzCity
-                  plz={product.PLZ}
-                  city={product.city}
-                />
-              </div>
-              <div>
-                {exchangeRate !== null && (
-                  <CartPrice 
-                    
-                    condition={product.condition}
-                    price={product.price} 
-                    addedDate={product.createdAt} 
-                    exchangeRate={exchangeRate} 
+              <div className={scss.dateCart}>
+                <div>
+                    <CreateCondition
+                      addedDate={product.createdAt}
+                      condition={product.condition}
+                    />
+                </div>
+                <div>
+                  <PlzCity
+                    plz={product.PLZ}
+                    city={product.city}
                   />
-                )}
+                </div>
+                <div>
+                    {exchangeRate !== null && (
+                      <CartPrice 
+                        price={product.price} 
+                        exchangeRate={exchangeRate} 
+                      />
+                    )}
+                </div>
               </div>
             </div>
           </div>

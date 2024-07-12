@@ -1,28 +1,20 @@
 @import 'src/styles/mixins';
 
-.dateCartPrice {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.cartPriceContainer {
 
     .cartPrice {
-        display: flex;
-        align-items: center;
-    }
-
-    .cartIcon {
-        cursor: pointer;
-        margin-right: 8px;
-    }
-
-    .priceContainer {
         display: flex;
         flex-direction: column;
         align-items: flex-end;
     }
 
+    .priceContainer {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
     .priceInUAH {
-        color: var(--black);
         font-size: 16px;
     }
 
