@@ -36,9 +36,7 @@ const ProductDetails = () => {
           <h2>{product.name}</h2>
           {exchangeRate !== null && (
             <div className={scss.priceContainer}>
-              {exchangeRate !== null && (
-            <CartPrice price={product.price} exchangeRate={exchangeRate} />
-            )}
+              <CartPrice price={product.price} exchangeRate={exchangeRate} />
             </div>
           )}
         </div>

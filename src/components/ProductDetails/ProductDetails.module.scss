@@ -8,6 +8,9 @@ $gap-desktop: 40px;
 $gap-tablet: 12px;
 $gap-mobile: 8px;
 
+$product-image-tablet-width: 400px;
+$product-image-desktop-width: 600px;
+
 .productDetails {
     background-color: var(--light-bg);
     padding: $productDetail-padding-mobile;
@@ -33,11 +36,13 @@ $gap-mobile: 8px;
 
         @media (min-width: $tablet) {
             gap: $gap-tablet;
-            width: 600px;
+            width: 100%;
+            max-width: $product-image-tablet-width;
         }
 
         @media (min-width: $desktop) {
             gap: $gap-desktop;
+            max-width: $product-image-desktop-width;
         }
 
         img {
