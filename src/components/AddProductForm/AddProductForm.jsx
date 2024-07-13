@@ -30,60 +30,62 @@ const AddProductForm = () => {
   }, [selectedCategory, categories]);
 
   const onSubmit = async (data) => {
-    console.log('Форма надсилається');
-    console.log('Дані форми:', data);
-    console.log('Token:', token);
+  console.log('Форма надсилається');
+  console.log('Дані форми:', data);
+  console.log('Token:', token);
 
-    const formData = new FormData();
-    formData.append('name', data.name);
-    formData.append('price', data.price);
-    formData.append('description', data.description);
-    formData.append('condition', data.condition);
-    formData.append('PLZ', data.PLZ);
-    formData.append('city', data.city);
+  const formData = new FormData();
+  formData.append('name', data.name);
+  formData.append('price', data.price);
+  formData.append('description', data.description);
+  formData.append('condition', data.condition);
+  formData.append('PLZ', data.PLZ);
+  formData.append('city', data.city);
 
-    if (data.image1 && data.image1.length > 0) {
-      formData.append('image', data.image1[0]);
-    }
-    if (data.image2 && data.image2.length > 0) {
-      formData.append('image', data.image2[0]);
-    }
-    if (data.image3 && data.image3.length > 0) {
-      formData.append('image', data.image3[0]);
-    }
-    if (data.image4 && data.image4.length > 0) {
-      formData.append('image', data.image4[0]);
-    }
+  if (data.image1 && data.image1.length > 0) {
+    formData.append('image', data.image1[0]);
+  }
+  if (data.image2 && data.image2.length > 0) {
+    formData.append('image', data.image2[0]);
+  }
+  if (data.image3 && data.image3.length > 0) {
+    formData.append('image', data.image3[0]);
+  }
+  if (data.image4 && data.image4.length > 0) {
+    formData.append('image', data.image4[0]);
+  }
 
-    formData.append('category', data.category);
-    formData.append('subcategory1', data.subcategory1);
-    formData.append('subcategory2', data.subcategory2);
-    formData.append('subcategory3', data.subcategory3);
+  formData.append('category', data.category);
+  formData.append('subcategory1', data.subcategory1);
+  formData.append('subcategory2', data.subcategory2);
+  formData.append('subcategory3', data.subcategory3);
 
-    try {
-      const response = await axios.post('http://localhost:5000/api/products', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`
-        }
-      });
-      console.log('Product created:', response.data);
-      navigate('/');
-    } catch (error) {
-      console.error('Error creating product:', error);
-      if (error.response) {
-        console.error('Response data:', error.response.data);
-        console.error('Response status:', error.response.status);
-        console.error('Response headers:', error.response.headers);
+  try {
+    const response = await axios.post('http://localhost:5000/api/products', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`
       }
+    });
+    console.log('Product created:', response.data);
+    navigate('/');
+  } catch (error) {
+    console.error('Error creating product:', error);
+    if (error.response) {
+      console.error('Response data:', error.response.data);
+      console.error('Response status:', error.response.status);
+      console.error('Response headers:', error.response.headers);
     }
-  };
+  }
+};
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={scss.form}>
       <div className={scss.formGroup}>
         <label htmlFor="name">Назва:</label>
         <input id="name" type="text" {...register('name', { required: true })} placeholder='Назва' autoComplete="on" />
+
         {errors.name && <span>Це поле обов'язкове</span>}
       </div>
 
