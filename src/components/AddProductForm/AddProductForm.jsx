@@ -50,6 +50,9 @@ const AddProductForm = () => {
   if (data.image3 && data.image3.length > 0) {
     formData.append('image', data.image3[0]);
   }
+  if (data.image4 && data.image4.length > 0) {
+    formData.append('image', data.image4[0]);
+  }
 
   formData.append('category', data.category);
   formData.append('subcategory1', data.subcategory1);
@@ -80,24 +83,24 @@ const AddProductForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className={scss.form}>
       <div className={scss.formGroup}>
         <label htmlFor="name">Назва:</label>
-        <input id="name" type="text" {...register('name', { required: true })} autoComplete="off" />
+        <input id="name" type="text" {...register('name', { required: true })} placeholder='Назва' autoComplete="on" />
+
         {errors.name && <span>Це поле обов'язкове</span>}
       </div>
 
       <div className={scss.formGroup}>
         <label htmlFor="price">Ціна:</label>
-        <input id="price" type="text" {...register('price', { required: true })} autoComplete="off" />
+        <input id="price" type="text" {...register('price', { required: true })} placeholder='Ціна €' autoComplete="on" />
         {errors.price && <span>Це поле обов'язкове</span>}
       </div>
 
       <div className={scss.formGroup}>
         <label htmlFor="description">Опис:</label>
-        <textarea id="description" {...register('description', { required: true })} autoComplete="off"></textarea>
+        <textarea id="description" {...register('description', { required: true })} placeholder='Опис' autoComplete="off"></textarea>
         {errors.description && <span>Це поле обов'язкове</span>}
       </div>
 
       <div className={scss.formGroup}>
-        <span>Стан:</span>
         <div>
           <label htmlFor="new">
             <input type="radio" id="new" value="новий" {...register('condition', { required: true })} />
@@ -115,29 +118,82 @@ const AddProductForm = () => {
 
       <div className={scss.formGroup}>
         <label htmlFor="PLZ">Поштовий індекс:</label>
-        <input id="PLZ" type="text" {...register('PLZ', { required: true })} autoComplete="postal-code" />
+        <input id="PLZ" type="text" {...register('PLZ', { required: true })} placeholder='PLZ' autoComplete="postal-code" />
         {errors.PLZ && <span>Це поле обов'язкове</span>}
       </div>
 
       <div className={scss.formGroup}>
         <label htmlFor="city">Місто:</label>
-        <input id="city" type="text" {...register('city', { required: true })} autoComplete="address-level2" />
+        <input id="city" type="text" {...register('city', { required: true })} placeholder='Місто' autoComplete="address-level2" />
         {errors.city && <span>Це поле обов'язкове</span>}
       </div>
 
       <div className={scss.formGroup}>
-        <label htmlFor="image">Зображення 1:</label>
-        <input id="image1" type="file" {...register('image1')} />
+        <label htmlFor="image1">Зображення 1:</label>
+        <input
+          id="image1"
+          type="file"
+          {...register('image1')}
+          className={scss.hiddenInput}
+        />
+        <button
+          type="button"
+          className={scss.customButton}
+          onClick={() => document.getElementById('image1').click()}
+        >
+          Завантажити Зображення 1
+        </button>
       </div>
 
       <div className={scss.formGroup}>
         <label htmlFor="image2">Зображення 2:</label>
-        <input id="image2" type="file" {...register('image2')} />
+        <input
+          id="image2"
+          type="file"
+          {...register('image2')}
+          className={scss.hiddenInput}
+        />
+        <button
+          type="button"
+          className={scss.customButton}
+          onClick={() => document.getElementById('image2').click()}
+        >
+          Завантажити Зображення 2
+        </button>
       </div>
 
       <div className={scss.formGroup}>
         <label htmlFor="image3">Зображення 3:</label>
-        <input id="image3" type="file" {...register('image3')} />
+        <input
+          id="image3"
+          type="file"
+          {...register('image3')}
+          className={scss.hiddenInput}
+        />
+        <button
+          type="button"
+          className={scss.customButton}
+          onClick={() => document.getElementById('image3').click()}
+        >
+          Завантажити Зображення 3
+        </button>
+      </div>
+
+      <div className={scss.formGroup}>
+        <label htmlFor="image4">Зображення 4:</label>
+        <input
+          id="image4"
+          type="file"
+          {...register('image4')}
+          className={scss.hiddenInput}
+        />
+        <button
+          type="button"
+          className={scss.customButton}
+          onClick={() => document.getElementById('image4').click()}
+        >
+          Завантажити Зображення 4
+        </button>
       </div>
 
       <div className={scss.formGroup}>

@@ -68,11 +68,30 @@ $form-font-size-mobile: 12px;
         textarea {
             height: 300px;
         }
+    }
 
-        span {
-            color: red;
-            font-size: $form-font-size-mobile;
+    .hiddenInput {
+        display: none;
+    }
+
+    .customButton {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: #0056b3;
         }
     }
 
+    .error {
+        color: red;
+        font-size: 14px;
+    }
 }

@@ -36,7 +36,7 @@ const ProductDetails = () => {
 
   return (
     <div className={scss.productDetails}>
-      <ProductsGalery images={{ image1: product.image1, image2: product.image2, image3: product.image3 }} />
+      <ProductsGalery images={{ image1: product.image1, image2: product.image2, image3: product.image3, image4: product.image4 }} />
       <ProductInfo product={product} exchangeRate={exchangeRate} />
       <UserInfo owner={owner} />
     </div>
