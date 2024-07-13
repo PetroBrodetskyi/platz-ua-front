@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import SubmitButton from '../SubmitButton/SubmitButton';
 import scss from './AddProductForm.module.scss';
 import productsData from '../Categories/products.json';
+import ImageButton from './ImageButton/ImageButton';
 
 const AddProductForm = () => {
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
@@ -29,62 +30,60 @@ const AddProductForm = () => {
   }, [selectedCategory, categories]);
 
   const onSubmit = async (data) => {
-  console.log('Форма надсилається');
-  console.log('Дані форми:', data);
-  console.log('Token:', token);
+    console.log('Форма надсилається');
+    console.log('Дані форми:', data);
+    console.log('Token:', token);
 
-  const formData = new FormData();
-  formData.append('name', data.name);
-  formData.append('price', data.price);
-  formData.append('description', data.description);
-  formData.append('condition', data.condition);
-  formData.append('PLZ', data.PLZ);
-  formData.append('city', data.city);
+    const formData = new FormData();
+    formData.append('name', data.name);
+    formData.append('price', data.price);
+    formData.append('description', data.description);
+    formData.append('condition', data.condition);
+    formData.append('PLZ', data.PLZ);
+    formData.append('city', data.city);
 
-  if (data.image1 && data.image1.length > 0) {
-    formData.append('image', data.image1[0]);
-  }
-  if (data.image2 && data.image2.length > 0) {
-    formData.append('image', data.image2[0]);
-  }
-  if (data.image3 && data.image3.length > 0) {
-    formData.append('image', data.image3[0]);
-  }
-  if (data.image4 && data.image4.length > 0) {
-    formData.append('image', data.image4[0]);
-  }
-
-  formData.append('category', data.category);
-  formData.append('subcategory1', data.subcategory1);
-  formData.append('subcategory2', data.subcategory2);
-  formData.append('subcategory3', data.subcategory3);
-
-  try {
-    const response = await axios.post('http://localhost:5000/api/products', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${token}`
-      }
-    });
-    console.log('Product created:', response.data);
-    navigate('/');
-  } catch (error) {
-    console.error('Error creating product:', error);
-    if (error.response) {
-      console.error('Response data:', error.response.data);
-      console.error('Response status:', error.response.status);
-      console.error('Response headers:', error.response.headers);
+    if (data.image1 && data.image1.length > 0) {
+      formData.append('image', data.image1[0]);
     }
-  }
-};
+    if (data.image2 && data.image2.length > 0) {
+      formData.append('image', data.image2[0]);
+    }
+    if (data.image3 && data.image3.length > 0) {
+      formData.append('image', data.image3[0]);
+    }
+    if (data.image4 && data.image4.length > 0) {
+      formData.append('image', data.image4[0]);
+    }
 
+    formData.append('category', data.category);
+    formData.append('subcategory1', data.subcategory1);
+    formData.append('subcategory2', data.subcategory2);
+    formData.append('subcategory3', data.subcategory3);
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/products', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log('Product created:', response.data);
+      navigate('/');
+    } catch (error) {
+      console.error('Error creating product:', error);
+      if (error.response) {
+        console.error('Response data:', error.response.data);
+        console.error('Response status:', error.response.status);
+        console.error('Response headers:', error.response.headers);
+      }
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={scss.form}>
       <div className={scss.formGroup}>
         <label htmlFor="name">Назва:</label>
         <input id="name" type="text" {...register('name', { required: true })} placeholder='Назва' autoComplete="on" />
-
         {errors.name && <span>Це поле обов'язкове</span>}
       </div>
 
@@ -128,72 +127,11 @@ const AddProductForm = () => {
         {errors.city && <span>Це поле обов'язкове</span>}
       </div>
 
-      <div className={scss.formGroup}>
-        <label htmlFor="image1">Зображення 1:</label>
-        <input
-          id="image1"
-          type="file"
-          {...register('image1')}
-          className={scss.hiddenInput}
-        />
-        <button
-          type="button"
-          className={scss.customButton}
-          onClick={() => document.getElementById('image1').click()}
-        >
-          Завантажити Зображення 1
-        </button>
-      </div>
-
-      <div className={scss.formGroup}>
-        <label htmlFor="image2">Зображення 2:</label>
-        <input
-          id="image2"
-          type="file"
-          {...register('image2')}
-          className={scss.hiddenInput}
-        />
-        <button
-          type="button"
-          className={scss.customButton}
-          onClick={() => document.getElementById('image2').click()}
-        >
-          Завантажити Зображення 2
-        </button>
-      </div>
-
-      <div className={scss.formGroup}>
-        <label htmlFor="image3">Зображення 3:</label>
-        <input
-          id="image3"
-          type="file"
-          {...register('image3')}
-          className={scss.hiddenInput}
-        />
-        <button
-          type="button"
-          className={scss.customButton}
-          onClick={() => document.getElementById('image3').click()}
-        >
-          Завантажити Зображення 3
-        </button>
-      </div>
-
-      <div className={scss.formGroup}>
-        <label htmlFor="image4">Зображення 4:</label>
-        <input
-          id="image4"
-          type="file"
-          {...register('image4')}
-          className={scss.hiddenInput}
-        />
-        <button
-          type="button"
-          className={scss.customButton}
-          onClick={() => document.getElementById('image4').click()}
-        >
-          Завантажити Зображення 4
-        </button>
+      <div className={scss.imageContainer}>
+        <ImageButton id="image1" register={register} />
+        <ImageButton id="image2" register={register} />
+        <ImageButton id="image3" register={register} />
+        <ImageButton id="image4" register={register} />
       </div>
 
       <div className={scss.formGroup}>
