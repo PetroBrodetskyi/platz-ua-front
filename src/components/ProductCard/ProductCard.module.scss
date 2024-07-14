@@ -13,6 +13,7 @@
     padding: 8px;
     background-color: var(--white);
     border: 1px solid var(--light-grey);
+    min-width: 192px;
 
     @include transition(box-shadow);
     box-sizing: border-box;
@@ -38,6 +39,18 @@
     align-items: flex-end;
 }
 
+.plzCity {
+    display: none;
+
+    @media (min-width: $tablet) {
+            visibility: visible;
+        }
+    
+        @media (min-width: $desktop) {
+            visibility: visible;
+        }
+}
+
 .product {
     display: flex;
     flex: 1;
@@ -46,22 +59,22 @@
 
     @media (min-width: $tablet) {
         gap: 16px;
-        flex-direction: row;
+        flex-direction: column;
     }
 
     .productImage {
         flex-shrink: 0;
-        width: 100%;
-        height: 200px;
+        width: auto;
+        height: 170px;
 
         @media (min-width: $tablet) {
-            width: 200px;
-            height: 200px;
+            width: auto;
+            height: 240px;
         }
 
         @media (min-width: $desktop) {
-            width: 200px;
-            height: 200px;
+            width: auto;
+            height: 280px;
         }
 
         img {
@@ -77,9 +90,20 @@
         flex-direction: column;
         justify-content: space-between;
         flex: 1;
+    }
+
+    .description {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100px;
 
         @media (min-width: $tablet) {
-            padding-left: 16px;
+            max-width: 100px;
+        }
+        
+        @media (min-width: $desktop) {
+            max-width: 280px;
         }
     }
 }

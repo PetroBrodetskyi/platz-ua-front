@@ -7,7 +7,11 @@
 
     .title {
         cursor: pointer;
-
+        font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 120px;
     }
 
     .favoriteIcon {

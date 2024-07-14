@@ -24,18 +24,18 @@ const Header = ({ onClick }) => {
               <MdOutlineDirectionsRun />  
             </button>
           </NavLink>
-            <dbutton type="button" className={scss.icon} onClick={onClick}>
+            <button type="button" className={scss.icon} onClick={onClick}>
               <NavLink to="/cart">
                 <PiShoppingCartBold />
-              </NavLink>
-            </dbutton>
-            <button type="button" className={scss.icon} onClick={onClick}>
-              <NavLink to="/favorites">
-                <MdOutlineFavoriteBorder/>
-              </NavLink>
+          </NavLink>
             </button>
-          </div>
+            <button type="button" className={scss.icon} onClick={onClick}>
+          <NavLink to="/favorites">
+                <MdOutlineFavoriteBorder/>
+          </NavLink>
+            </button>
         </div>
+      </div>
       {/* <Navbar /> */}
     </header>
   );

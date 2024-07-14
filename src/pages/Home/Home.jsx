@@ -4,11 +4,11 @@ import CreateAdButton from '../../components/CreateAdButton/CreateAdButton';
 
 const Home = () => {
   return (
-    <main>
+    <div>
       <Categories />
       <ProductList />
       <CreateAdButton />
-    </main>
+    </div>
   );
 };
 

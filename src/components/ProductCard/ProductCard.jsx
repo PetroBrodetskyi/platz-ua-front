@@ -44,7 +44,7 @@ const ProductCard = () => {
                   onFavoriteToggle={() => dispatch(toggleFavorite(product._id))}
                   isFavorite={favorites.includes(product._id)}
                 />
-                <p>{product.description}</p>
+                <p className={scss.description}>{product.description}</p>
               </div>
               <div className={scss.dateCart}>
                 <div>
@@ -53,7 +53,7 @@ const ProductCard = () => {
                       condition={product.condition}
                     />
                 </div>
-                <div>
+                <div className={scss.plzCity}>
                   <PlzCity
                     plz={product.PLZ}
                     city={product.city}
