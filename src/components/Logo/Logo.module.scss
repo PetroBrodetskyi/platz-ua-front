@@ -15,13 +15,12 @@
     display: flex;
     align-items: center;
     background-color: #fff;
-    padding: 0 32px;
 
     @media (max-width: $tablet) {
         font-size: 38px;
     }
 
-    @media (max-width: $mobile) {
+    @media (min-width: $desktop) {
         font-size: 42px;
     }
 

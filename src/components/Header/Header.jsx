@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import scss from './Header.module.scss';
 import { FaRegUser } from "react-icons/fa6";
-import { PiShoppingCartBold, PiSignInBold } from "react-icons/pi";
+import { PiShoppingCartBold } from "react-icons/pi";
 import { MdOutlineFavoriteBorder, MdOutlineDirectionsRun } from 'react-icons/md';
 import SearchLocation from '../SearchLocation/SearchLocation';
 import Logo from '../Logo/Logo';
@@ -15,30 +15,27 @@ const Header = ({ onClick }) => {
         <SearchLocation />
         <div className={scss.userMenu}>
           <NavLink to="/user">
-            <button type="button" className={scss.userButton} onClick={onClick}>
+            <button type="button" className={scss.icon} onClick={onClick}>
               <FaRegUser />  
             </button>
           </NavLink>
           <NavLink to="/login">
-            <button type="button" className={scss.loginButton} onClick={onClick}>
+            <button type="button" className={scss.icon} onClick={onClick}>
               <MdOutlineDirectionsRun />  
-              <PiSignInBold />
             </button>
           </NavLink>
-          <div className={scss.iconsFlex}>
-            <div className={scss.cartIcon}>
+            <dbutton type="button" className={scss.icon} onClick={onClick}>
               <NavLink to="/cart">
-                <div><PiShoppingCartBold color='rgba(13, 13, 14, 0.804)'/></div>
+                <PiShoppingCartBold />
               </NavLink>
-            </div>
-            <div className={scss.favoriteIcon}>
+            </dbutton>
+            <button type="button" className={scss.icon} onClick={onClick}>
               <NavLink to="/favorites">
-                <div><MdOutlineFavoriteBorder color='rgba(13, 13, 14, 0.804)'/></div>
+                <MdOutlineFavoriteBorder/>
               </NavLink>
-            </div>
+            </button>
           </div>
         </div>
-      </div>
       {/* <Navbar /> */}
     </header>
   );
