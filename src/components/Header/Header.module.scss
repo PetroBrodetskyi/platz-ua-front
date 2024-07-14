@@ -21,7 +21,6 @@
         justify-content: space-between;
         width: 100%;
 
-
         @media (max-width: $tablet) {
             flex-direction: column;
         }
@@ -90,4 +89,33 @@
             align-items: center;
         }
     }
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .avatar {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+    }
+
+    span {
+        font-size: 14px;
+        font-weight: 500;
+    }
+}
+
+.iconUserMobile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.iconUserDesktop {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
