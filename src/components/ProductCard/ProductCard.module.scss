@@ -10,9 +10,10 @@
 
 .productItem {
     display: flex;
-    background-color: var(--white);
     padding: 8px;
+    background-color: var(--white);
     border: 1px solid var(--light-grey);
+
     @include transition(box-shadow);
     box-sizing: border-box;
     flex: 1 1 calc(50% - 4px);
@@ -75,7 +76,6 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        padding-left: 8px;
         flex: 1;
 
         @media (min-width: $tablet) {

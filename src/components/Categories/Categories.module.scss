@@ -2,11 +2,11 @@
 
 $categories-padding-desktop: 40px;
 $categories-padding-tablet: 30px;
-$categories-padding-mobile: 20px;
+$categories-padding-mobile: 10px;
 
-$gap-desktop: 16px;
-$gap-tablet: 12px;
-$gap-mobile: 8px;
+$gap-desktop: 12px;
+$gap-tablet: 8px;
+$gap-mobile: 4px;
 
 .categories {
     background-color: var(--light-bg);
@@ -22,10 +22,6 @@ $gap-mobile: 8px;
 
     .container {
         position: relative;
-
-        h2 {
-            margin-bottom: 16px;
-        }
 
         .toggleButton {
             position: absolute;

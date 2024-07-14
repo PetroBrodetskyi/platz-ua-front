@@ -27,7 +27,7 @@ const ProductCard = () => {
   return (
     <ul className={scss.list}>
       {products.map((product) => (
-        <li key={product._id} className={scss.productItem}>
+        <li key={product._id} className={`${scss.productItem} ${product.isSquare ? 'square' : ''}`}>
           <div className={scss.product}>
             <div className={scss.productImage}>
               <img

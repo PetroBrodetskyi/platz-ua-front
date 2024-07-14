@@ -24,97 +24,92 @@ $product-list-padding-mobile: 10px;
         ul {
             list-style: none;
             padding: 0;
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
             gap: 16px;
-            justify-content: space-between;
+            grid-template-columns: repeat(3, 1fr);
 
             @media (max-width: $desktop) {
                 gap: 12px;
+                grid-template-columns: repeat(2, 1fr);
             }
 
             @media (max-width: $tablet) {
                 gap: 8px;
-                justify-content: center;
+                grid-template-columns: repeat(2, 1fr);
             }
 
             @media (max-width: $mobile) {
                 gap: 8px;
-                justify-content: center;
+                grid-template-columns: repeat(2, 1fr);
             }
-        }
-    }
-}
 
-.productItem {
-    display: flex;
-    background-color: var(--white);
-    padding: 6px;
-    border: 1px solid var(--light-grey);
-    @include transition(box-shadow);
-    flex: 1 1 calc(33.333% - 16px);
-    box-sizing: border-box;
+            .productItem {
+                background-color: var(--white);
+                padding: 6px;
+                border: 1px solid var(--light-grey);
+                @include transition(box-shadow);
+                display: flex;
+                flex-direction: column;
 
-    &:hover {
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
+                &:hover {
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                }
 
-    @media (max-width: $desktop) {
-        flex: 1 1 calc(50% - 12px);
-    }
+                &.square {
+                    grid-column: span 2;
+                }
 
-    @media (max-width: $tablet) {
-        flex: 1 1 calc(50% - 8px);
-    }
+                .dateCart {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-end;
+                }
 
-    @media (max-width: $mobile) {
-        flex: 1 1 calc(50% - 8px);
-    }
-}
+                .product {
+                    display: flex;
+                    flex: 1;
+                    flex-direction: column;
 
-.dateCart {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-}
+                    @media (max-width: $tablet) {
+                        gap: 16px;
+                        flex-direction: column;
+                    }
 
-.product {
-    display: flex;
-    flex: 1;
+                    .productImage {
+                        flex-shrink: 0;
+                        width: 100%;
+                        height: auto;
 
-    @media (max-width: $tablet) {
-        display: flex;
-        gap: 16px;
-        flex-direction: column;
-    }
+                        @media (max-width: $mobile) {
+                            width: 100%;
+                            height: auto;
+                        }
 
-    .productImage {
-        flex-shrink: 0;
-        width: 300px;
-        height: 300px;
+                        @media (max-width: $tablet) {
+                            height: auto;
+                        }
 
-        @media (max-width: $tablet) {
-            width: 100%;
-            height: auto;
-        }
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            cursor: pointer;
+                        }
+                    }
 
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            cursor: pointer;
-        }
-    }
+                    .productInfo {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        padding-top: 16px;
+                        flex: 1;
 
-    .productInfo {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding-left: 16px;
-        flex: 1;
-
-        @media (max-width: $tablet) {
-            padding-left: 0;
+                        @media (max-width: $tablet) {
+                            padding-top: 0;
+                        }
+                    }
+                }
+            }
         }
     }
 }
