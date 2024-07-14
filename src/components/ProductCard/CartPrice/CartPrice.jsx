@@ -9,8 +9,8 @@ const CartPrice = ({ price, exchangeRate }) => {
       <button type="submit" className={scss.cartPrice}>
         <p className={scss.priceInUAH}>₴{priceInUAH}</p>
         <div className={scss.priceContainer}>
-          <div><PiShoppingCart /></div>
           <p className={scss.productPrice}>€{price}</p>
+          <div className={scss.icon}><PiShoppingCart /></div>
         </div>
       </button>
     </div>

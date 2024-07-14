@@ -43,22 +43,22 @@
     display: none;
 
     @media (min-width: $tablet) {
-            visibility: visible;
-        }
+        visibility: visible;
+    }
     
-        @media (min-width: $desktop) {
-            visibility: visible;
-        }
+    @media (min-width: $desktop) {
+        visibility: visible;
+    }
 }
 
 .product {
     display: flex;
     flex: 1;
-    gap: 8px;
+    gap: 6px;
     flex-direction: column;
 
     @media (min-width: $tablet) {
-        gap: 16px;
+        gap: 8px;
         flex-direction: column;
     }
 
@@ -93,16 +93,19 @@
     }
 
     .description {
+        font-size: 10px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: 100px;
 
         @media (min-width: $tablet) {
+            font-size: 12px;
             max-width: 100px;
         }
         
         @media (min-width: $desktop) {
+            font-size: 14px;
             max-width: 280px;
         }
     }

@@ -11,21 +11,57 @@
     .priceContainer {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 2px;
+
+        @media (min-width: $tablet) {
+            gap: 4px;
+        }
+        
+        @media (min-width: $desktop) {
+            gap: 8px;
+        }
     }
 
     .priceInUAH {
-        font-size: 16px;
+        font-size: 10px;
+
+        @media (min-width: $tablet) {
+            font-size: 12px;
+        }
+        
+        @media (min-width: $desktop) {
+            font-size: 16px;
+        }
+
     }
 
     .productPrice {
         color: var(--red);
         font-weight: bold;
-        font-size: 20px;
+        font-size: 18px;
+
+        @media (min-width: $tablet) {
+            font-size: 20px;
+        }
+        
+        @media (min-width: $desktop) {
+            font-size: 24px;
+        }
     }
 
-    .addedDate {
-        font-size: 14px;
-        color: var(--grey);
+    .icon {
+        font-size: 18px;
+    
+
+        @media (min-width: $tablet) {
+            font-size: 20px;
+        }
+    
+        @media (min-width: $desktop) {
+            font-size: 24px;
+        }
+
     }
+
+
 }

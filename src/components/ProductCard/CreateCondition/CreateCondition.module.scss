@@ -1,2 +1,29 @@
 @import 'src/styles/mixins';
 
+.container {
+
+    .condition {
+        font-size: 10px;
+
+        @media (min-width: $tablet) {
+            font-size: 12px;
+        }
+        
+        @media (min-width: $desktop) {
+            font-size: 14px;
+        }
+    }
+
+    .addedDate {
+        font-size: 10px;
+
+        @media (min-width: $tablet) {
+            font-size: 12px;
+        }
+        
+        @media (min-width: $desktop) {
+            font-size: 14px;
+        }
+    }
+}
+
