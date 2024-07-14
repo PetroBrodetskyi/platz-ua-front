@@ -19,11 +19,25 @@
         display: flex;
         gap: 8px;
         justify-content: space-between;
-        width: 100%;    
-        
+        width: 100%;
+
 
         @media (max-width: $tablet) {
             flex-direction: column;
+        }
+
+        @media screen and (max-width: $tablet) {
+            .iconUserDesktop {
+                font-size: 24px;
+                display: none;
+            }
+        }
+
+        @media screen and (min-width: $tablet) {
+            .iconUserMobile {
+                font-size: 24px;
+                display: none;
+            }
         }
 
         .userMenu {
@@ -33,11 +47,11 @@
             padding: 10px;
 
             @media (min-width: $tablet) {
-                gap: 20px;
+                gap: 10px;
             }
 
             @media (min-width: $desktop) {
-                justify-content: space-between;
+                gap: 10px;
             }
 
             .loginButton,
@@ -61,13 +75,19 @@
                 font-size: 20px;
 
                 @media (max-width: $tablet) {
-                        font-size: 20px;
-                    }
-                
-                    @media (min-width: $desktop) {
-                        font-size: 24px;
-                    }
+                    font-size: 20px;
+                }
+
+                @media (min-width: $desktop) {
+                    font-size: 24px;
+                }
             }
+        }
+
+        .logoUserMobile {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
     }
 }

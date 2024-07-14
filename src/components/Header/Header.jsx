@@ -1,9 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import scss from './Header.module.scss';
-import { FaRegUser } from "react-icons/fa6";
 import { PiShoppingCartBold } from "react-icons/pi";
-import { MdOutlineFavoriteBorder, MdOutlineDirectionsRun } from 'react-icons/md';
+import { MdOutlineFavoriteBorder, MdOutlineDirectionsRun, MdOutlineHowToReg } from 'react-icons/md';
 import SearchLocation from '../SearchLocation/SearchLocation';
 import Logo from '../Logo/Logo';
 
@@ -11,12 +10,19 @@ const Header = ({ onClick }) => {
   return (
     <header className={scss.header}>
       <div className={scss.container}>
-        <Logo />
+        <div className={scss.logoUserMobile}>
+          <Logo />
+          <NavLink to="/user">
+            <button type="button" className={scss.iconUserMobile} onClick={onClick}>
+              <MdOutlineHowToReg font-size='20px' />  
+            </button>
+          </NavLink>
+        </div>
         <SearchLocation />
         <div className={scss.userMenu}>
           <NavLink to="/user">
-            <button type="button" className={scss.icon} onClick={onClick}>
-              <FaRegUser />  
+            <button type="button" className={scss.iconUserDesktop} onClick={onClick}>
+              <MdOutlineHowToReg font-size='24px'/>  
             </button>
           </NavLink>
           <NavLink to="/login">
@@ -24,16 +30,16 @@ const Header = ({ onClick }) => {
               <MdOutlineDirectionsRun />  
             </button>
           </NavLink>
+          <NavLink to="/cart">
             <button type="button" className={scss.icon} onClick={onClick}>
-              <NavLink to="/cart">
-                <PiShoppingCartBold />
-          </NavLink>
+              <PiShoppingCartBold />
             </button>
-            <button type="button" className={scss.icon} onClick={onClick}>
+          </NavLink>
           <NavLink to="/favorites">
-                <MdOutlineFavoriteBorder/>
-          </NavLink>
+            <button type="button" className={scss.icon} onClick={onClick}>
+              <MdOutlineFavoriteBorder/>
             </button>
+          </NavLink>
         </div>
       </div>
       {/* <Navbar /> */}
