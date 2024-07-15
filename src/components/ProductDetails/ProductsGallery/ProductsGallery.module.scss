@@ -1,0 +1,44 @@
+@import 'src/styles/mixins';
+
+$gap-desktop: 20px;
+$gap-tablet: 12px;
+$gap-mobile: 8px;
+
+$product-image-tablet-width: 100%;
+$product-image-desktop-width: 100%;
+
+.images {
+    display: flex;
+    flex-direction: column;
+    gap: $gap-mobile;
+
+    @media (min-width: $tablet) {
+        gap: $gap-tablet;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    @media (min-width: $desktop) {
+        gap: $gap-desktop;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+
+        @media (min-width: $tablet) {
+            width: calc(50% - $gap-tablet / 2);
+            height: 300px;
+        }
+
+        @media (min-width: $desktop) {
+            width: calc(25% - $gap-desktop / 1);
+            height: 320px;
+        }
+    }
+}

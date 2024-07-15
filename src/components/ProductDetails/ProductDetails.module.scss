@@ -16,7 +16,6 @@ $gap-mobile: 10px;
     gap: $gap-mobile;
 
     @media (min-width: $tablet) {
-        flex-direction: row;
         padding: $productDetail-padding-tablet;
         gap: $gap-tablet;
     }

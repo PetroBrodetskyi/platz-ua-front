@@ -1,4 +1,4 @@
-import scss from './ProductsGalery.module.scss';
+import scss from './ProductsGallery.module.scss';
 
 const ProductsGalery = ({ images }) => {
   return (
