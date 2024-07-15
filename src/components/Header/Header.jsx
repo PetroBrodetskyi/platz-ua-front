@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { MdOutlineFavoriteBorder, MdOutlineDirectionsRun, MdOutlineHowToReg } from 'react-icons/md';
+import { MdOutlineFavorite, MdOutlineFavoriteBorder, MdOutlineDirectionsRun, MdOutlineHowToReg } from 'react-icons/md';
 import { PiShoppingCartBold } from 'react-icons/pi';
 import scss from './Header.module.scss';
 import SearchLocation from '../SearchLocation/SearchLocation';
@@ -11,12 +11,22 @@ import { fetchCurrentUser } from '../../redux/features/authSlice';
 const Header = ({ onClick }) => {
   const dispatch = useDispatch();
   const { user, token, loading } = useSelector((state) => state.auth);
+  const favorites = useSelector((state) => state.favorites.items);
+  const [animateFavorite, setAnimateFavorite] = useState(false);
 
   useEffect(() => {
     if (token) {
       dispatch(fetchCurrentUser());
     }
   }, [dispatch, token]);
+
+  useEffect(() => {
+    if (favorites.length > 0) {
+      setAnimateFavorite(true);
+      const timeout = setTimeout(() => setAnimateFavorite(false), 1500); // 3 миготіння по 500мс
+      return () => clearTimeout(timeout);
+    }
+  }, [favorites]);
 
   return (
     <header className={scss.header}>
@@ -73,8 +83,12 @@ const Header = ({ onClick }) => {
             </button>
           </NavLink>
           <NavLink to="/favorites">
-            <button type="button" className={scss.icon} onClick={onClick}>
-              <MdOutlineFavoriteBorder />
+            <button
+              type="button"
+              className={`${scss.icon} ${animateFavorite ? scss.animate : ''} ${favorites.length > 0 ? scss.favorite : ''}`}
+              onClick={onClick}
+            >
+              {favorites.length > 0 ? <MdOutlineFavorite /> : <MdOutlineFavoriteBorder />}
             </button>
           </NavLink>
         </div>

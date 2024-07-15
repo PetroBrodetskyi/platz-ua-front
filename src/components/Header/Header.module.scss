@@ -80,6 +80,31 @@
                 @media (min-width: $desktop) {
                     font-size: 24px;
                 }
+
+                &.favorite {
+                    color: var(--red);
+                }
+            }
+
+            .animate {
+                animation: blink 1.5s ease-in-out 1;
+            }
+
+            @keyframes blink {
+
+                0%,
+                100% {
+                    color: var(--red);
+                }
+
+                25%,
+                75% {
+                    color: var(--white);
+                }
+
+                50% {
+                    color: var(--red);
+                }
             }
         }
 
