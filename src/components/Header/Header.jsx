@@ -6,17 +6,17 @@ import { PiShoppingCartBold } from 'react-icons/pi';
 import scss from './Header.module.scss';
 import SearchLocation from '../SearchLocation/SearchLocation';
 import Logo from '../Logo/Logo';
-import { fetchUserById } from '../../redux/features/authSlice';
+import { fetchCurrentUser } from '../../redux/features/authSlice';
 
 const Header = ({ onClick }) => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
+  const { user, token, loading } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (user && user._id) {
-      dispatch(fetchUserById(user._id));
+    if (token) {
+      dispatch(fetchCurrentUser());
     }
-  }, [dispatch, user]);
+  }, [dispatch, token]);
 
   return (
     <header className={scss.header}>
@@ -25,12 +25,18 @@ const Header = ({ onClick }) => {
           <Logo />
           <NavLink to="/user">
             <button type="button" className={scss.iconUserMobile} onClick={onClick}>
-              <MdOutlineHowToReg font-size='20px' />
-              {user && (
+              <MdOutlineHowToReg fontSize="20px" />
+              {loading ? (
                 <div className={scss.userInfo}>
-                  <img src={user.avatarURL} alt={user.name} className={scss.avatar} />
-                  <span>{user.name}</span>
+                  <span>Loading...</span>
                 </div>
+              ) : (
+                user && (
+                  <div className={scss.userInfo}>
+                    <img src={user.avatarURL} alt={user.name} className={scss.avatar} />
+                    <span>{user.name}</span>
+                  </div>
+                )
               )}
             </button>
           </NavLink>
@@ -39,20 +45,28 @@ const Header = ({ onClick }) => {
         <div className={scss.userMenu}>
           <NavLink to="/user">
             <button type="button" className={scss.iconUserDesktop} onClick={onClick}>
-              <MdOutlineHowToReg font-size='24px' />
-              {user && (
+              <MdOutlineHowToReg fontSize="24px" />
+              {loading ? (
                 <div className={scss.userInfo}>
-                  <img src={user.avatarURL} alt={user.name} className={scss.avatar} />
-                  <span>{user.name}</span>
+                  <span>Loading...</span>
                 </div>
+              ) : (
+                user && (
+                  <div className={scss.userInfo}>
+                    <img src={user.avatarURL} alt={user.name} className={scss.avatar} />
+                    <span>{user.name}</span>
+                  </div>
+                )
               )}
             </button>
           </NavLink>
-          <NavLink to="/login">
-            <button type="button" className={scss.icon} onClick={onClick}>
-              <MdOutlineDirectionsRun />
-            </button>
-          </NavLink>
+          {!user && (
+            <NavLink to="/login">
+              <button type="button" className={scss.icon} onClick={onClick}>
+                <MdOutlineDirectionsRun />
+              </button>
+            </NavLink>
+          )}
           <NavLink to="/cart">
             <button type="button" className={scss.icon} onClick={onClick}>
               <PiShoppingCartBold />

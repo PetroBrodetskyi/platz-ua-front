@@ -11,6 +11,16 @@ export const register = createAsyncThunk('auth/register', async (credentials) =>
   return response.data;
 });
 
+export const fetchCurrentUser = createAsyncThunk('auth/fetchCurrentUser', async (_, { getState }) => {
+  const { auth } = getState();
+  const response = await axios.get('https://platz-ua-back.vercel.app/api/users/current', {
+    headers: {
+      Authorization: `Bearer ${auth.token}`,
+    },
+  });
+  return response.data;
+});
+
 export const fetchUserById = createAsyncThunk('auth/fetchUserById', async (userId) => {
   if (!userId) {
     console.error("User ID is missing");
@@ -80,6 +90,18 @@ const authSlice = createSlice({
         localStorage.setItem('token', action.payload.token);
       })
       .addCase(register.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(fetchCurrentUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchCurrentUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(fetchCurrentUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })
