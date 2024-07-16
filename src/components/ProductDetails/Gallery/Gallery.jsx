@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import GalleryItem from './GalleryItem.jsx';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
-
-import '../Gallery/gallery.css';
+import scss from './Gallery.module.scss';
 
 const Gallery = ({ images }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -67,7 +66,7 @@ const Gallery = ({ images }) => {
   }, [lightboxOpen, selectedImage]);
 
   return (
-    <div className="gallery-container">
+    <div className={scss.galleryContainer}>
       {imageKeys.map((key, index) => (
         <GalleryItem
           key={index}
@@ -78,10 +77,10 @@ const Gallery = ({ images }) => {
       ))}
       
       {lightboxOpen && (
-        <div className="lightbox" onClick={closeLightbox}>
-          {!isFirstImage && <BsChevronLeft className="left-arrow" onClick={handlePrevClick} />}
+        <div className={scss.lightBox} onClick={closeLightbox}>
+          {!isFirstImage && <BsChevronLeft className={scss.leftArrow} onClick={handlePrevClick} />}
           <img src={images[imageKeys[selectedImage]]} alt={`Product Image ${selectedImage + 1}`} />
-          {!isLastImage && <BsChevronRight className="right-arrow" onClick={handleNextClick} />}
+          {!isLastImage && <BsChevronRight className={scss.rightArrow} onClick={handleNextClick} />}
         </div>
       )}
     </div>
