@@ -23,7 +23,7 @@ const Header = ({ onClick }) => {
   useEffect(() => {
     if (favorites.length > 0) {
       setAnimateFavorite(true);
-      const timeout = setTimeout(() => setAnimateFavorite(false), 1500); // 3 миготіння по 500мс
+      const timeout = setTimeout(() => setAnimateFavorite(false), 1500);
       return () => clearTimeout(timeout);
     }
   }, [favorites]);

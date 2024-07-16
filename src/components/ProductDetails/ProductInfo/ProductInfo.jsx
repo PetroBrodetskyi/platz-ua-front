@@ -7,16 +7,16 @@ const ProductInfo = ({ product, exchangeRate }) => {
     <div className={scss.details}>
       <div className={scss.namePrice}>
         <h2>{product.name}</h2>
-        {exchangeRate !== null && (
-          <div className={scss.priceContainer}>
-            <CartPrice price={product.price} exchangeRate={exchangeRate} />
-          </div>
-        )}
       </div>
       <p>{product.description}</p>
       <CreateCondition addedDate={product.createdAt} condition={product.condition} />
       <p>PLZ: {product.PLZ}</p>
       <p>Місто: {product.city}</p>
+      {exchangeRate !== null && (
+          <div className={scss.priceContainer}>
+            <CartPrice price={product.price} exchangeRate={exchangeRate} />
+          </div>
+        )}
     </div>
   );
 };
