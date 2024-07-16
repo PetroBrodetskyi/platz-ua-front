@@ -1,12 +1,16 @@
 @import 'src/styles/mixins';
 
+$likeButton-fontSize-desktop: 24px;
+$likeButton-fontSize-tablet: 20px;
+$likeButton-fontSize-mobile: 16px;
+
 .userInfo {
     display: flex;
     gap: 16px;
 
     @media (min-width: $tablet) {
-            flex-direction: column;
-        }
+        flex-direction: column;
+    }
 
     @media (min-width: $desktop) {
         flex-direction: row;
@@ -37,6 +41,41 @@
                 &:hover {
                     text-decoration: underline;
                 }
+            }
+        }
+
+        .likesContainer {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+
+            .likeButton {
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-size: $likeButton-fontSize-mobile;
+                color: #007bff;
+                margin-right: 5px;
+
+                &:hover {
+                    color: #0056b3;
+                }
+
+                &:focus {
+                    outline: none;
+                }
+
+                @media (min-width: $tablet) {
+                    font-size: $likeButton-fontSize-tablet;
+                }
+
+                @media (min-width: $desktop) {
+                    font-size: $likeButton-fontSize-desktop;
+                }
+            }
+
+            span {
+                font-size: 1rem;
             }
         }
     }

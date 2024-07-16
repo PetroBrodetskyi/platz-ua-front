@@ -25,7 +25,6 @@ const ProductDetails = () => {
 
   useEffect(() => {
     if (product && product.owner) {
-      console.log("Fetching user with id:", product.owner);
       dispatch(fetchUserById(product.owner));
     }
   }, [dispatch, product]);
@@ -36,7 +35,6 @@ const ProductDetails = () => {
 
   return (
     <div className={scss.productDetails}>
-      {/* Передавати images без змін */}
       <Gallery images={product} />
       <div className={scss.infoFlex}>
         <ProductInfo product={product} exchangeRate={exchangeRate} />

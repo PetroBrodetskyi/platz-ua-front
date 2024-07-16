@@ -9,11 +9,13 @@ import css from './RegisterForm.module.scss';
 import SubmitButton from '../../SubmitButton/SubmitButton';
 
 const RegisterForm = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm();
     const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { loading, error } = useSelector(state => state.auth);
+    
+    const phone = watch('phone');
 
     const passwordVisibility = () => {
         setShowPassword(!showPassword);
@@ -26,6 +28,28 @@ const RegisterForm = () => {
         } catch (err) {
             console.error('Error:', err);
         }
+    };
+
+    const formatPhoneNumber = (value) => {
+        if (!value) return value;
+        const phoneNumber = value.replace(/[^\d]/g, '');
+        const phoneNumberLength = phoneNumber.length;
+
+        if (phoneNumberLength < 3) return `+${phoneNumber}`;
+        if (phoneNumberLength < 6) return `+${phoneNumber.slice(0, 2)}(${phoneNumber.slice(2)}`;
+        if (phoneNumberLength < 9) return `+${phoneNumber.slice(0, 2)}(${phoneNumber.slice(2, 5)})${phoneNumber.slice(5)}`;
+        if (phoneNumberLength < 11) return `+${phoneNumber.slice(0, 2)}(${phoneNumber.slice(2, 5)})${phoneNumber.slice(5, 8)}-${phoneNumber.slice(8)}`;
+        return `+${phoneNumber.slice(0, 2)}(${phoneNumber.slice(2, 5)})${phoneNumber.slice(5, 8)}-${phoneNumber.slice(8, 10)}-${phoneNumber.slice(10, 12)}`;
+    };
+
+    const handlePhoneChange = (event) => {
+        const { value } = event.target;
+        const formattedPhoneNumber = formatPhoneNumber(value);
+        setValue('phone', formattedPhoneNumber, { shouldValidate: true });
+    };
+
+    const isValidPhoneNumber = (value) => {
+        return /^\+\d{2}\(\d{3}\)\d{3}-\d{2}-\d{2}$/.test(value);
     };
 
     return (
@@ -44,7 +68,7 @@ const RegisterForm = () => {
                 <form onSubmit={handleSubmit(onSubmit)} className={css.authForm}>
                     <div>
                         <input
-                            {...register('name', { required: 'Name is required' })}
+                            {...register('name', { required: 'Ім\'я є обов\'язковим' })}
                             type="text"
                             placeholder="Введіть ваше ім'я"
                         />
@@ -53,16 +77,17 @@ const RegisterForm = () => {
 
                     <div>
                         <input
-                            {...register('phone', { required: 'Phone is required', pattern: { value: /^\+38\(\d{3}\)\d{3}-\d{2}-\d{2}$/, message: 'Invalid phone number' } })}
+                            {...register('phone', { required: 'Телефон є обов\'язковим', pattern: { value: /^\+\d{2}\(\d{3}\)\d{3}-\d{2}-\d{2}$/, message: 'Невірний формат номера телефону' } })}
                             type="text"
                             placeholder="Введіть ваш номер телефону"
+                            onChange={handlePhoneChange}
+                            className={!phone ? '' : (isValidPhoneNumber(phone) ? css.valid : css.invalid)}
                         />
-                        {errors.phone && <p>{errors.phone.message}</p>}
                     </div>
 
                     <div>
                         <input
-                            {...register('email', { required: 'Email is required', pattern: { value: /^\S+@\S+$/i, message: 'Invalid email address' } })}
+                            {...register('email', { required: 'Email є обов\'язковим', pattern: { value: /^\S+@\S+$/i, message: 'Невірний формат email адреси' } })}
                             type="text"
                             placeholder="Введіть ваш email"
                         />
@@ -71,7 +96,7 @@ const RegisterForm = () => {
 
                     <div className={css.inputWrapper}>
                         <input
-                            {...register('password', { required: 'Password is required', minLength: { value: 8, message: 'Password must be at least 8 characters' } })}
+                            {...register('password', { required: 'Пароль є обов\'язковим', minLength: { value: 8, message: 'Пароль повинен містити щонайменше 8 символів' } })}
                             type={showPassword ? 'text' : 'password'}
                             placeholder="Введіть ваш пароль"
                         />

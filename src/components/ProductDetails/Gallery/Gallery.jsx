@@ -17,12 +17,23 @@ const Gallery = ({ images }) => {
     setSelectedImage(null);
   };
 
-  const imageKeys = Object.keys(images).filter(key => key.startsWith('image'));
+  const handleZoomClick = (index) => {
+    setSelectedImage(index);
+    setLightboxOpen(true);
+  };
+
+  const imageList = [
+    images.image1,
+    images.image2,
+    images.image3,
+    images.image4
+  ].filter(image => image);
+
   const isFirstImage = selectedImage === 0;
-  const isLastImage = selectedImage === imageKeys.length - 1;
+  const isLastImage = selectedImage === imageList.length - 1;
 
   const nextImage = () => {
-    if (selectedImage < imageKeys.length - 1) {
+    if (selectedImage < imageList.length - 1) {
       setSelectedImage(selectedImage + 1);
     }
   };
@@ -65,21 +76,26 @@ const Gallery = ({ images }) => {
     };
   }, [lightboxOpen, selectedImage]);
 
+  if (imageList.length === 0) {
+    return <p>No images available</p>;
+  }
+
   return (
     <div className={scss.galleryContainer}>
-      {imageKeys.map((key, index) => (
+      {imageList.map((image, index) => (
         <GalleryItem
           key={index}
-          src={images[key]}
+          src={image}
           alt={`Product Image ${index + 1}`}
           onClick={() => openLightbox(index)}
+          onZoomClick={() => handleZoomClick(index)}
         />
       ))}
       
       {lightboxOpen && (
         <div className={scss.lightBox} onClick={closeLightbox}>
           {!isFirstImage && <BsChevronLeft className={scss.leftArrow} onClick={handlePrevClick} />}
-          <img src={images[imageKeys[selectedImage]]} alt={`Product Image ${selectedImage + 1}`} />
+          <img src={imageList[selectedImage]} alt={`Product Image ${selectedImage + 1}`} />
           {!isLastImage && <BsChevronRight className={scss.rightArrow} onClick={handleNextClick} />}
         </div>
       )}

@@ -75,15 +75,8 @@ $auth-form-width-mobile: 100%;
         transition: border-color 0.3s;
 
         &:focus {
-            border-color: #007bff;
             outline: none;
         }
-    }
-
-    p {
-        color: #d9534f;
-        font-size: 14px;
-        margin-top: 4px;
     }
 
     .inputWrapper {
@@ -108,4 +101,12 @@ $auth-form-width-mobile: 100%;
         display: flex;
         justify-content: center;
     }
+}
+
+.invalid {
+    border-color: red;
+}
+
+.valid {
+    border-color: blue;
 }
