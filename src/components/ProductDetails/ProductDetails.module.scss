@@ -25,10 +25,21 @@ $gap-mobile: 10px;
         gap: $gap-desktop;
     }
 
-    .infoFlex {
+    .infoOwner {
+        display: flex;
+        gap: 10px;
+    }
+
+    .infoContainer {
         display: flex;
         padding: 40px;
         background-color: #fff;
-        width: 100%;
+        width: 70%;
+    }
+
+    .ownerContainer {
+        width: 30%;
+        padding: 40px;
+        background-color: #fff;
     }
 }

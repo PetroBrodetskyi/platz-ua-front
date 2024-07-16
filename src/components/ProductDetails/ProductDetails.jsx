@@ -36,9 +36,13 @@ const ProductDetails = () => {
   return (
     <div className={scss.productDetails}>
       <Gallery images={product} />
-      <div className={scss.infoFlex}>
+      <div className={scss.infoOwner}>
+        <div className={scss.infoContainer}>
         <ProductInfo product={product} exchangeRate={exchangeRate} />
-        <UserInfo owner={owner} />
+        </div>
+        <div className={scss.ownerContainer}>
+          <UserInfo owner={owner} />
+        </div>
       </div>
     </div>
   );

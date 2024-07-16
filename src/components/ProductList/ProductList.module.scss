@@ -5,7 +5,7 @@ $product-list-padding-tablet: 30px;
 $product-list-padding-mobile: 10px;
 
 .productList {
-    background-color: var(--light-bg);
+    background-color: var(--dark-bg);
     padding: $product-list-padding-desktop;
 
     @media (max-width: $desktop) {

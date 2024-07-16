@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { BiLike, BiSolidLike } from "react-icons/bi";
+import { BiLike, BiSolidLike, BiUser } from "react-icons/bi";
+import { HiDevicePhoneMobile } from "react-icons/hi2";
 import scss from './UserInfo.module.scss';
 
 const UserInfo = ({ owner }) => {
@@ -17,12 +18,16 @@ const UserInfo = ({ owner }) => {
 
   return (
     <div className={scss.userInfo}>
+      <h2>Продавець</h2>
       <img src={owner.avatarURL} alt={owner.name} className={scss.avatar} />
       <div className={scss.details}>
-        <p className={scss.name}>Ім'я: {owner.name}</p>
-        <p className={scss.phone}>
-          Телефон: <a href={`tel:${owner.phone}`}>{owner.phone}</a>
-        </p>
+        <div className={scss.iconOwnerContainer}>
+          <BiUser className={scss.iconOwner} /> <p className={scss.name}>{owner.name}</p>
+        </div>
+        <div className={scss.iconPhoneContainer}>
+        <HiDevicePhoneMobile className={scss.iconPhone}/><p className={scss.phone}><a href={`tel:${owner.phone}`}>{owner.phone}</a>
+          </p>
+          </div>
         <div className={scss.likesContainer}>
           <button onClick={handleLikeClick} className={scss.likeButton}>
             {liked ? <BiSolidLike /> : <BiLike />}
