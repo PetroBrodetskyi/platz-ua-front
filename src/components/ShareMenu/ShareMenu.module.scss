@@ -1,0 +1,127 @@
+@import 'src/styles/mixins';
+
+$mobile: 375px;
+$tablet: 768px;
+$desktop: 1440px;
+
+.shareContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 16px;
+
+    .shareButton {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 8px;
+        border: none;
+        border-radius: 4px;
+        background-color: var(--red);
+        color: var(--white);
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+            background-color: var(--light-bg);
+            color: var(--dark-bg);
+        }
+
+        .icon {
+            font-size: 24px;
+
+            @media (max-width: $desktop) {
+                font-size: 20px;
+            }
+
+            @media (max-width: $tablet) {
+                font-size: 18px;
+            }
+
+            @media (max-width: $mobile) {
+                font-size: 16px;
+            }
+        }
+    }
+
+    .shareLinks {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+
+        .face {
+            color: #3b5998;
+        }
+
+        .mess {
+            color: #006AFF;
+        }
+
+        .inst {
+            color: #E1306C;
+        }
+
+        .link {
+            color: #0077B5;
+        }
+
+        .gmai {
+            color: #D44638;
+        }
+
+        .emai {
+            color: #777;
+        }
+
+        .smss {
+            color: #4CAF50;
+        }
+
+        .vibe {
+            color: #665CAC;
+        }
+
+        .tele {
+            color: #0088CC;
+        }
+
+        .what {
+            color: #25D366;
+        }
+
+        .copy {
+            color: #777;
+        }
+
+        button {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            transition: background-color 0.3s;
+
+            &:hover {
+                background-color: var(--light-bg);
+            }
+
+            .icon {
+                font-size: 24px;
+
+                @media (max-width: $desktop) {
+                    font-size: 20px;
+                }
+
+                @media (max-width: $tablet) {
+                    font-size: 18px;
+                }
+
+                @media (max-width: $mobile) {
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+}

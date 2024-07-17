@@ -4,7 +4,7 @@ $productDetail-padding-desktop: 40px;
 $productDetail-padding-tablet: 30px;
 $productDetail-padding-mobile: 20px;
 
-$gap-desktop: 40px;
+$gap-desktop: 20px;
 $gap-tablet: 12px;
 $gap-mobile: 10px;
 
@@ -27,19 +27,46 @@ $gap-mobile: 10px;
 
     .infoOwner {
         display: flex;
-        gap: 10px;
+        flex-direction: column;
+        gap: $gap-mobile;
+
+        @media (min-width: $tablet) {
+            flex-direction: row;
+            gap: $gap-tablet;
+        }
+
+        @media (min-width: $desktop) {
+            gap: $gap-desktop;
+        }
     }
 
     .infoContainer {
         display: flex;
-        padding: 40px;
+        flex-direction: column;
+        padding: $gap-mobile;
         background-color: #fff;
-        width: 70%;
+
+        @media (min-width: $tablet) {
+            padding: $gap-tablet;
+            width: 70%;
+        }
+
+        @media (min-width: $desktop) {
+            padding: $productDetail-padding-desktop;
+        }
     }
 
     .ownerContainer {
-        width: 30%;
-        padding: 40px;
+        padding: $gap-mobile;
         background-color: #fff;
+
+        @media (min-width: $tablet) {
+            width: 30%;
+            padding: $gap-tablet;
+        }
+
+        @media (min-width: $desktop) {
+            padding: $productDetail-padding-desktop;
+        }
     }
 }

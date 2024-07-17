@@ -1,5 +1,6 @@
 import ProductDetail from '../../components/ProductDetails/ProductDetails';
 
+
 const ProductDetailPage = () => {
   return (
     <div>

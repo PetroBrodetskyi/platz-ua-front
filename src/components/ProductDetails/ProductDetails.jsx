@@ -38,7 +38,7 @@ const ProductDetails = () => {
       <Gallery images={product} />
       <div className={scss.infoOwner}>
         <div className={scss.infoContainer}>
-        <ProductInfo product={product} exchangeRate={exchangeRate} />
+          <ProductInfo product={product} exchangeRate={exchangeRate} />
         </div>
         <div className={scss.ownerContainer}>
           <UserInfo owner={owner} />

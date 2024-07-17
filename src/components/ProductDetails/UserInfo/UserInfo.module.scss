@@ -6,6 +6,7 @@ $likeButton-fontSize-mobile: 16px;
 
 .userInfo {
     display: flex;
+    flex-direction: column;
     gap: 16px;
 
     @media (min-width: $tablet) {
@@ -25,8 +26,8 @@ $likeButton-fontSize-mobile: 16px;
 
     .details {
         display: flex;
-        gap: 16px;
         flex-direction: column;
+        gap: 16px;
 
         .name {
             font-weight: bold;
@@ -91,7 +92,7 @@ $likeButton-fontSize-mobile: 16px;
             }
 
             span {
-                font-size: 1rem;
+                font-size: 24px;
             }
         }
     }
