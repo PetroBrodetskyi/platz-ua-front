@@ -13,6 +13,8 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
   const exchangeRate = useSelector((state) => state.products.exchangeRate);
+  const loading = useSelector((state) => state.products.loading);
+  const error = useSelector((state) => state.products.error);
   const product = products.find((product) => product._id === productId);
   const owner = useSelector((state) => state.auth.owner);
 
@@ -28,6 +30,14 @@ const ProductDetails = () => {
       dispatch(fetchUserById(product.owner));
     }
   }, [dispatch, product]);
+
+  if (loading) {
+    return <p>Завантаження...</p>;
+  }
+
+  if (error) {
+    return <p>Помилка завантаження даних: {error}</p>;
+  }
 
   if (!product) {
     return <p>Продукт не знайдено</p>;

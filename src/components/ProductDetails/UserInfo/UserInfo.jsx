@@ -18,22 +18,26 @@ const UserInfo = ({ owner }) => {
 
   return (
     <div className={scss.userInfo}>
-      <h2>Продавець</h2>
-      <img src={owner.avatarURL} alt={owner.name} className={scss.avatar} />
-      <div className={scss.details}>
-        <div className={scss.iconOwnerContainer}>
-          <BiUser className={scss.iconOwner} /> <p className={scss.name}>{owner.name}</p>
-        </div>
-        <div className={scss.iconPhoneContainer}>
-        <HiDevicePhoneMobile className={scss.iconPhone}/><p className={scss.phone}><a href={`tel:${owner.phone}`}>{owner.phone}</a>
-          </p>
+      <div className={scss.topSection}>
+        <h2>Продавець</h2>
+        <img src={owner.avatarURL} alt={owner.name} className={scss.avatar} />
+        <div className={scss.details}>
+          <div className={scss.iconOwnerContainer}>
+            <BiUser className={scss.iconOwner} /> <p className={scss.name}>{owner.name}</p>
           </div>
-        <div className={scss.likesContainer}>
-          <button onClick={handleLikeClick} className={scss.likeButton}>
-            {liked ? <BiSolidLike /> : <BiLike />}
-          </button>
-          <span>{likes} {likes === 1 ? 'Like' : 'Likes'}</span>
+          <div className={scss.iconPhoneContainer}>
+            <HiDevicePhoneMobile className={scss.iconPhone} />
+            <p className={scss.phone}>
+              <a href={`tel:${owner.phone}`}>{owner.phone}</a>
+            </p>
+          </div>
         </div>
+      </div>
+      <div className={scss.likesContainer}>
+        <button onClick={handleLikeClick} className={scss.likeButton}>
+          {liked ? <BiSolidLike /> : <BiLike />}
+        </button>
+        <span className={scss.likes}>{likes}</span>
       </div>
     </div>
   );

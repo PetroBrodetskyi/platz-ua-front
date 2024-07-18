@@ -2,12 +2,14 @@
 
 $likeButton-fontSize-desktop: 24px;
 $likeButton-fontSize-tablet: 20px;
-$likeButton-fontSize-mobile: 16px;
+$likeButton-fontSize-mobile: 18px;
 
 .userInfo {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    justify-content: space-between;
+    height: 100%;
+    gap: 10px;
 
     @media (min-width: $tablet) {
         flex-direction: column;
@@ -15,85 +17,118 @@ $likeButton-fontSize-mobile: 16px;
 
     @media (min-width: $desktop) {
         flex-direction: column;
-        gap: 20px;
     }
 
-    .avatar {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-    }
-
-    .details {
+    .topSection {
         display: flex;
         flex-direction: column;
         gap: 16px;
 
-        .name {
-            font-weight: bold;
+        @media (min-width: $tablet) {
+            flex-direction: column;
+            gap: 20px;
         }
 
-        .iconPhoneContainer,
-        .iconOwnerContainer {
+        @media (min-width: $desktop) {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h2 {
+            margin: 0;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        .details {
             display: flex;
-            gap: 4px;
-            align-items: center;
-        }
+            flex-direction: column;
+            gap: 8px;
 
-        .iconOwner {
-            font-size: 22px;
-        }
+            .name {
+                font-weight: bold;
+            }
 
-        .iconPhone {
-            font-size: 20px;
-        }
+            .iconOwnerContainer,
+            .iconPhoneContainer {
+                display: flex;
+                gap: 4px;
+                align-items: center;
+            }
 
-        .phone {
-            color: #0057b7;
+            .iconOwner {
+                font-size: 22px;
+            }
 
-            a {
-                color: inherit;
-                text-decoration: none;
+            .iconPhone {
+                font-size: 20px;
+            }
 
-                &:hover {
-                    text-decoration: underline;
+            .phone {
+                color: #0057b7;
+
+                a {
+                    color: inherit;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
                 }
             }
         }
+    }
 
         .likesContainer {
             display: flex;
             align-items: center;
-            margin-top: 10px;
-
+            gap: 8px;
+    
             .likeButton {
-                background: none;
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                padding: 8px;
                 border: none;
-                cursor: pointer;
+                border-radius: 4px;
+                background-color: var(--red);
+                color: var(--white);
                 font-size: $likeButton-fontSize-mobile;
-                color: #007bff;
-                margin-right: 5px;
-
+                cursor: pointer;
+                transition: background-color 0.3s, color 0.3s;
+    
                 &:hover {
-                    color: #0056b3;
+                    background-color: var(--light-bg);
+                    color: var(--dark-bg);
                 }
-
+    
                 &:focus {
                     outline: none;
                 }
-
+    
                 @media (min-width: $tablet) {
                     font-size: $likeButton-fontSize-tablet;
                 }
-
+    
                 @media (min-width: $desktop) {
                     font-size: $likeButton-fontSize-desktop;
                 }
             }
-
-            span {
-                font-size: 24px;
+    
+            .likes {
+                font-size: 14px;
+    
+                @media (min-width: $tablet) {
+                    font-size: 16px;
+                }
+    
+                @media (min-width: $desktop) {
+                    font-size: 18px;
+                }
             }
         }
-    }
 }
