@@ -7,6 +7,8 @@ const ProductInfo = ({ product, exchangeRate }) => {
   const productUrl = window.location.href;
   const formattedDate = new Date(product.createdAt).toLocaleDateString();
 
+  const metaDescription = `${product.name} - ${product.description} - ${product.PLZ} - ${product.city} - €${product.price}`;
+
   return (
     <div className={scss.details}>
       <div className={scss.namePrice}>
@@ -22,7 +24,7 @@ const ProductInfo = ({ product, exchangeRate }) => {
       <p>Оновлено: {formattedDate}</p>
       <p>PLZ: {product.PLZ}</p>
       <p>Місто: {product.city}</p>
-      <ShareMenu productUrl={productUrl} />
+      <ShareMenu productUrl={productUrl} metaDescription={metaDescription} />
     </div>
   );
 };
