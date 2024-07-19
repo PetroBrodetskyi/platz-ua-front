@@ -110,10 +110,14 @@ const ProductDetails = () => {
             updatedProduct={updatedProduct}
             setUpdatedProduct={setUpdatedProduct}
           />
-          {isEditing ? (
-            <button onClick={handleSaveClick}>Зберегти</button>
-          ) : (
-            <button onClick={handleEditClick}>Редагувати</button>
+          {currentUser && currentUser._id === product.owner && (
+            <>
+              {isEditing ? (
+                <button onClick={handleSaveClick}>Зберегти</button>
+              ) : (
+                <button onClick={handleEditClick}>Редагувати</button>
+              )}
+            </>
           )}
         </div>
         <div className={scss.ownerContainer}>
