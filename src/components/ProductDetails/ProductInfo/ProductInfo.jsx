@@ -59,38 +59,38 @@ const ProductInfo = ({ product, exchangeRate, isEditing, updatedProduct, setUpda
           product.description
         )}
       </p>
-      <div className={scss.buttonsMenu}>
-      <div>
-          <ShareMenu productUrl={productUrl} />
-      </div>
-      <div>
-        {currentUser && currentUser._id === product.owner && (
-              <ActionButton
-                isEditing={isEditing}
-                onClick={isEditing ? handleSaveClick : handleEditClick}
-              />
-          )}
-        </div>
-        </div>
+      
       <div className={scss.editContainer}>
-      <h4>
-        Стан:{' '}
-        {isEditing ? (
-          <input
-            type="text"
-            name="condition"
-            value={updatedProduct.condition}
-            onChange={handleChange}
-            className={scss.inputField}
-          />
-        ) : (
-          product.condition
-        )}
-      </h4>
-          <h4>Оновлено: {formattedDate}</h4>
-          <h4>PLZ: {product.PLZ}</h4>
-          <h4>Місто: {product.city}</h4>
-          
+        <p>
+          Стан:{' '}
+          {isEditing ? (
+            <input
+              type="text"
+              name="condition"
+              value={updatedProduct.condition}
+              onChange={handleChange}
+              className={scss.inputField}
+            />
+          ) : (
+            product.condition
+          )}
+        </p>
+        <p>Оновлено: {formattedDate}</p>
+        <p>PLZ: {product.PLZ}</p>
+        <p>Місто: {product.city}</p>
+      </div>
+      <div className={scss.buttonsMenu}>
+        <div>
+            <ShareMenu productUrl={productUrl} />
+        </div>
+        <div>
+          {currentUser && currentUser._id === product.owner && (
+                <ActionButton
+                  isEditing={isEditing}
+                  onClick={isEditing ? handleSaveClick : handleEditClick}
+                />
+            )}
+        </div>
       </div>
     </div>
   );

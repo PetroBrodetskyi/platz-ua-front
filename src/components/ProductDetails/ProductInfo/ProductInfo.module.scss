@@ -58,7 +58,7 @@ $gap-mobile: 8px;
 
     .editContainer {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        gap: 10px;
+        flex-direction: column;
     }
 }
