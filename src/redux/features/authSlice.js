@@ -15,7 +15,7 @@ export const register = createAsyncThunk('auth/register', async (credentials) =>
 export const fetchCurrentUser = createAsyncThunk('auth/fetchCurrentUser', async (_, { getState }) => {
   const { auth } = getState();
   console.log('Fetching current user with token:', auth.token);
-  const response = await axios.get('http://localhost:5000/api/users/current', {
+  const response = await axios.get('https://platz-ua-back.vercel.app/api/users/current', {
     headers: {
       Authorization: `Bearer ${auth.token}`,
     },
