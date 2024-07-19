@@ -32,4 +32,20 @@ $gap-mobile: 8px;
         }
     }
 
+    .inputField {
+        width: 100%;
+        padding: 8px;
+        font-size: 16px;
+        margin-bottom: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+
+        @media (min-width: $tablet) {
+            font-size: 18px;
+        }
+
+        @media (min-width: $desktop) {
+            font-size: 20px;
+        }
+    }
 }

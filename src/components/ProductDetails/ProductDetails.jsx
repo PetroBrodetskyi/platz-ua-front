@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchProducts, fetchExchangeRate } from '../../redux/features/productsSlice';
-import { fetchUserById } from '../../redux/features/authSlice';
+import { fetchUserById, fetchCurrentUser } from '../../redux/features/authSlice';
+import axios from 'axios';
 import scss from './ProductDetails.module.scss';
 import Gallery from './Gallery/Gallery';
 import ProductInfo from './ProductInfo/ProductInfo';
@@ -17,6 +18,15 @@ const ProductDetails = () => {
   const error = useSelector((state) => state.products.error);
   const product = products.find((product) => product._id === productId);
   const owner = useSelector((state) => state.auth.owner);
+  const currentUser = useSelector((state) => state.auth.user);
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [updatedProduct, setUpdatedProduct] = useState({
+    name: '',
+    price: '',
+    description: '',
+    condition: '',
+  });
 
   useEffect(() => {
     if (!products.length) {
@@ -26,10 +36,22 @@ const ProductDetails = () => {
   }, [dispatch, products.length]);
 
   useEffect(() => {
-    if (product && product.owner) {
-      dispatch(fetchUserById(product.owner));
+    if (product) {
+      setUpdatedProduct({
+        name: product.name || '',
+        price: product.price || '',
+        description: product.description || '',
+        condition: product.condition || '',
+      });
+      if (product.owner) {
+        dispatch(fetchUserById(product.owner));
+      }
     }
   }, [dispatch, product]);
+
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
+  }, [dispatch]);
 
   if (loading) {
     return <p>Завантаження...</p>;
@@ -43,12 +65,56 @@ const ProductDetails = () => {
     return <p>Продукт не знайдено</p>;
   }
 
+  const handleEditClick = () => {
+    if (currentUser && currentUser._id === product.owner) {
+      setIsEditing(true);
+    } else {
+      alert('Ви не маєте права редагувати це оголошення.');
+    }
+  };
+
+  const handleSaveClick = async () => {
+    if (!currentUser || !currentUser._id || currentUser._id !== product.owner) {
+      alert('Ви не маєте права редагувати це оголошення.');
+      return;
+    }
+
+    try {
+      const response = await axios.patch(
+        `http://localhost:5000/api/products/${product._id}`,
+        updatedProduct,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
+      console.log('Update response:', response.data);
+      dispatch(fetchProducts());
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Error updating product:', error.response ? error.response.data : error.message);
+      alert('Виникла помилка при оновленні продукту. Спробуйте ще раз.');
+    }
+  };
+
   return (
     <div className={scss.productDetails}>
       <Gallery images={product} />
       <div className={scss.infoOwner}>
         <div className={scss.infoContainer}>
-          <ProductInfo product={product} exchangeRate={exchangeRate} />
+          <ProductInfo
+            product={product}
+            exchangeRate={exchangeRate}
+            isEditing={isEditing}
+            updatedProduct={updatedProduct}
+            setUpdatedProduct={setUpdatedProduct}
+          />
+          {isEditing ? (
+            <button onClick={handleSaveClick}>Зберегти</button>
+          ) : (
+            <button onClick={handleEditClick}>Редагувати</button>
+          )}
         </div>
         <div className={scss.ownerContainer}>
           <UserInfo owner={owner} />
