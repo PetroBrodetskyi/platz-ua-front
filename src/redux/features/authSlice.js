@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+
 export const login = createAsyncThunk('auth/login', async (credentials) => {
   const response = await axios.post('https://platz-ua-back.vercel.app/api/users/login', credentials);
   return response.data;
@@ -32,7 +33,6 @@ export const fetchUserById = createAsyncThunk('auth/fetchUserById', async (userI
   return response.data;
 });
 
-
 export const updateUserDetails = createAsyncThunk('auth/updateUserDetails', async (formData, { getState }) => {
   const { auth } = getState();
   const response = await axios.patch(`https://platz-ua-back.vercel.app/api/users/${auth.user._id}`, formData, {
@@ -44,13 +44,17 @@ export const updateUserDetails = createAsyncThunk('auth/updateUserDetails', asyn
   return response.data;
 });
 
+
 const initialState = {
   user: null,
   owner: null,
   token: localStorage.getItem('token') || null,
+  likedUserAvatars: [],
   loading: false,
   error: null,
 };
+
+// Slice
 
 const authSlice = createSlice({
   name: 'auth',
@@ -60,6 +64,7 @@ const authSlice = createSlice({
       state.user = null;
       state.owner = null;
       state.token = null;
+      state.likedUserAvatars = [];
       localStorage.removeItem('token');
     },
   },
@@ -112,6 +117,12 @@ const authSlice = createSlice({
       .addCase(fetchUserById.fulfilled, (state, action) => {
         state.loading = false;
         state.owner = action.payload;
+
+        if (action.payload.likedUsers) {
+          state.likedUserAvatars = action.payload.likedUsers.map(user => user.avatarURL);
+        } else {
+          state.likedUserAvatars = [];
+        }
       })
       .addCase(fetchUserById.rejected, (state, action) => {
         state.loading = false;
@@ -131,6 +142,7 @@ const authSlice = createSlice({
       });
   },
 });
+
 
 export const { logout } = authSlice.actions;
 export default authSlice.reducer;
