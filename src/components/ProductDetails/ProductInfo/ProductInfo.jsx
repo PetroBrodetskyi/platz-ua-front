@@ -2,8 +2,9 @@ import React from 'react';
 import scss from './ProductInfo.module.scss';
 import CartPrice from '../../ProductCard/CartPrice/CartPrice';
 import ShareMenu from '../../ShareMenu/ShareMenu';
+import ActionButton from '../ActionButton/ActionButton';
 
-const ProductInfo = ({ product, exchangeRate, isEditing, updatedProduct, setUpdatedProduct }) => {
+const ProductInfo = ({ product, exchangeRate, isEditing, updatedProduct, setUpdatedProduct, handleEditClick, handleSaveClick, currentUser }) => {
   const productUrl = window.location.href;
   const formattedDate = new Date(product.createdAt).toLocaleDateString();
 
@@ -11,7 +12,7 @@ const ProductInfo = ({ product, exchangeRate, isEditing, updatedProduct, setUpda
     const { name, value } = e.target;
     setUpdatedProduct((prevState) => ({
       ...prevState,
-      [name]: value, // Оскільки всі поля рядкові, просто передаємо значення
+      [name]: value,
     }));
   };
 
@@ -33,7 +34,7 @@ const ProductInfo = ({ product, exchangeRate, isEditing, updatedProduct, setUpda
           <div className={scss.priceContainer}>
             {isEditing ? (
               <input
-                type="text" // Всі ціни обробляються як рядки
+                type="text"
                 name="price"
                 value={updatedProduct.price}
                 onChange={handleChange}
@@ -58,7 +59,21 @@ const ProductInfo = ({ product, exchangeRate, isEditing, updatedProduct, setUpda
           product.description
         )}
       </p>
-      <p>
+      <div className={scss.buttonsMenu}>
+      <div>
+          <ShareMenu productUrl={productUrl} />
+      </div>
+      <div>
+        {currentUser && currentUser._id === product.owner && (
+              <ActionButton
+                isEditing={isEditing}
+                onClick={isEditing ? handleSaveClick : handleEditClick}
+              />
+          )}
+        </div>
+        </div>
+      <div className={scss.editContainer}>
+      <h4>
         Стан:{' '}
         {isEditing ? (
           <input
@@ -71,11 +86,12 @@ const ProductInfo = ({ product, exchangeRate, isEditing, updatedProduct, setUpda
         ) : (
           product.condition
         )}
-      </p>
-      <p>Оновлено: {formattedDate}</p>
-      <p>PLZ: {product.PLZ}</p>
-      <p>Місто: {product.city}</p>
-      <ShareMenu productUrl={productUrl} />
+      </h4>
+          <h4>Оновлено: {formattedDate}</h4>
+          <h4>PLZ: {product.PLZ}</h4>
+          <h4>Місто: {product.city}</h4>
+          
+      </div>
     </div>
   );
 };

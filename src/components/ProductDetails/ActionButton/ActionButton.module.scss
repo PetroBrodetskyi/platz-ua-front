@@ -1,0 +1,59 @@
+@import 'src/styles/mixins';
+
+$fontSize-desktop: 18px;
+$fontSize-tablet: 16px;
+$fontSize-mobile: 16px;
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 4px;
+    padding: 8px;
+    color: white;
+    font-size: $fontSize-mobile;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+
+    @media (min-width: $tablet) {
+        font-size: $fontSize-tablet;
+    }
+
+    @media (min-width: $desktop) {
+        font-size: $fontSize-desktop;
+    }
+
+
+        .icon {
+            font-size: 24px;
+    
+            @media (max-width: $desktop) {
+                font-size: 20px;
+            }
+    
+            @media (max-width: $tablet) {
+                font-size: 18px;
+            }
+    
+            @media (max-width: $mobile) {
+                font-size: 16px;
+            }
+        }
+}
+
+.editButton {
+    background-color: var(--red);
+
+    &:hover {
+        background-color: var(--light-bg);
+        color: var(--dark-bg);
+    }
+}
+
+.saveButton {
+    background-color: green;
+    &:hover {
+        background-color: darkgreen;
+    }
+}

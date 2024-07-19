@@ -1,6 +1,6 @@
 @import 'src/styles/mixins';
 
-$gap-desktop: 20px;
+$gap-desktop: 40px;
 $gap-tablet: 12px;
 $gap-mobile: 8px;
 
@@ -27,25 +27,38 @@ $gap-mobile: 8px;
             flex-direction: row;
         }
 
-        h2 {
-            margin: 0;
-        }
+
     }
 
     .inputField {
         width: 100%;
         padding: 8px;
-        font-size: 16px;
         margin-bottom: 8px;
         border: 1px solid #ccc;
         border-radius: 4px;
+        font-family: var(--font-family);
+        resize: none;
+        height: auto;
 
         @media (min-width: $tablet) {
-            font-size: 18px;
+            font-size: 14px;
         }
 
         @media (min-width: $desktop) {
-            font-size: 20px;
+            font-size: 16px;
+            
         }
+    }
+
+    .buttonsMenu {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .editContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 }

@@ -1,15 +1,10 @@
 @import 'src/styles/mixins';
 
-$mobile: 375px;
-$tablet: 768px;
-$desktop: 1440px;
-
 .shareContainer {
     position: relative;
     display: flex;
     align-items: center;
     gap: 4px;
-    margin-top: 16px;
 
     .shareButton {
         display: flex;

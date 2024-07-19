@@ -12,24 +12,58 @@ const UserInfo = ({ owner }) => {
   useEffect(() => {
     if (owner) {
       setLikes(owner.likes || 0);
-      setLiked(owner.liked || false);
+      setLiked(owner.likedUsers && owner.likedUsers.some(user => user._id === localStorage.getItem('userId')));
       setLikedUserAvatars(owner.likedUsers || []);
+    }
+  }, [owner]);
+
+  const fetchOwnerData = async () => {
+    try {
+      const response = await axios.get(`https://platz-ua-back.vercel.app/api/users/${owner._id}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      console.log('Fetched user data:', response.data);
+
+      setLikes(response.data.likes || 0);
+      setLiked(response.data.likedUsers.some(user => user._id === localStorage.getItem('userId')));
+      setLikedUserAvatars(response.data.likedUsers || []);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      alert("Виникла помилка при отриманні даних про користувача. Спробуйте ще раз.");
+    }
+  };
+
+  useEffect(() => {
+    if (owner) {
+      fetchOwnerData();
     }
   }, [owner]);
 
   const handleLikeClick = async () => {
   try {
-    const response = await axios.patch(`http://localhost:5000/api/users/${owner._id}/likes`, {}, {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      }
-    });
+    if (!liked) {
+      const currentUserId = localStorage.getItem('userId');
+      const currentUserAvatarURL = JSON.parse(localStorage.getItem('userAvatarURL'));
 
-    console.log('Response from server:', response.data);
+      const newLikes = likes + 1;
+      const newLikedUserAvatars = [
+        ...likedUserAvatars,
+        { _id: currentUserId, avatarURL: currentUserAvatarURL }
+      ];
 
-    setLikes(response.data.likes || likes);
-    setLiked(true);
-    setLikedUserAvatars(response.data.likedUsers || likedUserAvatars);
+      setLikes(newLikes);
+      setLikedUserAvatars(newLikedUserAvatars);
+      setLiked(true);
+
+      await axios.patch(`https://platz-ua-back.vercel.app/api/users/${owner._id}/likes`, {}, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+    }
   } catch (error) {
     console.error("Error liking the user:", error);
     alert("Виникла помилка при додаванні лайку. Спробуйте ще раз.");
@@ -49,7 +83,8 @@ const UserInfo = ({ owner }) => {
         <img src={owner.avatarURL} alt={owner.name} className={scss.avatar} />
         <div className={scss.details}>
           <div className={scss.iconOwnerContainer}>
-            <BiUser className={scss.iconOwner} /> <p className={scss.name}>{owner.name}</p>
+            <BiUser className={scss.iconOwner} /> 
+            <p className={scss.name}>{owner.name}</p>
           </div>
           <div className={scss.iconPhoneContainer}>
             <HiDevicePhoneMobile className={scss.iconPhone} />
@@ -64,8 +99,8 @@ const UserInfo = ({ owner }) => {
           {liked ? <BiSolidLike /> : <BiLike />}
         </button>
         <div className={scss.likedUsersAvatars}>
-          {likedUserAvatars.map((avatar, index) => (
-            <img key={index} src={avatar} alt={`User ${index}`} className={scss.likedUserAvatar} />
+          {likedUserAvatars.map((user, index) => (
+            <img key={index} src={user.avatarURL} alt={`User ${index}`} className={scss.likedUserAvatar} />
           ))}
         </div>
         <span className={scss.likes}>{likes}</span>

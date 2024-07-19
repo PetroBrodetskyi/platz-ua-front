@@ -83,65 +83,65 @@ $likeButton-fontSize-mobile: 18px;
         }
     }
 
-        .likesContainer {
+    .likesContainer {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .likeButton {
             display: flex;
             align-items: center;
-            gap: 8px;
-    
-            .likeButton {
-                display: flex;
-                align-items: center;
-                gap: 4px;
-                padding: 8px;
-                border: none;
-                border-radius: 4px;
-                background-color: var(--red);
-                color: var(--white);
-                font-size: $likeButton-fontSize-mobile;
-                cursor: pointer;
-                transition: background-color 0.3s, color 0.3s;
-    
-                &:hover {
-                    background-color: var(--light-bg);
-                    color: var(--dark-bg);
-                }
-    
-                &:focus {
-                    outline: none;
-                }
-    
-                @media (min-width: $tablet) {
-                    font-size: $likeButton-fontSize-tablet;
-                }
-    
-                @media (min-width: $desktop) {
-                    font-size: $likeButton-fontSize-desktop;
-                }
+            gap: 4px;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            background-color: var(--red);
+            color: var(--white);
+            font-size: $likeButton-fontSize-mobile;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+
+            &:hover {
+                background-color: var(--light-bg);
+                color: var(--dark-bg);
             }
-    
-            .likes {
-                font-size: 14px;
-    
-                @media (min-width: $tablet) {
-                    font-size: 16px;
-                }
-    
-                @media (min-width: $desktop) {
-                    font-size: 18px;
-                }
+
+            &:focus {
+                outline: none;
+            }
+
+            @media (min-width: $tablet) {
+                font-size: $likeButton-fontSize-tablet;
+            }
+
+            @media (min-width: $desktop) {
+                font-size: $likeButton-fontSize-desktop;
             }
         }
-    
-        .likedUsersAvatars {
-            display: flex;
-            align-items: center;
-            margin-top: 10px;
+
+        .likes {
+            font-size: 14px;
+
+            @media (min-width: $tablet) {
+                font-size: 16px;
+            }
+
+            @media (min-width: $desktop) {
+                font-size: 18px;
+            }
         }
-    
-        .likedUserAvatar {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin-right: 5px;
-        }
+    }
+
+    .likedUsersAvatars {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .likedUserAvatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 5px;
+    }
 }

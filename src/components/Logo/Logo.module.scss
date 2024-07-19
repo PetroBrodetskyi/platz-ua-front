@@ -14,7 +14,7 @@
     font-weight: bold;
     display: flex;
     align-items: center;
-    background-color: #fff;
+    background-color: var(--white);
 
     @media (max-width: $tablet) {
         font-size: 38px;
@@ -34,7 +34,7 @@
     }
 
     .logoLetterA {
-        color: gold;
+        color: var(--logo-yellow);
     }
 
     .logoLetterT {

@@ -81,7 +81,7 @@ const ProductDetails = () => {
 
     try {
       const response = await axios.patch(
-        `http://localhost:5000/api/products/${product._id}`,
+        `https://platz-ua-back.vercel.app/api/products/${product._id}`,
         updatedProduct,
         {
           headers: {
@@ -109,16 +109,10 @@ const ProductDetails = () => {
             isEditing={isEditing}
             updatedProduct={updatedProduct}
             setUpdatedProduct={setUpdatedProduct}
+            handleEditClick={handleEditClick}
+            handleSaveClick={handleSaveClick}
+            currentUser={currentUser}
           />
-          {currentUser && currentUser._id === product.owner && (
-            <>
-              {isEditing ? (
-                <button onClick={handleSaveClick}>Зберегти</button>
-              ) : (
-                <button onClick={handleEditClick}>Редагувати</button>
-              )}
-            </>
-          )}
         </div>
         <div className={scss.ownerContainer}>
           <UserInfo owner={owner} />
