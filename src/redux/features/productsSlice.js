@@ -15,8 +15,8 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts', async ()
   return response.data.reverse();
 });
 
-export const fetchUserProducts = createAsyncThunk('products/fetchUserProducts', async (userId) => {
-  const response = await axios.get(`/products?userId=${userId}`);
+export const fetchUserProducts = createAsyncThunk('products/fetchUserProducts', async () => {
+  const response = await axios.get(`/products`);
   return response.data.reverse();
 });
 
