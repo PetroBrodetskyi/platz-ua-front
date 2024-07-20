@@ -1,15 +1,10 @@
 @import 'src/styles/mixins';
 
-$padding-desktop: 20px 40px;
-$padding-tablet: 30px;
-$padding-mobile: 10px;
-
 .userPage {
-    background: var(--dark-grey);
-    padding: 40px;
 
     .productsProfileContainer {
         display: flex;
+        justify-content: space-between;
 
     }
 }

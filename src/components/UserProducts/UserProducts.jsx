@@ -13,25 +13,28 @@ const UserProducts = ({ userId }) => {
     }
   }, [dispatch, userId]);
 
-  if (loading) {
-    return <p>Завантаження оголошень...</p>;
-  }
+  if (loading) return <p>Завантаження оголошень...</p>;
 
-  if (error) {
-    return <p>Помилка: {error}</p>;
-  }
+  if (error) return <p>Помилка: {error}</p>;
 
   return (
     <div className={scss.userProducts}>
-      <h2>Ваші оголошення</h2>
-      <ul>
+      <h2>Ваші активні оголошення</h2>
+      <ul className={scss.productsList}>
         {userProducts.map((product) => (
-          <li className={scss.productsContainer} key={product._id}>
-            <img src={product.image1} alt={product.name} />
+          <li className={scss.productsItem} key={product._id}>
+            <div className={scss.image}>
+              <img src={product.image1} alt={product.name} />
+              <img src={product.image2} alt={product.name} />
+              <img src={product.image3} alt={product.name} />
+              <img src={product.image4} alt={product.name} />
+            </div>
             <div className={scss.productDetails}>
-              <h3>{product.name}</h3>
-              <p>{product.description}</p>
-              <p className={scss.price}>{product.price} грн</p>
+              <div className={scss.namePrice}>
+                <h3>{product.name}</h3>
+                <p className={scss.price}>€{product.price}</p>
+              </div>
+              <p className={scss.description}>{product.description}</p>
             </div>
           </li>
         ))}

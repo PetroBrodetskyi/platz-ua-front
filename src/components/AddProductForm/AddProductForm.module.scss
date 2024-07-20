@@ -30,26 +30,14 @@ $form-font-size-mobile: 12px;
     .formGroup {
         display: flex;
         flex-direction: column;
-        margin-bottom: $form-gap-desktop;
-
-        @media (max-width: $desktop) {
-            margin-bottom: $form-gap-tablet;
-        }
-
-        @media (max-width: $tablet) {
-            margin-bottom: $form-gap-mobile;
-        }
-
-        label {
-            margin-bottom: 8px;
-        }
+        background-color: var(--white);
+        padding: $form-padding-tablet;
 
         input,
         select,
         textarea {
             padding: 8px;
-            border: 1px solid var(--grey);
-            border-radius: 4px;
+            // border: 1px solid var(--grey);
             font-size: $form-font-size-desktop;
             resize: none;
             width: 100%;

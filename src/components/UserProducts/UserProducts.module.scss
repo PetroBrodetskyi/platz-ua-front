@@ -1,124 +1,88 @@
 @import 'src/styles/mixins';
 
-$padding-desktop: 20px 40px;
+$padding-desktop: 40px;
 $padding-tablet: 20px;
 $padding-mobile: 10px;
 
 .userProducts {
-    padding: $padding-mobile;
+    padding: $padding-desktop;
     display: flex;
+    background-color: var(--light-bg);
     flex-direction: column;
+    gap: 26px;
 
-    h2 {
-        margin-bottom: 20px;
-        font-size: 1.5rem;
-        text-align: center;
-    }
-
-    ul {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        padding: 0;
-        list-style: none;
-    }
-
-    .productsContainer {
+    .productsList {
         display: flex;
         flex-direction: column;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        overflow: hidden;
-        width: 100%;
-        max-width: 400px;
-        background-color: var(--white);
+        gap: 26px;
+    }
 
-        img {
-            width: 100%;
-            height: 200px;
+    .productsItem {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--white);
+        gap: 20px;
+        padding: 10px;
+
+        &:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        // @media (min-width: $tablet) {
+        //     width: 600px;
+        // }
+
+        @media (min-width: $desktop) {
+            width: 852px;
+            height: auto;
+        }
+
+        .image {
+            display: flex;
+            gap: 10px;
+            width: 180px;
+            height: 170px;
             object-fit: cover;
-            border-bottom: 1px solid #ccc;
+
+            @media (min-width: $tablet) {
+                height: 200px;
+                width: 200px;
+            }
+
+            @media (min-width: $desktop) {
+                height: 200px;
+                width: 200px;
+                object-fit: cover;
+            }
         }
 
         .productDetails {
-            padding: 15px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
 
-            h3 {
-                margin: 0;
-                font-size: 1.2rem;
-            }
+            .namePrice {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
 
-            p {
-                margin: 0;
-                font-size: 0.9rem;
-                color: var(--grey);
             }
 
             .price {
-                font-weight: bold;
-                color: var(--dark-grey);
-            }
-        }
-    }
-
-    @media (min-width: $tablet) {
-        padding: $padding-tablet;
-
-        .productsContainer {
-            max-width: 600px;
-
-            img {
-                height: 250px;
+                color: var(--red);
+                font-size: 24px;
+                font-weight: 600;
             }
 
-            .productDetails {
-                padding: 20px;
+            .description {
+                font-size: 12px;
 
-                h3 {
-                    font-size: 1.5rem;
+                @media (min-width: $tablet) {
+                    font-size: 14px;
                 }
 
-                p {
-                    font-size: 1rem;
-                }
-
-                .price {
-                    font-size: 1.2rem;
-                }
-            }
-        }
-    }
-
-    @media (min-width: $desktop) {
-        padding: $padding-desktop;
-
-        ul {
-            gap: 30px;
-        }
-
-        .productsContainer {
-            max-width: 600px;
-
-            img {
-                height: 300px;
-            }
-
-            .productDetails {
-                padding: 25px;
-
-                h3 {
-                    font-size: 1.8rem;
-                }
-
-                p {
-                    font-size: 1.1rem;
-                }
-
-                .price {
-                    font-size: 1.5rem;
+                @media (min-width: $desktop) {
+                    font-size: 16px;
                 }
             }
         }

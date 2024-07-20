@@ -4,6 +4,7 @@ import { fetchUserById, updateUserDetails } from '../../redux/features/authSlice
 import UserProfile from '../../components/UserProfile/UserProfile';
 import UserProducts from '../../components/UserProducts/UserProducts';
 import scss from './UserPage.module.scss';
+import AddProductForm from '../../components/AddProductForm/AddProductForm';
 
 const UserPage = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,8 @@ const UserPage = () => {
             <UserProducts userId={user._id} />
           </div>
           <div>
-            <UserProfile user={user} onUpdate={handleUpdate} />
+            <AddProductForm />
+            {/* <UserProfile user={user} onUpdate={handleUpdate} /> */}
           </div>
         </div>
       ) : (

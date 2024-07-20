@@ -82,21 +82,22 @@ const AddProductForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={scss.form}>
+      <h2>Додайте нове</h2>
       <div className={scss.formGroup}>
-        <label htmlFor="name">Назва:</label>
+        <label htmlFor="name"></label>
         <input id="name" type="text" {...register('name', { required: true })} placeholder='Назва' autoComplete="on" />
 
         {errors.name && <span>Це поле обов'язкове</span>}
       </div>
 
       <div className={scss.formGroup}>
-        <label htmlFor="price">Ціна:</label>
+        <label htmlFor="price"></label>
         <input id="price" type="text" {...register('price', { required: true })} placeholder='Ціна €' autoComplete="on" />
         {errors.price && <span>Це поле обов'язкове</span>}
       </div>
 
       <div className={scss.formGroup}>
-        <label htmlFor="description">Опис:</label>
+        <label htmlFor="description"></label>
         <textarea id="description" {...register('description', { required: true })} placeholder='Опис' autoComplete="off"></textarea>
         {errors.description && <span>Це поле обов'язкове</span>}
       </div>

@@ -23,6 +23,7 @@ const UserProfile = ({ user, onUpdate }) => {
   };
 
   return (
+    <div className={scss.container}>
     <div className={scss.userProfile}>
       <h2>Ваші данні</h2>
       <form onSubmit={handleSubmit}>
@@ -67,6 +68,7 @@ const UserProfile = ({ user, onUpdate }) => {
         </div>
         <button type="submit">Зберегти зміни</button>
       </form>
+    </div>
     </div>
   );
 };
