@@ -12,12 +12,14 @@ const UserInfo = ({ owner }) => {
   useEffect(() => {
     if (owner) {
       setLikes(owner.likes || 0);
-      setLiked(owner.likedUsers && owner.likedUsers.some(user => user._id === localStorage.getItem('userId')));
+      setLiked(owner.likedUsers?.some(user => user._id === localStorage.getItem('userId')) || false);
       setLikedUserAvatars(owner.likedUsers || []);
     }
   }, [owner]);
 
   const fetchOwnerData = async () => {
+    if (!owner) return;
+
     try {
       const response = await axios.get(`https://platz-ua-back.vercel.app/api/users/${owner._id}`, {
         headers: {
@@ -25,10 +27,8 @@ const UserInfo = ({ owner }) => {
         }
       });
 
-      console.log('Fetched user data:', response.data);
-
       setLikes(response.data.likes || 0);
-      setLiked(response.data.likedUsers.some(user => user._id === localStorage.getItem('userId')));
+      setLiked(response.data.likedUsers?.some(user => user._id === localStorage.getItem('userId')) || false);
       setLikedUserAvatars(response.data.likedUsers || []);
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -37,14 +37,13 @@ const UserInfo = ({ owner }) => {
   };
 
   useEffect(() => {
-    if (owner) {
-      fetchOwnerData();
-    }
-  }, [owner]);
+    fetchOwnerData();
+  }, [owner?._id]);
 
   const handleLikeClick = async () => {
-  try {
-    if (!liked) {
+    if (liked) return;
+
+    try {
       const currentUserId = localStorage.getItem('userId');
       const currentUserAvatarURL = JSON.parse(localStorage.getItem('userAvatarURL'));
 
@@ -63,14 +62,11 @@ const UserInfo = ({ owner }) => {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
       });
+    } catch (error) {
+      console.error("Error liking the user:", error);
+      alert("Виникла помилка при додаванні лайку. Спробуйте ще раз.");
     }
-  } catch (error) {
-    console.error("Error liking the user:", error);
-    alert("Виникла помилка при додаванні лайку. Спробуйте ще раз.");
-  }
-};
-
-
+  };
 
   if (!owner) {
     return <p>Користувач не знайдений</p>;

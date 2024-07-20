@@ -1,43 +1,39 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const API_URL = 'https://platz-ua-back.vercel.app/api/users';
 
 export const login = createAsyncThunk('auth/login', async (credentials) => {
-  const response = await axios.post('https://platz-ua-back.vercel.app/api/users/login', credentials);
+  const response = await axios.post(`${API_URL}/login`, credentials);
   return response.data;
 });
 
 export const register = createAsyncThunk('auth/register', async (credentials) => {
-  const response = await axios.post('https://platz-ua-back.vercel.app/api/users/register', credentials);
+  const response = await axios.post(`${API_URL}/register`, credentials);
   return response.data;
 });
 
 export const fetchCurrentUser = createAsyncThunk('auth/fetchCurrentUser', async (_, { getState }) => {
   const { auth } = getState();
-  console.log('Fetching current user with token:', auth.token);
-  const response = await axios.get('https://platz-ua-back.vercel.app/api/users/current', {
+  const response = await axios.get(`${API_URL}/current`, {
     headers: {
       Authorization: `Bearer ${auth.token}`,
     },
   });
-  console.log('Current user data:', response.data);
   return response.data;
 });
 
 export const fetchUserById = createAsyncThunk('auth/fetchUserById', async (userId) => {
   if (!userId) {
-    console.error("User ID is missing");
-    throw new Error("User ID is required");
+    throw new Error('User ID is required');
   }
-  console.log('Fetching user with ID:', userId);
-  const response = await axios.get(`https://platz-ua-back.vercel.app/api/users/${userId}`);
-  console.log('User data:', response.data);
+  const response = await axios.get(`${API_URL}/${userId}`);
   return response.data;
 });
 
 export const updateUserDetails = createAsyncThunk('auth/updateUserDetails', async (formData, { getState }) => {
   const { auth } = getState();
-  const response = await axios.patch(`https://platz-ua-back.vercel.app/api/users/${auth.user._id}`, formData, {
+  const response = await axios.patch(`${API_URL}/${auth.user._id}`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
       Authorization: `Bearer ${auth.token}`,
@@ -45,7 +41,6 @@ export const updateUserDetails = createAsyncThunk('auth/updateUserDetails', asyn
   });
   return response.data;
 });
-
 
 const initialState = {
   user: null,
@@ -55,8 +50,6 @@ const initialState = {
   loading: false,
   error: null,
 };
-
-// Slice
 
 const authSlice = createSlice({
   name: 'auth',
@@ -119,12 +112,7 @@ const authSlice = createSlice({
       .addCase(fetchUserById.fulfilled, (state, action) => {
         state.loading = false;
         state.owner = action.payload;
-
-        if (action.payload.likedUsers) {
-          state.likedUserAvatars = action.payload.likedUsers.map(user => user.avatarURL);
-        } else {
-          state.likedUserAvatars = [];
-        }
+        state.likedUserAvatars = action.payload.likedUsers?.map(user => user.avatarURL) || [];
       })
       .addCase(fetchUserById.rejected, (state, action) => {
         state.loading = false;
@@ -144,7 +132,6 @@ const authSlice = createSlice({
       });
   },
 });
-
 
 export const { logout } = authSlice.actions;
 export default authSlice.reducer;

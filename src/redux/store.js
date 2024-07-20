@@ -8,7 +8,12 @@ export const store = configureStore({
     products: productsReducer,
     auth: authReducer,
     favorites: favoritesReducer
-  }
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
 export default store;
