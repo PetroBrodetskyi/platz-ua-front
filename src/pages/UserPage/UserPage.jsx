@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserById, updateUserDetails } from '../../redux/features/authSlice';
 import UserProfile from '../../components/UserProfile/UserProfile';
+import UserProducts from '../../components/UserProducts/UserProducts';
 import scss from './UserPage.module.scss';
 
 const UserPage = () => {
@@ -11,7 +12,6 @@ const UserPage = () => {
 
   useEffect(() => {
     if (userId) {
-      console.log('Fetching user with ID:', userId);
       dispatch(fetchUserById(userId));
     }
   }, [dispatch, userId]);
@@ -22,9 +22,15 @@ const UserPage = () => {
 
   return (
     <div className={scss.userPage}>
-      <h1>Профіль користувача</h1>
       {user ? (
-        <UserProfile user={user} onUpdate={handleUpdate} />
+        <div className={scss.productsProfileContainer}>
+          <div>
+            <UserProducts userId={user._id} />
+          </div>
+          <div>
+            <UserProfile user={user} onUpdate={handleUpdate} />
+          </div>
+        </div>
       ) : (
         <p>Завантаження даних...</p>
       )}

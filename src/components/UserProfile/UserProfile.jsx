@@ -24,6 +24,7 @@ const UserProfile = ({ user, onUpdate }) => {
 
   return (
     <div className={scss.userProfile}>
+      <h2>Ваші данні</h2>
       <form onSubmit={handleSubmit}>
         <div className={scss.formGroup}>
           <label htmlFor="name">Ім'я:</label>

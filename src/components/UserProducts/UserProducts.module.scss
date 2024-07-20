@@ -1,0 +1,126 @@
+@import 'src/styles/mixins';
+
+$padding-desktop: 20px 40px;
+$padding-tablet: 20px;
+$padding-mobile: 10px;
+
+.userProducts {
+    padding: $padding-mobile;
+    display: flex;
+    flex-direction: column;
+
+    h2 {
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 0;
+        list-style: none;
+    }
+
+    .productsContainer {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        overflow: hidden;
+        width: 100%;
+        max-width: 400px;
+        background-color: var(--white);
+
+        img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .productDetails {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            h3 {
+                margin: 0;
+                font-size: 1.2rem;
+            }
+
+            p {
+                margin: 0;
+                font-size: 0.9rem;
+                color: var(--grey);
+            }
+
+            .price {
+                font-weight: bold;
+                color: var(--dark-grey);
+            }
+        }
+    }
+
+    @media (min-width: $tablet) {
+        padding: $padding-tablet;
+
+        .productsContainer {
+            max-width: 600px;
+
+            img {
+                height: 250px;
+            }
+
+            .productDetails {
+                padding: 20px;
+
+                h3 {
+                    font-size: 1.5rem;
+                }
+
+                p {
+                    font-size: 1rem;
+                }
+
+                .price {
+                    font-size: 1.2rem;
+                }
+            }
+        }
+    }
+
+    @media (min-width: $desktop) {
+        padding: $padding-desktop;
+
+        ul {
+            gap: 30px;
+        }
+
+        .productsContainer {
+            max-width: 600px;
+
+            img {
+                height: 300px;
+            }
+
+            .productDetails {
+                padding: 25px;
+
+                h3 {
+                    font-size: 1.8rem;
+                }
+
+                p {
+                    font-size: 1.1rem;
+                }
+
+                .price {
+                    font-size: 1.5rem;
+                }
+            }
+        }
+    }
+}

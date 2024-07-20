@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios from '../axiosConfig.js';
 
 const initialState = {
   products: [],
+  userProducts: [],
   favorites: [],
   exchangeRate: null,
   loading: false,
@@ -10,12 +11,17 @@ const initialState = {
 };
 
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
-  const response = await axios.get('https://platz-ua-back.vercel.app/api/products/public');
-  return response.data.reverse();;
+  const response = await axios.get('/products/public');
+  return response.data.reverse();
+});
+
+export const fetchUserProducts = createAsyncThunk('products/fetchUserProducts', async (userId) => {
+  const response = await axios.get(`/products?userId=${userId}`);
+  return response.data.reverse();
 });
 
 export const fetchExchangeRate = createAsyncThunk('products/fetchExchangeRate', async () => {
-  const response = await axios.get('https://platz-ua-back.vercel.app/api/exchange-rate');
+  const response = await axios.get('/exchange-rate');
   return parseFloat(response.data.sale);
 });
 
@@ -47,8 +53,29 @@ const productsSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
+      .addCase(fetchUserProducts.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchUserProducts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.userProducts = action.payload;
+      })
+      .addCase(fetchUserProducts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(fetchExchangeRate.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(fetchExchangeRate.fulfilled, (state, action) => {
+        state.loading = false;
         state.exchangeRate = action.payload;
+      })
+      .addCase(fetchExchangeRate.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
       });
   },
 });
