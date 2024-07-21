@@ -1,14 +1,13 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: process.env.NODE_ENV === 'production' ? '/platz-ua-front/' : '/',
+  base: '/platz-ua-front/',
   build: {
     outDir: 'dist',
     rollupOptions: {
-      input: 'index.html'
+      input: './index.html'
     }
   }
-})
+});
