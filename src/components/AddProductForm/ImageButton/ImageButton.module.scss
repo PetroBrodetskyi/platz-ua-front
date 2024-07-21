@@ -2,20 +2,11 @@
 
 $form-gap-desktop: 16px;
 $form-gap-tablet: 12px;
-$form-gap-mobile: 8px;
+$form-gap-mobile: 18px;
 
-.formGroup {
+.imagesGroup {
     display: flex;
-    gap: 10px;
-    margin-bottom: $form-gap-desktop;
-
-    @media (max-width: $desktop) {
-        margin-bottom: $form-gap-tablet;
-    }
-
-    @media (max-width: $tablet) {
-        margin-bottom: $form-gap-mobile;
-    }
+    flex-wrap: wrap;
 
     input[type='file'] {
         display: none;
@@ -25,8 +16,8 @@ $form-gap-mobile: 8px;
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 240px;
-        height: 240px;
+        width: 210px;
+        height: 210px;
         background-color: #68686831;
         border: 2px solid var(--grey);
         border-radius: 4px;

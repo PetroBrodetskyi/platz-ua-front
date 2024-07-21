@@ -7,7 +7,7 @@ const ImageButton = ({ id, register }) => {
   };
 
   return (
-    <div className={scss.formGroup}>
+    <div className={scss.imagesGroup}>
       <label htmlFor={id}></label>
       <input
         id={id}

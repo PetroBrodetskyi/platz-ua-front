@@ -9,7 +9,7 @@ import productsData from '../Categories/products.json';
 import ImageButton from './ImageButton/ImageButton';
 
 const AddProductForm = () => {
-  const { register, handleSubmit, formState: { errors }, watch } = useForm();
+  const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm();
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
@@ -29,70 +29,73 @@ const AddProductForm = () => {
     }
   }, [selectedCategory, categories]);
 
+  const handlePriceChange = (e) => {
+    const value = e.target.value.replace(/\D/g, '');
+    setValue('price', value);
+  };
+
   const onSubmit = async (data) => {
-  console.log('Форма надсилається');
-  console.log('Дані форми:', data);
-  console.log('Token:', token);
+    console.log('Форма надсилається');
+    console.log('Дані форми:', data);
+    console.log('Token:', token);
 
-  const formData = new FormData();
-  formData.append('name', data.name);
-  formData.append('price', data.price);
-  formData.append('description', data.description);
-  formData.append('condition', data.condition);
-  formData.append('PLZ', data.PLZ);
-  formData.append('city', data.city);
+    const formData = new FormData();
+    formData.append('name', data.name);
+    formData.append('price', data.price);
+    formData.append('description', data.description);
+    formData.append('condition', data.condition);
+    formData.append('PLZ', data.PLZ);
+    formData.append('city', data.city);
 
-  if (data.image1 && data.image1.length > 0) {
-    formData.append('image', data.image1[0]);
-  }
-  if (data.image2 && data.image2.length > 0) {
-    formData.append('image', data.image2[0]);
-  }
-  if (data.image3 && data.image3.length > 0) {
-    formData.append('image', data.image3[0]);
-  }
-  if (data.image4 && data.image4.length > 0) {
-    formData.append('image', data.image4[0]);
-  }
-
-  formData.append('category', data.category);
-  formData.append('subcategory1', data.subcategory1);
-  formData.append('subcategory2', data.subcategory2);
-  formData.append('subcategory3', data.subcategory3);
-
-  try {
-    const response = await axios.post('http://localhost:5000/api/products', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${token}`
-      }
-    });
-    console.log('Product created:', response.data);
-    navigate('/');
-  } catch (error) {
-    console.error('Error creating product:', error);
-    if (error.response) {
-      console.error('Response data:', error.response.data);
-      console.error('Response status:', error.response.status);
-      console.error('Response headers:', error.response.headers);
+    if (data.image1 && data.image1.length > 0) {
+      formData.append('image', data.image1[0]);
     }
-  }
-};
+    if (data.image2 && data.image2.length > 0) {
+      formData.append('image', data.image2[0]);
+    }
+    if (data.image3 && data.image3.length > 0) {
+      formData.append('image', data.image3[0]);
+    }
+    if (data.image4 && data.image4.length > 0) {
+      formData.append('image', data.image4[0]);
+    }
 
+    formData.append('category', data.category);
+    formData.append('subcategory1', data.subcategory1);
+    formData.append('subcategory2', data.subcategory2);
+    formData.append('subcategory3', data.subcategory3);
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/products', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log('Product created:', response.data);
+      navigate('/');
+    } catch (error) {
+      console.error('Error creating product:', error);
+      if (error.response) {
+        console.error('Response data:', error.response.data);
+        console.error('Response status:', error.response.status);
+        console.error('Response headers:', error.response.headers);
+      }
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={scss.form}>
-      <h2>Додайте нове</h2>
+      <h3>Додайте нове</h3>
       <div className={scss.formGroup}>
         <label htmlFor="name"></label>
         <input id="name" type="text" {...register('name', { required: true })} placeholder='Назва' autoComplete="on" />
-
         {errors.name && <span>Це поле обов'язкове</span>}
       </div>
 
       <div className={scss.formGroup}>
         <label htmlFor="price"></label>
-        <input id="price" type="text" {...register('price', { required: true })} placeholder='Ціна €' autoComplete="on" />
+        <input id="price" type="text" {...register('price', { required: true })} placeholder='Ціна €' autoComplete="on" onChange={handlePriceChange} />
         {errors.price && <span>Це поле обов'язкове</span>}
       </div>
 
@@ -102,7 +105,7 @@ const AddProductForm = () => {
         {errors.description && <span>Це поле обов'язкове</span>}
       </div>
 
-      <div className={scss.formGroup}>
+      <div className={scss.stateGroup}>
         <div>
           <label htmlFor="new">
             <input type="radio" id="new" value="новий" {...register('condition', { required: true })} />
@@ -119,13 +122,13 @@ const AddProductForm = () => {
       </div>
 
       <div className={scss.formGroup}>
-        <label htmlFor="PLZ">Поштовий індекс:</label>
+        <label htmlFor="PLZ"></label>
         <input id="PLZ" type="text" {...register('PLZ', { required: true })} placeholder='PLZ' autoComplete="postal-code" />
         {errors.PLZ && <span>Це поле обов'язкове</span>}
       </div>
 
       <div className={scss.formGroup}>
-        <label htmlFor="city">Місто:</label>
+        <label htmlFor="city"></label>
         <input id="city" type="text" {...register('city', { required: true })} placeholder='Місто' autoComplete="address-level2" />
         {errors.city && <span>Це поле обов'язкове</span>}
       </div>
@@ -138,7 +141,7 @@ const AddProductForm = () => {
       </div>
 
       <div className={scss.formGroup}>
-        <label htmlFor="category">Категорія:</label>
+        <label htmlFor="category"></label>
         <select id="category" {...register('category', { required: true })} autoComplete="category">
           <option value="">Виберіть категорію</option>
           {categories.map(cat => (
@@ -149,7 +152,7 @@ const AddProductForm = () => {
       </div>
 
       <div className={scss.formGroup}>
-        <label htmlFor="subcategory1">Підкатегорія 1:</label>
+        <label htmlFor="subcategory1"></label>
         <select id="subcategory1" {...register('subcategory1', { required: true })} autoComplete="off">
           <option value="">Виберіть підкатегорію</option>
           {subcategories.map(subcat => (
@@ -160,7 +163,7 @@ const AddProductForm = () => {
       </div>
 
       <div className={scss.formGroup}>
-        <label htmlFor="subcategory2">Підкатегорія 2:</label>
+        <label htmlFor="subcategory2"></label>
         <select id="subcategory2" {...register('subcategory2')} autoComplete="off">
           <option value="">Виберіть підкатегорію</option>
           {subcategories.map(subcat => (
@@ -170,7 +173,7 @@ const AddProductForm = () => {
       </div>
 
       <div className={scss.formGroup}>
-        <label htmlFor="subcategory3">Підкатегорія 3:</label>
+        <label htmlFor="subcategory3"></label>
         <select id="subcategory3" {...register('subcategory3')} autoComplete="off">
           <option value="">Виберіть підкатегорію</option>
           {subcategories.map(subcat => (

@@ -13,16 +13,18 @@ $form-font-size-tablet: 14px;
 $form-font-size-mobile: 12px;
 
 .form {
-    background-color: var(--light-bg);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--white);
+    width: 500px;
     padding: $form-padding-desktop;
-    width: 600px;
 
     @media (max-width: $desktop) {
-        padding: $form-padding-tablet;
+        padding: $form-padding-desktop;
     }
 
     @media (max-width: $tablet) {
-        padding: $form-padding-mobile;
         width: auto;
         max-width: 100%;
     }
@@ -30,15 +32,16 @@ $form-font-size-mobile: 12px;
     .formGroup {
         display: flex;
         flex-direction: column;
+        gap: 10px;
         background-color: var(--white);
-        padding: $form-padding-tablet;
 
         input,
         select,
         textarea {
-            padding: 8px;
-            // border: 1px solid var(--grey);
+            border: none;
+            border-bottom: 2px solid var(--black);
             font-size: $form-font-size-desktop;
+            font-family: var(--font-family);
             resize: none;
             width: 100%;
 
@@ -51,19 +54,23 @@ $form-font-size-mobile: 12px;
             }
 
             &:focus {
-                border-color: var(--primary);
+                border-bottom-color: var(--primary);
                 outline: none;
             }
         }
 
         textarea {
-            height: 300px;
+            height: 200px;
         }
+    }
+
+    .stateGroup {
+        display: flex;
+        gap: 20px;
     }
 
     .imageContainer {
         display: flex;
         flex-wrap: wrap;
     }
-
 }

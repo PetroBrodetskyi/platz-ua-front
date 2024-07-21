@@ -4,6 +4,12 @@ $gap-desktop: 40px;
 $gap-tablet: 12px;
 $gap-mobile: 8px;
 
+$font-size-small: 12px;
+$font-size-medium: 14px;
+$font-size-large: 16px;
+$font-size-xlarge: 24px;
+$font-size-xxlarge: 28px;
+
 .details {
     display: flex;
     flex-direction: column;
@@ -26,8 +32,6 @@ $gap-mobile: 8px;
         @media (min-width: $mobile) {
             flex-direction: row;
         }
-
-
     }
 
     .inputField {
@@ -46,7 +50,25 @@ $gap-mobile: 8px;
 
         @media (min-width: $desktop) {
             font-size: 16px;
-            
+        }
+    }
+
+    .descriptionField {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 8px;
+        border: 1px solid #ccc;
+        font-family: var(--font-family);
+        resize: none;
+        height: 200px;
+        font-size: $font-size-small;
+
+        @media (min-width: $tablet) {
+            font-size: $font-size-medium;
+        }
+
+        @media (min-width: $desktop) {
+            font-size: $font-size-large;
         }
     }
 
@@ -60,5 +82,42 @@ $gap-mobile: 8px;
         display: flex;
         gap: 10px;
         flex-direction: column;
+    }
+
+    .radio {
+        display: flex;
+        gap: 10px;
+    }
+
+    .conditionOptions {
+        display: flex;
+        gap: 10px;
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            input[type="radio"] {
+                accent-color: #007bff;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .detailsFlex {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .icons {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .icon {
+        font-size: 18px;
     }
 }

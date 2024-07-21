@@ -6,7 +6,6 @@ const Condition = ({ condition, addedDate }) => {
     <div className={scss.container}>
       <p className={scss.condition}>{condition}</p>
       <p className={scss.addedDate}>{new Date(addedDate).toLocaleDateString()}</p>
-      
     </div>
   );
 };

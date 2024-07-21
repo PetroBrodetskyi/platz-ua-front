@@ -4,12 +4,33 @@ $padding-desktop: 40px;
 $padding-tablet: 20px;
 $padding-mobile: 10px;
 
+$user-products-bg: var(--light-bg);
+$white-color: var(--white);
+$red-color: var(--red);
+$font-size-small: 12px;
+$font-size-medium: 14px;
+$font-size-large: 16px;
+$font-size-xlarge: 24px;
+$font-size-xxlarge: 28px;
+
 .userProducts {
-    padding: $padding-desktop;
+    padding: $padding-mobile;
     display: flex;
-    background-color: var(--light-bg);
+    background-color: $user-products-bg;
     flex-direction: column;
     gap: 26px;
+
+    @media (min-width: $tablet) {
+        padding: $padding-tablet;
+    }
+
+    @media (min-width: $desktop) {
+        padding: $padding-desktop;
+    }
+
+    .title {
+        font-size: $font-size-medium;
+    }
 
     .productsList {
         display: flex;
@@ -20,39 +41,43 @@ $padding-mobile: 10px;
     .productsItem {
         display: flex;
         flex-direction: column;
-        background-color: var(--white);
+        background-color: $white-color;
         gap: 20px;
-        padding: 10px;
+        padding: $padding-mobile;
 
         &:hover {
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
-        // @media (min-width: $tablet) {
-        //     width: 600px;
-        // }
-
-        @media (min-width: $desktop) {
-            width: 852px;
-            height: auto;
+        @media (min-width: $tablet) {
+            padding: $padding-tablet;
         }
 
-        .image {
-            display: flex;
-            gap: 10px;
-            width: 180px;
-            height: 170px;
-            object-fit: cover;
+        @media (min-width: $desktop) {
+            padding: $padding-desktop;
+        }
 
-            @media (min-width: $tablet) {
-                height: 200px;
-                width: 200px;
+        .imageContainer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+
+            @media (min-width: $mobile) and (max-width: $tablet) {
+                gap: 6px;
             }
 
-            @media (min-width: $desktop) {
-                height: 200px;
-                width: 200px;
+            @media (min-width: $tablet) {
+                gap: 10px;
+            }
+
+            .image {
+                width: 180px;
+                height: 180px;
                 object-fit: cover;
+
+                @media (min-width: $desktop) {
+                    width: 24%;
+                }
             }
         }
 
@@ -66,25 +91,109 @@ $padding-mobile: 10px;
                 justify-content: space-between;
                 align-items: center;
 
+                @media (min-width: $tablet) {
+                    flex-direction: row;
+                }
             }
 
             .price {
-                color: var(--red);
-                font-size: 24px;
-                font-weight: 600;
+                color: $red-color;
+                font-size: $font-size-xlarge;
+
+                @media (min-width: $tablet) {
+                    font-size: $font-size-xxlarge;
+                }
             }
 
             .description {
-                font-size: 12px;
+                font-size: $font-size-small;
 
                 @media (min-width: $tablet) {
-                    font-size: 14px;
+                    font-size: $font-size-medium;
                 }
 
                 @media (min-width: $desktop) {
-                    font-size: 16px;
+                    font-size: $font-size-large;
                 }
             }
         }
+
+        .detailsContainer {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            @media (min-width: $tablet) {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .detailsFlex,
+            .radioFlex {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+
+                .icon {
+                    font-size: 18px;
+                }
+            }
+
+            .conditionOptions {
+                display: flex;
+                gap: 8px;
+            }
+
+            .icons {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+            }
+        }
+    }
+
+    .inputField {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 8px;
+        border: 1px solid #ccc;
+        font-family: var(--font-family);
+        resize: none;
+        height: auto;
+        font-size: $font-size-small;
+
+        @media (min-width: $tablet) {
+            font-size: $font-size-medium;
+        }
+
+        @media (min-width: $desktop) {
+            font-size: $font-size-large;
+        }
+    }
+
+
+    .descriptionField {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 8px;
+        border: 1px solid #ccc;
+        font-family: var(--font-family);
+        resize: none;
+        height: 200px;
+        font-size: $font-size-small;
+
+        @media (min-width: $tablet) {
+            font-size: $font-size-medium;
+        }
+
+        @media (min-width: $desktop) {
+            font-size: $font-size-large;
+        }
+    }
+
+    .buttonsMenu {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 }

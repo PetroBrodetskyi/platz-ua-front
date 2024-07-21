@@ -1,18 +1,38 @@
 import React from 'react';
+import { TbLocation } from 'react-icons/tb';
+import { SlLocationPin } from 'react-icons/sl';
+import { MdOutlineDateRange } from 'react-icons/md';
+import { FaRegFaceSmile, FaRegFaceMeh } from 'react-icons/fa6';
 import scss from './ProductInfo.module.scss';
 import CartPrice from '../../ProductCard/CartPrice/CartPrice';
 import ShareMenu from '../../ShareMenu/ShareMenu';
 import ActionButton from '../ActionButton/ActionButton';
 
-const ProductInfo = ({ product, exchangeRate, isEditing, updatedProduct, setUpdatedProduct, handleEditClick, handleSaveClick, currentUser }) => {
+const ProductInfo = ({
+  product,
+  exchangeRate,
+  isEditing,
+  updatedProduct,
+  setUpdatedProduct,
+  handleEditClick,
+  handleSaveClick,
+  currentUser
+}) => {
   const productUrl = window.location.href;
-  const formattedDate = new Date(product.createdAt).toLocaleDateString();
+  const formattedDate = new Date(product.updatedAt).toLocaleDateString();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUpdatedProduct((prevState) => ({
       ...prevState,
       [name]: value,
+    }));
+  };
+
+  const handleConditionChange = (e) => {
+    setUpdatedProduct((prevState) => ({
+      ...prevState,
+      condition: e.target.value,
     }));
   };
 
@@ -53,7 +73,7 @@ const ProductInfo = ({ product, exchangeRate, isEditing, updatedProduct, setUpda
             name="description"
             value={updatedProduct.description}
             onChange={handleChange}
-            className={scss.inputField}
+            className={scss.descriptionField}
           />
         ) : (
           product.description
@@ -61,35 +81,66 @@ const ProductInfo = ({ product, exchangeRate, isEditing, updatedProduct, setUpda
       </p>
       
       <div className={scss.editContainer}>
-        <p>
+        <div className={scss.radio}>
           Стан:{' '}
           {isEditing ? (
-            <input
-              type="text"
-              name="condition"
-              value={updatedProduct.condition}
-              onChange={handleChange}
-              className={scss.inputField}
-            />
+            <div className={scss.conditionOptions}>
+              <label>
+                <input
+                  type="radio"
+                  name="condition"
+                  value="новий"
+                  checked={updatedProduct.condition === 'новий'}
+                  onChange={handleConditionChange}
+                />
+                новий
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="condition"
+                  value="вживаний"
+                  checked={updatedProduct.condition === 'вживаний'}
+                  onChange={handleConditionChange}
+                />
+                вживаний
+              </label>
+            </div>
           ) : (
-            product.condition
+            <p className={scss.icons}>
+              {product.condition === 'новий' ? (
+                <>
+                  <FaRegFaceSmile className={scss.icon} /> новий
+                </>
+              ) : (
+                <>
+                  <FaRegFaceMeh className={scss.icon} /> вживаний
+                </>
+              )}
+            </p>
           )}
+        </div>
+        <p className={scss.detailsFlex}>
+          Оновлено: <MdOutlineDateRange className={scss.icon} /> {formattedDate}
         </p>
-        <p>Оновлено: {formattedDate}</p>
-        <p>PLZ: {product.PLZ}</p>
-        <p>Місто: {product.city}</p>
+        <p className={scss.detailsFlex}>
+          PLZ: <TbLocation className={scss.icon} /> {product.PLZ}
+        </p>
+        <p className={scss.detailsFlex}>
+          Місто: <SlLocationPin className={scss.icon} /> {product.city}
+        </p>
       </div>
       <div className={scss.buttonsMenu}>
         <div>
-            <ShareMenu productUrl={productUrl} />
+          <ShareMenu productUrl={productUrl} />
         </div>
         <div>
           {currentUser && currentUser._id === product.owner && (
-                <ActionButton
-                  isEditing={isEditing}
-                  onClick={isEditing ? handleSaveClick : handleEditClick}
-                />
-            )}
+            <ActionButton
+              isEditing={isEditing}
+              onClick={isEditing ? handleSaveClick : handleEditClick}
+            />
+          )}
         </div>
       </div>
     </div>
