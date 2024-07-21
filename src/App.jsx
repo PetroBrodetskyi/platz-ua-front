@@ -8,7 +8,7 @@ import './styles/index.scss';
 const App = () => {
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename="/platz-ua-front/">
         <AppBar />
       </BrowserRouter>
     </Provider>
