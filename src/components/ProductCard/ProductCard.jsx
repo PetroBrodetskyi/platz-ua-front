@@ -49,7 +49,7 @@ const ProductCard = () => {
               <div className={scss.dateCart}>
                 <div>
                     <CreateCondition
-                      addedDate={product.createdAt}
+                      addedDate={product.updatedAt}
                       condition={product.condition}
                     />
                 </div>
