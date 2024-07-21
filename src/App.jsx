@@ -8,7 +8,7 @@ import './styles/index.scss';
 const App = () => {
   return (
     <Provider store={store}>
-      <BrowserRouter basename="/platz-ua-front/">
+      <BrowserRouter basename={process.env.NODE_ENV === 'production' ? '/platz-ua-front' : '/'}>
         <AppBar />
       </BrowserRouter>
     </Provider>
