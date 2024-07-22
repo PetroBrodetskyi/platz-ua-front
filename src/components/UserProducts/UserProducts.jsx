@@ -6,6 +6,7 @@ import { SlLocationPin } from "react-icons/sl";
 import { MdOutlineDateRange } from "react-icons/md";
 import { FaRegFaceSmile, FaRegFaceMeh } from "react-icons/fa6";
 import ActionButton from '../ProductDetails/ActionButton/ActionButton';
+import { getCategoryIcon, getSubcategoryIcon } from '../Categories/icons';
 import axios from 'axios';
 import scss from './UserProducts.module.scss';
 
@@ -179,6 +180,20 @@ const UserProducts = ({ userId }) => {
               <div className={scss.detailsFlex}>
                 Оновлено:<MdOutlineDateRange className={scss.icon}/>
                 <p>{new Date(product.updatedAt).toLocaleDateString()}</p>
+              </div>
+              <div>
+                <p className={scss.detailsFlex}>
+                  Категорія: {getCategoryIcon(product.category)} {product.category}
+                </p>
+                <p className={scss.detailsFlex}>
+                  Підкатегорія: {getSubcategoryIcon(product.subcategory1)} {product.subcategory1}
+                </p>
+                <p className={scss.detailsFlex}>
+                  Підкатегорія: {getSubcategoryIcon(product.subcategory2)} {product.subcategory2}
+                </p>
+                <p className={scss.detailsFlex}>
+                  Підкатегорія: {getSubcategoryIcon(product.subcategory3)} {product.subcategory3}
+                  </p>
               </div>
             </div>
             <div className={scss.buttonsMenu}>

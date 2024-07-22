@@ -7,6 +7,7 @@ import scss from './ProductInfo.module.scss';
 import CartPrice from '../../ProductCard/CartPrice/CartPrice';
 import ShareMenu from '../../ShareMenu/ShareMenu';
 import ActionButton from '../ActionButton/ActionButton';
+import { getCategoryIcon, getSubcategoryIcon } from '../../Categories/icons';
 
 const ProductInfo = ({
   product,
@@ -128,6 +129,18 @@ const ProductInfo = ({
         </p>
         <p className={scss.detailsFlex}>
           Місто: <SlLocationPin className={scss.icon} /> {product.city}
+        </p>
+        <p className={scss.detailsFlex}>
+          Категорія: {getCategoryIcon(product.category)} {product.category}
+        </p>
+        <p className={scss.detailsFlex}>
+          Підкатегорія: {getSubcategoryIcon(product.subcategory1)} {product.subcategory1}
+        </p>
+        <p className={scss.detailsFlex}>
+          Підкатегорія: {getSubcategoryIcon(product.subcategory2)} {product.subcategory2}
+        </p>
+        <p className={scss.detailsFlex}>
+          Підкатегорія: {getSubcategoryIcon(product.subcategory3)} {product.subcategory3}
         </p>
       </div>
       <div className={scss.buttonsMenu}>

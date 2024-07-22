@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdOutlineFavorite, MdOutlineFavoriteBorder, MdOutlineDirectionsRun, MdOutlineHowToReg } from 'react-icons/md';
-import { PiShoppingCartBold } from 'react-icons/pi';
+import { PiShoppingCart } from 'react-icons/pi';
+import { RiLoginCircleLine } from "react-icons/ri";
 import scss from './Header.module.scss';
 import SearchLocation from '../SearchLocation/SearchLocation';
 import Logo from '../Logo/Logo';
@@ -55,7 +56,6 @@ const Header = ({ onClick }) => {
         <div className={scss.userMenu}>
           <NavLink to="/user">
             <button type="button" className={scss.iconUserDesktop} onClick={onClick}>
-              <MdOutlineHowToReg fontSize="24px" />
               {loading ? (
                 <div className={scss.userInfo}>
                   <span>Loading...</span>
@@ -73,13 +73,13 @@ const Header = ({ onClick }) => {
           {!user && (
             <NavLink to="/login">
               <button type="button" className={scss.icon} onClick={onClick}>
-                <MdOutlineDirectionsRun />
+                <RiLoginCircleLine />
               </button>
             </NavLink>
           )}
           <NavLink to="/cart">
             <button type="button" className={scss.icon} onClick={onClick}>
-              <PiShoppingCartBold />
+              <PiShoppingCart />
             </button>
           </NavLink>
           <NavLink to="/favorites">
