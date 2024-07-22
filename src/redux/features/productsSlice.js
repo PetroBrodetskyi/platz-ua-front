@@ -15,6 +15,12 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts', async ()
   return response.data.reverse();
 });
 
+export const fetchProductById = createAsyncThunk('products/fetchProductById', async (productId) => {
+  console.log(`Fetching product by ID: ${productId}`);
+  const response = await axios.get(`/products/public/${productId}`);
+  return response.data;
+});
+
 export const fetchUserProducts = createAsyncThunk('products/fetchUserProducts', async () => {
   const response = await axios.get(`/products`);
   return response.data.reverse();
@@ -57,6 +63,18 @@ const productsSlice = createSlice({
         state.favorites = action.payload.filter(product => product.favorite).map(product => product._id);
       })
       .addCase(fetchProducts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(fetchProductById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchProductById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.product = action.payload;
+      })
+      .addCase(fetchProductById.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })

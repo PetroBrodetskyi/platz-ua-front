@@ -1,8 +1,6 @@
-// ProductCard.jsx
-
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchProducts, fetchExchangeRate } from '../../redux/features/productsSlice';
+import { fetchProducts, fetchExchangeRate, fetchProductById } from '../../redux/features/productsSlice';
 import { toggleFavorite } from '../../redux/features/favoritesSlice';
 import { useNavigate } from 'react-router-dom';
 import TitleFavorite from './TitleFavorite/TitleFavorite';
@@ -25,6 +23,7 @@ const ProductCard = () => {
 
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
+    dispatch(fetchProductById(productId));
   };
 
   return (

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { fetchProducts, fetchExchangeRate } from '../../redux/features/productsSlice';
+import { fetchProducts, fetchProductById, fetchExchangeRate } from '../../redux/features/productsSlice';
 import { fetchUserById, fetchCurrentUser } from '../../redux/features/authSlice';
 import axios from 'axios';
 import scss from './ProductDetails.module.scss';
@@ -52,6 +52,15 @@ const ProductDetails = () => {
   useEffect(() => {
     dispatch(fetchCurrentUser());
   }, [dispatch]);
+
+  useEffect(() => {
+    const viewedProducts = JSON.parse(localStorage.getItem('viewedProducts')) || [];
+    if (!viewedProducts.includes(productId)) {
+      dispatch(fetchProductById(productId));
+      viewedProducts.push(productId);
+      localStorage.setItem('viewedProducts', JSON.stringify(viewedProducts));
+    }
+  }, [dispatch, productId]);
 
   if (loading) {
     return <p>Завантаження...</p>;
@@ -113,6 +122,7 @@ const ProductDetails = () => {
             handleSaveClick={handleSaveClick}
             currentUser={currentUser}
           />
+          <p>Переглядів: {product.views !== undefined ? product.views : 'N/A'}</p>
         </div>
         <div className={scss.ownerContainer}>
           <UserInfo owner={owner} />
