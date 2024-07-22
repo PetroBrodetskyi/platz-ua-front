@@ -14,14 +14,11 @@
     background-color: var(--white);
     border: 1px solid var(--light-grey);
     min-width: 192px;
+    position: relative;
 
     @include transition(box-shadow);
     box-sizing: border-box;
     flex: 1 1 calc(50% - 4px);
-
-    &:hover {
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
 
     @media (min-width: $tablet) {
         padding: 10px;
@@ -45,7 +42,7 @@
     @media (min-width: $tablet) {
         visibility: visible;
     }
-    
+
     @media (min-width: $desktop) {
         visibility: visible;
     }
@@ -63,6 +60,7 @@
     }
 
     .productImage {
+        position: relative;
         flex-shrink: 0;
         width: auto;
         height: 170px;
@@ -82,6 +80,30 @@
             height: 100%;
             object-fit: cover;
             cursor: pointer;
+        }
+
+        .categoryInfo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 8px;
+            border-bottom-right-radius: 8px;
+            border-top-left-radius: 8px;
+            display: flex;
+            flex-direction: row;
+            gap: 8px;
+            z-index: 1;
+            width: 100%;
+            color: var(--white);
+            font-size: 16px;
+        }
+
+        .subcategoryInfo {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--grey);
+            font-size: 14px;
         }
     }
 
@@ -103,10 +125,38 @@
             font-size: 12px;
             max-width: 100px;
         }
-        
+
         @media (min-width: $desktop) {
             font-size: 14px;
             max-width: 280px;
         }
     }
+
+        .tooltipWrapper {
+            position: relative;
+            display: inline-block;
+    
+            &:hover .tooltip {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+    
+        .tooltip {
+            visibility: hidden;
+            width: 120px;
+            background-color: #333333;
+            color: var(--white);
+            text-align: center;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+            white-space: nowrap;
+        }
 }

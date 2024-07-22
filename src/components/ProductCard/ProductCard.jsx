@@ -1,3 +1,5 @@
+// ProductCard.jsx
+
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts, fetchExchangeRate } from '../../redux/features/productsSlice';
@@ -5,9 +7,10 @@ import { toggleFavorite } from '../../redux/features/favoritesSlice';
 import { useNavigate } from 'react-router-dom';
 import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
-import scss from './ProductCard.module.scss';
 import PlzCity from './PlzCity/PlzCity';
 import CreateCondition from './CreateCondition/CreateCondition';
+import { getCategoryIcon, getSubcategoryIcon, getCategoryLabel, getSubcategoryLabel } from '../Categories/icons';
+import scss from './ProductCard.module.scss';
 
 const ProductCard = () => {
   const dispatch = useDispatch();
@@ -30,6 +33,30 @@ const ProductCard = () => {
         <li key={product._id} className={`${scss.productItem} ${product.isSquare ? 'square' : ''}`}>
           <div className={scss.product}>
             <div className={scss.productImage}>
+              <div className={scss.categoryInfo}>
+                <div className={scss.tooltipWrapper}>
+                  {getCategoryIcon(product.category)}
+                  <span className={scss.tooltip}>{getCategoryLabel(product.category)}</span>
+                </div>
+                {product.subcategory1 && (
+                  <div className={scss.tooltipWrapper}>
+                    {getSubcategoryIcon(product.subcategory1)}
+                    <span className={scss.tooltip}>{getSubcategoryLabel(product.subcategory1)}</span>
+                  </div>
+                )}
+                {product.subcategory2 && (
+                  <div className={scss.tooltipWrapper}>
+                    {getSubcategoryIcon(product.subcategory2)}
+                    <span className={scss.tooltip}>{getSubcategoryLabel(product.subcategory2)}</span>
+                  </div>
+                )}
+                {product.subcategory3 && (
+                  <div className={scss.tooltipWrapper}>
+                    {getSubcategoryIcon(product.subcategory3)}
+                    <span className={scss.tooltip}>{getSubcategoryLabel(product.subcategory3)}</span>
+                  </div>
+                )}
+              </div>
               <img
                 src={product.image1}
                 alt={product.name}
@@ -48,10 +75,10 @@ const ProductCard = () => {
               </div>
               <div className={scss.dateCart}>
                 <div>
-                    <CreateCondition
-                      addedDate={product.updatedAt}
-                      condition={product.condition}
-                    />
+                  <CreateCondition
+                    addedDate={product.updatedAt}
+                    condition={product.condition}
+                  />
                 </div>
                 <div className={scss.plzCity}>
                   <PlzCity
@@ -60,12 +87,12 @@ const ProductCard = () => {
                   />
                 </div>
                 <div>
-                    {exchangeRate !== null && (
-                      <CartPrice 
-                        price={product.price} 
-                        exchangeRate={exchangeRate} 
-                      />
-                    )}
+                  {exchangeRate !== null && (
+                    <CartPrice 
+                      price={product.price} 
+                      exchangeRate={exchangeRate} 
+                    />
+                  )}
                 </div>
               </div>
             </div>

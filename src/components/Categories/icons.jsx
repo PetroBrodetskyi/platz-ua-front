@@ -1,4 +1,3 @@
-import React from 'react';
 import { AiOutlineAudio } from "react-icons/ai";
 import { MdOutlinePhonelink, MdOutlineMapsHomeWork, MdOutlineToys, MdEmojiFoodBeverage, MdPhoneIphone, MdOutlineLaptopChromebook, MdTabletMac, MdOutlineDesktopWindows, MdOutlineChildFriendly, MdElectricScooter, MdFitnessCenter } from "react-icons/md";
 import { FaBookDead, FaCar, FaBaby, FaCarBattery, FaTrailer } from "react-icons/fa";
@@ -13,85 +12,93 @@ import { TbPoint, TbSofa, TbBatteryCharging2, TbPlaystationSquare, TbMicrowave, 
 import { ImWrench } from "react-icons/im";
 
 const categoryIcons = {
-  'електроніка': <MdOutlinePhonelink />,
-  'транспорт': <FaCar />,
-  'дім': <MdOutlineMapsHomeWork />,
-  'сад': <SiGumtree />,
-  'одяг': <GiClothes />,
-  'іграшки': <MdOutlineToys />,
-  'послуги': <RiCustomerService2Fill />,
-  'продукти': <MdEmojiFoodBeverage />,
-  'default': <TbPoint />
+  'електроніка': { icon: <MdOutlinePhonelink />, label: 'Електроніка' },
+  'транспорт': { icon: <FaCar />, label: 'Транспорт' },
+  'дім': { icon: <MdOutlineMapsHomeWork />, label: 'Дім' },
+  'сад': { icon: <SiGumtree />, label: 'Сад' },
+  'одяг': { icon: <GiClothes />, label: 'Одяг' },
+  'іграшки': { icon: <MdOutlineToys />, label: 'Іграшки' },
+  'послуги': { icon: <RiCustomerService2Fill />, label: 'Послуги' },
+  'продукти': { icon: <MdEmojiFoodBeverage />, label: 'Продукти' },
+  'default': { icon: <TbPoint />, label: 'Інше' }
 };
 
 const subcategoryIcons = {
-  'декор': <PiPottedPlantBold />,
-  'книги': <PiBooksBold />,
-  'інструменти': <PiHammerBold />,
-  'освітлення': <PiLampPendantBold />,
-  'побутова техніка': <RiScales2Line />,
-  'посуд': <PiBowlSteamBold />,
-  'кухня': <PiForkKnifeBold />,
-  'прибирання': <PiBroomFill />,
-  'сантехніка': <PiBathtubBold />,
-  'планшети': <MdTabletMac />,
-  'зарядки': <TbBatteryCharging2 />,
-  'для кухні': <TbMicrowave />,
-  'пральні машини': <TbWashTumbleDry />,
-  'аудіотехніка': <AiOutlineAudio />,
-  'ігрові консолі': <TbPlaystationSquare />,
-  "комп'ютери": <FaComputer />,
-  'монітори': <MdOutlineDesktopWindows />,
-  'ноутбуки': <MdOutlineLaptopChromebook />,
-  'телефони': <MdPhoneIphone />,
-  'телевізори': <PiTelevisionSimpleFill />,
-  'фото та відеокамери': <PiVideoCameraBold />,
-  'авто': <FaCar />,
-  'меблі': <TbSofa />,
-  'садові інструменти': <SiGumtree />,
-  'чоловічий одяг': <GiClothes />,
-  'художня література': <FaBookDead />,
-  'настільні': <FaChessBoard />,
-  'іграшкова зброя': <PiSwordBold />,
-  'інтерактивні': <RiRobot3Line />,
-  'конструктори': <LuToyBrick />,
-  'машинки': <TbCarSuv />,
-  'ляльки': <FaBaby />,
-  'пазли': <TbPuzzle />,
-  'плюшеві': <RiBearSmileLine />,
-  'аксесуари': <GiBilledCap />,
-  'взуття': <PiSneakerBold />,
-  'жіночий': <GiLargeDress />,
-  'чоловічий': <PiPantsFill />,
-  'продукти харчування': <MdEmojiFoodBeverage />,
-  'дитячі візочки': <MdOutlineChildFriendly />,
-  'автосервіс': <ImWrench />,
-  'вантажні авто': <PiTruckTrailerFill />,
-  'велосипеди': <GrBike />,
-  'запчастини': <FaCarBattery />,
-  'електротранспорт': <MdElectricScooter />,
-  'мотоцикли': <PiMotorcycleBold />,
-  'причепи': <FaTrailer />,
-  'скутери': <PiMopedBold />,
-  'кемпери': <TbCamper />,
-  'органічні продукти': <TbCarrot />,
-  'таксі': <PiTaxiBold />,
-  'спорт': <MdFitnessCenter />,
-  'десерти': <GiCakeSlice />,
-  'напої': <PiMartiniBold />,
-  'веганські': <LuVegan />,
-  'органічні': <GiTomato />,
-  'дієтичні': <TbEggs />,
-  'місцеві': <GiSlicedMushroom />,
-  'домашня кухня': <LuSoup />,
-  'здорові': <LuApple />,
-  'default': <TbPoint />
+  'декор': { icon: <PiPottedPlantBold />, label: 'Декор' },
+  'книги': { icon: <PiBooksBold />, label: 'Книги' },
+  'інструменти': { icon: <PiHammerBold />, label: 'Інструменти' },
+  'освітлення': { icon: <PiLampPendantBold />, label: 'Освітлення' },
+  'побутова техніка': { icon: <RiScales2Line />, label: 'Побутова техніка' },
+  'посуд': { icon: <PiBowlSteamBold />, label: 'Посуд' },
+  'кухня': { icon: <PiForkKnifeBold />, label: 'Кухня' },
+  'прибирання': { icon: <PiBroomFill />, label: 'Прибирання' },
+  'сантехніка': { icon: <PiBathtubBold />, label: 'Сантехніка' },
+  'планшети': { icon: <MdTabletMac />, label: 'Планшети' },
+  'зарядки': { icon: <TbBatteryCharging2 />, label: 'Зарядки' },
+  'для кухні': { icon: <TbMicrowave />, label: 'Для кухні' },
+  'пральні машини': { icon: <TbWashTumbleDry />, label: 'Пральні машини' },
+  'аудіотехніка': { icon: <AiOutlineAudio />, label: 'Аудіотехніка' },
+  'ігрові консолі': { icon: <TbPlaystationSquare />, label: 'Ігрові консолі' },
+  "комп'ютери": { icon: <FaComputer />, label: 'Комп\'ютери' },
+  'монітори': { icon: <MdOutlineDesktopWindows />, label: 'Монітори' },
+  'ноутбуки': { icon: <MdOutlineLaptopChromebook />, label: 'Ноутбуки' },
+  'телефони': { icon: <MdPhoneIphone />, label: 'Телефони' },
+  'телевізори': { icon: <PiTelevisionSimpleFill />, label: 'Телевізори' },
+  'фото та відеокамери': { icon: <PiVideoCameraBold />, label: 'Фото та відеокамери' },
+  'авто': { icon: <FaCar />, label: 'Авто' },
+  'меблі': { icon: <TbSofa />, label: 'Меблі' },
+  'садові інструменти': { icon: <SiGumtree />, label: 'Садові інструменти' },
+  'чоловічий одяг': { icon: <GiClothes />, label: 'Чоловічий одяг' },
+  'художня література': { icon: <FaBookDead />, label: 'Художня література' },
+  'настільні': { icon: <FaChessBoard />, label: 'Настільні' },
+  'іграшкова зброя': { icon: <PiSwordBold />, label: 'Іграшкова зброя' },
+  'інтерактивні': { icon: <RiRobot3Line />, label: 'Інтерактивні' },
+  'конструктори': { icon: <LuToyBrick />, label: 'Конструктори' },
+  'машинки': { icon: <TbCarSuv />, label: 'Машинки' },
+  'ляльки': { icon: <FaBaby />, label: 'Ляльки' },
+  'пазли': { icon: <TbPuzzle />, label: 'Пазли' },
+  'плюшеві': { icon: <RiBearSmileLine />, label: 'Плюшеві' },
+  'аксесуари': { icon: <GiBilledCap />, label: 'Аксесуари' },
+  'взуття': { icon: <PiSneakerBold />, label: 'Взуття' },
+  'жіночий': { icon: <GiLargeDress />, label: 'Жіночий' },
+  'чоловічий': { icon: <PiPantsFill />, label: 'Чоловічий' },
+  'продукти харчування': { icon: <MdEmojiFoodBeverage />, label: 'Продукти харчування' },
+  'дитячі візочки': { icon: <MdOutlineChildFriendly />, label: 'Дитячі візочки' },
+  'автосервіс': { icon: <ImWrench />, label: 'Автосервіс' },
+  'вантажні авто': { icon: <PiTruckTrailerFill />, label: 'Вантажні авто' },
+  'велосипеди': { icon: <GrBike />, label: 'Велосипеди' },
+  'запчастини': { icon: <FaCarBattery />, label: 'Запчастини' },
+  'електротранспорт': { icon: <MdElectricScooter />, label: 'Електротранспорт' },
+  'мотоцикли': { icon: <PiMotorcycleBold />, label: 'Мотоцикли' },
+  'причепи': { icon: <FaTrailer />, label: 'Причепи' },
+  'скутери': { icon: <PiMopedBold />, label: 'Скутери' },
+  'кемпери': { icon: <TbCamper />, label: 'Кемпери' },
+  'органічні продукти': { icon: <TbCarrot />, label: 'Органічні продукти' },
+  'таксі': { icon: <PiTaxiBold />, label: 'Таксі' },
+  'спорт': { icon: <MdFitnessCenter />, label: 'Спорт' },
+  'десерти': { icon: <GiCakeSlice />, label: 'Десерти' },
+  'напої': { icon: <PiMartiniBold />, label: 'Напої' },
+  'веганські': { icon: <LuVegan />, label: 'Веганські' },
+  'органічні': { icon: <GiTomato />, label: 'Органічні' },
+  'дієтичні': { icon: <TbEggs />, label: 'Дієтичні' },
+  'місцеві': { icon: <GiSlicedMushroom />, label: 'Місцеві' },
+  'домашня кухня': { icon: <LuSoup />, label: 'Домашня кухня' },
+  'здорові': { icon: <LuApple />, label: 'Здорові' },
+  'default': { icon: <TbPoint />, label: 'Інше' }
 };
 
 export const getCategoryIcon = (name) => {
-  return categoryIcons[name] || categoryIcons['default'];
+  return categoryIcons[name] ? categoryIcons[name].icon : categoryIcons['default'].icon;
+};
+
+export const getCategoryLabel = (name) => {
+  return categoryIcons[name] ? categoryIcons[name].label : categoryIcons['default'].label;
 };
 
 export const getSubcategoryIcon = (name) => {
-  return subcategoryIcons[name] || subcategoryIcons['default'];
+  return subcategoryIcons[name] ? subcategoryIcons[name].icon : subcategoryIcons['default'].icon;
+};
+
+export const getSubcategoryLabel = (name) => {
+  return subcategoryIcons[name] ? subcategoryIcons[name].label : subcategoryIcons['default'].label;
 };
