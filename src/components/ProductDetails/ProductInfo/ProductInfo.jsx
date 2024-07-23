@@ -17,7 +17,9 @@ const ProductInfo = ({
   setUpdatedProduct,
   handleEditClick,
   handleSaveClick,
-  currentUser
+  currentUser,
+  handleAddToCart,
+  isInCart
 }) => {
   const productUrl = window.location.href;
   const formattedDate = new Date(product.updatedAt).toLocaleDateString();
@@ -51,21 +53,24 @@ const ProductInfo = ({
         ) : (
           <h2>{product.name}</h2>
         )}
-        {exchangeRate !== null && (
-          <div className={scss.priceContainer}>
-            {isEditing ? (
-              <input
-                type="text"
-                name="price"
-                value={updatedProduct.price}
-                onChange={handleChange}
-                className={scss.inputField}
-              />
-            ) : (
-              <CartPrice price={product.price} exchangeRate={exchangeRate} />
-            )}
-          </div>
-        )}
+        <div className={scss.priceContainer}>
+          {isEditing ? (
+            <input
+              type="text"
+              name="price"
+              value={updatedProduct.price}
+              onChange={handleChange}
+              className={scss.inputField}
+            />
+          ) : (
+            <CartPrice
+              price={product.price}
+              exchangeRate={exchangeRate}
+              onAddToCart={handleAddToCart}
+              isInCart={isInCart}
+            />
+          )}
+        </div>
       </div>
       <p>
         Опис:{' '}
@@ -155,6 +160,7 @@ const ProductInfo = ({
             />
           )}
         </div>
+        
       </div>
     </div>
   );

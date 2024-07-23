@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchProducts, fetchProductById, fetchExchangeRate } from '../../redux/features/productsSlice';
 import { fetchUserById, fetchCurrentUser } from '../../redux/features/authSlice';
+import { addToCart, removeFromCart } from '../../redux/features/cartSlice';
 import axios from 'axios';
 import scss from './ProductDetails.module.scss';
 import Gallery from './Gallery/Gallery';
@@ -16,6 +17,7 @@ const ProductDetails = () => {
   const exchangeRate = useSelector((state) => state.products.exchangeRate);
   const loading = useSelector((state) => state.products.loading);
   const error = useSelector((state) => state.products.error);
+  const cartItems = useSelector((state) => state.cart.items);
   const product = products.find((product) => product._id === productId);
   const owner = useSelector((state) => state.auth.owner);
   const currentUser = useSelector((state) => state.auth.user);
@@ -107,6 +109,17 @@ const ProductDetails = () => {
     }
   };
 
+  const handleAddToCart = () => {
+    const isInCart = cartItems.some((item) => item._id === product._id);
+    if (isInCart) {
+      dispatch(removeFromCart(product._id));
+    } else {
+      dispatch(addToCart(product));
+    }
+  };
+
+  const isInCart = cartItems.some((item) => item._id === product._id);
+
   return (
     <div className={scss.productDetails}>
       <Gallery images={product} />
@@ -121,6 +134,8 @@ const ProductDetails = () => {
             handleEditClick={handleEditClick}
             handleSaveClick={handleSaveClick}
             currentUser={currentUser}
+            handleAddToCart={handleAddToCart}
+            isInCart={isInCart}
           />
           <p>Переглядів: {product.views !== undefined ? product.views : 'N/A'}</p>
         </div>
