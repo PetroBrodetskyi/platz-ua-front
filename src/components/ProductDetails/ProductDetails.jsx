@@ -4,15 +4,18 @@ import { useParams } from 'react-router-dom';
 import { fetchProducts, fetchProductById, fetchExchangeRate } from '../../redux/features/productsSlice';
 import { fetchUserById, fetchCurrentUser } from '../../redux/features/authSlice';
 import { addToCart, removeFromCart } from '../../redux/features/cartSlice';
+import Notification from '../Notification/Notification';
 import axios from 'axios';
 import scss from './ProductDetails.module.scss';
 import Gallery from './Gallery/Gallery';
 import ProductInfo from './ProductInfo/ProductInfo';
 import UserInfo from './UserInfo/UserInfo';
+import Loader from '../Loader/Loader';
 
 const ProductDetails = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
+  const [notification, setNotification] = useState('');
   const products = useSelector((state) => state.products.products);
   const exchangeRate = useSelector((state) => state.products.exchangeRate);
   const loading = useSelector((state) => state.products.loading);
@@ -65,7 +68,7 @@ const ProductDetails = () => {
   }, [dispatch, productId]);
 
   if (loading) {
-    return <p>Завантаження...</p>;
+    return <Loader />;
   }
 
   if (error) {
@@ -111,10 +114,20 @@ const ProductDetails = () => {
 
   const handleAddToCart = () => {
     const isInCart = cartItems.some((item) => item._id === product._id);
+
+    const productWithOwner = {
+    ...product,
+    owner: {
+      ...owner,
+      }
+    };
+    
     if (isInCart) {
       dispatch(removeFromCart(product._id));
+      setNotification(`${product.name} видалено з кошика!`);
     } else {
-      dispatch(addToCart(product));
+      dispatch(addToCart(productWithOwner));
+      setNotification(`${product.name} додано до кошика!`);
     }
   };
 
@@ -143,6 +156,12 @@ const ProductDetails = () => {
           <UserInfo owner={owner} />
         </div>
       </div>
+      {notification && (
+        <Notification
+          message={notification}
+          onClose={() => setNotification('')}
+        />
+      )}
     </div>
   );
 };

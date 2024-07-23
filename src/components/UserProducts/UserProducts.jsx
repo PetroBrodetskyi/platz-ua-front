@@ -7,6 +7,7 @@ import { MdOutlineDateRange } from "react-icons/md";
 import { FaRegFaceSmile, FaRegFaceMeh } from "react-icons/fa6";
 import ActionButton from '../ProductDetails/ActionButton/ActionButton';
 import { getCategoryIcon, getSubcategoryIcon } from '../Categories/icons';
+import Loader from '../Loader/Loader';
 import axios from 'axios';
 import scss from './UserProducts.module.scss';
 
@@ -82,7 +83,7 @@ const UserProducts = ({ userId }) => {
     }));
   };
 
-  if (loading) return <p>Завантаження оголошень...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>Помилка: {error}</p>;
 
   return (

@@ -21,9 +21,15 @@ const Cart = () => {
             <li key={item._id} className={scss.cartItem}>
               <img src={item.image1} alt={item.name} className={scss.cartImage} />
               <div className={scss.cartInfo}>
-                <p>{item.name}</p>
+                <h3>{item.name}</h3>
+                <p>{item.description}</p>
                 <p>€{item.price}</p>
-                <button onClick={() => handleRemoveFromCart(item._id)}>Видалити</button> {/* Зміна тексту на українську */}
+                <div className={scss.ownerInfo}>
+                  <h3>Продавець: {item.owner.name}</h3>
+                  <p>Телефон: {item.owner.phone}</p>
+                  <img src={item.owner.avatarURL} alt={item.owner.name} className={scss.ownerAvatar} />
+                </div>
+                <button onClick={() => handleRemoveFromCart(item._id)}>Видалити</button>
               </div>
             </li>
           ))}

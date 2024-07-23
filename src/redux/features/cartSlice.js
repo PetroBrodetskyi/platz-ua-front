@@ -29,7 +29,7 @@ const cartSlice = createSlice({
   },
   reducers: {
     addToCart: (state, action) => {
-      state.items.push(action.payload);
+      state.items.unshift(action.payload);
       saveToLocalStorage(state.items);
     },
     removeFromCart: (state, action) => {

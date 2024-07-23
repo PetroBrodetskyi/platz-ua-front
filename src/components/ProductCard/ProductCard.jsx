@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts, fetchExchangeRate, fetchProductById } from '../../redux/features/productsSlice';
 import { toggleFavorite } from '../../redux/features/favoritesSlice';
 import { addToCart, removeFromCart } from '../../redux/features/cartSlice';
+import { fetchUserById } from '../../redux/features/authSlice';
 import { useNavigate } from 'react-router-dom';
 import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
@@ -35,8 +36,14 @@ const ProductCard = () => {
       dispatch(removeFromCart(product._id));
       setNotification(`${product.name} видалено з кошика!`);
     } else {
-      dispatch(addToCart(product));
-      setNotification(`${product.name} додано до кошика!`);
+      dispatch(fetchUserById(product.owner)).then((ownerResponse) => {
+        const productWithOwner = {
+          ...product,
+          owner: ownerResponse.payload,
+        };
+        dispatch(addToCart(productWithOwner));
+        setNotification(`${product.name} додано до кошика!`);
+      });
     }
   };
 
