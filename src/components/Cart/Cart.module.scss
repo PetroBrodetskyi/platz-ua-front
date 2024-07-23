@@ -1,122 +1,27 @@
 @import 'src/styles/mixins';
 
-.cart {
-    padding: 32px;
-    background-color: var(--light-bg);
+.cartPage {
+    padding: 20px;
+}
 
-    @media (max-width: $tablet) {
-        padding: 24px;
-    }
+.cartList {
+    list-style: none;
+    padding: 0;
+}
 
-    @media (max-width: $mobile) {
-        padding: 16px;
-    }
+.cartItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
 
-    h2 {
-        margin-bottom: 16px;
+.cartImage {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
 
-        @media (max-width: $tablet) {
-            font-size: 1.5rem;
-        }
-
-        @media (max-width: $mobile) {
-            font-size: 1.25rem;
-        }
-    }
-
-    .cartItems {
-        list-style: none;
-        padding: 0;
-
-        .cartItem {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px;
-            background-color: var(--white);
-            border: 1px solid var(--light-grey);
-            margin-bottom: 16px;
-
-            @media (max-width: $tablet) {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 12px;
-            }
-
-            @media (max-width: $mobile) {
-                padding: 8px;
-            }
-
-            .quantityControl {
-                display: flex;
-                align-items: center;
-
-                button {
-                    padding: 8px 16px;
-                    margin: 0 8px;
-                    background-color: var(--light-green);
-                    border: none;
-                    cursor: pointer;
-
-                    @media (max-width: $tablet) {
-                        padding: 6px 12px;
-                        margin: 0 6px;
-                    }
-
-                    @media (max-width: $mobile) {
-                        padding: 4px 8px;
-                        margin: 0 4px;
-                    }
-
-                    &:hover {
-                        background-color: var(--dark-green);
-                    }
-                }
-
-                span {
-                    margin: 0 8px;
-
-                    @media (max-width: $tablet) {
-                        margin: 0 6px;
-                    }
-
-                    @media (max-width: $mobile) {
-                        margin: 0 4px;
-                    }
-                }
-            }
-
-            button {
-                padding: 8px 16px;
-                background-color: var(--rose);
-                border: none;
-                cursor: pointer;
-
-                @media (max-width: $tablet) {
-                    padding: 6px 12px;
-                }
-
-                @media (max-width: $mobile) {
-                    padding: 4px 8px;
-                }
-
-                &:hover {
-                    background-color: var(--dark-violet);
-                }
-            }
-        }
-    }
-
-    .total {
-        margin-top: 32px;
-        font-weight: bold;
-
-        @media (max-width: $tablet) {
-            margin-top: 24px;
-        }
-
-        @media (max-width: $mobile) {
-            margin-top: 16px;
-        }
-    }
+.cartInfo {
+    margin-left: 20px;
+    flex: 1;
 }

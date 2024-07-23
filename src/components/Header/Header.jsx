@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { MdOutlineFavorite, MdOutlineFavoriteBorder, MdOutlineDirectionsRun, MdOutlineHowToReg } from 'react-icons/md';
-import { PiShoppingCart } from 'react-icons/pi';
+import { MdOutlineFavorite, MdOutlineFavoriteBorder, MdOutlineHowToReg } from 'react-icons/md';
+import { PiShoppingCart, PiShoppingCartFill } from 'react-icons/pi';
 import { RiLoginCircleLine } from "react-icons/ri";
 import scss from './Header.module.scss';
 import SearchLocation from '../SearchLocation/SearchLocation';
@@ -13,6 +13,7 @@ const Header = ({ onClick }) => {
   const dispatch = useDispatch();
   const { user, token, loading } = useSelector((state) => state.auth);
   const favorites = useSelector((state) => state.favorites.items);
+  const cartItems = useSelector((state) => state.cart.items);
   const [animateFavorite, setAnimateFavorite] = useState(false);
 
   useEffect(() => {
@@ -79,7 +80,7 @@ const Header = ({ onClick }) => {
           )}
           <NavLink to="/cart">
             <button type="button" className={scss.icon} onClick={onClick}>
-              <PiShoppingCart />
+              {cartItems.length > 0 ? <PiShoppingCartFill /> : <PiShoppingCart />}
             </button>
           </NavLink>
           <NavLink to="/favorites">

@@ -1,46 +1,34 @@
-import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import scss from './Cart.module.scss';
+import { removeFromCart } from '../../redux/features/cartSlice';
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([
-    { id: 1, name: 'Product 1', price: '$100', quantity: 1 },
-    { id: 2, name: 'Product 2', price: '$200', quantity: 2 },
-  ]);
+  const cartItems = useSelector((state) => state.cart.items);
+  const dispatch = useDispatch();
 
-  const handleRemove = (id) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
-  };
-
-  const handleQuantityChange = (id, delta) => {
-    setCartItems(cartItems.map(item => 
-      item.id === id ? { ...item, quantity: Math.max(item.quantity + delta, 1) } : item
-    ));
-  };
-
-  const getTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + (parseFloat(item.price.slice(1)) * item.quantity), 0).toFixed(2);
+  const handleRemoveFromCart = (productId) => {
+    dispatch(removeFromCart(productId));
   };
 
   return (
-    <div className={scss.cart}>
-      <h2>Shopping Cart</h2>
-      <ul className={scss.cartItems}>
-        {cartItems.map(item => (
-          <li key={item.id} className={scss.cartItem}>
-            <span>{item.name}</span>
-            <span>{item.price}</span>
-            <div className={scss.quantityControl}>
-              <button onClick={() => handleQuantityChange(item.id, -1)}>-</button>
-              <span>{item.quantity}</span>
-              <button onClick={() => handleQuantityChange(item.id, 1)}>+</button>
-            </div>
-            <button onClick={() => handleRemove(item.id)}>Remove</button>
-          </li>
-        ))}
-      </ul>
-      <div className={scss.total}>
-        Total: ${getTotalPrice()}
-      </div>
+    <div className={scss.cartPage}>
+      <h2>Ваш кошик</h2>
+      {cartItems.length === 0 ? (
+        <p>Ваш кошик порожній.</p>
+      ) : (
+        <ul className={scss.cartList}>
+          {cartItems.map((item) => (
+            <li key={item._id} className={scss.cartItem}>
+              <img src={item.image1} alt={item.name} className={scss.cartImage} />
+              <div className={scss.cartInfo}>
+                <p>{item.name}</p>
+                <p>€{item.price}</p>
+                <button onClick={() => handleRemoveFromCart(item._id)}>Видалити</button> {/* Зміна тексту на українську */}
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
