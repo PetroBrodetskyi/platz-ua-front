@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserProducts } from '../../redux/features/productsSlice';
+import { fetchUserProducts, fetchExchangeRate } from '../../redux/features/productsSlice';
 import { TbLocation } from "react-icons/tb";
 import { SlLocationPin } from "react-icons/sl";
 import { MdOutlineDateRange } from "react-icons/md";
@@ -14,6 +14,7 @@ import scss from './UserProducts.module.scss';
 const UserProducts = ({ userId }) => {
   const dispatch = useDispatch();
   const userProducts = useSelector((state) => state.products.userProducts);
+  const exchangeRate = useSelector((state) => state.products.exchangeRate);
   const loading = useSelector((state) => state.products.loading);
   const error = useSelector((state) => state.products.error);
   const currentUser = useSelector((state) => state.auth.user);
@@ -30,6 +31,7 @@ const UserProducts = ({ userId }) => {
     if (userId) {
       dispatch(fetchUserProducts(userId));
     }
+    dispatch(fetchExchangeRate());
   }, [dispatch, userId]);
 
   const handleEditClick = (productId) => {
@@ -120,7 +122,12 @@ const UserProducts = ({ userId }) => {
                     className={scss.inputField}
                   />
                 ) : (
-                  <p className={scss.price}>€{product.price}</p>
+                  <div>
+                    <p className={scss.price}>€{product.price}</p>
+                    {exchangeRate && (
+                      <p className={scss.priceUan}>₴{(product.price * exchangeRate).toFixed(2)}</p>
+                    )}
+                  </div>
                 )}
               </div>
               <p className={scss.description}>
