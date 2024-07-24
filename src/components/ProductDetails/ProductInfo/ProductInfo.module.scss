@@ -29,9 +29,24 @@ $font-size-xxlarge: 28px;
         justify-content: space-between;
         flex-direction: column;
 
+        @media (max-width: $mobile) {
+            flex-direction: row;
+        }
+
         @media (min-width: $mobile) {
             flex-direction: row;
         }
+
+        .title {
+            @media (max-width: $mobile) {
+                font-size: 14px;
+            }
+
+            @media (min-width: $mobile) {
+                font-size: 16px;
+            }
+        }
+
     }
 
     .inputField {

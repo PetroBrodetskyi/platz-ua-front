@@ -51,7 +51,7 @@ const ProductInfo = ({
             className={scss.inputField}
           />
         ) : (
-          <h2>{product.name}</h2>
+          <h2 className={scss.title}>{product.name}</h2>
         )}
         <div className={scss.priceContainer}>
           {isEditing ? (

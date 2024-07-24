@@ -4,23 +4,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  justify-content: space-between;
-
-  @media (max-width: $mobile) {
-    justify-content: center;
-  }
-
-  @media (min-width: $mobile) and (max-width: $tablet) {
-    justify-content: space-between;
-  }
-
-  @media (min-width: $tablet) and (max-width: $desktop) {
-    justify-content: center;
-  }
-
-  @media (min-width: $desktop) {
-    justify-content: center;
-  }
+  justify-content: center;
 }
 
 .galleryItem {
