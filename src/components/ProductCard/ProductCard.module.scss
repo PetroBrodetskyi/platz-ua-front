@@ -82,7 +82,7 @@
             cursor: pointer;
         }
 
-        .categoryInfo {
+        .categoryViews {
             position: absolute;
             top: 0;
             left: 0;
@@ -91,19 +91,35 @@
             border-top-left-radius: 8px;
             display: flex;
             flex-direction: row;
-            gap: 8px;
+            justify-content: space-between;
             z-index: 1;
             width: 100%;
+            
             color: var(--white);
             font-size: 16px;
         }
 
-        .subcategoryInfo {
+        .categoryInfo {
             display: flex;
-            align-items: center;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 2px 4px;
+            border-radius: 4px;
+            text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
             gap: 4px;
-            color: var(--grey);
-            font-size: 14px;
+        }
+
+        .viewsContainer {
+            display: flex;
+                background-color: rgba(0, 0, 0, 0.2);
+                padding: 0 4px;
+                border-radius: 4px;
+                gap: 2px;
+                align-items: center;
+                text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+
+            .viewsQuantity {
+                font-size: 14px;
+            }
         }
     }
 
@@ -159,4 +175,6 @@
             font-size: 12px;
             white-space: nowrap;
         }
+
+    
 }

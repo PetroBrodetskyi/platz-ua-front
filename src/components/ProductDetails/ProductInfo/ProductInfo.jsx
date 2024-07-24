@@ -160,7 +160,6 @@ const ProductInfo = ({
             />
           )}
         </div>
-        
       </div>
     </div>
   );

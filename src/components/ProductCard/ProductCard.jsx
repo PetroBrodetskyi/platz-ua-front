@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts, fetchExchangeRate, fetchProductById } from '../../redux/features/productsSlice';
 import { toggleFavorite } from '../../redux/features/favoritesSlice';
 import { addToCart, removeFromCart } from '../../redux/features/cartSlice';
 import { fetchUserById } from '../../redux/features/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { HiOutlineEye } from "react-icons/hi";
 import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
 import PlzCity from './PlzCity/PlzCity';
 import CreateCondition from './CreateCondition/CreateCondition';
-import { getCategoryIcon, getSubcategoryIcon, getCategoryLabel, getSubcategoryLabel } from '../Categories/icons';
 import Notification from '../Notification/Notification';
+import { getCategoryIcon, getSubcategoryIcon, getCategoryLabel, getSubcategoryLabel } from '../Categories/icons';
 import scss from './ProductCard.module.scss';
 
 const ProductCard = () => {
@@ -57,29 +58,35 @@ const ProductCard = () => {
             <li key={product._id} className={`${scss.productItem} ${product.isSquare ? 'square' : ''}`}>
               <div className={scss.product}>
                 <div className={scss.productImage}>
-                  <div className={scss.categoryInfo}>
-                    <div className={scss.tooltipWrapper}>
-                      {getCategoryIcon(product.category)}
-                      <span className={scss.tooltip}>{getCategoryLabel(product.category)}</span>
+                  <div className={scss.categoryViews}>
+                    <div className={scss.categoryInfo}>
+                      <div className={scss.tooltipWrapper}>
+                        {getCategoryIcon(product.category)}
+                        <span className={scss.tooltip}>{getCategoryLabel(product.category)}</span>
+                      </div>
+                      {product.subcategory1 && (
+                        <div className={scss.tooltipWrapper}>
+                          {getSubcategoryIcon(product.subcategory1)}
+                          <span className={scss.tooltip}>{getSubcategoryLabel(product.subcategory1)}</span>
+                        </div>
+                      )}
+                      {product.subcategory2 && (
+                        <div className={scss.tooltipWrapper}>
+                          {getSubcategoryIcon(product.subcategory2)}
+                          <span className={scss.tooltip}>{getSubcategoryLabel(product.subcategory2)}</span>
+                        </div>
+                      )}
+                      {product.subcategory3 && (
+                        <div className={scss.tooltipWrapper}>
+                          {getSubcategoryIcon(product.subcategory3)}
+                          <span className={scss.tooltip}>{getSubcategoryLabel(product.subcategory3)}</span>
+                        </div>
+                      )}
                     </div>
-                    {product.subcategory1 && (
-                      <div className={scss.tooltipWrapper}>
-                        {getSubcategoryIcon(product.subcategory1)}
-                        <span className={scss.tooltip}>{getSubcategoryLabel(product.subcategory1)}</span>
-                      </div>
-                    )}
-                    {product.subcategory2 && (
-                      <div className={scss.tooltipWrapper}>
-                        {getSubcategoryIcon(product.subcategory2)}
-                        <span className={scss.tooltip}>{getSubcategoryLabel(product.subcategory2)}</span>
-                      </div>
-                    )}
-                    {product.subcategory3 && (
-                      <div className={scss.tooltipWrapper}>
-                        {getSubcategoryIcon(product.subcategory3)}
-                        <span className={scss.tooltip}>{getSubcategoryLabel(product.subcategory3)}</span>
-                      </div>
-                    )}
+                    <div className={scss.viewsContainer}>
+                      <p className={scss.viewsQuantity}>{product.views !== undefined ? product.views : 'N/A'}</p>
+                      <div><HiOutlineEye /></div>
+                    </div>
                   </div>
                   <img
                     src={product.image1}

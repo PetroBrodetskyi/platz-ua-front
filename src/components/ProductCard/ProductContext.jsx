@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import { createContext, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts, fetchExchangeRate, toggleFavorite } from '../../redux/features/productsSlice';
 
