@@ -11,11 +11,11 @@ export const fetchComments = createAsyncThunk(
 
 export const addComment = createAsyncThunk(
   'comments/addComment',
-  async ({ productId, comment }, { rejectWithValue }) => {
+  async ({ productId, comment, user }, { rejectWithValue }) => {
     try {
       const response = await axios.patch(
         `/products/${productId}/comments`,
-        { text: comment },
+        { text: comment, user },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -23,7 +23,7 @@ export const addComment = createAsyncThunk(
         }
       );
       const newComment = response.data.comments[response.data.comments.length - 1];
-      return newComment;
+      return { ...newComment, user };
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -58,4 +58,3 @@ const commentsSlice = createSlice({
 });
 
 export default commentsSlice.reducer;
-

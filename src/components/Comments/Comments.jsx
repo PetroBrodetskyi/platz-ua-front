@@ -8,7 +8,7 @@ import scss from './Comments.module.scss';
 const Comments = ({ productId }) => {
   const dispatch = useDispatch();
   const commentsState = useSelector((state) => state.comments);
-  const userState = useSelector((state) => state.auth.user);
+  const currentUser = useSelector((state) => state.auth.user);
   const { comments, loading, error } = commentsState || {};
   const [newComment, setNewComment] = useState('');
   const [notification, setNotification] = useState('');
@@ -19,7 +19,7 @@ const Comments = ({ productId }) => {
 
   const handleAddComment = async () => {
     if (newComment.trim()) {
-      const resultAction = await dispatch(addComment({ productId, comment: newComment }));
+      const resultAction = await dispatch(addComment({ productId, comment: newComment, user: currentUser }));
       if (addComment.fulfilled.match(resultAction)) {
         setNewComment('');
         setNotification('Ваш коментар додано');
