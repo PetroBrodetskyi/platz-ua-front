@@ -10,7 +10,6 @@ import scss from './ProductDetails.module.scss';
 import Gallery from './Gallery/Gallery';
 import ProductInfo from './ProductInfo/ProductInfo';
 import UserInfo from './UserInfo/UserInfo';
-import { HiOutlineEye } from "react-icons/hi";
 import Loader from '../Loader/Loader';
 
 const ProductDetails = () => {
@@ -117,12 +116,12 @@ const ProductDetails = () => {
     const isInCart = cartItems.some((item) => item._id === product._id);
 
     const productWithOwner = {
-    ...product,
-    owner: {
-      ...owner,
+      ...product,
+      owner: {
+        ...owner,
       }
     };
-    
+
     if (isInCart) {
       dispatch(removeFromCart(product._id));
       setNotification(`${product.name} видалено з кошика!`);
@@ -151,11 +150,6 @@ const ProductDetails = () => {
             handleAddToCart={handleAddToCart}
             isInCart={isInCart}
           />
-          <div className={scss.viewsContainer}>
-            <p>Переглядів: </p>
-            <div><HiOutlineEye /></div>
-            <div>{product.views !== undefined ? product.views : 'N/A'}</div>
-          </div>
         </div>
         <div className={scss.ownerContainer}>
           <UserInfo owner={owner} />

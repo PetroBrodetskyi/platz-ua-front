@@ -3,6 +3,7 @@ import { TbLocation } from 'react-icons/tb';
 import { SlLocationPin } from 'react-icons/sl';
 import { MdOutlineDateRange } from 'react-icons/md';
 import { FaRegFaceSmile, FaRegFaceMeh } from 'react-icons/fa6';
+import { HiOutlineEye } from "react-icons/hi";
 import scss from './ProductInfo.module.scss';
 import CartPrice from '../../ProductCard/CartPrice/CartPrice';
 import ShareMenu from '../../ShareMenu/ShareMenu';
@@ -136,17 +137,22 @@ const ProductInfo = ({
           Місто: <SlLocationPin className={scss.icon} /> {product.city}
         </p>
         <p className={scss.detailsFlex}>
-          Категорія: {getCategoryIcon(product.category)} {product.category}
+          Категорії: {getCategoryIcon(product.category)} {product.category}
         </p>
         <p className={scss.detailsFlex}>
-          Підкатегорія: {getSubcategoryIcon(product.subcategory1)} {product.subcategory1}
+          {getSubcategoryIcon(product.subcategory1)} {product.subcategory1}
         </p>
         <p className={scss.detailsFlex}>
-          Підкатегорія: {getSubcategoryIcon(product.subcategory2)} {product.subcategory2}
+          {getSubcategoryIcon(product.subcategory2)} {product.subcategory2}
         </p>
         <p className={scss.detailsFlex}>
-          Підкатегорія: {getSubcategoryIcon(product.subcategory3)} {product.subcategory3}
+          {getSubcategoryIcon(product.subcategory3)} {product.subcategory3}
         </p>
+        <div className={scss.viewsContainer}>
+          <p>Переглядів: </p>
+          <div><HiOutlineEye className={scss.icon} /></div>
+          <div>{product.views !== undefined ? product.views : 'N/A'}</div>
+        </div>
       </div>
       <div className={scss.buttonsMenu}>
         <div>

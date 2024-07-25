@@ -97,6 +97,12 @@ $font-size-xxlarge: 28px;
         flex-direction: column;
     }
 
+        .viewsContainer {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
     .radio {
         display: flex;
         gap: 10px;

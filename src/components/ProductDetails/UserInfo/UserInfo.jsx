@@ -57,7 +57,9 @@ const UserInfo = ({ owner }) => {
       setLikedUserAvatars(newLikedUserAvatars);
       setLiked(true);
 
-      await axios.patch(`https://platz-ua-back.vercel.app/api/users/${owner._id}/likes`, {}, {
+      await axios.patch(`https://platz-ua-back.vercel.app/api/users/${owner._id}/likes`, {
+        userId: currentUserId
+      }, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
