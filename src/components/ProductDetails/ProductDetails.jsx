@@ -11,6 +11,7 @@ import Gallery from './Gallery/Gallery';
 import ProductInfo from './ProductInfo/ProductInfo';
 import UserInfo from './UserInfo/UserInfo';
 import Loader from '../Loader/Loader';
+import Comments from '../Comments/Comments';
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -65,7 +66,7 @@ const ProductDetails = () => {
       viewedProducts.push(productId);
       localStorage.setItem('viewedProducts', JSON.stringify(viewedProducts));
     }
-  }, [dispatch, productId]);
+  }, [dispatch, productId, product]);
 
   if (loading) {
     return <Loader />;
@@ -150,17 +151,11 @@ const ProductDetails = () => {
             handleAddToCart={handleAddToCart}
             isInCart={isInCart}
           />
+          {notification && <Notification message={notification} />}
         </div>
-        <div className={scss.ownerContainer}>
-          <UserInfo owner={owner} />
-        </div>
+        <UserInfo owner={owner} />
       </div>
-      {notification && (
-        <Notification
-          message={notification}
-          onClose={() => setNotification('')}
-        />
-      )}
+      <Comments productId={productId} /> {/* Використовуйте 'productId' */}
     </div>
   );
 };
