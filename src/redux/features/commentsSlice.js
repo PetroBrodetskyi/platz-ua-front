@@ -22,7 +22,8 @@ export const addComment = createAsyncThunk(
           }
         }
       );
-      return response.data;
+      const newComment = response.data.comments[response.data.comments.length - 1];
+      return newComment;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
