@@ -3,8 +3,8 @@ import axios from '../axiosConfig.js';
 
 export const fetchComments = createAsyncThunk(
   'comments/fetchComments',
-  async (id) => {
-    const response = await axios.get(`/products/${id}/comments`);
+  async (productId) => {
+    const response = await axios.get(`/products/${productId}/comments`);
     return response.data;
   }
 );
@@ -51,7 +51,7 @@ const commentsSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(addComment.fulfilled, (state, action) => {
-        state.comments.push(action.payload);
+        state.comments.unshift(action.payload);
       });
   },
 });
