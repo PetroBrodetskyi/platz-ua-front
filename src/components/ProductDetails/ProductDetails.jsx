@@ -155,7 +155,7 @@ const ProductDetails = () => {
         </div>
         <UserInfo owner={owner} />
       </div>
-      <Comments productId={productId} /> {/* Використовуйте 'productId' */}
+      <Comments productId={productId} />
     </div>
   );
 };

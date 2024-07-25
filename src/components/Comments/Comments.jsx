@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchComments, addComment } from '../../redux/features/commentsSlice';
+import Notification from '../Notification/Notification';
 import { nanoid } from 'nanoid';
 import scss from './Comments.module.scss';
 
 const Comments = ({ productId }) => {
   const dispatch = useDispatch();
   const commentsState = useSelector((state) => state.comments);
+  const userState = useSelector((state) => state.auth.user);
   const { comments, loading, error } = commentsState || {};
   const [newComment, setNewComment] = useState('');
+  const [notification, setNotification] = useState('');
 
   useEffect(() => {
     dispatch(fetchComments(productId));
@@ -16,8 +19,13 @@ const Comments = ({ productId }) => {
 
   const handleAddComment = async () => {
     if (newComment.trim()) {
-      await dispatch(addComment({ productId, comment: newComment }));
-      setNewComment('');
+      const resultAction = await dispatch(addComment({ productId, comment: newComment }));
+      if (addComment.fulfilled.match(resultAction)) {
+        setNewComment('');
+        setNotification('Ваш коментар додано');
+      } else {
+        setNotification('Помилка додавання коментаря');
+      }
     }
   };
 
@@ -26,7 +34,10 @@ const Comments = ({ productId }) => {
 
   return (
     <div className={scss.comments}>
-      <h2>Comments</h2>
+      <h2>Питання та коментарі</h2>
+      {notification && (
+        <Notification message={notification} />
+      )}
       <div className={scss.commentList}>
         {comments && comments.length > 0 ? (
           comments.map((comment) => (
@@ -36,7 +47,7 @@ const Comments = ({ productId }) => {
             </div>
           ))
         ) : (
-          <p>No comments yet.</p>
+          <p>Ви можете написати перший коментар</p>
         )}
       </div>
       <div className={scss.addComment}>
