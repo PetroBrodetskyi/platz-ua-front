@@ -46,7 +46,6 @@ $font-size-xxlarge: 28px;
                 font-size: 16px;
             }
         }
-
     }
 
     .inputField {
@@ -93,15 +92,31 @@ $font-size-xxlarge: 28px;
 
     .editContainer {
         display: flex;
-        gap: 10px;
-        flex-direction: column;
+        justify-content: space-around;
+        border: 2px solid var(--black);
+        // background-color: rgb(73, 73, 73);
+        // color: var(--white);
+        padding: 40px 0;
+        border-radius: 4px;
     }
 
-        .viewsContainer {
-            display: flex;
-            gap: 4px;
-            align-items: center;
-        }
+    .infoContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .categoryesContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .viewsContainer {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+    }
 
     .radio {
         display: flex;
@@ -137,6 +152,6 @@ $font-size-xxlarge: 28px;
     }
 
     .icon {
-        font-size: 18px;
+        font-size: 14px;
     }
 }

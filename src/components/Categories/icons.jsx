@@ -12,6 +12,7 @@ import { TbPoint, TbSofa, TbBatteryCharging2, TbPlaystationSquare, TbMicrowave, 
 import { ImWrench } from "react-icons/im";
 
 const categoryIcons = {
+  'взуття': { icon: <PiSneakerBold />, label: 'Взуття' },
   'електроніка': { icon: <MdOutlinePhonelink />, label: 'Електроніка' },
   'транспорт': { icon: <FaCar />, label: 'Транспорт' },
   'дім': { icon: <MdOutlineMapsHomeWork />, label: 'Дім' },
@@ -59,7 +60,6 @@ const subcategoryIcons = {
   'пазли': { icon: <TbPuzzle />, label: 'Пазли' },
   'плюшеві': { icon: <RiBearSmileLine />, label: 'Плюшеві' },
   'аксесуари': { icon: <GiBilledCap />, label: 'Аксесуари' },
-  'взуття': { icon: <PiSneakerBold />, label: 'Взуття' },
   'жіночий': { icon: <GiLargeDress />, label: 'Жіночий' },
   'чоловічий': { icon: <PiPantsFill />, label: 'Чоловічий' },
   'продукти харчування': { icon: <MdEmojiFoodBeverage />, label: 'Продукти харчування' },

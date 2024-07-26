@@ -23,7 +23,7 @@ const ProductInfo = ({
   isInCart
 }) => {
   const productUrl = window.location.href;
-  const formattedDate = new Date(product.updatedAt).toLocaleDateString();
+  const formattedDate = new Date(product.createdAt).toLocaleDateString();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -73,8 +73,9 @@ const ProductInfo = ({
           )}
         </div>
       </div>
+
       <p>
-        Опис:{' '}
+        {' '}
         {isEditing ? (
           <textarea
             name="description"
@@ -86,86 +87,91 @@ const ProductInfo = ({
           product.description
         )}
       </p>
-      
+
       <div className={scss.editContainer}>
-        <div className={scss.radio}>
-          Стан:{' '}
-          {isEditing ? (
-            <div className={scss.conditionOptions}>
-              <label>
-                <input
-                  type="radio"
-                  name="condition"
-                  value="новий"
-                  checked={updatedProduct.condition === 'новий'}
-                  onChange={handleConditionChange}
-                />
-                новий
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="condition"
-                  value="вживаний"
-                  checked={updatedProduct.condition === 'вживаний'}
-                  onChange={handleConditionChange}
-                />
-                вживаний
-              </label>
-            </div>
-          ) : (
-            <p className={scss.icons}>
-              {product.condition === 'новий' ? (
-                <>
-                  <FaRegFaceSmile className={scss.icon} /> новий
-                </>
-              ) : (
-                <>
-                  <FaRegFaceMeh className={scss.icon} /> вживаний
-                </>
-              )}
-            </p>
-          )}
+        <div className={scss.infoContainer}>
+          <h4>Інформація</h4>
+          <div className={scss.radio}>
+            стан:{' '}
+            {isEditing ? (
+              <div className={scss.conditionOptions}>
+                <label>
+                  <input
+                    type="radio"
+                    name="condition"
+                    value="новий"
+                    checked={updatedProduct.condition === 'новий'}
+                    onChange={handleConditionChange}
+                  />
+                  новий
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="condition"
+                    value="вживаний"
+                    checked={updatedProduct.condition === 'вживаний'}
+                    onChange={handleConditionChange}
+                  />
+                  вживаний
+                </label>
+              </div>
+            ) : (
+              <p className={scss.icons}>
+                {product.condition === 'новий' ? (
+                  <>
+                    <FaRegFaceSmile className={scss.icon} /> новий
+                  </>
+                ) : (
+                  <>
+                    <FaRegFaceMeh className={scss.icon} /> вживаний
+                  </>
+                )}
+              </p>
+            )}
+          </div>
+
+          <p className={scss.detailsFlex}>
+            PLZ: <TbLocation className={scss.icon} /> {product.PLZ}
+          </p>
+          <p className={scss.detailsFlex}>
+            місто: <SlLocationPin className={scss.icon} /> {product.city}
+          </p>
+          <div className={scss.viewsContainer}>
+            <p>переглядів: </p>
+            <HiOutlineEye className={scss.icon} />
+            <div>{product.views !== undefined ? product.views : 'N/A'}</div>
+          </div>
+          {/* <p className={scss.detailsFlex}>
+            Додано: <MdOutlineDateRange className={scss.icon} /> {formattedDate}
+          </p> */}
         </div>
-        <p className={scss.detailsFlex}>
-          Оновлено: <MdOutlineDateRange className={scss.icon} /> {formattedDate}
-        </p>
-        <p className={scss.detailsFlex}>
-          PLZ: <TbLocation className={scss.icon} /> {product.PLZ}
-        </p>
-        <p className={scss.detailsFlex}>
-          Місто: <SlLocationPin className={scss.icon} /> {product.city}
-        </p>
-        <p className={scss.detailsFlex}>
-          Категорії: {getCategoryIcon(product.category)} {product.category}
-        </p>
-        <p className={scss.detailsFlex}>
-          {getSubcategoryIcon(product.subcategory1)} {product.subcategory1}
-        </p>
-        <p className={scss.detailsFlex}>
-          {getSubcategoryIcon(product.subcategory2)} {product.subcategory2}
-        </p>
-        <p className={scss.detailsFlex}>
-          {getSubcategoryIcon(product.subcategory3)} {product.subcategory3}
-        </p>
-        <div className={scss.viewsContainer}>
-          <p>Переглядів: </p>
-          <div><HiOutlineEye className={scss.icon} /></div>
-          <div>{product.views !== undefined ? product.views : 'N/A'}</div>
+
+        <div className={scss.categoryesContainer}>
+          <h4>Категорії</h4>
+          <p className={scss.detailsFlex}>
+            {getCategoryIcon(product.category)} {product.category}
+          </p>
+          <p className={scss.detailsFlex}>
+            {getSubcategoryIcon(product.subcategory1)} {product.subcategory1}
+          </p>
+          <p className={scss.detailsFlex}>
+            {getSubcategoryIcon(product.subcategory2)} {product.subcategory2}
+          </p>
+          <p className={scss.detailsFlex}>
+            {getSubcategoryIcon(product.subcategory3)} {product.subcategory3}
+          </p>
         </div>
       </div>
+
       <div className={scss.buttonsMenu}>
-        <div>
-          <ShareMenu productUrl={productUrl} />
-        </div>
-        <div>
-          {currentUser && currentUser._id === product.owner && (
-            <ActionButton
-              isEditing={isEditing}
-              onClick={isEditing ? handleSaveClick : handleEditClick}
-            />
-          )}
-        </div>
+        <ShareMenu productUrl={productUrl} />
+        {currentUser && currentUser._id === product.owner && (
+          <ActionButton
+            isEditing={isEditing}
+            onClick={isEditing ? handleSaveClick : handleEditClick}
+          />
+        )}
       </div>
     </div>
   );

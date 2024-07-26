@@ -3,6 +3,7 @@
 .comments {
     width: 600px;
     padding: 40px;
+    background-color: #fff;
 }
 
 .commentList {
@@ -12,6 +13,10 @@
 .comment {
     border-bottom: 1px solid #ddd;
     padding: 10px;
+}
+
+.dateTime {
+    font-size: 12px;
 }
 
 .commentForm textarea {

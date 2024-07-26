@@ -8,6 +8,8 @@ $likeButton-fontSize-mobile: 18px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding: 40px;
+    background-color: var(--white);
     height: 100%;
     gap: 10px;
 
@@ -39,8 +41,8 @@ $likeButton-fontSize-mobile: 18px;
         }
 
         .avatar {
-            width: 100px;
-            height: 100px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
         }
 

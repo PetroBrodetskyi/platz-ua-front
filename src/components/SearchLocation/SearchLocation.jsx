@@ -58,7 +58,7 @@ const SearchLocation = ({ onSearch }) => {
       
       {searchQuery && (
         <button className={scss.clearButton} onClick={handleClearInput}>
-          <IoClose />
+          <IoClose className={scss.icon} />
         </button>
       )}
 

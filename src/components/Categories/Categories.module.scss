@@ -1,10 +1,10 @@
 @import 'src/styles/mixins';
 
-$categories-padding-desktop: 20px 40px;
+$categories-padding-desktop: 20px 40px 10px;
 $categories-padding-tablet: 30px;
 $categories-padding-mobile: 10px;
 
-$gap-desktop: 12px;
+$gap-desktop: 10px;
 $gap-tablet: 8px;
 $gap-mobile: 4px;
 
@@ -67,29 +67,33 @@ $gap-mobile: 4px;
             display: flex;
             align-items: center;
             background-color: var(--white);
-            padding: 16px;
-            font-size: 16px;
+            padding: 12px;
+            font-size: 14px;
             cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             @include transition(background-color);
 
             @media (max-width: $desktop) {
-                padding: 12px;
+                padding: 10px;
                 font-size: 14px;
             }
 
             @media (max-width: $tablet) {
-                padding: 8px;
+                padding: 4px;
                 font-size: 12px;
             }
 
             &:hover {
                 background-color: #ffcc00;
                 color: var(--white);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             }
 
             &.active {
                 background-color: var(--dark-violet);
                 color: var(--white);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             }
 
             svg {
@@ -111,29 +115,33 @@ $gap-mobile: 4px;
             display: flex;
             align-items: center;
             background-color: var(--white);
-            padding: 16px;
-            font-size: 16px;
+            padding: 12px;
+            font-size: 14px;
             cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             @include transition(background-color);
 
             @media (max-width: $desktop) {
-                padding: 12px;
+                padding: 10px;
                 font-size: 14px;
             }
 
             @media (max-width: $tablet) {
-                padding: 8px;
+                padding: 4px;
                 font-size: 12px;
             }
 
             &:hover {
                 background-color: var(--dark-violet);
                 color: var(--white);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             }
 
             &.active {
                 background-color: #ffcc00;
                 color: var(--white);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             }
 
             svg {

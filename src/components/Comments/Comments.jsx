@@ -44,6 +44,7 @@ const Comments = ({ productId }) => {
             <div key={comment._id || nanoid()} className={scss.comment}>
               <h4>{comment.user ? comment.user.name : 'Anonymous'}</h4>
               <p>{comment.text}</p>
+              <p className={scss.dateTime}>{new Date(comment.createdAt).toLocaleDateString()} {new Date(comment.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
             </div>
           ))
         ) : (

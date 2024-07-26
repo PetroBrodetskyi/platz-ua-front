@@ -77,7 +77,7 @@ const UserInfo = ({ owner }) => {
   return (
     <div className={scss.userInfo}>
       <div className={scss.topSection}>
-        <h2>Продавець</h2>
+        <h3>Продавець</h3>
         <img src={owner.avatarURL} alt={owner.name} className={scss.avatar} />
         <div className={scss.details}>
           <div className={scss.iconOwnerContainer}>
