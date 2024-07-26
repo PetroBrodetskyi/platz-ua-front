@@ -66,7 +66,7 @@ const AddProductForm = () => {
     formData.append('subcategory3', data.subcategory3);
 
     try {
-      const response = await axios.post('https://platz-ua-back.vercel.app/api/products', formData, {
+      const response = await axios.post('http://localhost:5000/api/products', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`
