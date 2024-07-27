@@ -1,5 +1,7 @@
+import React from 'react';
 import { TbLocation } from 'react-icons/tb';
 import { SlLocationPin } from 'react-icons/sl';
+import { MdOutlineDateRange } from 'react-icons/md';
 import { FaRegFaceSmile, FaRegFaceMeh } from 'react-icons/fa6';
 import { HiOutlineEye } from "react-icons/hi";
 import scss from './ProductInfo.module.scss';
@@ -9,11 +11,19 @@ import ActionButton from '../ActionButton/ActionButton';
 import { getCategoryIcon, getSubcategoryIcon } from '../../Categories/icons';
 
 const ProductInfo = ({
-  product, exchangeRate, isEditing, updatedProduct, setUpdatedProduct, handleEditClick, handleSaveClick, currentUser,
+  product,
+  exchangeRate,
+  isEditing,
+  updatedProduct,
+  setUpdatedProduct,
+  handleEditClick,
+  handleSaveClick,
+  currentUser,
   handleAddToCart,
   isInCart
 }) => {
   const productUrl = window.location.href;
+  const formattedDate = new Date(product.createdAt).toLocaleDateString();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -132,7 +142,9 @@ const ProductInfo = ({
             <HiOutlineEye className={scss.icon} />
             <div>{product.views !== undefined ? product.views : 'N/A'}</div>
           </div>
-
+          {/* <p className={scss.detailsFlex}>
+            Додано: <MdOutlineDateRange className={scss.icon} /> {formattedDate}
+          </p> */}
         </div>
 
         <div className={scss.categoryesContainer}>
