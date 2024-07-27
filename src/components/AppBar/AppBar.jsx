@@ -1,9 +1,10 @@
-import { Routes, Route } from 'react-router-dom';
-import { Suspense, lazy } from 'react';
+import { Routes, Route, useNavigationType, useLocation } from 'react-router-dom';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import scss from './AppBar.module.scss';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Loader from '../Loader/Loader';
+import LinearDeterminate from '../LinearDeterminate/LinearDeterminate';
 
 const Home = lazy(() => import('../../pages/Home/Home'));
 const Cart = lazy(() => import('../Cart/Cart'));
@@ -15,9 +16,24 @@ const ProductDetailPage = lazy(() => import('../../pages/ProductDetailPage/Produ
 const UserPage = lazy(() => import('../../pages/UserPage/UserPage'));
 
 const AppBar = () => {
+  const [loading, setLoading] = useState(false);
+  const navigationType = useNavigationType();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (navigationType === 'PUSH') {
+      setLoading(true);
+      const timer = setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [location, navigationType]);
+
   return (
     <div className={scss.wrapper}>
       <Header />
+      <LinearDeterminate loading={loading} />
       <div className={scss.appBar}>
         <main>
           <Suspense fallback={<Loader />}>
