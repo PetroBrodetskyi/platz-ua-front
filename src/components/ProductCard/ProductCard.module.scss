@@ -166,6 +166,18 @@
         white-space: nowrap;
     }
 
+    .expandButtonContainer {
+        visibility: hidden;
+
+        @media (min-width: $tablet) {
+            visibility: visible;
+        }
+
+        @media (min-width: $desktop) {
+            visibility: visible;
+        }
+    }
+
     .expandButton {
         cursor: pointer;
         transition: background-color 0.3s;
@@ -183,7 +195,6 @@
     right: 0;
     margin-top: 2px;
     padding: 10px;
-    font-size: 10px;
     background: var(--white);
     border: 1px solid var(--light-grey);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);

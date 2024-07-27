@@ -150,7 +150,7 @@ const ProductCard = () => {
                 </div>
               </div>
               <div className={`${scss.productDescription} ${showDescriptions[product._id] ? scss.visible : scss.hidden}`}>
-                <Typography paragraph>{product.description}</Typography>
+                <Typography paragraph style={{ fontSize: '14px' }}>{product.description}</Typography>
                 <div className={scss.closeButtonContainer}>
                   <button 
                     className={scss.closeButton} 
