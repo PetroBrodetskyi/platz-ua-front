@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { BiLike, BiSolidLike, BiUser } from "react-icons/bi";
 import { HiDevicePhoneMobile } from "react-icons/hi2";
 import axios from 'axios';
