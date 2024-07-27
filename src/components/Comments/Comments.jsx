@@ -34,7 +34,7 @@ const Comments = ({ productId }) => {
 
   return (
     <div className={scss.comments}>
-      <h2>Питання та коментарі</h2>
+      <h3>Питання та коментарі</h3>
       {notification && (
         <Notification message={notification} />
       )}

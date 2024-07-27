@@ -2,7 +2,7 @@
 
 $gap-desktop: 40px;
 $gap-tablet: 12px;
-$gap-mobile: 8px;
+$gap-mobile: 10px;
 
 $font-size-small: 12px;
 $font-size-medium: 14px;
@@ -92,12 +92,22 @@ $font-size-xxlarge: 28px;
 
     .editContainer {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         border: 2px solid var(--black);
         // background-color: rgb(73, 73, 73);
         // color: var(--white);
-        padding: 40px 0;
+        padding: 20px 20px;
         border-radius: 4px;
+
+        @media (min-width: $tablet) {
+                padding: 20px 0;
+                justify-content: space-around;
+            }
+        
+            @media (min-width: $desktop) {
+                padding: 40px 0;
+                justify-content: space-around;
+            }
     }
 
     .infoContainer {

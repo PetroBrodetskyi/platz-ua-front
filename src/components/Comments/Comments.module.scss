@@ -1,9 +1,19 @@
 @import 'src/styles/mixins';
 
 .comments {
-    width: 600px;
-    padding: 40px;
+    width: auto;
+    padding: 10px;
     background-color: #fff;
+
+    @media (min-width: $tablet) {
+            width: auto;
+            padding: 30px;
+        }
+    
+        @media (min-width: $desktop) {
+            width: auto;
+            padding: 40px;
+        }
 }
 
 .commentList {

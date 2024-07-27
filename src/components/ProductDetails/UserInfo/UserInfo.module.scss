@@ -6,19 +6,23 @@ $likeButton-fontSize-mobile: 18px;
 
 .userInfo {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
-    padding: 40px;
+    padding: 10px;
     background-color: var(--white);
-    height: 100%;
+    height: auto;
+    width: 100%;
     gap: 10px;
 
     @media (min-width: $tablet) {
         flex-direction: column;
+        padding: 10px;
     }
 
     @media (min-width: $desktop) {
         flex-direction: column;
+        padding: 40px;
+        width: 30%;
     }
 
     .topSection {
