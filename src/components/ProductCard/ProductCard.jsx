@@ -1,16 +1,18 @@
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts, fetchExchangeRate, fetchProductById } from '../../redux/features/productsSlice';
 import { toggleFavorite } from '../../redux/features/favoritesSlice';
 import { addToCart, removeFromCart } from '../../redux/features/cartSlice';
 import { fetchUserById } from '../../redux/features/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { HiOutlineEye } from "react-icons/hi";
+import { FiChevronDown, FiChevronUp, FiX } from "react-icons/fi"; // Додано іконку FiX
 import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
 import PlzCity from './PlzCity/PlzCity';
 import CreateCondition from './CreateCondition/CreateCondition';
 import Notification from '../Notification/Notification';
+import Typography from '@mui/material/Typography';
 import { getCategoryIcon, getSubcategoryIcon, getCategoryLabel, getSubcategoryLabel } from '../Categories/icons';
 import scss from './ProductCard.module.scss';
 
@@ -21,6 +23,7 @@ const ProductCard = () => {
   const cartItems = useSelector((state) => state.cart.items);
   const navigate = useNavigate();
   const [notification, setNotification] = useState('');
+  const [showDescriptions, setShowDescriptions] = useState({});
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -46,6 +49,20 @@ const ProductCard = () => {
         setNotification(`${product.name} додано до кошика!`);
       });
     }
+  };
+
+  const handleToggleDescription = (productId) => {
+    setShowDescriptions((prev) => ({
+      ...prev,
+      [productId]: !prev[productId],
+    }));
+  };
+
+  const handleCloseDescription = (productId) => {
+    setShowDescriptions((prev) => ({
+      ...prev,
+      [productId]: false,
+    }));
   };
 
   return (
@@ -111,11 +128,13 @@ const ProductCard = () => {
                         condition={product.condition}
                       />
                     </div>
-                    <div className={scss.plzCity}>
-                      <PlzCity
-                        plz={product.PLZ}
-                        city={product.city}
-                      />
+                    <div className={scss.expandButtonContainer}>
+                      <button 
+                        className={scss.expandButton} 
+                        onClick={() => handleToggleDescription(product._id)}
+                      >
+                        {showDescriptions[product._id] ? <FiChevronUp className={scss.icon}/> : <FiChevronDown className={scss.icon}/>}
+                      </button>
                     </div>
                     <div>
                       {exchangeRate !== null && (
@@ -128,6 +147,17 @@ const ProductCard = () => {
                       )}
                     </div>
                   </div>
+                </div>
+              </div>
+              <div className={`${scss.productDescription} ${showDescriptions[product._id] ? scss.visible : scss.hidden}`}>
+                <Typography paragraph>{product.description}</Typography>
+                <div className={scss.closeButtonContainer}>
+                  <button 
+                    className={scss.closeButton} 
+                    onClick={() => handleCloseDescription(product._id)}
+                  >
+                    <FiX className={scss.icon} />
+                  </button>
                 </div>
               </div>
             </li>

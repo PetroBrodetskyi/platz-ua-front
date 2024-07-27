@@ -10,11 +10,13 @@
 
 .productItem {
     display: flex;
+    flex-direction: column;
     padding: 8px;
     background-color: var(--white);
     border: 1px solid var(--light-grey);
     min-width: 192px;
     position: relative;
+    overflow: visible;
 
     @include transition(box-shadow);
     box-sizing: border-box;
@@ -34,18 +36,6 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-}
-
-.plzCity {
-    display: none;
-
-    @media (min-width: $tablet) {
-        visibility: visible;
-    }
-
-    @media (min-width: $desktop) {
-        visibility: visible;
-    }
 }
 
 .product {
@@ -94,7 +84,7 @@
             justify-content: space-between;
             z-index: 1;
             width: 100%;
-            
+
             color: var(--white);
             font-size: 16px;
         }
@@ -110,12 +100,12 @@
 
         .viewsContainer {
             display: flex;
-                background-color: rgba(0, 0, 0, 0.2);
-                padding: 0 4px;
-                border-radius: 4px;
-                gap: 2px;
-                align-items: center;
-                text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 0 4px;
+            border-radius: 4px;
+            gap: 2px;
+            align-items: center;
+            text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 
             .viewsQuantity {
                 font-size: 14px;
@@ -148,33 +138,89 @@
         }
     }
 
-        .tooltipWrapper {
-            position: relative;
-            display: inline-block;
-    
-            &:hover .tooltip {
-                visibility: visible;
-                opacity: 1;
-            }
-        }
-    
-        .tooltip {
-            visibility: hidden;
-            width: 120px;
-            background-color: #333333;
-            color: var(--white);
-            text-align: center;
-            padding: 5px 0;
-            position: absolute;
-            z-index: 1;
-            bottom: 100%;
-            left: 50%;
-            margin-left: -60px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 12px;
-            white-space: nowrap;
-        }
+    .tooltipWrapper {
+        position: relative;
+        display: inline-block;
 
-    
+        &:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+
+    .tooltip {
+        visibility: hidden;
+        width: 120px;
+        background-color: #333333;
+        color: var(--white);
+        text-align: center;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -60px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    .expandButton {
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        .icon {
+            font-size: 18px;
+        }
+    }
+}
+
+.productDescription {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 2px;
+    padding: 10px;
+    font-size: 10px;
+    background: var(--white);
+    border: 1px solid var(--light-grey);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: none;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    z-index: 10;
+}
+
+.productDescription.visible {
+    display: block;
+}
+
+.productDescription.hidden {
+    display: none;
+}
+
+.closeButtonContainer {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--grey);
+    font-size: 16px;
+    transition: color 0.3s;
+
+    &:hover {
+        color: var(--red);
+    }
+
+    .icon {
+        vertical-align: middle;
+    }
 }
