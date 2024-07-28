@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUsersProducts, fetchExchangeRate } from '../../redux/features/productsSlice';
+import { fetchUserProducts, fetchExchangeRate } from '../../redux/features/productsSlice';
 import { TbLocation } from "react-icons/tb";
 import { SlLocationPin } from "react-icons/sl";
 import { MdOutlineDateRange } from "react-icons/md";
@@ -31,7 +31,7 @@ const UserProducts = () => {
 
   useEffect(() => {
     if (userId) {
-      dispatch(fetchUsersProducts(userId));
+      dispatch(fetchUserProducts(userId));
     }
     dispatch(fetchExchangeRate());
   }, [dispatch, userId]);
