@@ -45,7 +45,7 @@ const AppBar = () => {
               <Route path="/create" element={<AddProductPage />} />
               <Route path="/favorites" element={<FavoritesPage />} />
               <Route path="/product/:productId" element={<ProductDetailPage />} />
-              <Route path="/user" element={<UserPage />} />
+              <Route path="/user/:userId" element={<UserPage />} />
             </Routes>
           </Suspense>
         </main>

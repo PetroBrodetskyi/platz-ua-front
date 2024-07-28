@@ -35,7 +35,7 @@ const Header = ({ onClick }) => {
       <div className={scss.container}>
         <div className={scss.logoUserMobile}>
           <Logo />
-          <NavLink to="/user">
+          <NavLink to={user ? `/user/${user._id}` : '/user'}>
             <button type="button" className={scss.iconUserMobile} onClick={onClick}>
               {loading ? (
                 <div className={scss.userInfo}>
@@ -54,7 +54,7 @@ const Header = ({ onClick }) => {
         </div>
         <SearchLocation />
         <div className={scss.userMenu}>
-          <NavLink to="/user">
+          <NavLink to={user ? `/user/${user._id}` : '/user'}>
             <button type="button" className={scss.iconUserDesktop} onClick={onClick}>
               {loading ? (
                 <div className={scss.userInfo}>

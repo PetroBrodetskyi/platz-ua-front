@@ -26,6 +26,14 @@ export const fetchUserProducts = createAsyncThunk('products/fetchUserProducts', 
   return response.data.reverse();
 });
 
+export const fetchUsersProducts = createAsyncThunk('products/fetchUsersProducts', async (userId) => {
+  if (!userId) {
+    throw new Error('User ID is required');
+  }
+  const response = await axios.get(`/products/user/${userId}`);
+  return response.data.reverse();
+});
+
 export const fetchProductsByCategory = createAsyncThunk('products/fetchProductsByCategory', async (category) => {
   const response = await axios.get('/products/public/category', {
     params: { category },
@@ -87,6 +95,18 @@ const productsSlice = createSlice({
         state.userProducts = action.payload;
       })
       .addCase(fetchUserProducts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(fetchUsersProducts.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchUsersProducts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.userProducts = action.payload;
+      })
+      .addCase(fetchUsersProducts.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })

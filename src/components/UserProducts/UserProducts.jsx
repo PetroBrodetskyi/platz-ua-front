@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserProducts, fetchExchangeRate } from '../../redux/features/productsSlice';
+import { fetchUsersProducts, fetchExchangeRate } from '../../redux/features/productsSlice';
 import { TbLocation } from "react-icons/tb";
 import { SlLocationPin } from "react-icons/sl";
 import { MdOutlineDateRange } from "react-icons/md";
@@ -10,8 +10,10 @@ import { getCategoryIcon, getSubcategoryIcon } from '../Categories/icons';
 import Loader from '../Loader/Loader';
 import axios from 'axios';
 import scss from './UserProducts.module.scss';
+import { useParams } from 'react-router-dom';
 
-const UserProducts = ({ userId }) => {
+const UserProducts = () => {
+  const { userId } = useParams();
   const dispatch = useDispatch();
   const userProducts = useSelector((state) => state.products.userProducts);
   const exchangeRate = useSelector((state) => state.products.exchangeRate);
@@ -29,7 +31,7 @@ const UserProducts = ({ userId }) => {
 
   useEffect(() => {
     if (userId) {
-      dispatch(fetchUserProducts(userId));
+      dispatch(fetchUsersProducts(userId));
     }
     dispatch(fetchExchangeRate());
   }, [dispatch, userId]);
@@ -62,7 +64,7 @@ const UserProducts = ({ userId }) => {
         }
       );
       console.log('Update response:', response.data);
-      dispatch(fetchUserProducts(userId));
+      dispatch(fetchUserProducts(userId)); // Оновлення продуктів після редагування
       setIsEditing(null);
     } catch (error) {
       console.error('Error updating product:', error.response ? error.response.data : error.message);
@@ -201,7 +203,7 @@ const UserProducts = ({ userId }) => {
                 </p>
                 <p className={scss.detailsFlex}>
                   Підкатегорія: {getSubcategoryIcon(product.subcategory3)} {product.subcategory3}
-                  </p>
+                </p>
               </div>
             </div>
             <div className={scss.buttonsMenu}>
