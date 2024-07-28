@@ -52,7 +52,7 @@ const ProductInfo = ({
             className={scss.inputField}
           />
         ) : (
-          <h2 className={scss.title}>{product.name}</h2>
+            <h2 className={scss.title}>{product.name}</h2>
         )}
         <div className={scss.priceContainer}>
           {isEditing ? (
@@ -142,9 +142,7 @@ const ProductInfo = ({
             <HiOutlineEye className={scss.icon} />
             <div>{product.views !== undefined ? product.views : 'N/A'}</div>
           </div>
-          {/* <p className={scss.detailsFlex}>
-            Додано: <MdOutlineDateRange className={scss.icon} /> {formattedDate}
-          </p> */}
+          
         </div>
 
         <div className={scss.categoryesContainer}>
@@ -163,7 +161,11 @@ const ProductInfo = ({
           </p>
         </div>
       </div>
-
+            <div>
+                <p className={scss.detailsFlex}>
+            Додано: <MdOutlineDateRange className={scss.icon} /> {formattedDate}
+          </p>
+            </div>
       <div className={scss.buttonsMenu}>
         <ShareMenu productUrl={productUrl} />
         {currentUser && currentUser._id === product.owner && (

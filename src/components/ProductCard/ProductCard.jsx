@@ -6,7 +6,9 @@ import { addToCart, removeFromCart } from '../../redux/features/cartSlice';
 import { fetchUserById } from '../../redux/features/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { HiOutlineEye } from "react-icons/hi";
-import { FiChevronDown, FiChevronUp, FiX } from "react-icons/fi"; // Додано іконку FiX
+import { TbLocation } from 'react-icons/tb';
+import { SlLocationPin } from 'react-icons/sl';
+import { FiChevronDown, FiChevronUp, FiX } from "react-icons/fi";
 import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
 import PlzCity from './PlzCity/PlzCity';
@@ -100,6 +102,7 @@ const ProductCard = () => {
                         </div>
                       )}
                     </div>
+                    
                     <div className={scss.viewsContainer}>
                       <p className={scss.viewsQuantity}>{product.views !== undefined ? product.views : 'N/A'}</p>
                       <div><HiOutlineEye /></div>
@@ -150,15 +153,28 @@ const ProductCard = () => {
                 </div>
               </div>
               <div className={`${scss.productDescription} ${showDescriptions[product._id] ? scss.visible : scss.hidden}`}>
-                <Typography paragraph style={{ fontSize: '14px' }}>{product.description}</Typography>
-                <div className={scss.closeButtonContainer}>
-                  <button 
-                    className={scss.closeButton} 
-                    onClick={() => handleCloseDescription(product._id)}
-                  >
-                    <FiX className={scss.icon} />
-                  </button>
-                </div>
+                <Typography paragraph>
+                  <div className={scss.paragraphContainer}>
+                    <div>
+                      <p className={scss.desc}>{product.description}</p>
+                    </div>
+                    <div className={scss.locationContainer}>
+                      <div className={scss.locationItem}>
+                        <TbLocation />
+                        <p>{product.PLZ}</p>
+                      </div>
+                      <button 
+                          onClick={() => handleCloseDescription(product._id)}
+                        >
+                          <FiX className={scss.icon} />
+                        </button>
+                      <div className={scss.locationItem}>
+                        <SlLocationPin />
+                        <p>{product.city}</p>
+                      </div>
+                    </div>
+                  </div>
+                </Typography>
               </div>
             </li>
           );
