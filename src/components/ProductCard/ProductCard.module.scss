@@ -72,42 +72,73 @@
             cursor: pointer;
         }
 
-        .categoryViews {
+        .ownerViews {
+            display: flex;
+            align-items: center;
             position: absolute;
             top: 0;
             left: 0;
             padding: 8px;
-            border-bottom-right-radius: 8px;
-            border-top-left-radius: 8px;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             z-index: 1;
             width: 100%;
-
             color: var(--white);
             font-size: 16px;
         }
 
-        .categoryInfo {
+        .ownerContainer {
             display: flex;
-            background-color: rgba(0, 0, 0, 0.2);
-            padding: 2px 4px;
-            border-radius: 4px;
-            text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
-            gap: 4px;
-        }
-
-        .viewsContainer {
-            display: flex;
-            background-color: rgba(0, 0, 0, 0.2);
-            padding: 0 4px;
-            border-radius: 4px;
-            gap: 2px;
             align-items: center;
+            gap: 4px;
             text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 
-            .viewsQuantity {
+            .avatar {
+                border-radius: 50%;
+                width: 16px;
+                height: 16px;
+
+                @media (min-width: $tablet) {
+                    width: 20px;
+                    height: 20px;
+                }
+                
+                @media (min-width: $desktop) {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+
+            .name {
+                font-size: 10px;
+                background-color: rgba(0, 0, 0, 0.2);
+                padding: 2px 4px;
+
+                @media (min-width: $tablet) {
+                    font-size: 12px;
+                }
+                
+                @media (min-width: $desktop) {
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .viewsQuantity {
+            display: flex;
+            padding: 2px 4px;
+            gap: 4px;
+            align-items: center;
+            font-size: 10px;
+            background-color: rgba(0, 0, 0, 0.2);
+            text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    
+            @media (min-width: $tablet) {
+                font-size: 12px;
+            }
+    
+            @media (min-width: $desktop) {
                 font-size: 14px;
             }
         }

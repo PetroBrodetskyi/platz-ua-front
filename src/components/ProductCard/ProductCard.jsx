@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts, fetchExchangeRate, fetchProductById } from '../../redux/features/productsSlice';
+import { fetchUserById } from '../../redux/features/authSlice';
 import { toggleFavorite } from '../../redux/features/favoritesSlice';
 import { addToCart, removeFromCart } from '../../redux/features/cartSlice';
-import { fetchUserById } from '../../redux/features/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { HiOutlineEye } from "react-icons/hi";
 import { TbLocation } from 'react-icons/tb';
@@ -16,7 +16,6 @@ import CartPrice from './CartPrice/CartPrice';
 import CreateCondition from './CreateCondition/CreateCondition';
 import Notification from '../Notification/Notification';
 import Typography from '@mui/material/Typography';
-import { getCategoryIcon, getSubcategoryIcon, getCategoryLabel, getSubcategoryLabel } from '../Categories/icons';
 import scss from './ProductCard.module.scss';
 
 const ProductCard = () => {
@@ -27,30 +26,49 @@ const ProductCard = () => {
   const navigate = useNavigate();
   const [notification, setNotification] = useState('');
   const [showDescriptions, setShowDescriptions] = useState({});
+  const [owners, setOwners] = useState({});
 
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(fetchExchangeRate());
   }, [dispatch]);
 
+  useEffect(() => {
+    const fetchOwners = async () => {
+      const uniqueOwnerIds = [...new Set(products.map((product) => product.owner))].filter(Boolean);
+      const ownerPromises = uniqueOwnerIds.map((ownerId) => dispatch(fetchUserById(ownerId)));
+      const ownerResponses = await Promise.all(ownerPromises);
+      const ownerData = ownerResponses.reduce((acc, response, index) => {
+        acc[uniqueOwnerIds[index]] = response.payload;
+        return acc;
+      }, {});
+      setOwners(ownerData);
+    };
+    fetchOwners();
+  }, [dispatch, products]);
+
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
     dispatch(fetchProductById(productId));
   };
+
+  const handleOwnerClick = (ownerId) => {
+  if (ownerId) {
+    navigate(`/user/${ownerId}`);
+  }
+};
 
   const handleAddToCart = (product, isInCart) => {
     if (isInCart) {
       dispatch(removeFromCart(product._id));
       setNotification(`${product.name} видалено з кошика!`);
     } else {
-      dispatch(fetchUserById(product.owner)).then((ownerResponse) => {
-        const productWithOwner = {
-          ...product,
-          owner: ownerResponse.payload,
-        };
-        dispatch(addToCart(productWithOwner));
-        setNotification(`${product.name} додано до кошика!`);
-      });
+      const productWithOwner = {
+        ...product,
+        owner: owners[product.owner],
+      };
+      dispatch(addToCart(productWithOwner));
+      setNotification(`${product.name} додано до кошика!`);
     }
   };
 
@@ -73,40 +91,24 @@ const ProductCard = () => {
       <ul className={scss.list}>
         {products.map((product) => {
           const isInCart = cartItems.some((item) => item._id === product._id);
+          const owner = owners[product.owner];
 
           return (
             <li key={product._id} className={`${scss.productItem} ${product.isSquare ? 'square' : ''}`}>
               <div className={scss.product}>
                 <div className={scss.productImage}>
-                  <div className={scss.categoryViews}>
-                    <div className={scss.categoryInfo}>
-                      <div className={scss.tooltipWrapper}>
-                        {getCategoryIcon(product.category)}
-                        <span className={scss.tooltip}>{getCategoryLabel(product.category)}</span>
+                  <div className={scss.ownerViews}>
+                    {owner && (
+                      <div className={scss.ownerContainer} onClick={() => handleOwnerClick(owner._id)}>
+                        <img src={owner.avatarURL} alt={owner.name} className={scss.avatar} />
+                        <div className={scss.name}>{owner.name}</div>
                       </div>
-                      {product.subcategory1 && (
-                        <div className={scss.tooltipWrapper}>
-                          {getSubcategoryIcon(product.subcategory1)}
-                          <span className={scss.tooltip}>{getSubcategoryLabel(product.subcategory1)}</span>
-                        </div>
-                      )}
-                      {product.subcategory2 && (
-                        <div className={scss.tooltipWrapper}>
-                          {getSubcategoryIcon(product.subcategory2)}
-                          <span className={scss.tooltip}>{getSubcategoryLabel(product.subcategory2)}</span>
-                        </div>
-                      )}
-                      {product.subcategory3 && (
-                        <div className={scss.tooltipWrapper}>
-                          {getSubcategoryIcon(product.subcategory3)}
-                          <span className={scss.tooltip}>{getSubcategoryLabel(product.subcategory3)}</span>
-                        </div>
-                      )}
-                    </div>
-                    
-                    <div className={scss.viewsContainer}>
-                      <p className={scss.viewsQuantity}>{product.views !== undefined ? product.views : 'N/A'}</p>
-                      <div><HiOutlineEye /></div>
+                    )}
+                    <div>
+                      <div className={scss.viewsQuantity}>
+                      <p>{product.views !== undefined ? product.views : 'N/A'}</p>
+                        <HiOutlineEye />
+                      </div>
                     </div>
                   </div>
                   <img
@@ -154,7 +156,7 @@ const ProductCard = () => {
                 </div>
               </div>
               <div className={`${scss.productDescription} ${showDescriptions[product._id] ? scss.visible : scss.hidden}`}>
-                <Typography paragraph>
+                <Typography component="div">
                   <div className={scss.paragraphContainer}>
                     <div>
                       <p className={scss.desc}>{product.description}</p>
@@ -165,10 +167,10 @@ const ProductCard = () => {
                         <p>{product.PLZ}</p>
                       </div>
                       <button 
-                          onClick={() => handleCloseDescription(product._id)}
-                        >
-                          <FiX className={scss.icon} />
-                        </button>
+                        onClick={() => handleCloseDescription(product._id)}
+                      >
+                        <FiX className={scss.icon} />
+                      </button>
                       <div className={scss.locationItem}>
                         <SlLocationPin />
                         <p>{product.city}</p>
