@@ -14,14 +14,29 @@ $font-size-xxlarge: 28px;
     display: flex;
     flex-direction: column;
     gap: $gap-mobile;
+    font-size: $font-size-medium;
+
 
     @media (min-width: $tablet) {
-        gap: $gap-tablet;
+        gap: 0;
         flex: 1;
     }
 
     @media (min-width: $desktop) {
-        gap: $gap-desktop;
+        gap: 0;
+        font-size: $font-size-large;
+    }
+
+    .info {
+        padding: 10px;
+
+        @media (max-width: $mobile) {
+                padding: 20px;
+            }
+        
+            @media (min-width: $desktop) {
+                padding: 40px;
+            }
     }
 
     .namePrice {
@@ -93,11 +108,10 @@ $font-size-xxlarge: 28px;
     .editContainer {
         display: flex;
         justify-content: space-between;
-        border: 2px solid var(--black);
-        // background-color: rgb(73, 73, 73);
-        // color: var(--white);
-        padding: 20px 20px;
-        border-radius: 4px;
+        background-color: #181818b7;
+        padding: 20px;
+        color: var(--white);
+        font-size: $font-size-medium;
 
         @media (min-width: $tablet) {
                 padding: 20px 0;
@@ -107,6 +121,7 @@ $font-size-xxlarge: 28px;
             @media (min-width: $desktop) {
                 padding: 40px 0;
                 justify-content: space-around;
+                font-size: $font-size-large;
             }
     }
 
@@ -155,6 +170,13 @@ $font-size-xxlarge: 28px;
         gap: 8px;
     }
 
+    .categoryFlex {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 8px;
+    }
+
     .icons {
         display: flex;
         align-items: center;
@@ -163,5 +185,21 @@ $font-size-xxlarge: 28px;
 
     .icon {
         font-size: 14px;
+    }
+
+    .infoShareEdit {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;;
+        padding: 10px;
+        
+        @media (min-width: $desktop) {
+            padding: 40px;
+        }
+    }
+
+    .addViews {
+        display: flex;
+        justify-content: space-between;
     }
 }

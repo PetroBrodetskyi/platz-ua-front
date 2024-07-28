@@ -1,7 +1,7 @@
 @import 'src/styles/mixins';
 
 $productDetail-padding-desktop: 40px;
-$productDetail-padding-tablet: 30px;
+$productDetail-padding-tablet: 20px;
 $productDetail-padding-mobile: 20px;
 
 $gap-desktop: 20px;
@@ -10,7 +10,6 @@ $gap-mobile: 10px;
 
 .productDetails {
     background-color: var(--light-bg);
-    padding: $productDetail-padding-mobile;
     display: flex;
     flex-direction: column;
     gap: $gap-mobile;
@@ -31,29 +30,25 @@ $gap-mobile: 10px;
         gap: $gap-mobile;
 
         @media (min-width: $tablet) {
-            flex-direction: row;
             gap: $gap-tablet;
         }
 
         @media (min-width: $desktop) {
             gap: $gap-desktop;
+            flex-direction: row;
         }
     }
 
     .infoContainer {
         display: flex;
         flex-direction: column;
-        padding: $gap-mobile;
         background-color: #fff;
 
-        @media (min-width: $tablet) {
-            padding: $gap-tablet;
+        @media (min-width: $desktop) {
             width: 70%;
         }
 
-        @media (min-width: $desktop) {
-            padding: $productDetail-padding-desktop;
-        }
+        
     }
 
     .ownerContainer {
@@ -61,12 +56,12 @@ $gap-mobile: 10px;
         background-color: #fff;
 
         @media (min-width: $tablet) {
-            width: 30%;
             padding: $gap-tablet;
         }
 
         @media (min-width: $desktop) {
             padding: $productDetail-padding-desktop;
+            width: 30%;
         }
     }
 

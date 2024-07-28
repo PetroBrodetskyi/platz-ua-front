@@ -15,7 +15,6 @@ $likeButton-fontSize-mobile: 18px;
     gap: 10px;
 
     @media (min-width: $tablet) {
-        flex-direction: column;
         padding: 10px;
     }
 

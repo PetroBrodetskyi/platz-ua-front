@@ -37,7 +37,6 @@ const Header = ({ onClick }) => {
           <Logo />
           <NavLink to="/user">
             <button type="button" className={scss.iconUserMobile} onClick={onClick}>
-              <MdOutlineHowToReg fontSize="20px" />
               {loading ? (
                 <div className={scss.userInfo}>
                   <span>Loading...</span>

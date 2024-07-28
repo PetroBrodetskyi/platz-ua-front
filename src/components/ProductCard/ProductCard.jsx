@@ -7,11 +7,12 @@ import { fetchUserById } from '../../redux/features/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { HiOutlineEye } from "react-icons/hi";
 import { TbLocation } from 'react-icons/tb';
+import { IoChevronUpOutline } from "react-icons/io5";
+import { RiPlayList2Fill } from "react-icons/ri";
 import { SlLocationPin } from 'react-icons/sl';
-import { FiChevronDown, FiChevronUp, FiX } from "react-icons/fi";
+import { FiX } from "react-icons/fi";
 import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
-import PlzCity from './PlzCity/PlzCity';
 import CreateCondition from './CreateCondition/CreateCondition';
 import Notification from '../Notification/Notification';
 import Typography from '@mui/material/Typography';
@@ -136,7 +137,7 @@ const ProductCard = () => {
                         className={scss.expandButton} 
                         onClick={() => handleToggleDescription(product._id)}
                       >
-                        {showDescriptions[product._id] ? <FiChevronUp className={scss.icon}/> : <FiChevronDown className={scss.icon}/>}
+                        {showDescriptions[product._id] ? <IoChevronUpOutline className={scss.icon}/> : <RiPlayList2Fill className={scss.icon}/>}
                       </button>
                     </div>
                     <div>

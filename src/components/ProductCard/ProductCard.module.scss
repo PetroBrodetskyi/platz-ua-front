@@ -183,7 +183,12 @@
         transition: background-color 0.3s;
 
         .icon {
-                font-size: 18px;
+                font-size: 16px;
+
+                @media (min-width: $desktop) {
+                        font-size: 20px;
+                    
+                }
             }
         
     }
@@ -250,7 +255,7 @@
         font-size: 14px;
 
         @media (min-width: $desktop) {
-            font-size: 16px;
+            font-size: 18px;
         }
     }
 }
