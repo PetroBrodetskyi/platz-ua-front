@@ -24,7 +24,7 @@ const UserProducts = ({ products }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchExchangeRate()); // Отримати обмінний курс при завантаженні компонента
+    dispatch(fetchExchangeRate());
   }, [dispatch]);
 
   const handleEditClick = (productId) => {

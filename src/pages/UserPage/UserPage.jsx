@@ -30,13 +30,11 @@ const UserPage = () => {
     <div className={scss.userPage}>
       {user ? (
         <div className={scss.productsProfileContainer}>
-          {/* Відображати компонент UserProfile тільки на сторінці поточного користувача */}
-          {currentUser && currentUser._id === user._id && <UserProfile user={user} />}
+          {/* {currentUser && currentUser._id === user._id && <UserProfile user={user} />} */}
           <div>
             <UserProducts products={userProducts} />
           </div>
           <div>
-            {/* Відображати форму додавання оголошень тільки для власника профілю */}
             {currentUser && currentUser._id === user._id && <AddProductForm />}
           </div>
         </div>

@@ -26,7 +26,7 @@ export const fetchUserProducts = createAsyncThunk('products/fetchUserProducts', 
   return response.data.reverse();
 });
 
-export const fetchUsersPublicProducts = createAsyncThunk('products/fetchUsersProducts', async (userId) => {
+export const fetchUsersPublicProducts = createAsyncThunk('products/fetchUsersPublicProducts', async (userId) => {
   if (!userId) {
     throw new Error('User ID is required');
   }
