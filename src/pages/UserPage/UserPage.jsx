@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchUserById, updateUserDetails } from '../../redux/features/authSlice';
-import { fetchUsersPublicProducts } from '../../redux/features/productsSlice';
+import { fetchUserProducts, fetchUsersPublicProducts } from '../../redux/features/productsSlice';
 import UserProfile from '../../components/UserProfile/UserProfile';
 import UserProducts from '../../components/UserProducts/UserProducts';
 import scss from './UserPage.module.scss';
@@ -17,10 +17,14 @@ const UserPage = () => {
 
   useEffect(() => {
     if (userId) {
+      if (currentUser && currentUser._id === userId) {
+        dispatch(fetchUserProducts());
+      } else {
+        dispatch(fetchUsersPublicProducts(userId));
+      }
       dispatch(fetchUserById(userId));
-      dispatch(fetchUsersPublicProducts(userId));
     }
-  }, [dispatch, userId]);
+  }, [dispatch, userId, currentUser]);
 
   const handleUpdate = (formData) => {
     dispatch(updateUserDetails(formData));
@@ -30,12 +34,12 @@ const UserPage = () => {
     <div className={scss.userPage}>
       {user ? (
         <div className={scss.productsProfileContainer}>
-          {/* {currentUser && currentUser._id === user._id && <UserProfile user={user} />} */}
+          {currentUser && currentUser._id === user._id && <UserProfile user={user} />}
           <div>
             <UserProducts products={userProducts} />
           </div>
           <div>
-            {currentUser && currentUser._id === user._id && <AddProductForm />}
+            {currentUser && currentUser._id === userId && <AddProductForm />}
           </div>
         </div>
       ) : (
