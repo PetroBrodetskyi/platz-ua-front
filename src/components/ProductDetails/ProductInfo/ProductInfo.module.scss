@@ -31,7 +31,7 @@ $font-size-xxlarge: 28px;
         padding: 10px;
 
         @media (max-width: $mobile) {
-                padding: 20px;
+                padding: 10px;
             }
         
             @media (min-width: $desktop) {
@@ -109,7 +109,7 @@ $font-size-xxlarge: 28px;
         display: flex;
         justify-content: space-between;
         background-color: #1f1f1fd5;
-        padding: 20px;
+        padding: 20px 10px;
         color: var(--white);
         font-size: $font-size-medium;
 

@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { RiEyeCloseLine } from "react-icons/ri";
 import { HiOutlineEye } from "react-icons/hi";
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../../redux/features/authSlice.js';
+import { login } from '../../../redux/features/authSlice';
 import css from './LoginForm.module.scss';
 import SubmitButton from '../../SubmitButton/SubmitButton';
 
@@ -23,9 +23,12 @@ const LoginForm = () => {
     const onSubmit = async (data) => {
         try {
             const result = await dispatch(login(data)).unwrap();
+            const userName = result?.user?.name || 'користувач';
+            localStorage.setItem('notification', `Привіт, ${userName}`);
             navigate('/');
         } catch (err) {
             console.error('Login failed:', err);
+            localStorage.setItem('notification', 'Не вдалося увійти. Перевірте ваші дані.');
         }
     };
 
