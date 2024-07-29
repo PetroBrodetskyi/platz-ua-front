@@ -17,6 +17,10 @@ import CreateCondition from './CreateCondition/CreateCondition';
 import Notification from '../Notification/Notification';
 import scss from './ProductCard.module.scss';
 
+const MemoizedTitleFavorite = React.memo(TitleFavorite);
+const MemoizedCartPrice = React.memo(CartPrice);
+const MemoizedCreateCondition = React.memo(CreateCondition);
+
 const ProductCard = () => {
   const dispatch = useDispatch();
   const { products, exchangeRate } = useSelector((state) => state.products);
@@ -25,7 +29,10 @@ const ProductCard = () => {
   const navigate = useNavigate();
   const [notification, setNotification] = useState('');
   const [showDescriptions, setShowDescriptions] = useState({});
-  const [owners, setOwners] = useState({});
+  const [owners, setOwners] = useState(() => {
+    const savedOwners = localStorage.getItem('owners');
+    return savedOwners ? JSON.parse(savedOwners) : {};
+  });
   const [loadingOwners, setLoadingOwners] = useState({});
 
   useEffect(() => {
@@ -37,7 +44,11 @@ const ProductCard = () => {
     if (!owners[ownerId] && !loadingOwners[ownerId]) {
       setLoadingOwners(prev => ({ ...prev, [ownerId]: true }));
       const response = await dispatch(fetchUserById(ownerId));
-      setOwners(prev => ({ ...prev, [ownerId]: response.payload }));
+      setOwners(prev => {
+        const newOwners = { ...prev, [ownerId]: response.payload };
+        localStorage.setItem('owners', JSON.stringify(newOwners));
+        return newOwners;
+      });
       setLoadingOwners(prev => ({ ...prev, [ownerId]: false }));
     }
   }, [dispatch, owners, loadingOwners]);
@@ -101,10 +112,15 @@ const ProductCard = () => {
               <div className={scss.product}>
                 <div className={scss.productImage}>
                   <div className={scss.ownerViews}>
-                    {owner && (
+                    {owner ? (
                       <div className={scss.ownerContainer} onClick={() => handleOwnerClick(owner._id)}>
                         <img src={owner.avatarURL} alt={owner.name} className={scss.avatar} />
                         <div className={scss.name}>{owner.name}</div>
+                      </div>
+                    ) : (
+                      <div className={scss.ownerContainer}>
+                        <div className={scss.avatarPlaceholder}></div>
+                        <div className={scss.namePlaceholder}></div>
                       </div>
                     )}
                     <div>
@@ -122,7 +138,7 @@ const ProductCard = () => {
                 </div>
                 <div className={scss.productInfo}>
                   <div>
-                    <TitleFavorite
+                    <MemoizedTitleFavorite
                       name={product.name}
                       id={product._id}
                       onFavoriteToggle={() => dispatch(toggleFavorite(product._id))}
@@ -132,7 +148,7 @@ const ProductCard = () => {
                   </div>
                   <div className={scss.dateCart}>
                     <div>
-                      <CreateCondition
+                      <MemoizedCreateCondition
                         addedDate={product.createdAt}
                         condition={product.condition}
                       />
@@ -147,7 +163,7 @@ const ProductCard = () => {
                     </div>
                     <div>
                       {exchangeRate !== null && (
-                        <CartPrice 
+                        <MemoizedCartPrice 
                           price={product.price} 
                           exchangeRate={exchangeRate}
                           onAddToCart={() => handleAddToCart(product, isInCart)}
@@ -196,4 +212,4 @@ const ProductCard = () => {
   );
 };
 
-export default ProductCard;
+export default React.memo(ProductCard);
