@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts, fetchExchangeRate, fetchProductById } from '../../redux/features/productsSlice';
 import { fetchUserById } from '../../redux/features/authSlice';
@@ -15,7 +15,6 @@ import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
 import CreateCondition from './CreateCondition/CreateCondition';
 import Notification from '../Notification/Notification';
-import Typography from '@mui/material/Typography';
 import scss from './ProductCard.module.scss';
 
 const ProductCard = () => {
@@ -27,25 +26,21 @@ const ProductCard = () => {
   const [notification, setNotification] = useState('');
   const [showDescriptions, setShowDescriptions] = useState({});
   const [owners, setOwners] = useState({});
+  const [loadingOwners, setLoadingOwners] = useState({});
 
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(fetchExchangeRate());
   }, [dispatch]);
 
-  useEffect(() => {
-    const fetchOwners = async () => {
-      const uniqueOwnerIds = [...new Set(products.map((product) => product.owner))].filter(Boolean);
-      const ownerPromises = uniqueOwnerIds.map((ownerId) => dispatch(fetchUserById(ownerId)));
-      const ownerResponses = await Promise.all(ownerPromises);
-      const ownerData = ownerResponses.reduce((acc, response, index) => {
-        acc[uniqueOwnerIds[index]] = response.payload;
-        return acc;
-      }, {});
-      setOwners(ownerData);
-    };
-    fetchOwners();
-  }, [dispatch, products]);
+  const fetchOwner = useCallback(async (ownerId) => {
+    if (!owners[ownerId] && !loadingOwners[ownerId]) {
+      setLoadingOwners(prev => ({ ...prev, [ownerId]: true }));
+      const response = await dispatch(fetchUserById(ownerId));
+      setOwners(prev => ({ ...prev, [ownerId]: response.payload }));
+      setLoadingOwners(prev => ({ ...prev, [ownerId]: false }));
+    }
+  }, [dispatch, owners, loadingOwners]);
 
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
@@ -53,10 +48,10 @@ const ProductCard = () => {
   };
 
   const handleOwnerClick = (ownerId) => {
-  if (ownerId) {
-    navigate(`/user/${ownerId}`);
-  }
-};
+    if (ownerId) {
+      navigate(`/user/${ownerId}`);
+    }
+  };
 
   const handleAddToCart = (product, isInCart) => {
     if (isInCart) {
@@ -86,6 +81,14 @@ const ProductCard = () => {
     }));
   };
 
+  useEffect(() => {
+    products.forEach(product => {
+      if (product.owner) {
+        fetchOwner(product.owner);
+      }
+    });
+  }, [products, fetchOwner]);
+
   return (
     <>
       <ul className={scss.list}>
@@ -106,7 +109,7 @@ const ProductCard = () => {
                     )}
                     <div>
                       <div className={scss.viewsQuantity}>
-                      <p>{product.views !== undefined ? product.views : 'N/A'}</p>
+                        <p>{product.views !== undefined ? product.views : 'N/A'}</p>
                         <HiOutlineEye />
                       </div>
                     </div>
@@ -156,7 +159,7 @@ const ProductCard = () => {
                 </div>
               </div>
               <div className={`${scss.productDescription} ${showDescriptions[product._id] ? scss.visible : scss.hidden}`}>
-                <Typography component="div">
+                <div>
                   <div className={scss.paragraphContainer}>
                     <div>
                       <p className={scss.desc}>{product.description}</p>
@@ -177,7 +180,7 @@ const ProductCard = () => {
                       </div>
                     </div>
                   </div>
-                </Typography>
+                </div>
               </div>
             </li>
           );

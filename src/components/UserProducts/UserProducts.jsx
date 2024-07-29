@@ -64,7 +64,7 @@ const UserProducts = () => {
         }
       );
       console.log('Update response:', response.data);
-      dispatch(fetchUserProducts(userId)); // Оновлення продуктів після редагування
+      dispatch(fetchUserProducts(userId));
       setIsEditing(null);
     } catch (error) {
       console.error('Error updating product:', error.response ? error.response.data : error.message);
