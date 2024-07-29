@@ -26,7 +26,7 @@ export const fetchUserProducts = createAsyncThunk('products/fetchUserProducts', 
   return response.data.reverse();
 });
 
-export const fetchUsersProducts = createAsyncThunk('products/fetchUsersProducts', async (userId) => {
+export const fetchUsersPublicProducts = createAsyncThunk('products/fetchUsersProducts', async (userId) => {
   if (!userId) {
     throw new Error('User ID is required');
   }
@@ -98,15 +98,15 @@ const productsSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
-      .addCase(fetchUsersProducts.pending, (state) => {
+      .addCase(fetchUsersPublicProducts.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchUsersProducts.fulfilled, (state, action) => {
+      .addCase(fetchUsersPublicProducts.fulfilled, (state, action) => {
         state.loading = false;
         state.userProducts = action.payload;
       })
-      .addCase(fetchUsersProducts.rejected, (state, action) => {
+      .addCase(fetchUsersPublicProducts.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })

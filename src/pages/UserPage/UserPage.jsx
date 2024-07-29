@@ -33,7 +33,6 @@ const UserPage = () => {
           <div>
             {/* Відображення форми додавання оголошення тільки для власника сторінки */}
             {currentUser && currentUser._id === user._id && <AddProductForm />}
-            {/* <UserProfile user={user} onUpdate={handleUpdate} /> */}
           </div>
         </div>
       ) : (

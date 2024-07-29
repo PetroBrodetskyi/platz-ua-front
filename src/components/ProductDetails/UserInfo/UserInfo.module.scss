@@ -47,6 +47,8 @@ $likeButton-fontSize-mobile: 18px;
             width: 60px;
             height: 60px;
             border-radius: 50%;
+            border: 2px solid var(--dark-bg);
+            padding: 4px;
         }
 
         .details {
