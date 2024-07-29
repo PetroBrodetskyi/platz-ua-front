@@ -1,26 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserProducts, fetchExchangeRate } from '../../redux/features/productsSlice';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { TbLocation } from "react-icons/tb";
 import { SlLocationPin } from "react-icons/sl";
 import { MdOutlineDateRange } from "react-icons/md";
 import { FaRegFaceSmile, FaRegFaceMeh } from "react-icons/fa6";
 import ActionButton from '../ProductDetails/ActionButton/ActionButton';
 import { getCategoryIcon, getSubcategoryIcon } from '../Categories/icons';
-import Loader from '../Loader/Loader';
 import axios from 'axios';
 import scss from './UserProducts.module.scss';
-import { useParams } from 'react-router-dom';
+import { fetchExchangeRate } from '../../redux/features/productsSlice';
 
-const UserProducts = () => {
-  const { userId } = useParams();
-  const dispatch = useDispatch();
-  const userProducts = useSelector((state) => state.products.userProducts);
-  const exchangeRate = useSelector((state) => state.products.exchangeRate);
-  const loading = useSelector((state) => state.products.loading);
-  const error = useSelector((state) => state.products.error);
-  const currentUser = useSelector((state) => state.auth.user);
-
+const UserProducts = ({ products }) => {
   const [isEditing, setIsEditing] = useState(null);
   const [updatedProduct, setUpdatedProduct] = useState({
     name: '',
@@ -29,15 +19,16 @@ const UserProducts = () => {
     condition: '',
   });
 
+  const currentUser = useSelector((state) => state.auth.user);
+  const exchangeRate = useSelector((state) => state.products.exchangeRate);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    if (userId) {
-      dispatch(fetchUserProducts(userId));
-    }
-    dispatch(fetchExchangeRate());
-  }, [dispatch, userId]);
+    dispatch(fetchExchangeRate()); // Отримати обмінний курс при завантаженні компонента
+  }, [dispatch]);
 
   const handleEditClick = (productId) => {
-    const product = userProducts.find((prod) => prod._id === productId);
+    const product = products.find((prod) => prod._id === productId);
     setIsEditing(productId);
     setUpdatedProduct({
       name: product.name || '',
@@ -48,7 +39,8 @@ const UserProducts = () => {
   };
 
   const handleSaveClick = async () => {
-    if (!currentUser || currentUser._id !== userId) {
+    const product = products.find((prod) => prod._id === isEditing);
+    if (!currentUser || currentUser._id !== product.ownerId) {
       alert('Ви не маєте права редагувати ці оголошення.');
       return;
     }
@@ -64,7 +56,6 @@ const UserProducts = () => {
         }
       );
       console.log('Update response:', response.data);
-      dispatch(fetchUserProducts(userId));
       setIsEditing(null);
     } catch (error) {
       console.error('Error updating product:', error.response ? error.response.data : error.message);
@@ -87,14 +78,13 @@ const UserProducts = () => {
     }));
   };
 
-  if (loading) return <Loader />;
-  if (error) return <p>Помилка: {error}</p>;
+  if (!products.length) return <p>Продукти не знайдено</p>;
 
   return (
     <div className={scss.userProducts}>
-      <h2 className={scss.title}>Ваші активні оголошення</h2>
+      <h2 className={scss.title}>Активні оголошення користувача</h2>
       <ul className={scss.productsList}>
-        {userProducts.map((product) => (
+        {products.map((product) => (
           <li className={scss.productsItem} key={product._id}>
             <div className={scss.imageContainer}>
               <img className={scss.image} src={product.image1} alt={product.name} />
@@ -207,10 +197,13 @@ const UserProducts = () => {
               </div>
             </div>
             <div className={scss.buttonsMenu}>
-              <ActionButton
-                isEditing={isEditing === product._id}
-                onClick={() => (isEditing === product._id ? handleSaveClick() : handleEditClick(product._id))}
-              />
+              {/* Кнопка редагування лише для власника */}
+              {currentUser && currentUser._id === product.ownerId && (
+                <ActionButton
+                  isEditing={isEditing === product._id}
+                  onClick={() => (isEditing === product._id ? handleSaveClick() : handleEditClick(product._id))}
+                />
+              )}
             </div>
           </li>
         ))}

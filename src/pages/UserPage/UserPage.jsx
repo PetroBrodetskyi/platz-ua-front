@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchUserById, updateUserDetails } from '../../redux/features/authSlice';
+import { fetchUsersPublicProducts } from '../../redux/features/productsSlice';
 import UserProfile from '../../components/UserProfile/UserProfile';
 import UserProducts from '../../components/UserProducts/UserProducts';
 import scss from './UserPage.module.scss';
@@ -12,10 +13,12 @@ const UserPage = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.owner);
   const currentUser = useSelector((state) => state.auth.user);
+  const userProducts = useSelector((state) => state.products.userProducts);
 
   useEffect(() => {
     if (userId) {
       dispatch(fetchUserById(userId));
+      dispatch(fetchUsersPublicProducts(userId));
     }
   }, [dispatch, userId]);
 
@@ -27,11 +30,13 @@ const UserPage = () => {
     <div className={scss.userPage}>
       {user ? (
         <div className={scss.productsProfileContainer}>
+          {/* Відображати компонент UserProfile тільки на сторінці поточного користувача */}
+          {currentUser && currentUser._id === user._id && <UserProfile user={user} />}
           <div>
-            <UserProducts userId={user._id} />
+            <UserProducts products={userProducts} />
           </div>
           <div>
-            {/* Відображення форми додавання оголошення тільки для власника сторінки */}
+            {/* Відображати форму додавання оголошень тільки для власника профілю */}
             {currentUser && currentUser._id === user._id && <AddProductForm />}
           </div>
         </div>
