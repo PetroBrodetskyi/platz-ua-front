@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchProducts, fetchProductById, fetchExchangeRate } from '../../redux/features/productsSlice';
@@ -13,10 +13,6 @@ import UserInfo from './UserInfo/UserInfo';
 import Loader from '../Loader/Loader';
 import Comments from '../Comments/Comments';
 
-const MemoizedProductInfo = React.memo(ProductInfo);
-const MemoizedUserInfo = React.memo(UserInfo);
-const MemoizedGallery = React.memo(Gallery);
-
 const ProductDetails = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
@@ -26,7 +22,7 @@ const ProductDetails = () => {
   const loading = useSelector((state) => state.products.loading);
   const error = useSelector((state) => state.products.error);
   const cartItems = useSelector((state) => state.cart.items);
-  const product = useMemo(() => products.find((product) => product._id === productId), [products, productId]);
+  const product = products.find((product) => product._id === productId);
   const owner = useSelector((state) => state.auth.owner);
   const currentUser = useSelector((state) => state.auth.user);
 
@@ -38,14 +34,14 @@ const ProductDetails = () => {
     condition: '',
   });
 
-  const fetchProductData = useCallback(() => {
+  useEffect(() => {
     if (!products.length) {
       dispatch(fetchProducts());
       dispatch(fetchExchangeRate());
     }
   }, [dispatch, products.length]);
 
-  const fetchProductDetails = useCallback(() => {
+  useEffect(() => {
     if (product) {
       setUpdatedProduct({
         name: product.name || '',
@@ -59,11 +55,11 @@ const ProductDetails = () => {
     }
   }, [dispatch, product]);
 
-  const fetchCurrentUserData = useCallback(() => {
+  useEffect(() => {
     dispatch(fetchCurrentUser());
   }, [dispatch]);
 
-  const updateViewedProducts = useCallback(() => {
+  useEffect(() => {
     const viewedProducts = JSON.parse(localStorage.getItem('viewedProducts')) || [];
     if (!viewedProducts.includes(productId)) {
       dispatch(fetchProductById(productId));
@@ -71,13 +67,6 @@ const ProductDetails = () => {
       localStorage.setItem('viewedProducts', JSON.stringify(viewedProducts));
     }
   }, [dispatch, productId, product]);
-
-  useEffect(() => {
-    fetchProductData();
-    fetchProductDetails();
-    fetchCurrentUserData();
-    updateViewedProducts();
-  }, [fetchProductData, fetchProductDetails, fetchCurrentUserData, updateViewedProducts]);
 
   if (loading) {
     return <Loader />;
@@ -143,14 +132,14 @@ const ProductDetails = () => {
     }
   };
 
-  const isInCart = useMemo(() => cartItems.some((item) => item._id === product._id), [cartItems, product._id]);
+  const isInCart = cartItems.some((item) => item._id === product._id);
 
   return (
     <div className={scss.productDetails}>
-      <MemoizedGallery images={product} />
+      <Gallery images={product} />
       <div className={scss.infoOwner}>
         <div className={scss.infoContainer}>
-          <MemoizedProductInfo
+          <ProductInfo
             product={product}
             exchangeRate={exchangeRate}
             isEditing={isEditing}
@@ -164,11 +153,11 @@ const ProductDetails = () => {
           />
           {notification && <Notification message={notification} />}
         </div>
-        <MemoizedUserInfo owner={owner} />
+        <UserInfo owner={owner} />
       </div>
       <Comments productId={productId} />
     </div>
   );
 };
 
-export default React.memo(ProductDetails);
+export default ProductDetails;
