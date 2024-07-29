@@ -9,8 +9,10 @@ import { getCategoryIcon, getSubcategoryIcon } from '../Categories/icons';
 import axios from 'axios';
 import scss from './UserProducts.module.scss';
 import { fetchExchangeRate } from '../../redux/features/productsSlice';
+import Notification from '../Notification/Notification';
+import Loader from '../Loader/Loader';
 
-const UserProducts = ({ products, productId }) => {
+const UserProducts = ({ products, setProducts, productId }) => {
   const [isEditing, setIsEditing] = useState(null);
   const [updatedProduct, setUpdatedProduct] = useState({
     name: '',
@@ -18,19 +20,20 @@ const UserProducts = ({ products, productId }) => {
     description: '',
     condition: '',
   });
+  const [notification, setNotification] = useState('');
 
   const currentUser = useSelector((state) => state.auth.user);
-  const owner = useSelector((state) => state.auth.owner);
+  const loading = useSelector((state) => state.products.loading);
   const product = products.find((product) => product._id === productId);
   const exchangeRate = useSelector((state) => state.products.exchangeRate);
   const dispatch = useDispatch();
 
   useEffect(() => {
-  dispatch(fetchExchangeRate());
-  if (product && product.owner) {
-    dispatch(fetchUserById(product.owner));
-  }
-}, [dispatch, product]);
+    dispatch(fetchExchangeRate());
+    if (product && product.owner) {
+      dispatch(fetchUserById(product.owner));
+    }
+  }, [dispatch, product]);
 
   const handleEditClick = (productId) => {
     const product = products.find((prod) => prod._id === productId);
@@ -61,10 +64,17 @@ const UserProducts = ({ products, productId }) => {
         }
       );
       console.log('Update response:', response.data);
+
+      const updatedProducts = products.map((prod) =>
+        prod._id === isEditing ? { ...prod, ...updatedProduct } : prod
+      );
+      setProducts(updatedProducts);
+
+      setNotification('Ваше оголошення успішно оновлено!');
       setIsEditing(null);
     } catch (error) {
       console.error('Error updating product:', error.response ? error.response.data : error.message);
-      alert('Виникла помилка при оновленні продукту. Спробуйте ще раз.');
+      setNotification('Виникла помилка при оновленні продукту. Спробуйте ще раз.');
     }
   };
 
@@ -83,6 +93,7 @@ const UserProducts = ({ products, productId }) => {
     }));
   };
 
+  if (loading) return <Loader />;
   if (!products.length) return <p>Продукти не знайдено</p>;
 
   return (
@@ -90,10 +101,6 @@ const UserProducts = ({ products, productId }) => {
       <h2 className={scss.title}>Активні оголошення користувача</h2>
       <ul className={scss.productsList}>
         {products.map((product) => {
-          console.log('Rendering product:', product);
-          console.log('Current User ID:', currentUser?._id);
-          console.log('Product Owner ID:', product.ownerId);
-
           return (
             <li className={scss.productsItem} key={product._id}>
               <div className={scss.imageContainer}>
@@ -219,6 +226,12 @@ const UserProducts = ({ products, productId }) => {
           );
         })}
       </ul>
+      {notification && (
+        <Notification
+          message={notification}
+          onClose={() => setNotification('')}
+        />
+      )}
     </div>
   );
 };

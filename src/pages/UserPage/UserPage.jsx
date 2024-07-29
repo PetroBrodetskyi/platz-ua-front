@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchUserById, updateUserDetails } from '../../redux/features/authSlice';
@@ -10,6 +10,7 @@ import AddProductForm from '../../components/AddProductForm/AddProductForm';
 
 const UserPage = () => {
   const { userId } = useParams();
+  const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.owner);
   const currentUser = useSelector((state) => state.auth.user);
@@ -26,6 +27,10 @@ const UserPage = () => {
     }
   }, [dispatch, userId, currentUser]);
 
+  useEffect(() => {
+    setProducts(userProducts);
+  }, [userProducts]);
+
   const handleUpdate = (formData) => {
     dispatch(updateUserDetails(formData));
   };
@@ -36,7 +41,7 @@ const UserPage = () => {
         <div className={scss.productsProfileContainer}>
           {currentUser && currentUser._id === user._id && <UserProfile user={user} />}
           <div>
-            <UserProducts products={userProducts} />
+            <UserProducts products={products} setProducts={setProducts} />
           </div>
           <div>
             {currentUser && currentUser._id === userId && <AddProductForm />}
