@@ -6,12 +6,20 @@
     gap: 8px;
     padding: 0;
     list-style: none;
+
+    @media (min-width: $tablet) {
+        gap: 8px;
+    }
+    
+    @media (min-width: $desktop) {
+        gap: 8px;
+    }
 }
 
 .productItem {
     display: flex;
     flex-direction: column;
-    padding: 8px;
+    padding: 4px;
     background-color: var(--white);
     border: 1px solid var(--light-grey);
     min-width: 192px;

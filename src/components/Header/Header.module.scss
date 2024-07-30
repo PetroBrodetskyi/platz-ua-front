@@ -43,14 +43,15 @@
             display: flex;
             gap: 10px;
             justify-content: flex-end;
-            padding: 10px;
+            padding: 4px;
 
             @media (min-width: $tablet) {
-                gap: 10px;
+                align-items: center;
+                gap: 8px;
             }
 
             @media (min-width: $desktop) {
-                gap: 10px;
+                gap: 12px;
             }
 
             .loginButton,

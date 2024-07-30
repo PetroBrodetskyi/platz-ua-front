@@ -39,7 +39,7 @@ $product-list-padding-mobile: 10px;
             }
 
             @media (max-width: $mobile) {
-                gap: 8px;
+                gap: 4px;
                 grid-template-columns: repeat(2, 1fr);
             }
 

@@ -104,11 +104,11 @@ const UserProducts = ({ products, setProducts, productId }) => {
           return (
             <li className={scss.productsItem} key={product._id}>
               <div className={scss.imageContainer}>
-                <img className={scss.image} src={product.image1} alt={product.name} />
-                <img className={scss.image} src={product.image2} alt={product.name} />
-                <img className={scss.image} src={product.image3} alt={product.name} />
-                <img className={scss.image} src={product.image4} alt={product.name} />
-              </div>
+              {product.image1 && <img className={scss.image} src={product.image1} alt={`${product.name} image 1`} />}
+              {product.image2 && <img className={scss.image} src={product.image2} alt={`${product.name} image 2`} />}
+              {product.image3 && <img className={scss.image} src={product.image3} alt={`${product.name} image 3`} />}
+              {product.image4 && <img className={scss.image} src={product.image4} alt={`${product.name} image 4`} />}
+            </div>
               <div className={scss.productDetails}>
                 <div className={scss.namePrice}>
                   {isEditing === product._id ? (
