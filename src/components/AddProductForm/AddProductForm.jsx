@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import SubmitButton from '../SubmitButton/SubmitButton';
-import scss from './AddProductForm.module.scss';
 import productsData from '../Categories/products.json';
 import ImageButton from './ImageButton/ImageButton';
+import scss from './AddProductForm.module.scss';
 
 const AddProductForm = () => {
   const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm();
@@ -87,6 +87,7 @@ const AddProductForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={scss.form}>
       <h3>Додайте нове</h3>
+      <div>
       <div className={scss.formGroup}>
         <label htmlFor="name"></label>
         <input id="name" type="text" {...register('name', { required: true })} placeholder='Назва' autoComplete="on" />
@@ -132,7 +133,8 @@ const AddProductForm = () => {
         <input id="city" type="text" {...register('city', { required: true })} placeholder='Місто' autoComplete="address-level2" />
         {errors.city && <span>Це поле обов'язкове</span>}
       </div>
-
+      </div>
+      <div>
       <div className={scss.imageContainer}>
         <ImageButton id="image1" register={register} />
         <ImageButton id="image2" register={register} />
@@ -182,7 +184,8 @@ const AddProductForm = () => {
         </select>
       </div>
 
-      <SubmitButton buttonText="Розмістити" />
+        <SubmitButton buttonText="Розмістити" />
+        </div>
     </form>
   );
 };

@@ -75,7 +75,7 @@ const Header = ({ onClick }) => {
               <button type="button" className={scss.icon} onClick={onClick}>
                 <div className={scss.navigateItem}>
                 <RiLoginCircleLine />
-                  <span className={scss.userOptions}>Кабінет</span>
+                  <span className={scss.userOptions}></span>
                 </div>
               </button>
             </NavLink>
@@ -84,7 +84,7 @@ const Header = ({ onClick }) => {
             <button type="button" className={scss.icon} onClick={onClick}>
               <div className={scss.navigateItem}>
               {cartItems.length > 0 ? <PiShoppingCartFill /> : <PiShoppingCart />}
-                <span className={scss.userOptions}>Кошик</span>
+                <span className={scss.userOptions}></span>
               </div>
             </button>
           </NavLink>
@@ -96,7 +96,7 @@ const Header = ({ onClick }) => {
             >
               <div className={scss.navigateItem}>
               {favorites.length > 0 ? <MdOutlineFavorite /> : <MdOutlineFavoriteBorder />}
-                <span className={scss.userOptions}>Обране</span>
+                <span className={scss.userOptions}></span>
                 </div>
             </button>
           </NavLink>

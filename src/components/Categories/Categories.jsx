@@ -46,11 +46,11 @@ const Categories = ({ onSubcategoriesChange }) => {
         </button>
         {categoriesVisible && (
           <div className={scss.categoryButtons}>
-            {sortedProducts.map((product) => (
+            {sortedProducts.map((product, index) => (
               <button
-                key={product.id}
-                className={`${scss.categoryButton} ${selectedCategory === product.id ? scss.active : ''}`}
-                value={product.id}
+                key={index}
+                className={`${scss.categoryButton} ${selectedCategory === product.name ? scss.active : ''}`}
+                value={product.name}
                 onClick={handleCategoryChange}
               >
                 {getCategoryIcon(product.name)}
@@ -63,17 +63,17 @@ const Categories = ({ onSubcategoriesChange }) => {
           <div className={scss.subcategories}>
             <div className={scss.subcategoryButtons}>
               {sortedProducts
-                .find((product) => product.id === selectedCategory)
-                .categories.sort((a, b) => a.name.localeCompare(b.name))
-                .map((subcategory) => (
+                .find((product) => product.name === selectedCategory)
+                .categories.sort((a, b) => a.localeCompare(b))
+                .map((subcategory, index) => (
                   <button
-                    key={subcategory.id}
-                    className={`${scss.subcategoryButton} ${selectedSubcategories.includes(subcategory.id) ? scss.active : ''}`}
-                    value={subcategory.id}
+                    key={index}
+                    className={`${scss.subcategoryButton} ${selectedSubcategories.includes(subcategory) ? scss.active : ''}`}
+                    value={subcategory}
                     onClick={handleSubcategoryChange}
                   >
-                    {getSubcategoryIcon(subcategory.name)}
-                    {subcategory.name}
+                    {getSubcategoryIcon(subcategory)}
+                    {subcategory}
                   </button>
                 ))}
             </div>

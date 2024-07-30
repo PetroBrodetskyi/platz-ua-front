@@ -109,7 +109,7 @@ const UserProducts = ({ products, setProducts }) => {
 
   return (
     <div className={scss.userProducts}>
-      <h2 className={scss.title}>Активні оголошення користувача</h2>
+      <h2 className={scss.title}>Оголошення користувача {currentUser.name}</h2>
       <ul className={scss.productsList}>
         {products.map((product) => (
           <ProductItem

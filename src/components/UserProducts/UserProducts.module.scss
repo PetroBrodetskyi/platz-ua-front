@@ -4,32 +4,23 @@ $padding-desktop: 40px;
 $padding-tablet: 20px;
 $padding-mobile: 10px;
 
-$user-products-bg: var(--light-bg);
-$white-color: var(--white);
-$red-color: var(--red);
-$font-size-small: 12px;
-$font-size-medium: 14px;
-$font-size-large: 16px;
-$font-size-xlarge: 24px;
-$font-size-xxlarge: 28px;
-
 .userProducts {
     padding: $padding-mobile;
     display: flex;
-    background-color: $user-products-bg;
+    background-color: var(--light-bg);
     flex-direction: column;
     gap: 26px;
 
     @media (min-width: $tablet) {
-        padding: $padding-tablet;
+        padding: $padding-mobile;
     }
 
     @media (min-width: $desktop) {
-        padding: $padding-desktop;
+        padding: $padding-tablet;
     }
 
     .title {
-        font-size: $font-size-medium;
+        font-size: 14px;
     }
 
     .productsList {
@@ -41,7 +32,7 @@ $font-size-xxlarge: 28px;
     .productsItem {
         display: flex;
         flex-direction: column;
-        background-color: $white-color;
+        background-color: var(--white);
         gap: 20px;
         padding: $padding-mobile;
 
@@ -50,11 +41,11 @@ $font-size-xxlarge: 28px;
         }
 
         @media (min-width: $tablet) {
-            padding: $padding-tablet;
+            padding: $padding-mobile;
         }
 
         @media (min-width: $desktop) {
-            padding: $padding-desktop;
+            padding: $padding-mobile;
         }
 
         .imageContainer {
@@ -97,23 +88,23 @@ $font-size-xxlarge: 28px;
             }
 
             .price {
-                color: $red-color;
-                font-size: $font-size-xlarge;
+                color:var(--red);
+                font-size: 24px;
 
                 @media (min-width: $tablet) {
-                    font-size: $font-size-xxlarge;
+                    font-size: 28px;
                 }
             }
 
             .description {
-                font-size: $font-size-small;
+                font-size: 12px;
 
                 @media (min-width: $tablet) {
-                    font-size: $font-size-medium;
+                    font-size: 14px;
                 }
 
                 @media (min-width: $desktop) {
-                    font-size: $font-size-large;
+                    font-size: 16px;
                 }
             }
         }
@@ -159,14 +150,14 @@ $font-size-xxlarge: 28px;
         font-family: var(--font-family);
         resize: none;
         height: auto;
-        font-size: $font-size-small;
+        font-size: 12px;
 
         @media (min-width: $tablet) {
-            font-size: $font-size-medium;
+            font-size: 14px;
         }
 
         @media (min-width: $desktop) {
-            font-size: $font-size-large;
+            font-size: 16px;
         }
     }
 
@@ -177,14 +168,14 @@ $font-size-xxlarge: 28px;
         font-family: var(--font-family);
         resize: none;
         height: 200px;
-        font-size: $font-size-small;
+        font-size: 12px;
 
         @media (min-width: $tablet) {
-            font-size: $font-size-medium;
+            font-size: 14px;
         }
 
         @media (min-width: $desktop) {
-            font-size: $font-size-large;
+            font-size: 16px;
         }
     }
 

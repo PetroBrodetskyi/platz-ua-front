@@ -1,8 +1,8 @@
 @import 'src/styles/mixins';
 
-$form-padding-desktop: 40px;
+$form-padding-desktop: 10px;
 $form-padding-tablet: 30px;
-$form-padding-mobile: 20px;
+$form-padding-mobile: 10px;
 
 $form-gap-desktop: 16px;
 $form-gap-tablet: 12px;
@@ -14,19 +14,21 @@ $form-font-size-mobile: 12px;
 
 .form {
     display: flex;
-    flex-direction: column;
     gap: 10px;
     background-color: var(--white);
-    width: 500px;
-    padding: $form-padding-desktop;
+    padding: $form-padding-tablet;
+    
 
     @media (max-width: $desktop) {
-        padding: $form-padding-desktop;
+        padding: $form-padding-tablet;
+        max-width: 100%;
+        border-radius: 10px;
     }
 
     @media (max-width: $tablet) {
         width: auto;
         max-width: 100%;
+        border-radius: 10px;
     }
 
     .formGroup {

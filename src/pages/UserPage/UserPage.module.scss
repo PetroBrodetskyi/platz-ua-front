@@ -1,10 +1,88 @@
 @import 'src/styles/mixins';
 
 .userPage {
+    display: flex;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
 
-    .productsProfileContainer {
-        display: flex;
-        justify-content: space-between;
+.productsProfileContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
 
-    }
+.sidebar {
+    position: fixed;
+    right: 0;
+    top: 100px;
+    bottom: 100px;
+    width: 100px;
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.addButton,
+.profileButton {
+    font-size: 24px;
+    padding: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.addButton:hover,
+.profileButton:hover {
+    background-color: #0056b3;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    /* Центруємо форми */
+    align-items: center;
+    /* Центруємо форми */
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.form,
+.profile {
+    width: 800px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    overflow-y: auto;
+    position: relative;
+    
+}
+
+.closeButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
 }
