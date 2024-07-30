@@ -5,7 +5,7 @@ export const fetchComments = createAsyncThunk(
   'comments/fetchComments',
   async (productId) => {
     const response = await axios.get(`/products/${productId}/comments`);
-    return response.data;
+    return { productId, comments: response.data };
   }
 );
 
@@ -23,7 +23,7 @@ export const addComment = createAsyncThunk(
         }
       );
       const newComment = response.data.comments[response.data.comments.length - 1];
-      return { ...newComment, user };
+      return { productId, comment: { ...newComment, user } };
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -45,14 +45,25 @@ const commentsSlice = createSlice({
       })
       .addCase(fetchComments.fulfilled, (state, action) => {
         state.loading = false;
-        state.comments = action.payload;
+        const existingProductComments = state.comments.find(comment => comment.productId === action.payload.productId);
+        if (existingProductComments) {
+          existingProductComments.comments = action.payload.comments;
+        } else {
+          state.comments.push({ productId: action.payload.productId, comments: action.payload.comments });
+        }
       })
       .addCase(fetchComments.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
       .addCase(addComment.fulfilled, (state, action) => {
-        state.comments.unshift(action.payload);
+        const { productId, comment } = action.payload;
+        const existingProductComments = state.comments.find(c => c.productId === productId);
+        if (existingProductComments) {
+          existingProductComments.comments.unshift(comment);
+        } else {
+          state.comments.push({ productId, comments: [comment] });
+        }
       });
   },
 });

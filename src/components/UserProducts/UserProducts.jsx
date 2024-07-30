@@ -9,10 +9,11 @@ import { getCategoryIcon, getSubcategoryIcon } from '../Categories/icons';
 import axios from 'axios';
 import scss from './UserProducts.module.scss';
 import { fetchExchangeRate } from '../../redux/features/productsSlice';
+import { fetchComments, addComment } from '../../redux/features/commentsSlice';
 import Notification from '../Notification/Notification';
 import Loader from '../Loader/Loader';
 
-const UserProducts = ({ products, setProducts, productId }) => {
+const UserProducts = ({ products, setProducts }) => {
   const [isEditing, setIsEditing] = useState(null);
   const [updatedProduct, setUpdatedProduct] = useState({
     name: '',
@@ -21,19 +22,23 @@ const UserProducts = ({ products, setProducts, productId }) => {
     condition: '',
   });
   const [notification, setNotification] = useState('');
+  const [newComment, setNewComment] = useState('');
+  const [selectedProductId, setSelectedProductId] = useState(null);
 
   const currentUser = useSelector((state) => state.auth.user);
   const loading = useSelector((state) => state.products.loading);
-  const product = products.find((product) => product._id === productId);
+  const allComments = useSelector((state) => state.comments.comments);
   const exchangeRate = useSelector((state) => state.products.exchangeRate);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchExchangeRate());
-    if (product && product.owner) {
-      dispatch(fetchUserById(product.owner));
-    }
-  }, [dispatch, product]);
+    products.forEach(product => {
+      if (product._id) {
+        dispatch(fetchComments(product._id));
+      }
+    });
+  }, [dispatch, products]);
 
   const handleEditClick = (productId) => {
     const product = products.find((prod) => prod._id === productId);
@@ -93,6 +98,13 @@ const UserProducts = ({ products, setProducts, productId }) => {
     }));
   };
 
+  const handleAddComment = (productId) => {
+    if (newComment.trim()) {
+      dispatch(addComment({ productId, comment: newComment, user: currentUser }));
+      setNewComment('');
+    }
+  };
+
   if (loading) return <Loader />;
   if (!products.length) return <p>Продукти не знайдено</p>;
 
@@ -101,14 +113,17 @@ const UserProducts = ({ products, setProducts, productId }) => {
       <h2 className={scss.title}>Активні оголошення користувача</h2>
       <ul className={scss.productsList}>
         {products.map((product) => {
+          // Фільтруємо коментарі для конкретного продукту
+          const comments = allComments.find(comment => comment.productId === product._id)?.comments || [];
+
           return (
             <li className={scss.productsItem} key={product._id}>
               <div className={scss.imageContainer}>
-              {product.image1 && <img className={scss.image} src={product.image1} alt={`${product.name} image 1`} />}
-              {product.image2 && <img className={scss.image} src={product.image2} alt={`${product.name} image 2`} />}
-              {product.image3 && <img className={scss.image} src={product.image3} alt={`${product.name} image 3`} />}
-              {product.image4 && <img className={scss.image} src={product.image4} alt={`${product.name} image 4`} />}
-            </div>
+                {product.image1 && <img className={scss.image} src={product.image1} alt={`${product.name} image 1`} />}
+                {product.image2 && <img className={scss.image} src={product.image2} alt={`${product.name} image 2`} />}
+                {product.image3 && <img className={scss.image} src={product.image3} alt={`${product.name} image 3`} />}
+                {product.image4 && <img className={scss.image} src={product.image4} alt={`${product.name} image 4`} />}
+              </div>
               <div className={scss.productDetails}>
                 <div className={scss.namePrice}>
                   {isEditing === product._id ? (
@@ -220,6 +235,30 @@ const UserProducts = ({ products, setProducts, productId }) => {
                     isEditing={isEditing === product._id}
                     onClick={() => (isEditing === product._id ? handleSaveClick() : handleEditClick(product._id))}
                   />
+                )}
+              </div>
+              <div className={scss.commentsSection}>
+                <h3>Питання та коментарі</h3>
+                <ul className={scss.commentsList}>
+                  {comments.map(comment => (
+                    <li key={comment._id} className={scss.commentItem}>
+                      <h4>{comment.user.name}</h4>
+                      <p>{comment.text}</p>
+                      <p className={scss.dateTime}>
+                      {new Date(comment.createdAt).toLocaleDateString()} {new Date(comment.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </p>
+                    </li>
+                  ))}
+                </ul>
+                {currentUser && (
+                  <div className={scss.addComment}>
+                    <textarea
+                      value={newComment}
+                      onChange={(e) => setNewComment(e.target.value)}
+                      placeholder="Додати коментар"
+                    />
+                    <button onClick={() => handleAddComment(product._id)}>Додати</button>
+                  </div>
                 )}
               </div>
             </li>

@@ -7,11 +7,13 @@ import scss from './Comments.module.scss';
 
 const Comments = ({ productId }) => {
   const dispatch = useDispatch();
-  const commentsState = useSelector((state) => state.comments);
+  const allComments = useSelector((state) => state.comments.comments);
   const currentUser = useSelector((state) => state.auth.user);
-  const { comments, loading, error } = commentsState || {};
+  const commentsForProduct = allComments.find(comment => comment.productId === productId)?.comments || [];
   const [newComment, setNewComment] = useState('');
   const [notification, setNotification] = useState('');
+  const loading = useSelector((state) => state.comments.loading);
+  const error = useSelector((state) => state.comments.error);
 
   useEffect(() => {
     dispatch(fetchComments(productId));
@@ -29,8 +31,8 @@ const Comments = ({ productId }) => {
     }
   };
 
-  if (loading) return <p>Loading comments...</p>;
-  if (error) return <p>Error loading comments: {error}</p>;
+  if (loading) return <p>Завантаження коментарів...</p>;
+  if (error) return <p>Помилка завантаження коментарів: {error}</p>;
 
   return (
     <div className={scss.comments}>
@@ -39,8 +41,8 @@ const Comments = ({ productId }) => {
         <Notification message={notification} />
       )}
       <div className={scss.commentList}>
-        {comments && comments.length > 0 ? (
-          comments.map((comment) => (
+        {commentsForProduct.length > 0 ? (
+          commentsForProduct.map((comment) => (
             <div key={comment._id || nanoid()} className={scss.comment}>
               <h4>{comment.user ? comment.user.name : 'Anonymous'}</h4>
               <p>{comment.text}</p>
@@ -51,14 +53,16 @@ const Comments = ({ productId }) => {
           <p>Ви можете написати перший коментар</p>
         )}
       </div>
-      <div className={scss.addComment}>
-        <textarea
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-          placeholder="Add a comment..."
-        />
-        <button onClick={handleAddComment}>Add Comment</button>
-      </div>
+      {currentUser && (
+        <div className={scss.addComment}>
+          <textarea
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="Додати коментар..."
+          />
+          <button onClick={handleAddComment}>Додати коментар</button>
+        </div>
+      )}
     </div>
   );
 };
