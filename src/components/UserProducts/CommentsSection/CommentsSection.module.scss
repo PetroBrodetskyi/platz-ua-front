@@ -1,0 +1,129 @@
+@import 'src/styles/mixins';
+
+$padding-desktop: 40px;
+$padding-tablet: 20px;
+$padding-mobile: 10px;
+
+$user-products-bg: var(--light-bg);
+$white-color: var(--white);
+$red-color: var(--red);
+$font-size-small: 12px;
+$font-size-medium: 14px;
+$font-size-large: 16px;
+$font-size-xlarge: 24px;
+$font-size-xxlarge: 28px;
+
+.commentsSection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    h3 {
+        font-size: $font-size-large;
+    }
+
+    .commentsList {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .commentItem {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 10px;
+            background-color: $white-color;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+
+            h4 {
+                font-size: $font-size-medium;
+                margin: 0;
+            }
+
+            p {
+                margin: 0;
+                font-size: $font-size-small;
+
+                &.dateTime {
+                    font-size: $font-size-small;
+                    color: #999;
+                }
+            }
+
+            .editedMark {
+                font-size: $font-size-small;
+                color: #888;
+                margin-left: 5px;
+            }
+
+            .commentActions {
+                display: flex;
+                gap: 10px;
+
+                .icon {
+                    cursor: pointer;
+                    font-size: $font-size-medium;
+                    color: #888;
+
+                    &:hover {
+                        color: #555;
+                    }
+                }
+            }
+
+            .editButtons {
+                display: flex;
+                gap: 10px;
+
+                button {
+                    padding: 5px 10px;
+                    border: none;
+                    background-color: $red-color;
+                    color: $white-color;
+                    cursor: pointer;
+                    border-radius: 4px;
+
+                    &:hover {
+                        background-color: var(--red);
+                    }
+                }
+            }
+        }
+    }
+
+    .addComment {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+            font-family: var(--font-family);
+            font-size: $font-size-medium;
+
+            &:focus {
+                border-color: #000;
+            }
+        }
+
+        button {
+            align-self: flex-end;
+            padding: 10px 20px;
+            border: none;
+            background-color: $red-color;
+            color: $white-color;
+            font-size: $font-size-medium;
+            cursor: pointer;
+            border-radius: 4px;
+
+            &:hover {
+                background-color: var(--red);
+            }
+        }
+    }
+}

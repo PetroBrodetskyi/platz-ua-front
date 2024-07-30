@@ -1,0 +1,128 @@
+@import 'src/styles/mixins';
+
+$padding-desktop: 40px;
+$padding-tablet: 20px;
+$padding-mobile: 10px;
+
+$user-products-bg: var(--light-bg);
+$white-color: var(--white);
+$red-color: var(--red);
+$font-size-small: 12px;
+$font-size-medium: 14px;
+$font-size-large: 16px;
+$font-size-xlarge: 24px;
+$font-size-xxlarge: 28px;
+
+.productsItem {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white);
+    gap: 20px;
+    padding: $padding-mobile;
+
+    &:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (min-width: $tablet) {
+        padding: $padding-tablet;
+    }
+
+    @media (min-width: $desktop) {
+        padding: $padding-desktop;
+    }
+
+    .imageContainer {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+
+        @media (min-width: $mobile) and (max-width: $tablet) {
+            gap: 6px;
+        }
+
+        @media (min-width: $tablet) {
+            gap: 10px;
+        }
+
+        .image {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+
+            @media (min-width: $desktop) {
+                width: 24%;
+            }
+        }
+    }
+
+    .productDetails {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .namePrice {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            @media (min-width: $tablet) {
+                flex-direction: row;
+            }
+        }
+
+        .price {
+            color: var(--red);
+            font-size: $font-size-xlarge;
+
+            @media (min-width: $tablet) {
+                font-size: $font-size-xxlarge;
+            }
+        }
+
+        .description {
+            font-size: $font-size-small;
+
+            @media (min-width: $tablet) {
+                font-size: $font-size-medium;
+            }
+
+            @media (min-width: $desktop) {
+                font-size: $font-size-large;
+            }
+        }
+    }
+
+    .detailsContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        @media (min-width: $tablet) {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .detailsFlex,
+        .radioFlex {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+
+            .icon {
+                font-size: 18px;
+            }
+        }
+
+        .conditionOptions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .icons {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+    }
+}
