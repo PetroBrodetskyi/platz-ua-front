@@ -73,13 +73,19 @@ const Header = ({ onClick }) => {
           {!user && (
             <NavLink to="/login">
               <button type="button" className={scss.icon} onClick={onClick}>
+                <div className={scss.navigateItem}>
                 <RiLoginCircleLine />
+                  <span className={scss.userOptions}>Кабінет</span>
+                </div>
               </button>
             </NavLink>
           )}
           <NavLink to="/cart">
             <button type="button" className={scss.icon} onClick={onClick}>
+              <div className={scss.navigateItem}>
               {cartItems.length > 0 ? <PiShoppingCartFill /> : <PiShoppingCart />}
+                <span className={scss.userOptions}>Кошик</span>
+              </div>
             </button>
           </NavLink>
           <NavLink to="/favorites">
@@ -88,7 +94,10 @@ const Header = ({ onClick }) => {
               className={`${scss.icon} ${animateFavorite ? scss.animate : ''} ${favorites.length > 0 ? scss.favorite : ''}`}
               onClick={onClick}
             >
+              <div className={scss.navigateItem}>
               {favorites.length > 0 ? <MdOutlineFavorite /> : <MdOutlineFavoriteBorder />}
+                <span className={scss.userOptions}>Обране</span>
+                </div>
             </button>
           </NavLink>
         </div>

@@ -113,6 +113,16 @@
             justify-content: space-between;
             align-items: center;
         }
+
+        .navigateItem {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .userOptions {
+            font-size: 14px;
+        }
     }
 }
 
