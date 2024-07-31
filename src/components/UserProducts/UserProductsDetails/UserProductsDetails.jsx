@@ -116,7 +116,7 @@ const ProductDetails = ({
           <div className={scss.detailsFlex}>
             Розміщено:
             <MdOutlineDateRange className={scss.icon} />
-            <p>{new Date(product.updatedAt).toLocaleDateString()}</p>
+            <p>{new Date(product.createdAt).toLocaleDateString()}</p>
           </div>
         </div>
         
