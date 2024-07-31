@@ -18,16 +18,16 @@
 .sidebar {
     position: fixed;
     right: 0;
-    top: 100px;
-    bottom: 100px;
-    width: 100px;
+height: auto;
+    width: 60px;
     background-color: rgba(255, 255, 255, 0.7);
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    border-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
     transition: transform 0.3s ease-in-out;
 
     
@@ -57,32 +57,33 @@
         }
 }
 
-.addButton,
-.profileButton {
-    margin-bottom: 20px;
-    font-size: 24px;
-    padding: 10px;
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
+.buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
 
-    @media (max-width: $tablet) {
-        margin-bottom: 0;
-        margin-right: 10px;
+    @media (min-width: $tablet) {
+        gap: 20px;
+        flex-direction: row;
     }
 
-    @media (max-width: $desktop) {
-        margin: 0 10px;
-        
+    @media (min-width: $desktop) {
+        gap: 20px;
+        flex-direction: column;
         
     }
 }
 
+.addButton,
+.profileButton {
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--black);
+}
+
 .addButton:hover,
 .profileButton:hover {
-    background-color: #0056b3;
+    color: var(--red);
 }
 
 .overlay {

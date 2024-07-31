@@ -66,12 +66,14 @@ const UserPage = () => {
           </div>
           {currentUser && currentUser._id === userId && (
             <div className={`${scss.sidebar} ${isFormVisible || isProfileVisible ? scss.hidden : ''}`}>
-              <button onClick={toggleFormVisibility} className={scss.addButton}>
-                <AiOutlinePlus />
-              </button>
-              <button onClick={toggleProfileVisibility} className={scss.profileButton}>
-                <AiOutlineUser />
-              </button>
+              <div className={scss.buttons}>
+                <button onClick={toggleFormVisibility} className={scss.addButton}>
+                  <AiOutlinePlus />
+                </button>
+                <button onClick={toggleProfileVisibility} className={scss.profileButton}>
+                  <AiOutlineUser />
+                </button>
+              </div>
             </div>
           )}
           <AnimatePresence>
