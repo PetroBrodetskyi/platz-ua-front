@@ -2,15 +2,17 @@
 
 .userPage {
     display: flex;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+    flex-direction: column;
 }
 
 .productsProfileContainer {
     display: flex;
     flex-direction: row;
     width: 100%;
+
+    @media (max-width: $tablet) {
+        flex-direction: column;
+    }
 }
 
 .sidebar {
@@ -27,18 +29,55 @@
     padding: 20px;
     border-radius: 10px;
     transition: transform 0.3s ease-in-out;
+
+    
+
+    @media (max-width: $tablet) {
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        top: unset;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 0;
+        flex-direction: row;
+        justify-content: center;
+        padding: 10px;
+    }
+
+        @media (max-width: $desktop) {
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            top: unset;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 0;
+            flex-direction: row;
+            justify-content: center;
+            padding: 10px;
+        }
 }
 
 .addButton,
 .profileButton {
+    margin-bottom: 20px;
     font-size: 24px;
     padding: 10px;
-    margin-bottom: 20px;
     cursor: pointer;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
+
+    @media (max-width: $tablet) {
+        margin-bottom: 0;
+        margin-right: 10px;
+    }
+
+    @media (max-width: $desktop) {
+        margin: 0 10px;
+        
+        
+    }
 }
 
 .addButton:hover,
@@ -55,9 +94,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
-    /* Центруємо форми */
     align-items: center;
-    /* Центруємо форми */
     transition: opacity 0.3s ease-in-out;
     opacity: 0;
     visibility: hidden;
@@ -76,7 +113,6 @@
     padding: 20px;
     overflow-y: auto;
     position: relative;
-    
 }
 
 .closeButton {

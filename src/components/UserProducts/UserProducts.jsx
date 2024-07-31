@@ -4,6 +4,7 @@ import axios from 'axios';
 import scss from './UserProducts.module.scss';
 import ProductItem from './ProductItem/ProductItem';
 import Notification from '../Notification/Notification';
+import ProductsNotFound from '../UserProducts/ProductsNotFound/ProductsNotFound'
 import Loader from '../Loader/Loader';
 import { fetchExchangeRate } from '../../redux/features/productsSlice';
 import { fetchComments, addComment } from '../../redux/features/commentsSlice';
@@ -105,7 +106,7 @@ const UserProducts = ({ products, setProducts }) => {
   };
 
   if (loading) return <Loader />;
-  if (!products.length) return <p>Продукти не знайдено</p>;
+  if (!products.length) return <ProductsNotFound />;
 
   return (
     <div className={scss.userProducts}>

@@ -15,6 +15,7 @@ import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
 import CreateCondition from './CreateCondition/CreateCondition';
 import Notification from '../Notification/Notification';
+import { motion, AnimatePresence } from 'framer-motion';
 import scss from './ProductCard.module.scss';
 
 const MemoizedTitleFavorite = React.memo(TitleFavorite);
@@ -174,30 +175,38 @@ const ProductCard = () => {
                   </div>
                 </div>
               </div>
-              <div className={`${scss.productDescription} ${showDescriptions[product._id] ? scss.visible : scss.hidden}`}>
-                <div>
-                  <div className={scss.paragraphContainer}>
-                    <div>
-                      <p className={scss.desc}>{product.description}</p>
-                    </div>
-                    <div className={scss.locationContainer}>
-                      <div className={scss.locationItem}>
-                        <TbLocation />
-                        <p>{product.PLZ}</p>
+              <AnimatePresence>
+              {showDescriptions[product._id] && (
+                <motion.div
+                  className={`${scss.productDescription} ${scss.visible}`}
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div>
+                    <div className={scss.paragraphContainer}>
+                      <div>
+                        <p className={scss.desc}>{product.description}</p>
                       </div>
-                      <button 
-                        onClick={() => handleCloseDescription(product._id)}
-                      >
-                        <FiX className={scss.icon} />
-                      </button>
-                      <div className={scss.locationItem}>
-                        <SlLocationPin />
-                        <p>{product.city}</p>
+                      <div className={scss.locationContainer}>
+                        <div className={scss.locationItem}>
+                          <TbLocation />
+                          <p>{product.PLZ}</p>
+                        </div>
+                        <button onClick={() => handleCloseDescription(product._id)}>
+                          <FiX className={scss.icon} />
+                        </button>
+                        <div className={scss.locationItem}>
+                          <SlLocationPin />
+                          <p>{product.city}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
             </li>
           );
         })}

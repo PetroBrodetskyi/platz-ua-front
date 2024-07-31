@@ -16,7 +16,7 @@ $font-size-xxlarge: 28px;
 .productsItem {
     display: flex;
     flex-direction: column;
-    background-color: var(--white);
+    background-color: $white-color;
     gap: 20px;
     padding: $padding-mobile;
 
@@ -32,63 +32,49 @@ $font-size-xxlarge: 28px;
         padding: $padding-desktop;
     }
 
+    .imageDetails {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        @media (min-width: $tablet) {
+            flex-direction: row;
+            align-items: flex-start;
+        }
+
+        @media (min-width: $desktop) {
+            flex-direction: row;
+        }
+    }
+
     .imageContainer {
         display: flex;
         flex-wrap: wrap;
         gap: 4px;
 
-        @media (min-width: $mobile) and (max-width: $tablet) {
+        @media (min-width: $tablet) {
             gap: 6px;
+            width: 50%;
         }
 
-        @media (min-width: $tablet) {
+        @media (min-width: $desktop) {
             gap: 10px;
+            width: 50%;
         }
 
         .image {
-            width: 180px;
-            height: 180px;
+            width: 100%;
+            height: 300px;
             object-fit: cover;
 
-            @media (min-width: $desktop) {
-                width: 24%;
-            }
-        }
-    }
-
-    .productDetails {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-
-        .namePrice {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
             @media (min-width: $tablet) {
-                flex-direction: row;
-            }
-        }
-
-        .price {
-            color: var(--red);
-            font-size: $font-size-xlarge;
-
-            @media (min-width: $tablet) {
-                font-size: $font-size-xxlarge;
-            }
-        }
-
-        .description {
-            font-size: $font-size-small;
-
-            @media (min-width: $tablet) {
-                font-size: $font-size-medium;
+                width: 48%;
+                height: 180px;
             }
 
             @media (min-width: $desktop) {
-                font-size: $font-size-large;
+                width: 48%;
+                height: 320px;
             }
         }
     }
@@ -96,33 +82,30 @@ $font-size-xxlarge: 28px;
     .detailsContainer {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        width: 100%;
 
         @media (min-width: $tablet) {
-            flex-direction: row;
-            justify-content: space-between;
+            width: 50%;
         }
 
-        .detailsFlex,
-        .radioFlex {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-
-            .icon {
-                font-size: 18px;
-            }
+        @media (min-width: $desktop) {
+            width: 44%;
         }
+    }
+}
 
-        .conditionOptions {
-            display: flex;
-            gap: 8px;
-        }
+.buttonsMenu {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
 
-        .icons {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
+    @media (min-width: $tablet) {
+        justify-content: flex-start;
+        margin-top: 10px;
+    }
+
+    @media (min-width: $desktop) {
+        justify-content: flex-end;
+        margin-top: 20px;
     }
 }

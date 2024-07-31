@@ -1,5 +1,5 @@
 import { BsPencil } from 'react-icons/bs';
-import { MdOutlineDataSaverOn } from 'react-icons/md';
+import { GrUpdate } from "react-icons/gr";
 import scss from './ActionButton.module.scss';
 
 const ActionButton = ({ isEditing, onClick }) => {
@@ -8,7 +8,17 @@ const ActionButton = ({ isEditing, onClick }) => {
       className={`${scss.button} ${isEditing ? scss.saveButton : scss.editButton}`}
       onClick={onClick}
     >
-      {isEditing ? <MdOutlineDataSaverOn className={scss.icon}/> : <BsPencil className={scss.icon}/>}
+      {isEditing ? (
+        <>
+          <GrUpdate className={scss.icon} />
+          <span className={scss.text}>зберегти</span>
+        </>
+      ) : (
+        <>
+          <BsPencil className={scss.icon} />
+          <span className={scss.text}>редагувати</span>
+        </>
+      )}
     </button>
   );
 };
