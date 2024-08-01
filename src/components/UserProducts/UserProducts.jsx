@@ -5,7 +5,7 @@ import scss from './UserProducts.module.scss';
 import ProductItem from './ProductItem/ProductItem';
 import Notification from '../Notification/Notification';
 import ProductsNotFound from '../UserProducts/ProductsNotFound/ProductsNotFound';
-import Confirmation from '../Confirmation/Confirmation';
+import { Confirmation } from '../Confirmation/Confirmation';
 import Loader from '../Loader/Loader';
 import { fetchExchangeRate } from '../../redux/features/productsSlice';
 import { fetchComments, addComment } from '../../redux/features/commentsSlice';

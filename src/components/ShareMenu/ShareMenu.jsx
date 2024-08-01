@@ -6,14 +6,16 @@ import { SiGmail, SiViber } from "react-icons/si";
 import { GrMailOption } from "react-icons/gr";
 import { PiMessengerLogoBold, PiTelegramLogoFill } from "react-icons/pi";
 import { BiMessageSquareDetail } from "react-icons/bi";
+import { ConfirmationOk } from '../Confirmation/Confirmation';
 import scss from './ShareMenu.module.scss';
 
 const ShareMenu = ({ productUrl, metaDescription, metaImage }) => {
   const [showShareMenu, setShowShareMenu] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(productUrl).then(() => {
-      alert('Посилання скопійовано');
+      setShowConfirmation(true);
     }).catch(err => {
       console.error('Помилка копіювання посилання', err);
     });
@@ -68,13 +70,17 @@ const ShareMenu = ({ productUrl, metaDescription, metaImage }) => {
     setShowShareMenu(!showShareMenu);
   };
 
+  const handleConfirmationClose = () => {
+    setShowConfirmation(false);
+  };
+
   return (
-    <div className={scss.shareContainer}>
-      <button onClick={toggleShareMenu} className={scss.shareButton}>
-        <FiShare2 className={scss.icon} /> 
-      </button>
-      {showShareMenu && (
-        <div className={scss.shareLinks}>
+    <>
+      <div className={scss.shareContainer}>
+        <button onClick={toggleShareMenu} className={scss.shareButton}>
+          <FiShare2 className={scss.icon} /> 
+        </button>
+        <div className={`${scss.shareLinks} ${showShareMenu ? scss.show : ''}`}>
           <button className={scss.face} onClick={() => handleShare('facebook')}>
             <FaSquareFacebook className={scss.icon} />
           </button>
@@ -93,7 +99,7 @@ const ShareMenu = ({ productUrl, metaDescription, metaImage }) => {
           <button className={scss.emai} onClick={() => handleShare('email')}>
             <GrMailOption className={scss.icon} />
           </button>
-          <button className={scss.smss} onClick={() => handleShare('sms')}>
+          <button className={scss.sms} onClick={() => handleShare('sms')}>
             <BiMessageSquareDetail className={scss.icon} />
           </button>
           <button className={scss.vibe} onClick={() => handleShare('viber')}>
@@ -109,8 +115,15 @@ const ShareMenu = ({ productUrl, metaDescription, metaImage }) => {
             <FaRegCopy className={scss.icon} />
           </button>
         </div>
+      </div>
+
+      {showConfirmation && (
+        <ConfirmationOk 
+          message="Посилання скопійовано!"
+          onClose={handleConfirmationClose}
+        />
       )}
-    </div>
+    </>
   );
 };
 
