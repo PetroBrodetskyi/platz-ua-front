@@ -13,33 +13,62 @@ export const register = createAsyncThunk('auth/register', async (credentials) =>
   return response.data;
 });
 
-export const fetchCurrentUser = createAsyncThunk('auth/fetchCurrentUser', async (_, { getState }) => {
+export const fetchCurrentUser = createAsyncThunk('auth/fetchCurrentUser', async (_, { getState, rejectWithValue }) => {
   const { auth } = getState();
-  const response = await axios.get(`${API_URL}/current`, {
-    headers: {
-      Authorization: `Bearer ${auth.token}`,
-    },
-  });
-  return response.data;
-});
-
-export const fetchUserById = createAsyncThunk('auth/fetchUserById', async (userId) => {
-  if (!userId) {
-    throw new Error('User ID is required');
+  
+  if (!auth.token) {
+    // Пропускаємо дію, якщо токен відсутній
+    return;
   }
-  const response = await axios.get(`${API_URL}/${userId}`);
-  return response.data;
+
+  try {
+    const response = await axios.get(`${API_URL}/current`, {
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
+      // Автоматичний logout при 401 Unauthorized
+      localStorage.removeItem('token');
+      return rejectWithValue('Сесія завершена, будь ласка, увійдіть знову');
+    }
+    return rejectWithValue(error.message);
+  }
 });
 
-export const updateUserDetails = createAsyncThunk('auth/updateUserDetails', async (formData, { getState }) => {
+export const fetchUserById = createAsyncThunk('auth/fetchUserById', async (userId, { rejectWithValue }) => {
+  if (!userId) {
+    return rejectWithValue('User ID is required');
+  }
+  
+  try {
+    const response = await axios.get(`${API_URL}/${userId}`);
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.message);
+  }
+});
+
+export const updateUserDetails = createAsyncThunk('auth/updateUserDetails', async (formData, { getState, rejectWithValue }) => {
   const { auth } = getState();
-  const response = await axios.patch(`${API_URL}/${auth.user._id}`, formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-      Authorization: `Bearer ${auth.token}`,
-    },
-  });
-  return response.data;
+  
+  if (!auth.token) {
+    return rejectWithValue('Сесія завершена, будь ласка, увійдіть знову');
+  }
+  
+  try {
+    const response = await axios.patch(`${API_URL}/${auth.user._id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${auth.token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.message);
+  }
 });
 
 const initialState = {
@@ -99,11 +128,11 @@ const authSlice = createSlice({
       })
       .addCase(fetchCurrentUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
+        state.user = action.payload || state.user;
       })
       .addCase(fetchCurrentUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.payload || action.error.message;
       })
       .addCase(fetchUserById.pending, (state) => {
         state.loading = true;

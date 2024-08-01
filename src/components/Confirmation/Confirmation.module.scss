@@ -1,0 +1,56 @@
+@import 'src/styles/mixins';
+
+.dialogOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 300;
+}
+
+.dialogBox {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.dialogButtons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+
+    button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &:first-child {
+            background-color: var(--red);
+            color: #fff;
+        }
+
+        &:last-child {
+            background-color: var(--logo-yellow);
+            color: #fff;
+        }
+    }
+
+    .buttonContainer {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+
+        .icon {
+            font-size: 24px;
+        }
+    }
+}

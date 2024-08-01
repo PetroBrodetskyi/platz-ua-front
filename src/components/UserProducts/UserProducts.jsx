@@ -4,7 +4,8 @@ import axios from 'axios';
 import scss from './UserProducts.module.scss';
 import ProductItem from './ProductItem/ProductItem';
 import Notification from '../Notification/Notification';
-import ProductsNotFound from '../UserProducts/ProductsNotFound/ProductsNotFound'
+import ProductsNotFound from '../UserProducts/ProductsNotFound/ProductsNotFound';
+import Confirmation from '../Confirmation/Confirmation';
 import Loader from '../Loader/Loader';
 import { fetchExchangeRate } from '../../redux/features/productsSlice';
 import { fetchComments, addComment } from '../../redux/features/commentsSlice';
@@ -18,6 +19,8 @@ const UserProducts = ({ products, setProducts }) => {
     condition: '',
   });
   const [notification, setNotification] = useState('');
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [productIdToDelete, setProductIdToDelete] = useState(null);
   const [newComment, setNewComment] = useState('');
 
   const currentUser = useSelector((state) => state.auth.user);
@@ -32,7 +35,7 @@ const UserProducts = ({ products, setProducts }) => {
 
   useEffect(() => {
     if (products.length > 0) {
-      products.forEach(product => {
+      products.forEach((product) => {
         if (product._id) {
           dispatch(fetchComments(product._id));
         }
@@ -68,7 +71,6 @@ const UserProducts = ({ products, setProducts }) => {
           },
         }
       );
-      console.log('Update response:', response.data);
 
       const updatedProducts = products.map((prod) =>
         prod._id === isEditing ? { ...prod, ...updatedProduct } : prod
@@ -78,7 +80,10 @@ const UserProducts = ({ products, setProducts }) => {
       setNotification('Ваше оголошення успішно оновлено!');
       setIsEditing(null);
     } catch (error) {
-      console.error('Error updating product:', error.response ? error.response.data : error.message);
+      console.error(
+        'Error updating product:',
+        error.response ? error.response.data : error.message
+      );
       setNotification('Виникла помилка при оновленні продукту. Спробуйте ще раз.');
     }
   };
@@ -105,6 +110,45 @@ const UserProducts = ({ products, setProducts }) => {
     }
   };
 
+  const handleDeleteClick = (productId) => {
+    if (!currentUser) return;
+
+    setProductIdToDelete(productId);
+    setShowConfirmation(true);
+  };
+
+  const confirmDelete = async () => {
+    setShowConfirmation(false);
+    if (!productIdToDelete) return;
+
+    try {
+      const response = await axios.delete(
+        `https://platz-ua-back.vercel.app/api/products/${productIdToDelete}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
+
+      const updatedProducts = products.filter((prod) => prod._id !== productIdToDelete);
+      setProducts(updatedProducts);
+
+      setNotification('Ваше оголошення успішно видалено!');
+    } catch (error) {
+      console.error(
+        'Error deleting product:',
+        error.response ? error.response.data : error.message
+      );
+      setNotification('Виникла помилка при видаленні продукту. Спробуйте ще раз.');
+    }
+  };
+
+  const cancelDelete = () => {
+    setProductIdToDelete(null);
+    setShowConfirmation(false);
+  };
+
   if (loading) return <Loader />;
   if (!products.length) return <ProductsNotFound />;
 
@@ -122,6 +166,7 @@ const UserProducts = ({ products, setProducts }) => {
             handleConditionChange={handleConditionChange}
             handleEditClick={handleEditClick}
             handleSaveClick={handleSaveClick}
+            handleDeleteClick={handleDeleteClick}
             currentUser={currentUser}
             exchangeRate={exchangeRate}
             allComments={allComments}
@@ -135,6 +180,13 @@ const UserProducts = ({ products, setProducts }) => {
         <Notification
           message={notification}
           onClose={() => setNotification('')}
+        />
+      )}
+      {showConfirmation && (
+        <Confirmation
+          message="Ви впевнені, що хочете видалити це оголошення?"
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
         />
       )}
     </div>

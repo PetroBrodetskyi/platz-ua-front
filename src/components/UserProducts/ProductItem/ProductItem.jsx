@@ -12,6 +12,7 @@ const ProductItem = ({
   handleConditionChange,
   handleEditClick,
   handleSaveClick,
+  handleDeleteClick,
   currentUser,
   exchangeRate,
   allComments,
@@ -69,12 +70,20 @@ const ProductItem = ({
 
           <div className={scss.buttonsMenu}>
             {currentUser && currentUser._id === product.owner && (
-              <ActionButton
-                isEditing={isEditing === product._id}
-                onClick={() =>
-                  isEditing === product._id ? handleSaveClick() : handleEditClick(product._id)
-                }
-              />
+              <>
+                <ActionButton
+                  isEditing={isEditing === product._id}
+                  onClick={() =>
+                    isEditing === product._id ? handleSaveClick() : handleEditClick(product._id)
+                  }
+                />
+                <button
+                  className={scss.deleteButton}
+                  onClick={() => handleDeleteClick(product._id)}
+                >
+                  Видалити
+                </button>
+              </>
             )}
           </div>
         </div>

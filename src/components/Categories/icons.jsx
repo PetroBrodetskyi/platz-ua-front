@@ -1,19 +1,21 @@
 import { AiOutlineAudio } from "react-icons/ai";
 import { MdOutlinePhonelink, MdOutlineMapsHomeWork, MdOutlineToys, MdEmojiFoodBeverage, MdPhoneIphone, MdOutlineLaptopChromebook, MdTabletMac, MdOutlineDesktopWindows, MdOutlineChildFriendly, MdElectricScooter, MdFitnessCenter } from "react-icons/md";
-import { FaBookDead, FaCar, FaBaby, FaCarBattery, FaTrailer } from "react-icons/fa";
+import { FaBookDead, FaCar, FaBaby, FaCarBattery, FaTrailer, FaCampground, FaBed } from "react-icons/fa";
 import { FaComputer, FaChessBoard } from "react-icons/fa6";
-import { GiClothes, GiBilledCap, GiLargeDress, GiCakeSlice, GiTomato, GiSlicedMushroom } from "react-icons/gi";
+import { GiClothes, GiBilledCap, GiLargeDress, GiCakeSlice, GiTomato, GiSlicedMushroom, GiCampingTent, GiSleepingBag } from "react-icons/gi";
 import { LuApple, LuSoup, LuToyBrick, LuVegan } from "react-icons/lu";
-import { PiPottedPlantBold, PiHammerBold, PiLampPendantBold, PiForkKnifeBold, PiBowlSteamBold, PiBroomFill, PiBathtubBold, PiTelevisionSimpleFill, PiVideoCameraBold, PiSwordBold, PiBooksBold, PiSneakerBold, PiPantsFill, PiTruckTrailerFill, PiMotorcycleBold, PiMopedBold, PiTaxiBold, PiMartiniBold } from "react-icons/pi";
+import { PiPottedPlantBold, PiHammerBold, PiLampPendantBold, PiForkKnifeBold, PiBowlSteamBold, PiBroomFill, PiBathtubBold, PiTelevisionSimpleFill, PiVideoCameraBold, PiSwordBold, PiBooksBold, PiSneakerBold, PiPantsFill, PiTruckTrailerFill, PiMotorcycleBold, PiMopedBold, PiTaxiBold, PiMartiniBold, PiSuitcaseRollingBold, PiBackpackBold } from "react-icons/pi";
 import { RiScales2Line, RiRobot3Line, RiBearSmileLine, RiCustomerService2Fill } from "react-icons/ri";
 import { SiGumtree } from "react-icons/si";
 import { GrBike } from "react-icons/gr";
 import { TbPoint, TbSofa, TbBatteryCharging2, TbPlaystationSquare, TbMicrowave, TbWashTumbleDry, TbCarSuv, TbPuzzle, TbCarrot, TbCamper, TbEggs } from "react-icons/tb";
 import { ImWrench } from "react-icons/im";
+import { IoShirtOutline } from "react-icons/io5";
 
 const categoryIcons = {
   'взуття': { icon: <PiSneakerBold />, label: 'Взуття' },
   'електроніка': { icon: <MdOutlinePhonelink />, label: 'Електроніка' },
+  'подорожі': { icon: <FaCampground />, label: 'Подорожі' },
   'транспорт': { icon: <FaCar />, label: 'Транспорт' },
   'дім': { icon: <MdOutlineMapsHomeWork />, label: 'Дім' },
   'сад': { icon: <SiGumtree />, label: 'Сад' },
@@ -84,7 +86,14 @@ const subcategoryIcons = {
   'місцеві': { icon: <GiSlicedMushroom />, label: 'Місцеві' },
   'домашня кухня': { icon: <LuSoup />, label: 'Домашня кухня' },
   'здорові': { icon: <LuApple />, label: 'Здорові' },
-  'default': { icon: <TbPoint />, label: 'Інше' }
+  'валізи': { icon: <PiSuitcaseRollingBold />, label: 'Валізи' },
+  'рюкзаки': { icon: <PiBackpackBold />, label: 'Рюкзаки' },
+  'палатки': { icon: <GiCampingTent />, label: 'Палатки' },
+  'каремати': { icon: <FaBed />, label: 'Каремати' },
+  'спальники': { icon: <GiSleepingBag />, label: 'Спальники' },
+  'футболки': { icon: <IoShirtOutline />, label: 'Футболки' },
+  // 'гамаки': { icon: <GiHammock />, label: 'Гамаки' },
+  'default': { icon: <TbPoint />, label: 'Інше' },
 };
 
 export const getCategoryIcon = (name) => {
