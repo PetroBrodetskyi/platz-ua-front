@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import scss from './Cart.module.scss';
 import { removeFromCart } from '../../redux/features/cartSlice';
-import { RiDeleteBin4Line } from "react-icons/ri";
 import { fetchProducts, fetchExchangeRate } from '../../redux/features/productsSlice';
+import CartItem from './CartItem/CartItem';
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.items);
@@ -25,6 +25,11 @@ const Cart = () => {
     navigate(`/product/${productId}`);
   };
 
+  const handleSubmitOrder = (event, itemId) => {
+    event.preventDefault();
+    console.log("Order submitted for item:", itemId);
+  };
+
   return (
     <div className={scss.cart}>
       <h2>Ваш кошик</h2>
@@ -33,30 +38,14 @@ const Cart = () => {
       ) : (
         <ul className={scss.cartList}>
           {cartItems.map((item) => (
-            <li key={item._id} className={scss.cartItem}>
-              <div className={scss.titleImage}>
-                <h3 className={scss.titleProduct} onClick={() => handleProductClick(item._id)}>{item.name}</h3>
-                <img
-                  src={item.image1}
-                  alt={item.name}
-                  className={scss.cartImage}
-                  onClick={() => handleProductClick(item._id)}
-                />
-              </div>
-              <div className={scss.cartInfo}>
-                <p>{item.description}</p>
-                <p>€{item.price}</p>
-                {exchangeRate !== null && (
-                  <p>₴{(item.price * exchangeRate).toFixed(2)}</p>
-                )}
-                <div className={scss.ownerInfo}>
-                  <h3>Продавець: {item.owner.name}</h3>
-                  <p>Телефон: {item.owner.phone}</p>
-                  <img src={item.owner.avatarURL} alt={item.owner.name} className={scss.ownerAvatar} />
-                </div>
-                <button onClick={() => handleRemoveFromCart(item._id)}><RiDeleteBin4Line className={scss.icon}/></button>
-              </div>
-            </li>
+            <CartItem 
+              key={item._id} 
+              item={item} 
+              onRemove={handleRemoveFromCart} 
+              onProductClick={handleProductClick} 
+              exchangeRate={exchangeRate} 
+              onSubmitOrder={handleSubmitOrder} 
+            />
           ))}
         </ul>
       )}

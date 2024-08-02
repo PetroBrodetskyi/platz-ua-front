@@ -1,0 +1,126 @@
+@import 'src/styles/mixins';
+
+.cartItem {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white);
+    padding: 10px;
+    height: auto;
+
+    @media (min-width: $desktop) {
+        padding: 30px;
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @media (min-width: $tablet) {
+        flex-direction: row;
+    }
+}
+
+.titleImage {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cartImage {
+    width: auto;
+    height: 280px;
+    object-fit: cover;
+    cursor: pointer;
+
+    @media (min-width: $tablet) {
+        width: 380px;
+        height: 300px;
+    }
+
+    @media (min-width: $desktop) {
+        width: 450px;
+        height: 360px;
+    }
+}
+
+.thumbnailContainer {
+    display: flex;
+    justify-content: space-between;
+
+    .thumbnail {
+        width: 100px;
+        height: 60px;
+        object-fit: cover;
+        cursor: pointer;
+        border: 2px solid transparent;
+
+        @media (min-width: $mobile) {
+            width: 60px;
+            height: 45px;
+        }
+
+        @media (min-width: $tablet) {
+            width: 100px;
+            height: 80px;
+        }
+
+        @media (min-width: $desktop) {
+            width: 120px;
+            height: 96px;
+        }
+    }
+
+    .selectedThumbnail {
+        border: 2px solid var(--primary-color);
+    }
+}
+
+.cartInfo {
+    flex: 1;
+}
+
+.titleProduct {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.ownerAvatar {
+    border-radius: 50%;
+    width: 52px;
+}
+
+.icon {
+    font-size: 20px;
+}
+
+.orderForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+
+    .commentField {
+        width: 100%;
+        min-height: 100px;
+        padding: 10px;
+        border: 1px solid var(--gray);
+        border-radius: 5px;
+    }
+
+    .submitButton {
+        width: 100%;
+        padding: 10px;
+        background-color: var(--primary-color);
+        color: var(--white);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+
+        &:hover {
+            background-color: var(--light-bg);
+        }
+    }
+}
