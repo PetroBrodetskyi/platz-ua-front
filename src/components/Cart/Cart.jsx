@@ -5,13 +5,13 @@ import scss from './Cart.module.scss';
 import { removeFromCart } from '../../redux/features/cartSlice';
 import { fetchProducts, fetchExchangeRate } from '../../redux/features/productsSlice';
 import CartItem from './CartItem/CartItem';
-import { ConfirmationLogin } from '../Confirmation/Confirmation';  // Імпорт компонента Confirmation
+import { ConfirmationLogin } from '../Confirmation/Confirmation';
 
 const Cart = () => {
-  const [showConfirmation, setShowConfirmation] = useState(false); // Стан для показу підтвердження
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const cartItems = useSelector((state) => state.cart.items);
   const { exchangeRate } = useSelector((state) => state.products);
-  const currentUser = useSelector((state) => state.auth.user);  // Перевірка авторизації
+  const currentUser = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ const Cart = () => {
     dispatch(fetchExchangeRate());
 
     if (!currentUser) {
-      setShowConfirmation(true); // Показати підтвердження, якщо користувач не авторизований
+      setShowConfirmation(true);
     }
   }, [dispatch, currentUser]);
 
@@ -39,11 +39,11 @@ const Cart = () => {
 
   const handleConfirm = () => {
     setShowConfirmation(false);
-    navigate('/login'); // Перенаправлення на сторінку логіну
+    navigate('/login');
   };
 
   const handleCancel = () => {
-    setShowConfirmation(false); // Закрити підтвердження, якщо користувач вибирає "Пізніше"
+    setShowConfirmation(false);
   };
 
   return (
