@@ -71,22 +71,26 @@ const CartItem = ({ item, onRemove, onProductClick, exchangeRate, onSubmitOrder 
             <img src={item.owner.avatarURL} alt={item.owner.name} className={scss.ownerAvatar} />
           </div>
           <button onClick={() => onRemove(item._id)}><RiDeleteBin4Line className={scss.icon}/></button>
-          
-          <form onSubmit={(e) => onSubmitOrder(e, item._id)} className={scss.orderForm}>
-            <textarea
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              placeholder="Ваш коментар"
-              className={scss.commentField}
-            />
-            <div className={scss.userInfo}>
-              <p><strong>Ім'я:</strong> {currentUser?.name}</p>
-              <p><strong>Email:</strong> {currentUser?.email}</p>
-              <p><strong>Телефон:</strong> {currentUser?.phone}</p>
-            </div>
-            <button type="submit" className={scss.submitButton}>Відправити замовлення</button>
-          </form>
         </div>
+        {currentUser && ( // Перевірка на авторизацію
+          <div className={scss.form}>
+            <form onSubmit={(e) => onSubmitOrder(e, item._id)} className={scss.orderForm}>
+              <h4>Ваші данні:</h4>
+              <div className={scss.userInfo}>
+                <p><strong>Ім'я:</strong> {currentUser?.name}</p>
+                <p><strong>Email:</strong> {currentUser?.email}</p>
+                <p><strong>Телефон:</strong> {currentUser?.phone}</p>
+              </div>
+              <textarea
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                placeholder="Ваш коментар"
+                className={scss.commentField}
+              />
+              <button type="submit" className={scss.submitButton}>Відправити замовлення</button>
+            </form>
+          </div>
+        )}
       </div>
     </li>
   );

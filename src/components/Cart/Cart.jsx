@@ -1,21 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import scss from './Cart.module.scss';
 import { removeFromCart } from '../../redux/features/cartSlice';
 import { fetchProducts, fetchExchangeRate } from '../../redux/features/productsSlice';
 import CartItem from './CartItem/CartItem';
+import { ConfirmationLogin } from '../Confirmation/Confirmation';  // Імпорт компонента Confirmation
 
 const Cart = () => {
+  const [showConfirmation, setShowConfirmation] = useState(false); // Стан для показу підтвердження
   const cartItems = useSelector((state) => state.cart.items);
   const { exchangeRate } = useSelector((state) => state.products);
+  const currentUser = useSelector((state) => state.auth.user);  // Перевірка авторизації
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(fetchExchangeRate());
-  }, [dispatch]);
+
+    if (!currentUser) {
+      setShowConfirmation(true); // Показати підтвердження, якщо користувач не авторизований
+    }
+  }, [dispatch, currentUser]);
 
   const handleRemoveFromCart = (productId) => {
     dispatch(removeFromCart(productId));
@@ -28,6 +35,15 @@ const Cart = () => {
   const handleSubmitOrder = (event, itemId) => {
     event.preventDefault();
     console.log("Order submitted for item:", itemId);
+  };
+
+  const handleConfirm = () => {
+    setShowConfirmation(false);
+    navigate('/login'); // Перенаправлення на сторінку логіну
+  };
+
+  const handleCancel = () => {
+    setShowConfirmation(false); // Закрити підтвердження, якщо користувач вибирає "Пізніше"
   };
 
   return (
@@ -48,6 +64,13 @@ const Cart = () => {
             />
           ))}
         </ul>
+      )}
+      {showConfirmation && (
+        <ConfirmationLogin 
+          message="Зареєструйтеся або увійдіть, щоб відправити замовлення"
+          onConfirm={handleConfirm}
+          onCancel={handleCancel}
+        />
       )}
     </div>
   );

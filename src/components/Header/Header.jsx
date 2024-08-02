@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { MdOutlineFavorite, MdOutlineFavoriteBorder, MdOutlineHowToReg } from 'react-icons/md';
+import { MdOutlineFavorite, MdOutlineFavoriteBorder } from 'react-icons/md';
 import { PiShoppingCart, PiShoppingCartFill } from 'react-icons/pi';
 import { RiLoginCircleLine } from "react-icons/ri";
 import scss from './Header.module.scss';

@@ -18,8 +18,20 @@
     gap: 20px;
 
     @media (min-width: $tablet) {
+        flex-direction: column;
+    }
+
+    @media (min-width: $desktop) {
         flex-direction: row;
     }
+}
+
+.form {
+    width: 100%;
+
+    @media (min-width: $tablet) {
+            width: 30%;
+        }
 }
 
 .titleImage {
@@ -112,7 +124,7 @@
     .submitButton {
         width: 100%;
         padding: 10px;
-        background-color: var(--primary-color);
+        background-color: var(--red);
         color: var(--white);
         border: none;
         border-radius: 5px;
