@@ -1,4 +1,4 @@
-import React from 'react';
+import { MdOutlineDeleteSweep } from "react-icons/md";
 import ProductDetails from '../UserProductsDetails/UserProductsDetails';
 import CommentsSection from '../CommentsSection/CommentsSection';
 import ActionButton from '../../ProductDetails/ActionButton/ActionButton';
@@ -81,7 +81,8 @@ const ProductItem = ({
                   className={scss.deleteButton}
                   onClick={() => handleDeleteClick(product._id)}
                 >
-                  Видалити
+                  <MdOutlineDeleteSweep className={scss.icon}/>
+                  <span>видалити</span>
                 </button>
               </>
             )}

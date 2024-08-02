@@ -51,6 +51,20 @@ $font-size-xxlarge: 28px;
                 }
             }
 
+            .avatarName {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+            }
+            
+            .avatar {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                border: 2px solid var(--dark-bg);
+                padding: 4px;
+            }
+
             .editedMark {
                 font-size: $font-size-small;
                 color: #888;

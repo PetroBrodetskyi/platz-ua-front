@@ -8,7 +8,10 @@ const CommentsSection = ({ comments, newComment, setNewComment, handleAddComment
     <ul className={scss.commentsList}>
       {comments.map(comment => (
         <li key={comment._id || nanoid()} className={scss.commentItem}>
-          <h4>{comment.user.name}</h4>
+          <div className={scss.avatarName}>
+            <img src={comment.user.avatarURL} alt={comment.user.name} className={scss.avatar} />
+            <h4>{comment.user.name}</h4>
+          </div>
           <p>{comment.text}</p>
           <p className={scss.dateTime}>
             {new Date(comment.createdAt).toLocaleDateString()} {new Date(comment.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}

@@ -4,19 +4,10 @@ $padding-desktop: 40px;
 $padding-tablet: 20px;
 $padding-mobile: 10px;
 
-$user-products-bg: var(--light-bg);
-$white-color: var(--white);
-$red-color: var(--red);
-$font-size-small: 12px;
-$font-size-medium: 14px;
-$font-size-large: 16px;
-$font-size-xlarge: 24px;
-$font-size-xxlarge: 28px;
-
 .productsItem {
     display: flex;
     flex-direction: column;
-    background-color: $white-color;
+    background-color: var(--white);
     gap: 20px;
     padding: $padding-mobile;
 
@@ -96,6 +87,7 @@ $font-size-xxlarge: 28px;
 
 .buttonsMenu {
     display: flex;
+    gap: 10px;
     justify-content: flex-end;
     margin-top: 20px;
 
@@ -108,4 +100,44 @@ $font-size-xxlarge: 28px;
         justify-content: flex-end;
         margin-top: 20px;
     }
+
+}
+
+
+
+.deleteButton {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--white);
+    padding: 6px;
+    font-size: 14px;
+    background-color: var(--red);
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    @include transition(background-color);
+
+    @media (min-width: $tablet) {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    @media (min-width: $desktop) {
+        font-size: 16px;
+        padding: 8px;
+    }
+
+    &:hover {
+        background-color: #ffcc00;
+        color: var(--white);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+
+    .icon {
+        font-size: 24px;
+    }
+    
+
 }

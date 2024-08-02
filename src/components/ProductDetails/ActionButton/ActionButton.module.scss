@@ -6,8 +6,9 @@ $fontSize-mobile: 14px;
 
 .button {
     display: flex;
+    gap: 4px;
     align-items: center;
-    background-color: var(--white);
+    color: var(--white);
     padding: 6px;
     font-size: $fontSize-mobile;
     cursor: pointer;
@@ -32,24 +33,24 @@ $fontSize-mobile: 14px;
     }
 
     .icon {
-        margin-right: 8px;
+        font-size: 20px;
     }
 }
 
 .editButton {
-    background-color: var(--white);
+    background-color: var(--logo-yellow);
 
     &:hover {
-        background-color: var(--dark-violet);
+        background-color: var(--light-violet);
         color: var(--white);
     }
 }
 
 .saveButton {
-    background-color: var(--white);
+    background-color: var(--logo-yellow);
 
     &:hover {
-        background-color: #ffcc00;
+        background-color: var(--light-violet);
         color: var(--white);
     }
 }
