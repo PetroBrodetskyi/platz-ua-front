@@ -1,6 +1,6 @@
 @import 'src/styles/mixins';
 
-$padding-desktop: 40px;
+$padding-desktop: 30px;
 $padding-tablet: 20px;
 $padding-mobile: 10px;
 
@@ -40,32 +40,60 @@ $padding-mobile: 10px;
 
     .imageContainer {
         display: flex;
-        flex-wrap: wrap;
-        gap: 4px;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
 
         @media (min-width: $tablet) {
-            gap: 6px;
             width: 50%;
         }
 
         @media (min-width: $desktop) {
-            gap: 10px;
             width: 50%;
         }
 
-        .image {
+        .mainImage {
             width: 100%;
             height: 300px;
             object-fit: cover;
 
             @media (min-width: $tablet) {
-                width: 48%;
-                height: 180px;
+                height: 320px;
             }
 
             @media (min-width: $desktop) {
-                width: 48%;
-                height: 320px;
+                height: 400px;
+            }
+        }
+
+        .thumbnailContainer {
+            display: flex;
+            justify-content: space-between;
+
+            .thumbnail {
+                width: 24%;
+                height: 70px;
+                object-fit: cover;
+                cursor: pointer;
+                border: 2px solid transparent;
+
+                @media (min-width: $tablet) {
+                    width: 23%;
+                    height: 80px;
+                }
+
+                @media (min-width: $desktop) {
+                    width: 24%;
+                    height: 140px;
+                }
+
+                &:hover {
+                    border: 2px solid var(--gray);
+                }
+            }
+
+            .selectedThumbnail {
+                border: 2px solid var(--primary-color);
             }
         }
     }
@@ -83,61 +111,55 @@ $padding-mobile: 10px;
             width: 48%;
         }
     }
-}
 
-.buttonsMenu {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-    margin-top: 20px;
-
-    @media (min-width: $tablet) {
-        justify-content: flex-start;
-        margin-top: 10px;
-    }
-
-    @media (min-width: $desktop) {
+    .buttonsMenu {
+        display: flex;
+        gap: 10px;
         justify-content: flex-end;
         margin-top: 20px;
+
+        @media (min-width: $tablet) {
+            justify-content: flex-start;
+            margin-top: 10px;
+        }
+
+        @media (min-width: $desktop) {
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
     }
 
-}
-
-
-
-.deleteButton {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    color: var(--white);
-    padding: 6px;
-    font-size: 14px;
-    background-color: var(--red);
-    cursor: pointer;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    @include transition(background-color);
-
-    @media (min-width: $tablet) {
-        font-size: 14px;
-        padding: 8px;
-    }
-
-    @media (min-width: $desktop) {
-        font-size: 16px;
-        padding: 8px;
-    }
-
-    &:hover {
-        background-color: #ffcc00;
+    .deleteButton {
+        display: flex;
+        align-items: center;
+        gap: 4px;
         color: var(--white);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 6px;
+        font-size: 14px;
+        background-color: var(--red);
+        cursor: pointer;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        @include transition(background-color);
+
+        @media (min-width: $tablet) {
+            font-size: 14px;
+            padding: 8px;
+        }
+
+        @media (min-width: $desktop) {
+            font-size: 16px;
+            padding: 8px;
+        }
+
+        &:hover {
+            background-color: #ffcc00;
+            color: var(--white);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .icon {
+            font-size: 24px;
+        }
     }
-
-
-    .icon {
-        font-size: 24px;
-    }
-    
-
 }
