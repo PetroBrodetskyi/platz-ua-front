@@ -88,12 +88,12 @@ $padding-mobile: 10px;
                 }
 
                 &:hover {
-                    border: 2px solid var(--gray);
+                    border: 2px solid var(--dark-bg);
                 }
             }
 
             .selectedThumbnail {
-                border: 2px solid var(--primary-color);
+                border: 2px solid var(--dark-bg);
             }
         }
     }

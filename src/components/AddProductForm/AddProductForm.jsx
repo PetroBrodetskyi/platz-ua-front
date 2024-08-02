@@ -1,18 +1,24 @@
+// AddProductForm.js
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import Select from 'react-select';
 import SubmitButton from '../SubmitButton/SubmitButton';
 import productsData from '../Categories/products.json';
 import ImageButton from './ImageButton/ImageButton';
 import scss from './AddProductForm.module.scss';
+import cityes from './cityes.json';
+import SubcategoriesSelect from './SubcategoriesSelect/SubcategoriesSelect';
 
 const AddProductForm = () => {
   const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm();
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
+  const [filteredCities, setFilteredCities] = useState([]);
+  const [cityOptions, setCityOptions] = useState([]);
   const selectedCategory = watch('category');
   const token = useSelector((state) => state.auth.token);
 
@@ -29,9 +35,52 @@ const AddProductForm = () => {
     }
   }, [selectedCategory, categories]);
 
+  useEffect(() => {
+    setCityOptions(cityes.map(city => ({
+      value: city.city,
+      label: `${city.city} (${city.plz})`,
+      city: city.city,
+      plz: String(city.plz)
+    })));
+  }, []);
+
   const handlePriceChange = (e) => {
     const value = e.target.value.replace(/\D/g, '');
     setValue('price', value);
+  };
+
+  const handlePLZChange = (e) => {
+    const plz = e.target.value;
+    setValue('PLZ', plz);
+
+    if (plz) {
+      const filtered = cityOptions.filter(city => city.plz.startsWith(plz));
+      setFilteredCities(filtered);
+
+      if (filtered.length > 0) {
+        setValue('city', filtered[0].city);
+      } else {
+        setValue('city', '');
+      }
+    } else {
+      setFilteredCities([]);
+      setValue('city', '');
+    }
+  };
+
+  const handleCityChange = (selectedOption) => {
+    if (selectedOption) {
+      setValue('city', selectedOption.value);
+      setValue('PLZ', selectedOption.plz);
+    } else {
+      setValue('city', '');
+      setValue('PLZ', '');
+    }
+  };
+
+  const handleCityInputChange = (inputValue) => {
+    const filtered = cityOptions.filter(city => city.city.toLowerCase().includes(inputValue.toLowerCase()));
+    setFilteredCities(filtered);
   };
 
   const onSubmit = async (data) => {
@@ -88,53 +137,68 @@ const AddProductForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className={scss.form}>
       <h3>Додайте нове</h3>
       <div>
-      <div className={scss.formGroup}>
-        <label htmlFor="name"></label>
-        <input id="name" type="text" {...register('name', { required: true })} placeholder='Назва' autoComplete="on" />
-        {errors.name && <span>Це поле обов'язкове</span>}
-      </div>
-
-      <div className={scss.formGroup}>
-        <label htmlFor="price"></label>
-        <input id="price" type="text" {...register('price', { required: true })} placeholder='Ціна €' autoComplete="on" onChange={handlePriceChange} />
-        {errors.price && <span>Це поле обов'язкове</span>}
-      </div>
-
-      <div className={scss.formGroup}>
-        <label htmlFor="description"></label>
-        <textarea id="description" {...register('description', { required: true })} placeholder='Опис' autoComplete="off"></textarea>
-        {errors.description && <span>Це поле обов'язкове</span>}
-      </div>
-
-      <div className={scss.stateGroup}>
-        <div>
-          <label htmlFor="new">
-            <input type="radio" id="new" value="новий" {...register('condition', { required: true })} />
-            Новий
-          </label>
+        <div className={scss.formGroup}>
+          <label htmlFor="name">Назва</label>
+          <input id="name" type="text" {...register('name', { required: true })} placeholder='Назва' autoComplete="on" />
+          {errors.name && <span>Це поле обов'язкове</span>}
         </div>
-        <div>
-          <label htmlFor="used">
-            <input type="radio" id="used" value="вживаний" {...register('condition', { required: true })} />
-            Вживаний
-          </label>
+
+        <div className={scss.formGroup}>
+          <label htmlFor="price">Ціна</label>
+          <input id="price" type="text" {...register('price', { required: true })} placeholder='Ціна €' autoComplete="on" onChange={handlePriceChange} />
+          {errors.price && <span>Це поле обов'язкове</span>}
         </div>
-        {errors.condition && <span>Це поле обов'язкове</span>}
+
+        <div className={scss.formGroup}>
+          <label htmlFor="description">Опис</label>
+          <textarea id="description" {...register('description', { required: true })} placeholder='Опис' autoComplete="off"></textarea>
+          {errors.description && <span>Це поле обов'язкове</span>}
+        </div>
+
+        <div className={scss.stateGroup}>
+          <div>
+            <label htmlFor="new">
+              <input type="radio" id="new" value="новий" {...register('condition', { required: true })} />
+              Новий
+            </label>
+          </div>
+          <div>
+            <label htmlFor="used">
+              <input type="radio" id="used" value="вживаний" {...register('condition', { required: true })} />
+              Вживаний
+            </label>
+          </div>
+          {errors.condition && <span>Це поле обов'язкове</span>}
+        </div>
+
+        <div className={scss.formGroup}>
+          <label htmlFor="PLZ">PLZ</label>
+          <input
+            id="PLZ"
+            type="text"
+            {...register('PLZ', { required: true })}
+            placeholder='PLZ'
+            autoComplete="postal-code"
+            onChange={handlePLZChange}
+          />
+          {errors.PLZ && <span>Це поле обов'язкове</span>}
+        </div>
+
+        <div className={scss.formGroup}>
+          <label htmlFor="city">Місто</label>
+          <Select
+            id="city"
+            options={filteredCities}
+            onChange={handleCityChange}
+            onInputChange={handleCityInputChange}
+            placeholder="Введіть місто"
+            isClearable
+          />
+          {errors.city && <span>Це поле обов'язкове</span>}
+        </div>
+
       </div>
 
-      <div className={scss.formGroup}>
-        <label htmlFor="PLZ"></label>
-        <input id="PLZ" type="text" {...register('PLZ', { required: true })} placeholder='PLZ' autoComplete="postal-code" />
-        {errors.PLZ && <span>Це поле обов'язкове</span>}
-      </div>
-
-      <div className={scss.formGroup}>
-        <label htmlFor="city"></label>
-        <input id="city" type="text" {...register('city', { required: true })} placeholder='Місто' autoComplete="address-level2" />
-        {errors.city && <span>Це поле обов'язкове</span>}
-      </div>
-      </div>
-      <div>
       <div className={scss.imageContainer}>
         <ImageButton id="image1" register={register} />
         <ImageButton id="image2" register={register} />
@@ -143,7 +207,7 @@ const AddProductForm = () => {
       </div>
 
       <div className={scss.formGroup}>
-        <label htmlFor="category"></label>
+        <label htmlFor="category">Категорії</label>
         <select id="category" {...register('category', { required: true })} autoComplete="category">
           <option value="">Виберіть категорію</option>
           {categories.map(cat => (
@@ -152,40 +216,9 @@ const AddProductForm = () => {
         </select>
         {errors.category && <span>Це поле обов'язкове</span>}
       </div>
+      <SubcategoriesSelect subcategories={subcategories} register={register} errors={errors} />
 
-      <div className={scss.formGroup}>
-        <label htmlFor="subcategory1"></label>
-        <select id="subcategory1" {...register('subcategory1', { required: true })} autoComplete="off">
-          <option value="">Виберіть підкатегорію</option>
-          {subcategories.map(subcat => (
-            <option key={subcat} value={subcat}>{subcat}</option>
-          ))}
-        </select>
-        {errors.subcategory1 && <span>Це поле обов'язкове</span>}
-      </div>
-
-      <div className={scss.formGroup}>
-        <label htmlFor="subcategory2"></label>
-        <select id="subcategory2" {...register('subcategory2')} autoComplete="off">
-          <option value="">Виберіть підкатегорію</option>
-          {subcategories.map(subcat => (
-            <option key={subcat} value={subcat}>{subcat}</option>
-          ))}
-        </select>
-      </div>
-
-      <div className={scss.formGroup}>
-        <label htmlFor="subcategory3"></label>
-        <select id="subcategory3" {...register('subcategory3')} autoComplete="off">
-          <option value="">Виберіть підкатегорію</option>
-          {subcategories.map(subcat => (
-            <option key={subcat} value={subcat}>{subcat}</option>
-          ))}
-        </select>
-      </div>
-
-        <SubmitButton buttonText="Розмістити" />
-        </div>
+      <SubmitButton buttonText="Розмістити" />
     </form>
   );
 };

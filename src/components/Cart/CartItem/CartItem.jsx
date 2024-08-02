@@ -13,6 +13,18 @@ const CartItem = ({ item, onRemove, onProductClick, exchangeRate, onSubmitOrder 
     setMainImage(image);
   };
 
+  const filterInput = (input) => {
+    input = input.replace(/<script.*?>.*?<\/script>/gi, '');
+    input = input.replace(/https?:\/\/[^\s]+/gi, '');
+    input = input.replace(/\b[A-Za-z0-9.-]+\.[A-Za-z]{2,6}\b/gi, '');
+    return input;
+  };
+
+  const handleCommentChange = (e) => {
+    const filteredComment = filterInput(e.target.value);
+    setComment(filteredComment);
+  };
+
   return (
     <li className={scss.cartItem}>
       <div className={scss.container}>
@@ -59,20 +71,28 @@ const CartItem = ({ item, onRemove, onProductClick, exchangeRate, onSubmitOrder 
           </div>
         </div>
         <div className={scss.cartInfo}>
-          <h3 className={scss.titleProduct} onClick={() => onProductClick(item._id)}>{item.name}</h3>
+          <div className={scss.titlePrice}>
+            <h3 className={scss.titleProduct} onClick={() => onProductClick(item._id)}>{item.name}</h3>
+              <div>
+                <p className={scss.price}>€{item.price}</p>
+                {exchangeRate !== null && (
+                <p>₴{(item.price * exchangeRate).toFixed(2)}</p>
+                )}
+              </div>
+            </div>
           <p>{item.description}</p>
-          <p>€{item.price}</p>
-          {exchangeRate !== null && (
-            <p>₴{(item.price * exchangeRate).toFixed(2)}</p>
-          )}
+          
           <div className={scss.ownerInfo}>
-            <h3>Продавець: {item.owner.name}</h3>
+            <h3>Продавець</h3>
+            <div>
+              <img src={item.owner.avatarURL} alt={item.owner.name} className={scss.ownerAvatar} />
+              <h4>{item.owner.name}</h4>
+            </div>
             <p>Телефон: {item.owner.phone}</p>
-            <img src={item.owner.avatarURL} alt={item.owner.name} className={scss.ownerAvatar} />
           </div>
           <button onClick={() => onRemove(item._id)}><RiDeleteBin4Line className={scss.icon}/></button>
         </div>
-        {currentUser && ( // Перевірка на авторизацію
+        {currentUser && currentUser._id !== item.owner._id && (
           <div className={scss.form}>
             <form onSubmit={(e) => onSubmitOrder(e, item._id)} className={scss.orderForm}>
               <h4>Ваші данні:</h4>
@@ -83,11 +103,11 @@ const CartItem = ({ item, onRemove, onProductClick, exchangeRate, onSubmitOrder 
               </div>
               <textarea
                 value={comment}
-                onChange={(e) => setComment(e.target.value)}
+                onChange={handleCommentChange}
                 placeholder="Ваш коментар"
                 className={scss.commentField}
               />
-              <button type="submit" className={scss.submitButton}>Відправити замовлення</button>
+              <button type="submit" className={scss.submitButton}>замовити</button>
             </form>
           </div>
         )}

@@ -1,50 +1,53 @@
 @import 'src/styles/mixins';
 
-$form-padding-desktop: 10px;
-$form-padding-tablet: 30px;
+$form-padding-desktop: 20px;
+$form-padding-tablet: 15px;
 $form-padding-mobile: 10px;
 
-$form-gap-desktop: 16px;
-$form-gap-tablet: 12px;
-$form-gap-mobile: 8px;
+$form-gap-desktop: 20px;
+$form-gap-tablet: 15px;
+$form-gap-mobile: 10px;
 
 $form-font-size-desktop: 16px;
 $form-font-size-tablet: 14px;
 $form-font-size-mobile: 12px;
 
+$form-border-radius: 8px;
+
 .form {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    gap: $form-gap-desktop;
     background-color: var(--white);
-    padding: $form-padding-tablet;
-    
+    padding: $form-padding-desktop;
+    border-radius: $form-border-radius;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    margin: auto;
 
     @media (max-width: $desktop) {
         padding: $form-padding-tablet;
-        max-width: 100%;
-        border-radius: 10px;
+        gap: $form-gap-tablet;
     }
 
     @media (max-width: $tablet) {
-        width: auto;
-        max-width: 100%;
-        border-radius: 10px;
+        padding: $form-padding-mobile;
+        gap: $form-gap-mobile;
     }
 
     .formGroup {
         display: flex;
         flex-direction: column;
         gap: 10px;
-        background-color: var(--white);
 
         input,
         select,
         textarea {
-            border: none;
-            border-bottom: 2px solid var(--black);
+            border: 1px solid var(--grey-light);
+            border-radius: $form-border-radius;
             font-size: $form-font-size-desktop;
             font-family: var(--font-family);
-            resize: none;
+            padding: 10px;
             width: 100%;
 
             @media (max-width: $desktop) {
@@ -56,23 +59,50 @@ $form-font-size-mobile: 12px;
             }
 
             &:focus {
-                border-bottom-color: var(--primary);
+                border-color: var(--primary);
                 outline: none;
             }
         }
 
         textarea {
-            height: 200px;
+            height: 150px;
+            resize: vertical;
+        }
+
+        span {
+            color: var(--error);
+            font-size: 0.875em;
         }
     }
 
     .stateGroup {
         display: flex;
-        gap: 20px;
+        flex-direction: column;
+        gap: 10px;
+
+        label {
+            display: flex;
+            align-items: center;
+            font-size: $form-font-size-desktop;
+            cursor: pointer;
+
+            @media (max-width: $desktop) {
+                font-size: $form-font-size-tablet;
+            }
+
+            @media (max-width: $tablet) {
+                font-size: $form-font-size-mobile;
+            }
+
+            input[type="radio"] {
+                margin-right: 8px;
+            }
+        }
     }
 
     .imageContainer {
         display: flex;
         flex-wrap: wrap;
+        gap: 10px;
     }
 }
