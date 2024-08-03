@@ -1,15 +1,14 @@
-// AddProductForm.js
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import Select from 'react-select';
+import { IoClose } from "react-icons/io5";
 import SubmitButton from '../SubmitButton/SubmitButton';
 import productsData from '../Categories/products.json';
 import ImageButton from './ImageButton/ImageButton';
 import scss from './AddProductForm.module.scss';
-import cityes from './cityes.json';
+import cityes from '../SearchLocation/locations.json';
 import SubcategoriesSelect from './SubcategoriesSelect/SubcategoriesSelect';
 
 const AddProductForm = () => {
@@ -18,7 +17,6 @@ const AddProductForm = () => {
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const [filteredCities, setFilteredCities] = useState([]);
-  const [cityOptions, setCityOptions] = useState([]);
   const selectedCategory = watch('category');
   const token = useSelector((state) => state.auth.token);
 
@@ -35,29 +33,15 @@ const AddProductForm = () => {
     }
   }, [selectedCategory, categories]);
 
-  useEffect(() => {
-    setCityOptions(cityes.map(city => ({
-      value: city.city,
-      label: `${city.city} (${city.plz})`,
-      city: city.city,
-      plz: String(city.plz)
-    })));
-  }, []);
-
-  const handlePriceChange = (e) => {
-    const value = e.target.value.replace(/\D/g, '');
-    setValue('price', value);
-  };
-
   const handlePLZChange = (e) => {
     const plz = e.target.value;
     setValue('PLZ', plz);
 
     if (plz) {
-      const filtered = cityOptions.filter(city => city.plz.startsWith(plz));
+      const filtered = cityes.filter(city => city.plz.toString().startsWith(plz));
       setFilteredCities(filtered);
 
-      if (filtered.length > 0) {
+      if (filtered.length === 1) {
         setValue('city', filtered[0].city);
       } else {
         setValue('city', '');
@@ -68,19 +52,31 @@ const AddProductForm = () => {
     }
   };
 
-  const handleCityChange = (selectedOption) => {
-    if (selectedOption) {
-      setValue('city', selectedOption.value);
-      setValue('PLZ', selectedOption.plz);
+  const handleCityChange = (e) => {
+    const cityName = e.target.value.toLowerCase();
+    setValue('city', cityName);
+
+    const filtered = cityes.filter(city => city.city.toLowerCase().includes(cityName));
+    setFilteredCities(filtered);
+
+    if (filtered.length === 1) {
+      setValue('PLZ', filtered[0].plz);
     } else {
-      setValue('city', '');
       setValue('PLZ', '');
     }
   };
 
-  const handleCityInputChange = (inputValue) => {
-    const filtered = cityOptions.filter(city => city.city.toLowerCase().includes(inputValue.toLowerCase()));
-    setFilteredCities(filtered);
+  const handleCitySelect = (city) => {
+    setValue('city', city.city);
+    setValue('PLZ', city.plz.toString());
+    setFilteredCities([]);
+  };
+
+  const handleClearField = (field) => {
+    setValue(field, '');
+    if (field === 'PLZ' || field === 'city') {
+      setFilteredCities([]);
+    }
   };
 
   const onSubmit = async (data) => {
@@ -138,19 +134,19 @@ const AddProductForm = () => {
       <h3>Додайте нове</h3>
       <div>
         <div className={scss.formGroup}>
-          <label htmlFor="name">Назва</label>
+          <label htmlFor="name"></label>
           <input id="name" type="text" {...register('name', { required: true })} placeholder='Назва' autoComplete="on" />
           {errors.name && <span>Це поле обов'язкове</span>}
         </div>
 
         <div className={scss.formGroup}>
-          <label htmlFor="price">Ціна</label>
-          <input id="price" type="text" {...register('price', { required: true })} placeholder='Ціна €' autoComplete="on" onChange={handlePriceChange} />
+          <label htmlFor="price"></label>
+          <input id="price" type="text" {...register('price', { required: true })} placeholder='Ціна €' autoComplete="on" />
           {errors.price && <span>Це поле обов'язкове</span>}
         </div>
 
         <div className={scss.formGroup}>
-          <label htmlFor="description">Опис</label>
+          <label htmlFor="description"></label>
           <textarea id="description" {...register('description', { required: true })} placeholder='Опис' autoComplete="off"></textarea>
           {errors.description && <span>Це поле обов'язкове</span>}
         </div>
@@ -172,31 +168,56 @@ const AddProductForm = () => {
         </div>
 
         <div className={scss.formGroup}>
-          <label htmlFor="PLZ">PLZ</label>
-          <input
-            id="PLZ"
-            type="text"
-            {...register('PLZ', { required: true })}
-            placeholder='PLZ'
-            autoComplete="postal-code"
-            onChange={handlePLZChange}
-          />
+          <label htmlFor="PLZ"></label>
+          <div className={scss.inputWrapper}>
+            <input
+              id="PLZ"
+              type="text"
+              {...register('PLZ', { required: true })}
+              placeholder='PLZ'
+              autoComplete="postal-code"
+              onChange={handlePLZChange}
+              value={watch('PLZ')}
+            />
+            <button type="button" className={scss.clearButton} onClick={() => handleClearField('PLZ')}>
+              <IoClose className={scss.icon} />
+            </button>
+          </div>
           {errors.PLZ && <span>Це поле обов'язкове</span>}
         </div>
 
         <div className={scss.formGroup}>
           <label htmlFor="city">Місто</label>
-          <Select
-            id="city"
-            options={filteredCities}
-            onChange={handleCityChange}
-            onInputChange={handleCityInputChange}
-            placeholder="Введіть місто"
-            isClearable
-          />
+          <div className={scss.inputWrapper}>
+            <input
+              id="city"
+              type="text"
+              {...register('city', { required: true })}
+              placeholder='Місто'
+              autoComplete="address-level2"
+              onChange={handleCityChange}
+              value={watch('city')}
+            />
+            <button type="button" className={scss.clearButton} onClick={() => handleClearField('city')}>
+              <IoClose className={scss.icon} />
+            </button>
+          </div>
           {errors.city && <span>Це поле обов'язкове</span>}
         </div>
 
+        <div className={scss.filteredResults}>
+          {filteredCities.length > 0 && (
+            <div>
+              <ul>
+                {filteredCities.map((city) => (
+                  <li key={`${city.plz}-${city.city}`} onClick={() => handleCitySelect(city)} className={scss.cityItem}>
+                    {city.city} ({city.plz})
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className={scss.imageContainer}>
@@ -215,8 +236,8 @@ const AddProductForm = () => {
           ))}
         </select>
         {errors.category && <span>Це поле обов'язкове</span>}
+        <SubcategoriesSelect subcategories={subcategories} register={register} errors={errors} />
       </div>
-      <SubcategoriesSelect subcategories={subcategories} register={register} errors={errors} />
 
       <SubmitButton buttonText="Розмістити" />
     </form>

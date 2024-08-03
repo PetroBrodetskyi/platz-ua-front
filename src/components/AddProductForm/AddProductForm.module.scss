@@ -105,4 +105,16 @@ $form-border-radius: 8px;
         flex-wrap: wrap;
         gap: 10px;
     }
+
+        .filteredResults {
+            position: absolute;
+            background-color: var(--white);
+            border: 1px solid var(--grey-light);
+            border-radius: $form-border-radius;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+        }
 }
