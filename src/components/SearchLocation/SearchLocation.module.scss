@@ -21,8 +21,6 @@
             border-right: 2px solid var(--black);
             outline: none;
             width: 80px;
-            border-top-left-radius: 8px;
-            border-bottom-left-radius: 8px;
 
             @media (min-width: $tablet) {
                 width: 80px;
@@ -31,7 +29,7 @@
 
             @media (min-width: $desktop) {
                 width: 180px;
-                padding: 12px;
+                padding: 12px 20px;
                 font-size: 16px;
             }
         }
@@ -53,7 +51,7 @@
     
             @media (min-width: $desktop) {
                 min-width: 560px;
-                padding: 12px;
+                padding: 12px 20px;
                 font-size: 16px;
             }
         }
@@ -92,8 +90,6 @@
         background-color: var(--red);
         color: var(--white);
         border: 2px solid var(--black);
-        border-top-right-radius: 8px;
-        border-bottom-right-radius: 8px;
         padding: 10px;
         cursor: pointer;
         transition: background-color 0.5s ease;
