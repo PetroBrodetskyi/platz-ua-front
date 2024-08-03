@@ -4,8 +4,14 @@
     position: relative;
     display: flex;
     justify-content: center;
+    align-items: center;
 
     .container {
+        display: flex;
+        gap: 4px;
+    }
+
+    .plzCity {
         display: flex;
         align-items: center;
     }
@@ -18,18 +24,21 @@
             padding: 10px;
             border-bottom: 2px solid var(--black);
             border-top: 2px solid var(--black);
-            border-right: 2px solid var(--black);
+            border-left: 2px solid var(--black);
+            border-right: none;
             outline: none;
             width: 80px;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
 
             @media (min-width: $tablet) {
                 width: 80px;
-                padding: 12px;
+                padding: 10px;
             }
 
             @media (min-width: $desktop) {
-                width: 180px;
-                padding: 12px 20px;
+                width: 140px;
+                padding: 10px;
                 font-size: 16px;
             }
         }
@@ -39,19 +48,19 @@
             padding: 10px;
             border-bottom: 2px solid var(--black);
             border-top: 2px solid var(--black);
+            border-right: 2px solid var(--black);
             border-left: none;
-            border-right: none;
             outline: none;
-            min-width: 180px;
+            min-width: 220px;
     
             @media (min-width: $tablet) {
                 min-width: 200px;
-                padding: 12px;
+                padding: 10px;
             }
     
             @media (min-width: $desktop) {
-                min-width: 560px;
-                padding: 12px 20px;
+                min-width: 500px;
+                padding: 10px;
                 font-size: 16px;
             }
         }
@@ -62,7 +71,6 @@
             background: none;
             border: none;
             cursor: pointer;
-            padding: 8px;
             position: absolute;
             right: 8px;
             top: 50%;
@@ -71,16 +79,14 @@
         };
 
         .icon {
-            width: 18px;
-            height: 18px;
-            stroke: var(--black);
+            font-size: 14px;
 
             @media (min-width: $tablet) {
-                    font-size: 12px;
+                    font-size: 14px;
                 }
             
                 @media (min-width: $desktop) {
-                    font-size: 16px;
+                    font-size: 18px;
                 }
         }
 
@@ -89,10 +95,12 @@
     .searchButton {
         background-color: var(--red);
         color: var(--white);
-        border: 2px solid var(--black);
-        padding: 10px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        padding: 12px 20px;
         cursor: pointer;
         transition: background-color 0.5s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 
         &:hover {
             background-color: var(--logo-yellow);
@@ -104,7 +112,19 @@
 
         @media (min-width: $desktop) {
             font-size: 16px;
-            padding: 12px 40px;
+            padding: 11px 40px;
+        }
+
+        .iconSearch {
+            font-size: 20px;
+
+            @media (min-width: $tablet) {
+                font-size: 20px;
+            }
+            
+            @media (min-width: $desktop) {
+                font-size: 24px;
+            }
         }
     }
     .searchResults {
@@ -114,9 +134,17 @@
         overflow-y: auto;
         width: 100%;
         z-index: 10;
-        margin-top: 68px;
+        margin-top: 100px;
         border-radius: 4px;
         border: 1px solid var(--black);
+
+        @media (min-width: $tablet) {
+                margin-top: 100px;
+            }
+            
+            @media (min-width: $desktop) {
+                margin-top: 108px;
+            }
 
         .resultItem {
             padding: 10px;

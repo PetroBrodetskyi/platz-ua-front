@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { IoClose } from "react-icons/io5";
+import { IoClose, IoSearchSharp } from "react-icons/io5";
+import { ButtonBase } from '@mui/material';
+import { motion } from 'framer-motion';
 import scss from './SearchLocation.module.scss';
 import locationData from './locations.json';
 
@@ -60,40 +62,51 @@ const SearchLocation = ({ onSearch }) => {
   return (
     <div className={scss.searchLocation}>
       <div className={scss.container}>
-        <div className={scss.inputWrapper}>
-          <input 
-            type="text" 
-            placeholder="PLZ" 
-            value={plzQuery}
-            onChange={handlePlzChange}
-            className={scss.inputPlz}
-          />
-          {plzQuery && (
-            <button className={scss.clearButton} onClick={handleClearPlz}>
-              <IoClose className={scss.icon} />
-            </button>
-          )}
-        </div>
+        <div className={scss.plzCity}>
+          <div className={scss.inputWrapper}>
+            <input 
+              type="text" 
+              placeholder="PLZ" 
+              value={plzQuery}
+              onChange={handlePlzChange}
+              className={scss.inputPlz}
+            />
+            {plzQuery && (
+              <button className={scss.clearButton} onClick={handleClearPlz}>
+                <IoClose className={scss.icon} />
+              </button>
+            )}
+          </div>
 
-        <div className={scss.inputWrapper}>
-          <input 
-            type="text" 
-            placeholder="Місто" 
-            value={cityQuery}
-            onChange={handleCityChange}
-            className={scss.inputCity}
-          />
-          {cityQuery && (
-            <button className={scss.clearButton} onClick={handleClearCity}>
-              <IoClose className={scss.icon} />
-            </button>
-          )}
-          
+          <div className={scss.inputWrapper}>
+            <input 
+              type="text" 
+              placeholder="Місто" 
+              value={cityQuery}
+              onChange={handleCityChange}
+              className={scss.inputCity}
+            />
+            {cityQuery && (
+              <button className={scss.clearButton} onClick={handleClearCity}>
+                <IoClose className={scss.icon} />
+              </button>
+            )}
+          </div>
         </div>
         <div>
-          <button className={scss.searchButton} onClick={handleSearch}>
-            Пошук
-          </button>
+          <ButtonBase 
+            className={scss.searchButton} 
+            onClick={handleSearch}
+            focusRipple
+          >
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className={scss.motionWrapper}
+            >
+              <IoSearchSharp className={scss.iconSearch} />
+            </motion.div>
+          </ButtonBase>
         </div>
       </div>
 
