@@ -7,27 +7,12 @@ $form-font-size-mobile: 12px;
 .formGroup {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-
-    label {
-        font-size: $form-font-size-desktop;
-
-        @media (max-width: $desktop) {
-            font-size: $form-font-size-tablet;
-        }
-
-        @media (max-width: $tablet) {
-            font-size: $form-font-size-mobile;
-        }
-    }
 
     select {
         border: 1px solid var(--grey-light);
-        border-radius: 8px;
         font-size: $form-font-size-desktop;
         font-family: var(--font-family);
-        padding: 10px;
-        width: 100%;
+        width: 260px;
 
         @media (max-width: $desktop) {
             font-size: $form-font-size-tablet;
