@@ -10,6 +10,7 @@ import ImageButton from './ImageButton/ImageButton';
 import scss from './AddProductForm.module.scss';
 import cityes from '../SearchLocation/locations.json';
 import SubcategoriesSelect from './SubcategoriesSelect/SubcategoriesSelect';
+import { IoMdInformationCircleOutline } from "react-icons/io";
 
 const AddProductForm = () => {
   const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm();
@@ -32,6 +33,12 @@ const AddProductForm = () => {
       setSubcategories([]);
     }
   }, [selectedCategory, categories]);
+
+  const handlePriceChange = (e) => {
+  const value = e.target.value;
+  const numericValue = value.replace(/[^0-9]/g, '');
+  setValue('price', numericValue);
+};
 
   const handlePLZChange = (e) => {
     const plz = e.target.value;
@@ -134,6 +141,7 @@ const AddProductForm = () => {
       <h3 className={scss.title}>Додайте нове оголошення</h3>
       <form onSubmit={handleSubmit(onSubmit)} className={scss.form}>
         <div className={scss.formInputs}>
+          <div>
           <div className={scss.formGroup}>
             <label htmlFor="name"></label>
             <input 
@@ -153,11 +161,13 @@ const AddProductForm = () => {
               type="text" 
               {...register('price', { required: true })} 
               placeholder='Ціна €' 
-              autoComplete="on" 
+              autoComplete="on"
+              onInput={handlePriceChange}
+              value={watch('price')}
             />
             {errors.price && <span>Це поле обов'язкове</span>}
           </div>
-
+          </div>
           <div className={scss.stateGroup}>
             <div>
               <label htmlFor="new">
@@ -249,6 +259,11 @@ const AddProductForm = () => {
           </div>
 
           <div className={scss.formGroup}>
+            <div className={scss.info}>
+              <h4>Виберіть категорію та від 1 до 3 підкатегорій</h4>
+              <IoMdInformationCircleOutline className={scss.icon} />
+            </div>
+            <div>
             <label htmlFor="category"></label>
             <select 
               id="category" 
@@ -260,12 +275,14 @@ const AddProductForm = () => {
                 <option key={cat.name} value={cat.name}>{cat.name}</option>
               ))}
             </select>
-            {errors.category && <span>Це поле обов'язкове</span>}
+              {errors.category && <span>Це поле обов'язкове</span>}
+              </div>
             <SubcategoriesSelect subcategories={subcategories} register={register} errors={errors} />
           </div>
         </div>
 
         <div className={scss.imageDescription}>
+          
           <div className={scss.imageContainer}>
             <ImageButton id="image1" register={register} />
             <ImageButton id="image2" register={register} />

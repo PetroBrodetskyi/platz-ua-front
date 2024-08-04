@@ -3,6 +3,7 @@ import scss from './SubcategoriesSelect.module.scss';
 const SubcategoriesSelect = ({ subcategories, register, errors }) => {
   return (
     <div className={scss.formGroup}>
+      <div>
       <label htmlFor="subcategory1"></label>
       <select 
         id="subcategory1" 
@@ -15,7 +16,8 @@ const SubcategoriesSelect = ({ subcategories, register, errors }) => {
         ))}
       </select>
       {errors.subcategory1 && <span>Це поле обов'язкове</span>}
-      
+      </div>
+      <div>
       <label htmlFor="subcategory2"></label>
       <select 
         id="subcategory2" 
@@ -27,7 +29,8 @@ const SubcategoriesSelect = ({ subcategories, register, errors }) => {
           <option key={subcat} value={subcat}>{subcat}</option>
         ))}
       </select>
-      
+      </div>
+      <div>
       <label htmlFor="subcategory3"></label>
       <select 
         id="subcategory3" 
@@ -38,7 +41,8 @@ const SubcategoriesSelect = ({ subcategories, register, errors }) => {
         {subcategories.map(subcat => (
           <option key={subcat} value={subcat}>{subcat}</option>
         ))}
-      </select>
+        </select>
+        </div>
     </div>
   );
 };
