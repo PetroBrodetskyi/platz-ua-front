@@ -131,104 +131,140 @@ const AddProductForm = () => {
 
   return (
     <div className={scss.formContainer}>
-      <h3>Додайте нове оголошення</h3>
+      <h3 className={scss.title}>Додайте нове оголошення</h3>
       <form onSubmit={handleSubmit(onSubmit)} className={scss.form}>
-        <div className={scss.for}>
+        <div className={scss.formInputs}>
           <div className={scss.formGroup}>
             <label htmlFor="name"></label>
-            <input id="name" type="text" {...register('name', { required: true })} placeholder='Назва' autoComplete="on" />
+            <input 
+              id="name" 
+              type="text" 
+              {...register('name', { required: true })} 
+              placeholder='Назва' 
+              autoComplete="on" 
+            />
             {errors.name && <span>Це поле обов'язкове</span>}
           </div>
 
           <div className={scss.formGroup}>
             <label htmlFor="price"></label>
-            <input id="price" type="text" {...register('price', { required: true })} placeholder='Ціна €' autoComplete="on" />
+            <input 
+              id="price" 
+              type="text" 
+              {...register('price', { required: true })} 
+              placeholder='Ціна €' 
+              autoComplete="on" 
+            />
             {errors.price && <span>Це поле обов'язкове</span>}
           </div>
-
-          
 
           <div className={scss.stateGroup}>
             <div>
               <label htmlFor="new">
-                <input type="radio" id="new" value="новий" {...register('condition', { required: true })} />
-                Новий
+                <div className={scss.stateButton}>
+                <input 
+                  type="radio" 
+                  id="new" 
+                  value="новий" 
+                  {...register('condition', { required: true })} 
+                />
+                  <span>Новий</span>
+                  </div>
               </label>
             </div>
             <div>
               <label htmlFor="used">
-                <input type="radio" id="used" value="вживаний" {...register('condition', { required: true })} />
-                Вживаний
+                <div className={scss.stateButton}>
+                  <input 
+                    type="radio" 
+                    id="used" 
+                    value="вживаний" 
+                    {...register('condition', { required: true })} 
+                  />
+                    <span>Вживаний</span>
+                </div>
               </label>
             </div>
             {errors.condition && <span>Це поле обов'язкове</span>}
           </div>
-
-          <div className={scss.formGroup}>
-            <label htmlFor="PLZ"></label>
-            <div className={scss.inputWrapper}>
-              <input
-                id="PLZ"
-                type="text"
-                {...register('PLZ', { required: true })}
-                placeholder='PLZ'
-                autoComplete="postal-code"
-                onChange={handlePLZChange}
-                value={watch('PLZ')}
-              />
-              <button type="button" className={scss.clearButton} onClick={() => handleClearField('PLZ')}>
-                <IoClose className={scss.icon} />
-              </button>
-            </div>
-            {errors.PLZ && <span>Це поле обов'язкове</span>}
-          </div>
-
-          <div className={scss.formGroup}>
-            <label htmlFor="city"></label>
-            <div className={scss.inputWrapper}>
-              <input
-                id="city"
-                type="text"
-                {...register('city', { required: true })}
-                placeholder='Місто'
-                autoComplete="address-level2"
-                onChange={handleCityChange}
-                value={watch('city')}
-              />
-              <button type="button" className={scss.clearButton} onClick={() => handleClearField('city')}>
-                <IoClose className={scss.icon} />
-              </button>
-            </div>
-            {errors.city && <span>Це поле обов'язкове</span>}
-          </div>
-
-          <div className={scss.filteredResults}>
-            {filteredCities.length > 0 && (
-              <div>
-                <ul>
-                  {filteredCities.map((city) => (
-                    <li key={`${city.plz}-${city.city}`} onClick={() => handleCitySelect(city)} className={scss.cityItem}>
-                      {city.city} ({city.plz})
-                    </li>
-                  ))}
-                </ul>
+          <div className={scss.locationGroup}>
+            <div className={scss.formGroup}>
+              <div className={scss.inputPlz}>
+                <input
+                  id="PLZ"
+                  type="text"
+                  {...register('PLZ', { required: true })}
+                  placeholder='PLZ'
+                  autoComplete="postal-code"
+                  onChange={handlePLZChange}
+                  value={watch('PLZ')}
+                />
+                <button 
+                  type="button" 
+                  className={scss.clearButton} 
+                  onClick={() => handleClearField('PLZ')}
+                >
+                  <IoClose className={scss.icon} />
+                </button>
               </div>
-            )}
+              {errors.PLZ && <span>Це поле обов'язкове</span>}
+            </div>
+
+            <div className={scss.formGroup}>
+              <div className={scss.inputPlz}>
+                <input
+                  id="city"
+                  type="text"
+                  {...register('city', { required: true })}
+                  placeholder='Місто'
+                  autoComplete="address-level2"
+                  onChange={handleCityChange}
+                  value={watch('city')}
+                />
+                <button 
+                  type="button" 
+                  className={scss.clearButton} 
+                  onClick={() => handleClearField('city')}
+                >
+                  <IoClose className={scss.icon} />
+                </button>
+              </div>
+              {errors.city && <span>Це поле обов'язкове</span>}
+            </div>
           </div>
           <div>
-            <div className={scss.formGroup}>
-          <label htmlFor="category">Категорії</label>
-          <select id="category" {...register('category', { required: true })} autoComplete="category">
-            <option value="">Виберіть категорію</option>
-            {categories.map(cat => (
-              <option key={cat.name} value={cat.name}>{cat.name}</option>
-            ))}
-          </select>
-          {errors.category && <span>Це поле обов'язкове</span>}
-          <SubcategoriesSelect subcategories={subcategories} register={register} errors={errors} />
-        </div>
+            {filteredCities.length > 0 && (
+              <ul className={scss.searchResults}>
+                {filteredCities.map((city) => (
+                  <li 
+                    key={`${city.plz}-${city.city}`} 
+                    onClick={() => handleCitySelect(city)} 
+                    className={scss.resultItem}
+                  >
+                    {city.city} ({city.plz})
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          <div className={scss.formGroup}>
+            <label htmlFor="category"></label>
+            <select 
+              id="category" 
+              {...register('category', { required: true })} 
+              autoComplete="category"
+            >
+              <option value="">Виберіть категорію</option>
+              {categories.map(cat => (
+                <option key={cat.name} value={cat.name}>{cat.name}</option>
+              ))}
+            </select>
+            {errors.category && <span>Це поле обов'язкове</span>}
+            <SubcategoriesSelect subcategories={subcategories} register={register} errors={errors} />
           </div>
         </div>
+
         <div className={scss.imageDescription}>
           <div className={scss.imageContainer}>
             <ImageButton id="image1" register={register} />
@@ -236,22 +272,26 @@ const AddProductForm = () => {
             <ImageButton id="image3" register={register} />
             <ImageButton id="image4" register={register} />
           </div>
+
           <div className={scss.formGroup}>
-              <label htmlFor="description"></label>
-              <textarea id="description" {...register('description', { required: true })} placeholder='Опис' autoComplete="off"></textarea>
-              {errors.description && <span>Це поле обов'язкове</span>}
+            <label htmlFor="description"></label>
+            <textarea 
+              id="description" 
+              {...register('description', { required: true })} 
+              placeholder='Опис' 
+              autoComplete="off"
+              className={scss.textarea}
+
+            ></textarea>
+            {errors.description && <span>Це поле обов'язкове</span>}
           </div>
-            <SubmitButton buttonText="Розмістити" />
+          <SubmitButton buttonText="Розмістити" />
+          <p>Ваше оголошення буде опубліковане після перевірки. Ви отримаєте лист з підтвердженням</p>
         </div>
         
       </form>
-      <div>
-          <ul>
-              <li><b>Ви можете</b> розмістити до 3 оголошень безкоштовно. Всі оголошення проходять перевірку на відповідність правилам.</li>
-              <li><b>Ви можете</b> додати від 1 до 4 фото. Увага! Після розміщення оголошення Ви не зможете змінити фото у Вашому оголошенні на інші.</li>
-          </ul>
-      </div>
-  </div>
+        
+    </div>
   );
 };
 

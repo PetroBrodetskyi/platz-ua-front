@@ -1,35 +1,29 @@
 @import 'src/styles/mixins';
 
-$form-font-size-desktop: 16px;
-$form-font-size-tablet: 14px;
-$form-font-size-mobile: 12px;
-
 .formGroup {
     display: flex;
     flex-direction: column;
+    gap: 10px;
 
     select {
-        border: 1px solid var(--grey-light);
-        font-size: $form-font-size-desktop;
+        font-size: 14px;
         font-family: var(--font-family);
-        width: 260px;
-
-        @media (max-width: $desktop) {
-            font-size: $form-font-size-tablet;
-        }
 
         @media (max-width: $tablet) {
-            font-size: $form-font-size-mobile;
+            font-size: 12px;
+        }
+
+        @media (max-width: $desktop) {
+            font-size: 14px;
         }
 
         &:focus {
-            border-color: var(--primary);
             outline: none;
         }
     }
 
     span {
-        color: var(--error);
+        color: var(--red);
         font-size: 0.875em;
     }
 }
