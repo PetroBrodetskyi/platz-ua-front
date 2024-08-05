@@ -11,10 +11,12 @@ import LocationInput from './LocationInput/LocationInput';
 import ImageUploader from './ImageUploader/ImageUploader';
 import CategorySelector from './CategorySelector/CategorySelector';
 import ProductCondition from './ProductCondition/ProductCondition';
+import Loader from '../Loader/Loader'
 import scss from './AddProductForm.module.scss';
 
 const AddProductForm = () => {
   const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm();
+  const [isLoading, setIsLoading] = useState(false);
   const [charCount, setCharCount] = useState(0);
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
@@ -96,6 +98,7 @@ const AddProductForm = () => {
   };
 
   const onSubmit = async (data) => {
+    setIsLoading(true);
     console.log('Форма надсилається');
     console.log('Дані форми:', data);
     console.log('Token:', token);
@@ -142,6 +145,8 @@ const AddProductForm = () => {
         console.error('Response status:', error.response.status);
         console.error('Response headers:', error.response.headers);
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -187,6 +192,7 @@ const AddProductForm = () => {
             {errors.description && <span>Це поле обов'язкове</span>}
           </div>
           <SubmitButton buttonText="Розмістити" />
+          {isLoading && <Loader />}
           <p className={scss.info}>Ваше оголошення буде опубліковане після перевірки. Ви отримаєте лист з підтвердженням</p>
         </div>
       </form>

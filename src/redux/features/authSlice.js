@@ -17,7 +17,6 @@ export const fetchCurrentUser = createAsyncThunk('auth/fetchCurrentUser', async 
   const { auth } = getState();
   
   if (!auth.token) {
-    // Пропускаємо дію, якщо токен відсутній
     return;
   }
 

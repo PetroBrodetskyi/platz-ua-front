@@ -5,6 +5,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Loader from '../Loader/Loader';
 import LinearDeterminate from '../LinearDeterminate/LinearDeterminate';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
 const Home = lazy(() => import('../../pages/Home/Home'));
 const Cart = lazy(() => import('../Cart/Cart'));
@@ -14,6 +15,7 @@ const AddProductPage = lazy(() => import('../../pages/AddProductPage/AddProductP
 const FavoritesPage = lazy(() => import('../../pages/FavoritesPage/FavoritesPage'));
 const ProductDetailPage = lazy(() => import('../../pages/ProductDetailPage/ProductDetailPage'));
 const UserPage = lazy(() => import('../../pages/UserPage/UserPage'));
+const AdminDashboard = lazy(() => import('../../pages/AdminPage/AdminPage'));
 
 const AppBar = () => {
   const [loading, setLoading] = useState(false);
@@ -46,6 +48,7 @@ const AppBar = () => {
               <Route path="/favorites" element={<FavoritesPage />} />
               <Route path="/product/:productId" element={<ProductDetailPage />} />
               <Route path="/user/:userId" element={<UserPage />} />
+              <Route path="/admin/dashboard" element={<PrivateRoute element={<AdminDashboard />} />} />
             </Routes>
           </Suspense>
         </main>
