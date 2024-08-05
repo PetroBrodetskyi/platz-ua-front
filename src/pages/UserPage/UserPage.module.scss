@@ -50,7 +50,7 @@
 
     @media (min-width: $tablet) {
         gap: 20px;
-        flex-direction: row;
+        flex-direction: column;
     }
 
     @media (min-width: $desktop) {
@@ -85,9 +85,7 @@
     opacity: 0;
     visibility: hidden;
 
-    @media (max-width: $tablet) {
-        align-items: flex-start;
-    }
+
 }
 
 .overlay.visible {
