@@ -10,6 +10,7 @@ import FormInput from './FormInput/FormInput';
 import LocationInput from './LocationInput/LocationInput';
 import ImageUploader from './ImageUploader/ImageUploader';
 import CategorySelector from './CategorySelector/CategorySelector';
+import ProductCondition from './ProductCondition/ProductCondition';
 import scss from './AddProductForm.module.scss';
 
 const AddProductForm = () => {
@@ -153,25 +154,7 @@ const AddProductForm = () => {
             <FormInput id="name" label="" register={register} errors={errors} placeholder="Назва" />
             <FormInput id="price" label="" register={register} errors={errors} placeholder="Ціна €" onChange={handlePriceChange} value={watch('price')} />
           </div>
-          <div className={scss.stateGroup}>
-            <div>
-              <label htmlFor="new">
-                <div className={scss.stateButton}>
-                  <input type="radio" id="new" value="новий" {...register('condition', { required: true })} />
-                  <span>Новий</span>
-                </div>
-              </label>
-            </div>
-            <div>
-              <label htmlFor="used">
-                <div className={scss.stateButton}>
-                  <input type="radio" id="used" value="вживаний" {...register('condition', { required: true })} />
-                  <span>Вживаний</span>
-                </div>
-              </label>
-            </div>
-            {errors.condition && <span>Це поле обов'язкове</span>}
-          </div>
+          <ProductCondition register={register} errors={errors} />
           <div className={scss.locationGroup}>
             <LocationInput id="PLZ" register={register} errors={errors} placeholder="PLZ" onChange={handlePLZChange} onClear={handleClearField} value={watch('PLZ')} />
             <LocationInput id="city" register={register} errors={errors} placeholder="Місто" onChange={handleCityChange} onClear={handleClearField} value={watch('city')} />

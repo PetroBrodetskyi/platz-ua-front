@@ -1,0 +1,11 @@
+@import 'src/styles/mixins';
+
+.stateGroup {
+    display: flex;
+    gap: 10px;
+
+    .stateButton {
+        display: flex;
+        gap: 4px;
+    }
+}
