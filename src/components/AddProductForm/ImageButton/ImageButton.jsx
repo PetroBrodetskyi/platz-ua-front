@@ -1,4 +1,4 @@
-import { HiPlus } from "react-icons/hi2";
+import { MdOutlinePhotoLibrary } from "react-icons/md";
 import scss from './ImageButton.module.scss';
 
 const ImageButton = ({ id, register }) => {
@@ -20,7 +20,7 @@ const ImageButton = ({ id, register }) => {
         className={scss.customButton}
         onClick={handleClick}
       >
-        <HiPlus />
+        <MdOutlinePhotoLibrary className={scss.icon} />
       </button>
     </div>
   );
