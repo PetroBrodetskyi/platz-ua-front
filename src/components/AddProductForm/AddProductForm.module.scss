@@ -68,6 +68,11 @@ margin-bottom: 20px;
         display: flex;
         gap: 4px;
     }
+
+    .chars {
+        display: flex;
+        justify-content: flex-end;
+    }
 }
 
 .inputPlz {

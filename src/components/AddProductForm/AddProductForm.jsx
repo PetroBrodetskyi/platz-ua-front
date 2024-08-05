@@ -14,12 +14,15 @@ import { IoMdInformationCircleOutline } from "react-icons/io";
 
 const AddProductForm = () => {
   const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm();
+  const [charCount, setCharCount] = useState(0);
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const [filteredCities, setFilteredCities] = useState([]);
   const selectedCategory = watch('category');
   const token = useSelector((state) => state.auth.token);
+
+  const maxChars = 800;
 
   useEffect(() => {
     setCategories(productsData.products);
@@ -84,6 +87,12 @@ const AddProductForm = () => {
     if (field === 'PLZ' || field === 'city') {
       setFilteredCities([]);
     }
+  };
+
+  const handleDescriptionChange = (e) => {
+    const value = e.target.value.slice(0, maxChars);
+    setCharCount(value.length);
+    setValue('description', value);
   };
 
   const onSubmit = async (data) => {
@@ -298,8 +307,11 @@ const AddProductForm = () => {
               placeholder='Опис' 
               autoComplete="off"
               className={scss.textarea}
+              onInput={handleDescriptionChange}
+              value={watch('description')}
 
             ></textarea>
+             <p className={scss.chars}>Доступно символів: {maxChars - charCount}</p>
             {errors.description && <span>Це поле обов'язкове</span>}
           </div>
           <SubmitButton buttonText="Розмістити" />
