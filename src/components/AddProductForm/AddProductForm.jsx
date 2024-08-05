@@ -171,7 +171,7 @@ const AddProductForm = () => {
           <CategorySelector categories={categories} subcategories={subcategories} register={register} errors={errors} />
         </div>
         <div className={scss.imageDescription}>
-          <ImageUploader register={register} />
+          <ImageUploader register={register} watch={watch} />
           <div className={scss.formGroup}>
             <label htmlFor="description"></label>
             <textarea
