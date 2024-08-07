@@ -77,12 +77,18 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    cursor: zoom-out;
+    cursor: zoom-in;
 
     .zoomedImage {
       max-width: 90%;
       max-height: 90%;
       object-fit: contain;
+      transition: transform 0.3s ease;
+
+      &.zoomedImageFull {
+        transform: scale(1.5);
+        cursor: zoom-out;
+      }
     }
   }
 }

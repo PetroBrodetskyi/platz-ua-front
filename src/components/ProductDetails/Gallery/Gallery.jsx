@@ -11,17 +11,27 @@ const Gallery = ({ images }) => {
 
   const [selectedImage, setSelectedImage] = useState(imageList[0]);
   const [isZoomed, setIsZoomed] = useState(false);
+  const [zoomLevel, setZoomLevel] = useState(0); // 0: no zoom, 1: first zoom, 2: second zoom
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
   };
 
   const toggleZoom = () => {
-    setIsZoomed(!isZoomed);
+    if (zoomLevel === 0) {
+      setZoomLevel(1);
+      setIsZoomed(true);
+    } else if (zoomLevel === 1) {
+      setZoomLevel(2);
+    } else {
+      setZoomLevel(0);
+      setIsZoomed(false);
+    }
   };
 
   const handleKeyDown = (event) => {
     if (event.key === 'Escape' && isZoomed) {
+      setZoomLevel(0);
       setIsZoomed(false);
     }
   };
@@ -61,7 +71,11 @@ const Gallery = ({ images }) => {
       
       {isZoomed && (
         <div className={scss.zoomOverlay} onClick={toggleZoom}>
-          <img src={selectedImage} alt="Zoomed Product" className={scss.zoomedImage} />
+          <img
+            src={selectedImage}
+            alt="Zoomed Product"
+            className={`${scss.zoomedImage} ${zoomLevel === 2 ? scss.zoomedImageFull : ''}`} // Клас для повного збільшення
+          />
         </div>
       )}
     </div>
