@@ -1,27 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import GalleryItem from './GalleryItem.jsx';
-import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import scss from './Gallery.module.scss';
 
 const Gallery = ({ images }) => {
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  const openLightbox = (index) => {
-    setSelectedImage(index);
-    setLightboxOpen(true);
-  };
-
-  const closeLightbox = () => {
-    setLightboxOpen(false);
-    setSelectedImage(null);
-  };
-
-  const handleZoomClick = (index) => {
-    setSelectedImage(index);
-    setLightboxOpen(true);
-  };
-
   const imageList = [
     images.image1,
     images.image2,
@@ -29,43 +9,25 @@ const Gallery = ({ images }) => {
     images.image4
   ].filter(image => image);
 
-  const isFirstImage = selectedImage === 0;
-  const isLastImage = selectedImage === imageList.length - 1;
+  const [selectedImage, setSelectedImage] = useState(imageList[0]);
+  const [isZoomed, setIsZoomed] = useState(false);
 
-  const nextImage = () => {
-    if (selectedImage < imageList.length - 1) {
-      setSelectedImage(selectedImage + 1);
-    }
+  const handleImageClick = (image) => {
+    setSelectedImage(image);
   };
 
-  const prevImage = () => {
-    if (selectedImage > 0) {
-      setSelectedImage(selectedImage - 1);
-    }
-  };
-
-  const handlePrevClick = (event) => {
-    event.stopPropagation();
-    prevImage();
-  };
-
-  const handleNextClick = (event) => {
-    event.stopPropagation();
-    nextImage();
+  const toggleZoom = () => {
+    setIsZoomed(!isZoomed);
   };
 
   const handleKeyDown = (event) => {
-    if (event.key === 'Escape') {
-      closeLightbox();
-    } else if (event.key === 'ArrowLeft' && !isFirstImage) {
-      prevImage();
-    } else if (event.key === 'ArrowRight' && !isLastImage) {
-      nextImage();
+    if (event.key === 'Escape' && isZoomed) {
+      setIsZoomed(false);
     }
   };
 
   useEffect(() => {
-    if (lightboxOpen) {
+    if (isZoomed) {
       document.addEventListener('keydown', handleKeyDown);
     } else {
       document.removeEventListener('keydown', handleKeyDown);
@@ -74,7 +36,7 @@ const Gallery = ({ images }) => {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [lightboxOpen, selectedImage]);
+  }, [isZoomed]);
 
   if (imageList.length === 0) {
     return <p>No images available</p>;
@@ -82,21 +44,24 @@ const Gallery = ({ images }) => {
 
   return (
     <div className={scss.galleryContainer}>
-      {imageList.map((image, index) => (
-        <GalleryItem
-          key={index}
-          src={image}
-          alt={`Product Image ${index + 1}`}
-          onClick={() => openLightbox(index)}
-          onZoomClick={() => handleZoomClick(index)}
-        />
-      ))}
+      <div className={scss.mainImageContainer} onClick={toggleZoom}>
+        <img src={selectedImage} alt="Selected Product" className={scss.mainImage} />
+      </div>
+      <div className={scss.thumbnailContainer}>
+        {imageList.map((image, index) => (
+          <img
+            key={index}
+            src={image}
+            alt={`Product thumbnail ${index + 1}`}
+            className={`${scss.thumbnail} ${selectedImage === image ? scss.selectedThumbnail : ''}`}
+            onClick={() => handleImageClick(image)}
+          />
+        ))}
+      </div>
       
-      {lightboxOpen && (
-        <div className={scss.lightBox} onClick={closeLightbox}>
-          {!isFirstImage && <BsChevronLeft className={scss.leftArrow} onClick={handlePrevClick} />}
-          <img src={imageList[selectedImage]} alt={`Product Image ${selectedImage + 1}`} />
-          {!isLastImage && <BsChevronRight className={scss.rightArrow} onClick={handleNextClick} />}
+      {isZoomed && (
+        <div className={scss.zoomOverlay} onClick={toggleZoom}>
+          <img src={selectedImage} alt="Zoomed Product" className={scss.zoomedImage} />
         </div>
       )}
     </div>
