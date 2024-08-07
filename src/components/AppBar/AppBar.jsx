@@ -15,7 +15,7 @@ const AddProductPage = lazy(() => import('../../pages/AddProductPage/AddProductP
 const FavoritesPage = lazy(() => import('../../pages/FavoritesPage/FavoritesPage'));
 const ProductDetailPage = lazy(() => import('../../pages/ProductDetailPage/ProductDetailPage'));
 const UserPage = lazy(() => import('../../pages/UserPage/UserPage'));
-const AdminDashboard = lazy(() => import('../../pages/AdminPage/AdminPage'));
+const AdminPage = lazy(() => import('../../pages/AdminPage/AdminPage'));
 
 const AppBar = () => {
   const [loading, setLoading] = useState(false);
@@ -48,7 +48,7 @@ const AppBar = () => {
               <Route path="/favorites" element={<FavoritesPage />} />
               <Route path="/product/:productId" element={<ProductDetailPage />} />
               <Route path="/user/:userId" element={<UserPage />} />
-              <Route path="/admin/dashboard" element={<PrivateRoute element={<AdminDashboard />} />} />
+              <Route path="/admin" element={<PrivateRoute element={<AdminPage />} />} />
             </Routes>
           </Suspense>
         </main>

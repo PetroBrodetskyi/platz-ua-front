@@ -1,15 +1,31 @@
-import { Route, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { fetchCurrentUser } from '../../redux/features/authSlice';
+import Loader from '../Loader/Loader';
 
-const PrivateRoute = ({ element, ...rest }) => {
-  const user = useSelector(state => state.auth.user);
+const PrivateRoute = ({ element }) => {
+  const dispatch = useDispatch();
+  const { user, token, loading } = useSelector((state) => state.auth);
 
-  return (
-    <Route
-      {...rest}
-      element={user && user.isAdmin ? element : <Navigate to="/login" />}
-    />
-  );
+  useEffect(() => {
+    if (token && !user) {
+      dispatch(fetchCurrentUser());
+    }
+  }, [dispatch, token, user]);
+
+  useEffect(() => {
+  }, [loading, user]);
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (!loading && (!user || user.subscription !== 'admin')) {
+    return <NavLink to="/login" replace />;
+  }
+
+  return element;
 };
 
 export default PrivateRoute;

@@ -1,13 +1,37 @@
 @import 'src/styles/mixins';
 
 .footer {
+    
     background-color: #1f1f1fd5;
     color: var(--white);
-    text-align: center;
     padding: 40px;
     width: 100%;
 
     @media (max-width: $mobile) {
         padding: 20px;
+    }
+
+    .container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .title {
+        font-size: 16px;
+        display: flex;
+    }
+
+
+    .adminButton {
+        display: flex;
+        cursor: pointer;
+
+        &:hover {
+            color: var(--red);
+        }
+
+        .icon {
+            font-size: 20px;
+        }
     }
 }
