@@ -141,17 +141,10 @@ const ProductInfo = ({
             <p className={scss.detailsFlex}>
             додано: <MdOutlineDateRange className={scss.icon} /> {formattedDate}
           </p>
-          <div className={scss.viewsContainer}>
-              <p>переглядів: </p>
-              <HiOutlineEye className={scss.icon} />
-            <div>{product.views !== undefined ? product.views : 'N/A'}</div>
-          </div>
+          
           </div>
 
-        <div className={scss.categoryesContainer}>
-          <div>
-              <h4>Категорії</h4>
-            </div>
+          <div className={scss.categoryesContainer}>
             <p className={scss.categoryFlex}>
               {product.category} {getCategoryIcon(product.category)}
             </p>
@@ -164,8 +157,13 @@ const ProductInfo = ({
             <p className={scss.categoryFlex}>
               {product.subcategory3} {getSubcategoryIcon(product.subcategory3)}
             </p>
+            <div className={scss.viewsContainer}>
+              <p>переглядів: </p>
+              <HiOutlineEye className={scss.icon} />
+              <div>{product.views !== undefined ? product.views : 'N/A'}</div>
+            </div>
           </div>
-      </div>
+        </div>
       <ShareMenu productUrl={productUrl} />
       <div className={scss.edit}>
           {currentUser && currentUser._id === product.owner && (

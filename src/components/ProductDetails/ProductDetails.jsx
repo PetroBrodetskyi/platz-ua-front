@@ -138,8 +138,7 @@ const ProductDetails = () => {
     <div className={scss.product}>
       <UserInfo owner={owner} />
       <div className={scss.infoContainer}>
-            
-            <Gallery images={product} />
+          <Gallery images={product} />
           <ProductInfo
             product={product}
             exchangeRate={exchangeRate}
@@ -155,7 +154,6 @@ const ProductDetails = () => {
           {notification && <Notification message={notification} />}
       </div>
       <div>
-        
         <Comments productId={productId} />
       </div>
     </div>

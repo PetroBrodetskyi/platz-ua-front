@@ -7,17 +7,15 @@ $gap-mobile: 10px;
 .details {
     display: flex;
     flex-direction: column;
-    gap: $gap-mobile;
+    justify-content: space-between;
     font-size: 14px;
 
 
     @media (min-width: $tablet) {
-        gap: 0;
         flex: 1;
     }
 
     @media (min-width: $desktop) {
-        gap: 0;
         font-size: 16px;
     }
 
@@ -29,7 +27,7 @@ $gap-mobile: 10px;
             }
         
             @media (min-width: $desktop) {
-                padding: 20px;
+                padding: 0;
             }
     }
 
@@ -54,6 +52,15 @@ $gap-mobile: 10px;
             @media (min-width: $mobile) {
                 font-size: 16px;
             }
+
+            @media (min-width: $tablet) {
+                font-size: 20px;
+            }
+
+            @media (min-width: $desktop) {
+                font-size: 24px;
+            }
+            
         }
     }
 
@@ -96,19 +103,19 @@ $gap-mobile: 10px;
     .editContainer {
         display: flex;
         justify-content: space-between;
-        padding: 20px 10px;
+        padding: 10px;
         color: var(--dark-bg);
         font-size: 14px;
 
         @media (min-width: $tablet) {
-                padding: 20px 0;
-                justify-content: space-around;
+                padding: 10px;
+                justify-content: space-between;
             }
         
             @media (min-width: $desktop) {
-                padding: 20px;
                 justify-content: space-between;
                 font-size: 16px;
+                padding: 0;
             }
     }
 
@@ -181,7 +188,7 @@ $gap-mobile: 10px;
         padding: 10px;
         
         @media (min-width: $desktop) {
-            padding: 20px;
+            padding: 0;
         }
     }
 }

@@ -11,12 +11,10 @@ const ActionButton = ({ isEditing, onClick }) => {
       {isEditing ? (
         <>
           <GrUpdate className={scss.icon} />
-          <span className={scss.text}>зберегти</span>
         </>
       ) : (
         <>
           <BsPencil className={scss.icon} />
-          <span className={scss.text}>редагувати</span>
         </>
       )}
     </button>

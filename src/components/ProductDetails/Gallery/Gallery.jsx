@@ -11,7 +11,7 @@ const Gallery = ({ images }) => {
 
   const [selectedImage, setSelectedImage] = useState(imageList[0]);
   const [isZoomed, setIsZoomed] = useState(false);
-  const [zoomLevel, setZoomLevel] = useState(0); // 0: no zoom, 1: first zoom, 2: second zoom
+  const [zoomLevel, setZoomLevel] = useState(0);
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
