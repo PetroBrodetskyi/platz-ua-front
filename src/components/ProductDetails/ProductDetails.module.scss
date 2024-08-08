@@ -39,6 +39,14 @@ $gap-mobile: 10px;
             gap: 0;
         }
 
+        
+
     }
+
+        .userGallery {
+            display: flex;
+            flex-direction: column;
+    
+        }
 
 }
