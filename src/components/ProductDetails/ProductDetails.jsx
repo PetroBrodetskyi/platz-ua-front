@@ -135,10 +135,9 @@ const ProductDetails = () => {
   const isInCart = cartItems.some((item) => item._id === product._id);
 
   return (
-    <div className={scss.productDetails}>
-      <Gallery images={product} />
-      <div className={scss.infoOwner}>
+    <div className={scss.product}>
         <div className={scss.infoContainer}>
+          <Gallery images={product} />
           <ProductInfo
             product={product}
             exchangeRate={exchangeRate}
@@ -152,10 +151,11 @@ const ProductDetails = () => {
             isInCart={isInCart}
           />
           {notification && <Notification message={notification} />}
-        </div>
-        <UserInfo owner={owner} />
       </div>
-      <Comments productId={productId} />
+      <div>
+        <UserInfo owner={owner} />
+        <Comments productId={productId} />
+      </div>
     </div>
   );
 };

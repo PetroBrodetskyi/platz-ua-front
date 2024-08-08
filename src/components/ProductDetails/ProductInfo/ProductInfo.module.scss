@@ -4,17 +4,11 @@ $gap-desktop: 40px;
 $gap-tablet: 12px;
 $gap-mobile: 10px;
 
-$font-size-small: 12px;
-$font-size-medium: 14px;
-$font-size-large: 16px;
-$font-size-xlarge: 24px;
-$font-size-xxlarge: 28px;
-
 .details {
     display: flex;
     flex-direction: column;
     gap: $gap-mobile;
-    font-size: $font-size-medium;
+    font-size: 14px;
 
 
     @media (min-width: $tablet) {
@@ -24,7 +18,7 @@ $font-size-xxlarge: 28px;
 
     @media (min-width: $desktop) {
         gap: 0;
-        font-size: $font-size-large;
+        font-size: 16px;
     }
 
     .info {
@@ -35,7 +29,7 @@ $font-size-xxlarge: 28px;
             }
         
             @media (min-width: $desktop) {
-                padding: 40px;
+                padding: 20px;
             }
     }
 
@@ -88,30 +82,23 @@ $font-size-xxlarge: 28px;
         font-family: var(--font-family);
         resize: none;
         height: 200px;
-        font-size: $font-size-small;
+        font-size: 12px;
 
         @media (min-width: $tablet) {
-            font-size: $font-size-medium;
+            font-size: 14px;
         }
 
         @media (min-width: $desktop) {
-            font-size: $font-size-large;
+            font-size: 16px;
         }
-    }
-
-    .buttonsMenu {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
     }
 
     .editContainer {
         display: flex;
         justify-content: space-between;
-        background-color: #1f1f1fd5;
         padding: 20px 10px;
-        color: var(--white);
-        font-size: $font-size-medium;
+        color: var(--dark-bg);
+        font-size: 14px;
 
         @media (min-width: $tablet) {
                 padding: 20px 0;
@@ -119,9 +106,9 @@ $font-size-xxlarge: 28px;
             }
         
             @media (min-width: $desktop) {
-                padding: 40px 0;
-                justify-content: space-around;
-                font-size: $font-size-large;
+                padding: 20px;
+                justify-content: space-between;
+                font-size: 16px;
             }
     }
 
@@ -187,19 +174,14 @@ $font-size-xxlarge: 28px;
         font-size: 14px;
     }
 
-    .infoShareEdit {
+    .edit {
         display: flex;
         flex-direction: column;
-        gap: 20px;;
+        gap: 20px;
         padding: 10px;
         
         @media (min-width: $desktop) {
-            padding: 40px;
+            padding: 20px;
         }
-    }
-
-    .addViews {
-        display: flex;
-        justify-content: space-between;
     }
 }

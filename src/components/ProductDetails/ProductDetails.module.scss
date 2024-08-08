@@ -1,69 +1,44 @@
 @import 'src/styles/mixins';
 
-$productDetail-padding-desktop: 40px;
-$productDetail-padding-tablet: 20px;
-$productDetail-padding-mobile: 20px;
+$padding-desktop: 20px;
+$padding-tablet: 20px;
+$padding-mobile: 20px;
 
 $gap-desktop: 20px;
 $gap-tablet: 12px;
 $gap-mobile: 10px;
 
-.productDetails {
+.product {
     background-color: var(--light-bg);
     display: flex;
     flex-direction: column;
     gap: $gap-mobile;
 
     @media (min-width: $tablet) {
-        padding: $productDetail-padding-tablet;
+        padding: $padding-tablet;
         gap: $gap-tablet;
     }
 
     @media (min-width: $desktop) {
-        padding: $productDetail-padding-desktop;
-        gap: $gap-desktop;
-        flex-direction: row;
-    }
-
-    .infoOwner {
-        display: flex;
-        flex-direction: column;
-        gap: $gap-mobile;
-
-        @media (min-width: $tablet) {
-            gap: $gap-tablet;
-        }
-
-        @media (min-width: $desktop) {
-            gap: $gap-desktop;
-            flex-direction: row;
-        }
+        gap: 20px;
     }
 
     .infoContainer {
         display: flex;
         flex-direction: column;
-        background-color: #fff;
-
-        @media (min-width: $desktop) {
-            width: 70%;
-        }
-
-        
-    }
-
-    .ownerContainer {
-        padding: $gap-mobile;
+        gap: 10px;
         background-color: #fff;
 
         @media (min-width: $tablet) {
-            padding: $gap-tablet;
+            flex-direction: row;
+            gap: 0;
         }
 
         @media (min-width: $desktop) {
-            padding: $productDetail-padding-desktop;
-            width: 30%;
+            flex-direction: row;
+            gap: 0;
         }
+
     }
 
 }

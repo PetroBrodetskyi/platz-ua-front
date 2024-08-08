@@ -137,10 +137,21 @@ const ProductInfo = ({
             </p>
             <p className={scss.detailsFlex}>
               місто: <SlLocationPin className={scss.icon} /> {product.city}
-            </p>          
+            </p>
+            <p className={scss.detailsFlex}>
+            додано: <MdOutlineDateRange className={scss.icon} /> {formattedDate}
+          </p>
+          <div className={scss.viewsContainer}>
+              <p>переглядів: </p>
+              <HiOutlineEye className={scss.icon} />
+            <div>{product.views !== undefined ? product.views : 'N/A'}</div>
+          </div>
           </div>
 
-          <div className={scss.categoryesContainer}>
+        <div className={scss.categoryesContainer}>
+          <div>
+              <h4>Категорії</h4>
+            </div>
             <p className={scss.categoryFlex}>
               {product.category} {getCategoryIcon(product.category)}
             </p>
@@ -155,28 +166,14 @@ const ProductInfo = ({
             </p>
           </div>
       </div>
-      <div className={scss.infoShareEdit}>
-        <div className={scss.addViews}>
-          <div>
-          <p className={scss.detailsFlex}>
-            додано: <MdOutlineDateRange className={scss.icon} /> {formattedDate}
-            </p>
-            </div>
-          <div className={scss.viewsContainer}>
-              <p>переглядів: </p>
-              <HiOutlineEye className={scss.icon} />
-              <div>{product.views !== undefined ? product.views : 'N/A'}</div>
-          </div>
-        </div>
-        <div className={scss.buttonsMenu}>
-          <ShareMenu productUrl={productUrl} />
+      <ShareMenu productUrl={productUrl} />
+      <div className={scss.edit}>
           {currentUser && currentUser._id === product.owner && (
             <ActionButton
               isEditing={isEditing}
               onClick={isEditing ? handleSaveClick : handleEditClick}
             />
           )}
-        </div>
       </div>
     </div>
   );

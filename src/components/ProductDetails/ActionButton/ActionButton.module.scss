@@ -7,23 +7,27 @@ $fontSize-mobile: 14px;
 .button {
     display: flex;
     gap: 4px;
+    justify-content: center;
     align-items: center;
     color: var(--white);
     padding: 6px;
     font-size: $fontSize-mobile;
     cursor: pointer;
     border-radius: 4px;
+    width: 140px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     @include transition(background-color);
 
     @media (min-width: $tablet) {
         font-size: $fontSize-tablet;
         padding: 8px;
+        width: 134px;
     }
 
     @media (min-width: $desktop) {
         font-size: $fontSize-desktop;
         padding: 8px;
+        width: 144px;
     }
 
     &:hover {
