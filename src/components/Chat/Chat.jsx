@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { io } from 'socket.io-client';
 import { useSelector } from 'react-redux';
 
@@ -20,15 +20,17 @@ const Chat = () => {
       setMessages((prevMessages) => [...prevMessages, message]);
     });
 
-    return () => newSocket.close();
+    return () => {
+      newSocket.close();
+    };
   }, []);
 
-  const sendMessage = () => {
+  const sendMessage = useCallback(() => {
     if (socket && currentUser) {
       socket.emit('message', { sender: currentUser.name, content: input });
       setInput('');
     }
-  };
+  }, [socket, currentUser, input]);
 
   return (
     <div>
