@@ -5,7 +5,6 @@ import ProductList from '../../components/ProductList/ProductList';
 import CreateAdButton from '../../components/CreateAdButton/CreateAdButton';
 import Logout from '../../components/Logout/Logout';
 import Notification from '../../components/Notification/Notification';
-import Chat from '../../components/Chat/Chat';
 
 const Home = () => {
   const [notification, setNotification] = useState('');
@@ -32,7 +31,6 @@ const Home = () => {
       {notification && <Notification message={notification} onClose={handleCloseNotification} />}
       <Categories />
       <ProductList />
-      <Chat />
       <CreateAdButton />
       {user && <Logout onLogout={handleLogout} />}
     </div>
