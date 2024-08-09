@@ -9,6 +9,7 @@ import { Confirmation } from '../Confirmation/Confirmation';
 import Loader from '../Loader/Loader';
 import { fetchExchangeRate } from '../../redux/features/productsSlice';
 import { fetchComments, addComment } from '../../redux/features/commentsSlice';
+import { fetchUserById } from '../../redux/features/authSlice';
 
 const UserProducts = ({ products, setProducts }) => {
   const [isEditing, setIsEditing] = useState(null);
@@ -24,10 +25,30 @@ const UserProducts = ({ products, setProducts }) => {
   const [newComment, setNewComment] = useState('');
 
   const currentUser = useSelector((state) => state.auth.user);
+  const owner = useSelector((state) => state.auth.owner);
   const loading = useSelector((state) => state.products.loading);
   const allComments = useSelector((state) => state.comments.comments);
   const exchangeRate = useSelector((state) => state.products.exchangeRate);
   const dispatch = useDispatch();
+
+  const formattedDate = owner && owner.createdAt && owner.createdAt.$date 
+    ? new Date(owner.createdAt.$date).toLocaleDateString('uk-UA', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        timeZone: 'Europe/Berlin',
+      })
+    : 'Невідома дата';
+
+  console.log('owner:', owner);
+  console.log('formattedDate:', formattedDate);
+
+  useEffect(() => {
+    if (products.length > 0) {
+      const ownerId = products[0].owner;
+      dispatch(fetchUserById(ownerId));
+    }
+  }, [dispatch, products]);
 
   useEffect(() => {
     dispatch(fetchExchangeRate());
@@ -155,6 +176,13 @@ const UserProducts = ({ products, setProducts }) => {
   return (
     <div className={scss.userProducts}>
       <h2 className={scss.title}>Оголошення користувача</h2>
+      {owner && (
+        <div className={scss.userInfo}>
+          <img src={owner.avatarURL} alt="User Avatar" className={scss.avatar} />
+          <p className={scss.userName}>{owner.name}</p>
+          <p>{formattedDate}</p>
+        </div>
+      )}
       <ul className={scss.productsList}>
         {products.map((product) => (
           <ProductItem

@@ -1,0 +1,42 @@
+@import 'src/styles/mixins';
+
+.chat-container {
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 5px;
+    max-height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.message {
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    align-self: flex-start;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
