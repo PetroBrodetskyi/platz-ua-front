@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
+import { format } from 'date-fns';
+import { uk } from 'date-fns/locale';
 import scss from './UserProducts.module.scss';
 import ProductItem from './ProductItem/ProductItem';
 import Notification from '../Notification/Notification';
@@ -31,17 +33,7 @@ const UserProducts = ({ products, setProducts }) => {
   const exchangeRate = useSelector((state) => state.products.exchangeRate);
   const dispatch = useDispatch();
 
-  const formattedDate = owner && owner.createdAt && owner.createdAt.$date 
-    ? new Date(owner.createdAt.$date).toLocaleDateString('uk-UA', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        timeZone: 'Europe/Berlin',
-      })
-    : 'Невідома дата';
-
-  console.log('owner:', owner);
-  console.log('formattedDate:', formattedDate);
+  const formattedDate = owner && format(new Date(owner.createdAt), "MMMM yyyy", { locale: uk });
 
   useEffect(() => {
     if (products.length > 0) {
@@ -175,12 +167,11 @@ const UserProducts = ({ products, setProducts }) => {
 
   return (
     <div className={scss.userProducts}>
-      <h2 className={scss.title}>Оголошення користувача</h2>
       {owner && (
         <div className={scss.userInfo}>
           <img src={owner.avatarURL} alt="User Avatar" className={scss.avatar} />
           <p className={scss.userName}>{owner.name}</p>
-          <p>{formattedDate}</p>
+          <p>На сайті з {formattedDate}</p>
         </div>
       )}
       <ul className={scss.productsList}>

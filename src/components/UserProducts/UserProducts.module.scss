@@ -1,6 +1,6 @@
 @import 'src/styles/mixins';
 
-$padding-desktop: 40px;
+$padding-desktop: 20px 40px;
 $padding-tablet: 20px;
 $padding-mobile: 10px;
 
@@ -9,7 +9,7 @@ $padding-mobile: 10px;
     display: flex;
     background-color: var(--light-bg);
     flex-direction: column;
-    gap: 26px;
+    gap: 20px;
 
     @media (min-width: $tablet) {
         padding: $padding-mobile;
@@ -17,10 +17,6 @@ $padding-mobile: 10px;
 
     @media (min-width: $desktop) {
         padding: $padding-desktop;
-    }
-
-    .title {
-        font-size: 14px;
     }
 
     .productsList {
@@ -41,6 +37,7 @@ $padding-mobile: 10px;
         display: flex;
         gap: 8px;
         align-items: center;
+        padding: 10px;
 
         .avatar {
             width: 40px;
