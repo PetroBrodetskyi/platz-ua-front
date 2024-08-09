@@ -9,7 +9,7 @@ const Chat = () => {
   const currentUser = useSelector((state) => state.auth.user);
 
   useEffect(() => {
-    const newSocket = io('https://platz-ua-back.vercel.app/api');
+    const newSocket = io('https://platz-ua-back.vercel.app');
     setSocket(newSocket);
 
     newSocket.on('initialMessages', (initialMessages) => {
