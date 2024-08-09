@@ -4,15 +4,17 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 10px 0 10px;
+    padding: 10px;
+    cursor: pointer;
 
     @media (min-width: $tablet) {
         gap: 4px;
-        padding: 0;
+        padding: 10px;
     }
 
     @media (min-width: $desktop) {
         gap: 4px;
+        padding: 20px;
         
     }
 

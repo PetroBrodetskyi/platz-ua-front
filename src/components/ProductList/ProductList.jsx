@@ -5,7 +5,7 @@ const ProductList = () => {
   return (
     <div className={scss.productList}>
       <div className={scss.container}>
-        <h2>Найновіші</h2>
+        <h3>Найновіші</h3>
         <ProductCard />
       </div>
     </div>

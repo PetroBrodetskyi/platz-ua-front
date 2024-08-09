@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { fetchComments, addComment } from '../../redux/features/commentsSlice';
 import Notification from '../Notification/Notification';
 import { nanoid } from 'nanoid';
@@ -7,6 +8,7 @@ import scss from './Comments.module.scss';
 
 const Comments = ({ productId }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const allComments = useSelector((state) => state.comments.comments);
   const currentUser = useSelector((state) => state.auth.user);
   const commentsForProduct = allComments.find(comment => comment.productId === productId)?.comments || [];
@@ -31,6 +33,10 @@ const Comments = ({ productId }) => {
     }
   };
 
+  const handleUserClick = (userId) => {
+    navigate(`/user/${userId}`);
+  };
+
   if (loading) return <p>Завантаження коментарів...</p>;
   if (error) return <p>Помилка завантаження коментарів: {error}</p>;
 
@@ -44,8 +50,12 @@ const Comments = ({ productId }) => {
         {commentsForProduct.length > 0 ? (
           commentsForProduct.map((comment) => (
             <div key={comment._id || nanoid()} className={scss.comment}>
-              <div className={scss.userContainer}>
-                <img src={comment.user.avatarURL} alt={comment.user.name} className={scss.avatar} />
+              <div className={scss.userContainer} onClick={() => handleUserClick(comment.user._id)}>
+                <img 
+                  src={comment.user.avatarURL} 
+                  alt={comment.user.name} 
+                  className={scss.avatar} 
+                />
                 <h4>{comment.user ? comment.user.name : 'Anonymous'}</h4>
               </div>
               <p>{comment.text}</p>

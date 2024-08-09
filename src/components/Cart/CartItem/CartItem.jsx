@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import scss from './CartItem.module.scss';
 import { RiDeleteBin4Line } from "react-icons/ri";
 
@@ -8,6 +9,7 @@ const CartItem = ({ item, onRemove, onProductClick, exchangeRate, onSubmitOrder 
   const [comment, setComment] = useState('');
 
   const currentUser = useSelector((state) => state.auth.user);
+  const navigate = useNavigate();
 
   const handleThumbnailClick = (image) => {
     setMainImage(image);
@@ -23,6 +25,12 @@ const CartItem = ({ item, onRemove, onProductClick, exchangeRate, onSubmitOrder 
   const handleCommentChange = (e) => {
     const filteredComment = filterInput(e.target.value);
     setComment(filteredComment);
+  };
+
+  const handleOwnerClick = () => {
+    if (item.owner && item.owner._id) {
+      navigate(`/user/${item.owner._id}`);
+    }
   };
 
   return (
@@ -84,7 +92,7 @@ const CartItem = ({ item, onRemove, onProductClick, exchangeRate, onSubmitOrder 
           
           <div className={scss.ownerInfo}>
             <h3>Продавець</h3>
-            <div>
+            <div onClick={handleOwnerClick} style={{ cursor: 'pointer' }}> {/* Додаємо onClick для переходу */}
               <img src={item.owner.avatarURL} alt={item.owner.name} className={scss.ownerAvatar} />
               <h4>{item.owner.name}</h4>
             </div>
