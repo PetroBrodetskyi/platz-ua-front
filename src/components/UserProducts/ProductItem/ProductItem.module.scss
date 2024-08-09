@@ -9,24 +9,14 @@ $padding-mobile: 10px;
     flex-direction: column;
     background-color: var(--white);
     gap: 20px;
-    padding: $padding-mobile;
 
     &:hover {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
-    @media (min-width: $tablet) {
-        padding: $padding-tablet;
-    }
-
-    @media (min-width: $desktop) {
-        padding: $padding-desktop;
-    }
-
     .imageDetails {
         display: flex;
         flex-direction: column;
-        gap: 20px;
 
         @media (min-width: $tablet) {
             flex-direction: row;
@@ -102,13 +92,16 @@ $padding-mobile: 10px;
         display: flex;
         flex-direction: column;
         width: 100%;
+        padding: 10px;
 
         @media (min-width: $tablet) {
             width: 50%;
+            padding: 10px;
         }
 
         @media (min-width: $desktop) {
             width: 48%;
+            padding: 40px;
         }
     }
 
@@ -160,6 +153,18 @@ $padding-mobile: 10px;
 
         .icon {
             font-size: 24px;
+        }
+    }
+
+    .comments {
+        padding: 10px;
+
+        @media (min-width: $tablet) {
+            padding: 10px;
+        }
+
+        @media (min-width: $desktop) {
+            padding: 40px;
         }
     }
 }

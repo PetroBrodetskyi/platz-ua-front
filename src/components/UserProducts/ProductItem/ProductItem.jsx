@@ -99,7 +99,6 @@ const ProductItem = ({
                   onClick={() => handleDeleteClick(product._id)}
                 >
                   <MdOutlineDeleteSweep className={scss.icon}/>
-                  <span>видалити</span>
                 </button>
               </>
             )}
@@ -107,7 +106,7 @@ const ProductItem = ({
         </div>
       </div>
 
-      <div>
+      <div className={scss.comments}>
         <CommentsSection
           comments={comments}
           newComment={newComment}
