@@ -14,7 +14,6 @@ const HowItWorks = () => {
 
   return (
     <div className={scss.howitworks}>
-      <h2>Як це працює</h2>
       <Tabs activeTab={activeTab} onTabChange={setActiveTab} />
       {renderTabContent}
     </div>

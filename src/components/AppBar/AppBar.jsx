@@ -6,6 +6,7 @@ import Footer from '../Footer/Footer';
 import Loader from '../Loader/Loader';
 import LinearDeterminate from '../LinearDeterminate/LinearDeterminate';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import ScrollToTop from '../ScrollToTop/ScrollToTop';
 
 const Home = lazy(() => import('../../pages/Home/Home'));
 const Cart = lazy(() => import('../Cart/Cart'));
@@ -39,6 +40,7 @@ const AppBar = () => {
       <LinearDeterminate loading={loading} />
       <div className={scss.appBar}>
         <main>
+          <ScrollToTop />
           <Suspense fallback={<Loader />}>
             <Routes>
               <Route path="/" element={<Home />} />

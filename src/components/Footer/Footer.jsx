@@ -31,7 +31,7 @@ const Footer = () => {
             className={scss.linkButton}
             onClick={handleNavigateToHowItWorks}
           >
-            Як це працює
+            Покупцям та продавцям
           </button>
         </div>
         <div className={scss.adminButton}>

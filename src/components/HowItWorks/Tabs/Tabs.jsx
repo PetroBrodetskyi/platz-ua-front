@@ -8,13 +8,13 @@ const Tabs = ({ activeTab, onTabChange }) => {
                     className={`${scss.tabDetails} ${activeTab === 'buyers' ? scss.active : ''}`}
                     onClick={() => onTabChange('buyers')}
                 >
-                    Покупцям
+                    <span className={scss.tabsTitle}>Я покупець</span>
                 </button>
                 <button
                     className={`${scss.tabReviews} ${activeTab === 'sellers' ? scss.active : ''}`}
                     onClick={() => onTabChange('sellers')}
                 >
-                    Продавцям
+                    <span className={scss.tabsTitle}>Я продавець</span>
                 </button>
             </div>
         </div>
