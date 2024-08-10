@@ -16,21 +16,32 @@ const Footer = () => {
     }
   }, [dispatch, token]);
 
+  const handleNavigateToHowItWorks = () => {
+    navigate('/how-it-works');
+  };
+
   return (
     <footer className={scss.footer}>
       <div className={scss.container}>
         <div className={scss.title}>
           <p>&copy; {new Date().getFullYear()} PlatzUA</p>
         </div>
-        <div className={scss.adminButton}>
-        {!loading && user && user.subscription === 'admin' && (
+        <div className={scss.linksContainer}>
           <button 
-             
-            onClick={() => navigate('/admin')}
+            className={scss.linkButton}
+            onClick={handleNavigateToHowItWorks}
           >
-            <FaUserShield className={scss.icon} />
+            Як це працює
           </button>
-        )}
+        </div>
+        <div className={scss.adminButton}>
+          {!loading && user && user.subscription === 'admin' && (
+            <button 
+              onClick={() => navigate('/admin')}
+            >
+              <FaUserShield className={scss.icon} />
+            </button>
+          )}
         </div>
       </div>
     </footer>

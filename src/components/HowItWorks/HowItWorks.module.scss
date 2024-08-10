@@ -1,0 +1,8 @@
+@import 'src/styles/mixins';
+
+.howitworks {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+}

@@ -8,6 +8,11 @@ $padding-mobile: 10px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    
+
+    @media (min-width: $desktop) {
+        width: 50%;
+    }
 
     .commentsList {
         display: flex;

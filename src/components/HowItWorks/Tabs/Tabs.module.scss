@@ -1,0 +1,46 @@
+@import 'src/styles/mixins';
+
+.tabsLineFlex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tabsContainer {
+    display: flex;
+    gap: 20px;
+}
+
+.tabDetails,
+.tabReviews {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+    outline: none;
+    transition: color 0.3s;
+
+    &:hover {
+        color: #007bff;
+    }
+}
+
+.tabDetails::after,
+.tabReviews::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #007bff;
+    transition: width 0.3s, left 0.3s;
+    transform: translateX(-50%);
+}
+
+.active::after {
+    width: 100%;
+    left: 50%;
+}
