@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import scss from './Buyers.module.scss';
-import manlaptop from '/src/assets/images/manlaptop.png';
+import manwithlaptop from '/src/assets/images/manwithlaptop.png';
 import woman from '/src/assets/images/woman.png';
 import boyandphone from '/src/assets/images/boyandphone.png';
 import card from '/src/assets/images/card.png';
@@ -41,7 +41,7 @@ const Buyers = () => {
               Ознайомтеся з фотографіями, детальним описом товару та інформацією про продавця, щоб зробити обґрунтований вибір. Ознайомтеся з відгуками та рейтингами, щоб зробити свій вибір!
             </p>
           </div>
-          <img src={manlaptop} alt="Find the right product" className={scss.image} />
+          <img src={manwithlaptop} alt="Find the right product" className={scss.image} />
         </li>
         <li className={scss.item}>
           <img src={boyandphone} alt="Contact the seller" className={scss.image} />
