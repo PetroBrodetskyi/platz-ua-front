@@ -4,10 +4,20 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    border-radius: 8px;
+    background-color: var(--white);
+    padding: 10px;
+
+
+
+    @media (min-width: $desktop) {
+        padding: 20px 0 40px;
+    }
 }
 
-.grid {
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -44,13 +54,9 @@
         gap: 10px;
         align-items: center;
         max-width: 100%;
-        padding: 10px;
-        background-color: #ffffff;
-        border-radius: 4px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         position: relative;
         z-index: 1;
-        text-align: center;
+        text-align: left;
 
         @media (min-width: $tablet) {
             max-width: 50%;
@@ -60,16 +66,17 @@
         @media (min-width: $desktop) {
             max-width: 40%;
             padding: 20px;
+            border-bottom: 2px solid var(--red);
         }
 
         .icon {
-            font-size: 16px;
+            font-size: 20px;
             color: var(--red);
 
             @media (min-width: $tablet) {
-                font-size: 18px;
+                font-size: 20px;
             }
-            
+
             @media (min-width: $desktop) {
                 font-size: 24px;
             }
@@ -82,9 +89,9 @@
             @media (min-width: $tablet) {
                 font-size: 14px;
             }
-            
+
             @media (min-width: $desktop) {
-                font-size: 18px;
+                font-size: 16px;
             }
         }
 
@@ -94,7 +101,7 @@
             @media (min-width: $tablet) {
                 font-size: 14px;
             }
-            
+
             @media (min-width: $desktop) {
                 font-size: 16px;
             }
@@ -102,15 +109,15 @@
 
         .iconTitle {
             display: flex;
+            flex-direction: column;
             align-items: center;
             gap: 4px;
             justify-content: center;
 
-
             @media (min-width: $tablet) {
                 gap: 4px;
             }
-            
+
             @media (min-width: $desktop) {
                 gap: 8px;
             }
@@ -119,9 +126,6 @@
 
     .image {
         max-width: 50%;
-        border-radius: 0;
-        border: 2px solid #e0e0e0;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease;
 
         @media (min-width: $tablet) {
@@ -129,15 +133,13 @@
         }
 
         @media (min-width: $desktop) {
-            max-width: 24%;
-            border-radius: 4px;
+            max-width: 18%;
         }
     }
 
     .image:hover {
         transform: scale(1.05);
     }
-
 }
 
 .buttonWrapper {
@@ -164,7 +166,7 @@
     @media (min-width: $tablet) {
         padding: 10px 24px;
     }
-    
+
     @media (min-width: $desktop) {
         padding: 10px 34px;
     }
@@ -176,7 +178,7 @@
         @media (min-width: $tablet) {
             font-size: 18px;
         }
-        
+
         @media (min-width: $desktop) {
             font-size: 24px;
         }
@@ -187,4 +189,4 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}   
+}
