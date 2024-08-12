@@ -1,6 +1,192 @@
+@import 'src/styles/mixins';
+
 .tabContent {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: var(--white);
+    padding: 10px;
+
+
+
+    @media (min-width: $desktop) {
+        padding: 20px 0 40px;
+    }
+}
+
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    @media (min-width: $tablet) {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    @media (min-width: $desktop) {
+        gap: 40px;
+    }
+}
+
+.item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    @media (min-width: $tablet) {
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    @media (min-width: $desktop) {
+        gap: 40px;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        max-width: 100%;
+        position: relative;
+        z-index: 1;
+        text-align: left;
+
+        @media (min-width: $tablet) {
+            max-width: 50%;
+            text-align: left;
+        }
+
+        @media (min-width: $desktop) {
+            max-width: 40%;
+            padding: 20px;
+            border-bottom: 2px solid var(--red);
+        }
+
+        .icon {
+            font-size: 20px;
+            color: var(--red);
+
+            @media (min-width: $tablet) {
+                font-size: 20px;
+            }
+
+            @media (min-width: $desktop) {
+                font-size: 24px;
+            }
+        }
+
+        .title {
+            font-size: 12px;
+            font-weight: 600;
+
+            @media (min-width: $tablet) {
+                font-size: 14px;
+            }
+
+            @media (min-width: $desktop) {
+                font-size: 16px;
+            }
+        }
+
+        .text {
+            font-size: 12px;
+
+            @media (min-width: $tablet) {
+                font-size: 14px;
+            }
+
+            @media (min-width: $desktop) {
+                font-size: 16px;
+            }
+        }
+
+        .iconTitle {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            justify-content: center;
+
+            @media (min-width: $tablet) {
+                gap: 4px;
+            }
+
+            @media (min-width: $desktop) {
+                gap: 8px;
+            }
+        }
+    }
+
+    .image {
+        max-width: 50%;
+        transition: transform 0.3s ease;
+
+        @media (min-width: $tablet) {
+            max-width: 30%;
+        }
+
+        @media (min-width: $desktop) {
+            max-width: 18%;
+        }
+    }
+
+    .image:hover {
+        transform: scale(1.05);
+    }
+}
+
+.buttonWrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchButton {
+    background-color: var(--red);
+    color: var(--white);
+    border-radius: 4px;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+        background-color: var(--logo-yellow);
+        transform: scale(1.05);
+    }
+
+    @media (min-width: $tablet) {
+        padding: 10px 24px;
+    }
+
+    @media (min-width: $desktop) {
+        padding: 10px 34px;
+    }
+
+    .iconSearch {
+        font-size: 16px;
+        color: var(--white);
+
+        @media (min-width: $tablet) {
+            font-size: 18px;
+        }
+
+        @media (min-width: $desktop) {
+            font-size: 24px;
+        }
+    }
+}
+
+.motionWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
