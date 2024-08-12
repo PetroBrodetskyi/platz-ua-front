@@ -11,14 +11,14 @@ import { fetchCurrentUser } from '../../redux/features/authSlice';
 
 const Header = ({ onClick }) => {
   const dispatch = useDispatch();
-  const { user, token, loading } = useSelector((state) => state.auth);
+  const { user, token } = useSelector((state) => state.auth);
   const favorites = useSelector((state) => state.favorites.items);
   const cartItems = useSelector((state) => state.cart.items);
   const [animateFavorite, setAnimateFavorite] = useState(false);
 
   const handleSearchResults = (results) => {
-  // console.log('Search results:', results);
-};
+    // console.log('Search results:', results);
+  };
 
   useEffect(() => {
     if (token) {
@@ -41,36 +41,24 @@ const Header = ({ onClick }) => {
           <Logo />
           <NavLink to={user ? `/user/${user._id}` : '/user'}>
             <button type="button" className={scss.iconUserMobile} onClick={onClick}>
-              {loading ? (
+              {user && (
                 <div className={scss.userInfo}>
-                  <span>Loading...</span>
+                  <img src={user.avatarURL} alt={user.name} className={scss.avatar} />
+                  <span>{user.name}</span>
                 </div>
-              ) : (
-                user && (
-                  <div className={scss.userInfo}>
-                    <img src={user.avatarURL} alt={user.name} className={scss.avatar} />
-                    <span>{user.name}</span>
-                  </div>
-                )
               )}
             </button>
           </NavLink>
         </div>
-        <SearchLocation  onSearch={handleSearchResults} />
+        <SearchLocation onSearch={handleSearchResults} />
         <div className={scss.userMenu}>
           <NavLink to={user ? `/user/${user._id}` : '/user'}>
             <button type="button" className={scss.iconUserDesktop} onClick={onClick}>
-              {loading ? (
+              {user && (
                 <div className={scss.userInfo}>
-                  <span>Loading...</span>
+                  <img src={user.avatarURL} alt={user.name} className={scss.avatar} />
+                  <span>{user.name}</span>
                 </div>
-              ) : (
-                user && (
-                  <div className={scss.userInfo}>
-                    <img src={user.avatarURL} alt={user.name} className={scss.avatar} />
-                    <span>{user.name}</span>
-                  </div>
-                )
               )}
             </button>
           </NavLink>
@@ -78,7 +66,7 @@ const Header = ({ onClick }) => {
             <NavLink to="/login">
               <button type="button" className={scss.icon} onClick={onClick}>
                 <div className={scss.navigateItem}>
-                <RiLoginCircleLine />
+                  <RiLoginCircleLine />
                   <span className={scss.userOptions}></span>
                 </div>
               </button>
@@ -87,7 +75,7 @@ const Header = ({ onClick }) => {
           <NavLink to="/cart">
             <button type="button" className={scss.icon} onClick={onClick}>
               <div className={scss.navigateItem}>
-              {cartItems.length > 0 ? <PiShoppingCartFill /> : <PiShoppingCart />}
+                {cartItems.length > 0 ? <PiShoppingCartFill /> : <PiShoppingCart />}
                 <span className={scss.userOptions}></span>
               </div>
             </button>
@@ -99,9 +87,9 @@ const Header = ({ onClick }) => {
               onClick={onClick}
             >
               <div className={scss.navigateItem}>
-              {favorites.length > 0 ? <MdOutlineFavorite /> : <MdOutlineFavoriteBorder />}
+                {favorites.length > 0 ? <MdOutlineFavorite /> : <MdOutlineFavoriteBorder />}
                 <span className={scss.userOptions}></span>
-                </div>
+              </div>
             </button>
           </NavLink>
         </div>

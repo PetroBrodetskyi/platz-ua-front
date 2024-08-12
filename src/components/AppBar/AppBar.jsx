@@ -15,8 +15,9 @@ const RegisterPage = lazy(() => import('../../pages/RegisterPage/RegisterPage'))
 const AddProductPage = lazy(() => import('../../pages/AddProductPage/AddProductPage'));
 const FavoritesPage = lazy(() => import('../../pages/FavoritesPage/FavoritesPage'));
 const ProductDetailPage = lazy(() => import('../../pages/ProductDetailPage/ProductDetailPage'));
-const UserPage = lazy(() => import('../../pages/UserPage/UserPage'));
+const UserProductsPage = lazy(() => import('../../pages/UserProductsPage/UserProductsPage'));
 const HowItWorksPage = lazy(() => import('../../pages/HowItWorksPage/HowItWorksPage'));
+const UserProfilePage = lazy(() => import('../../pages/UserProfilePage/UserProfilePage'));
 const AdminPage = lazy(() => import('../../pages/AdminPage/AdminPage'));
 
 const AppBar = () => {
@@ -50,7 +51,8 @@ const AppBar = () => {
               <Route path="/create" element={<AddProductPage />} />
               <Route path="/favorites" element={<FavoritesPage />} />
               <Route path="/product/:productId" element={<ProductDetailPage />} />
-              <Route path="/user/:userId" element={<UserPage />} />
+              <Route path="/user/:userId" element={<UserProductsPage />} />
+              <Route path="/user-profile/:userId" element={<UserProfilePage />} />
               <Route path="/how-it-works" element={<HowItWorksPage />} />
               <Route path="/admin" element={<PrivateRoute element={<AdminPage />} />} />
             </Routes>

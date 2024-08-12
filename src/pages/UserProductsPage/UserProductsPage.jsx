@@ -9,9 +9,9 @@ import AddProductForm from '../../components/AddProductForm/AddProductForm';
 import { IoClose } from 'react-icons/io5';
 import { AiOutlinePlus, AiOutlineUser } from 'react-icons/ai';
 import { motion, AnimatePresence } from 'framer-motion';
-import scss from './UserPage.module.scss';
+import scss from './UserProductsPage.module.scss';
 
-const UserPage = () => {
+const UserProductsPage = () => {
   const { userId } = useParams();
   const [products, setProducts] = useState([]);
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -120,4 +120,4 @@ const UserPage = () => {
   );
 };
 
-export default UserPage;
+export default UserProductsPage;
