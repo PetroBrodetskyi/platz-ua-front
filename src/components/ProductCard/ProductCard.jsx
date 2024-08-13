@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts, fetchExchangeRate, fetchProductById } from '../../redux/features/productsSlice';
@@ -5,12 +6,12 @@ import { fetchUserById } from '../../redux/features/authSlice';
 import { toggleFavorite } from '../../redux/features/favoritesSlice';
 import { addToCart, removeFromCart } from '../../redux/features/cartSlice';
 import { useNavigate } from 'react-router-dom';
-import { HiOutlineEye } from "react-icons/hi";
+import { HiOutlineEye } from 'react-icons/hi';
 import { TbLocation } from 'react-icons/tb';
-import { IoChevronUpOutline } from "react-icons/io5";
-import { RiPlayList2Fill } from "react-icons/ri";
+import { IoChevronUpOutline } from 'react-icons/io5';
+import { RiPlayList2Fill } from 'react-icons/ri';
 import { SlLocationPin } from 'react-icons/sl';
-import { FiX } from "react-icons/fi";
+import { FiX } from 'react-icons/fi';
 import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
 import CreateCondition from './CreateCondition/CreateCondition';
@@ -24,10 +25,11 @@ const MemoizedCreateCondition = React.memo(CreateCondition);
 
 const ProductCard = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { products, exchangeRate } = useSelector((state) => state.products);
   const favorites = useSelector((state) => state.favorites.items);
   const cartItems = useSelector((state) => state.cart.items);
-  const navigate = useNavigate();
+  
   const [notification, setNotification] = useState('');
   const [showDescriptions, setShowDescriptions] = useState({});
   const [owners, setOwners] = useState(() => {
@@ -35,11 +37,13 @@ const ProductCard = () => {
     return savedOwners ? JSON.parse(savedOwners) : {};
   });
   const [loadingOwners, setLoadingOwners] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(0);
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(fetchProducts({ page: currentPage, limit: productsPerPage }));
     dispatch(fetchExchangeRate());
-  }, [dispatch]);
+  }, [dispatch, currentPage, productsPerPage]);
 
   const fetchOwner = useCallback(async (ownerId) => {
     if (!owners[ownerId] && !loadingOwners[ownerId]) {
@@ -53,6 +57,14 @@ const ProductCard = () => {
       setLoadingOwners(prev => ({ ...prev, [ownerId]: false }));
     }
   }, [dispatch, owners, loadingOwners]);
+
+  useEffect(() => {
+    products.forEach(product => {
+      if (product.owner) {
+        fetchOwner(product.owner);
+      }
+    });
+  }, [products, fetchOwner]);
 
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
@@ -93,13 +105,18 @@ const ProductCard = () => {
     }));
   };
 
+  const handleScroll = () => {
+    if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
+      setCurrentPage(prevPage => prevPage + 1);
+    }
+  };
+
   useEffect(() => {
-    products.forEach(product => {
-      if (product.owner) {
-        fetchOwner(product.owner);
-      }
-    });
-  }, [products, fetchOwner]);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const totalPages = Math.ceil(products.length / productsPerPage);
 
   return (
     <>
@@ -176,37 +193,37 @@ const ProductCard = () => {
                 </div>
               </div>
               <AnimatePresence>
-              {showDescriptions[product._id] && (
-                <motion.div
-                  className={`${scss.productDescription} ${scss.visible}`}
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div>
-                    <div className={scss.paragraphContainer}>
-                      <div>
-                        <p className={scss.desc}>{product.description}</p>
-                      </div>
-                      <div className={scss.locationContainer}>
-                        <div className={scss.locationItem}>
-                          <TbLocation />
-                          <p>{product.PLZ}</p>
+                {showDescriptions[product._id] && (
+                  <motion.div
+                    className={`${scss.productDescription} ${scss.visible}`}
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div>
+                      <div className={scss.paragraphContainer}>
+                        <div>
+                          <p className={scss.desc}>{product.description}</p>
                         </div>
-                        <button onClick={() => handleCloseDescription(product._id)}>
-                          <FiX className={scss.icon} />
-                        </button>
-                        <div className={scss.locationItem}>
-                          <SlLocationPin />
-                          <p>{product.city}</p>
+                        <div className={scss.locationContainer}>
+                          <div className={scss.locationItem}>
+                            <TbLocation />
+                            <p>{product.PLZ}</p>
+                          </div>
+                          <button onClick={() => handleCloseDescription(product._id)}>
+                            <FiX className={scss.icon} />
+                          </button>
+                          <div className={scss.locationItem}>
+                            <SlLocationPin />
+                            <p>{product.city}</p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </li>
           );
         })}

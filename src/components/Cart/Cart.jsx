@@ -16,13 +16,31 @@ const Cart = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(fetchProducts());
-    dispatch(fetchExchangeRate());
+    const fetchData = async () => {
+      try {
+        await dispatch(fetchProducts({ page: 1 }));
+        await dispatch(fetchExchangeRate());
+      } catch (error) {
+        console.error("Failed to fetch products or exchange rate", error);
+      }
+    };
+
+    fetchData();
+  }, [dispatch]);
+
+  useEffect(() => {
+    const confirmationShown = localStorage.getItem('confirmationShown');
 
     if (!currentUser) {
-      setShowConfirmation(true);
+      if (!confirmationShown) {
+        setShowConfirmation(true);
+        localStorage.setItem('confirmationShown', 'true');
+      }
+    } else {
+      setShowConfirmation(false);
+      localStorage.removeItem('confirmationShown');
     }
-  }, [dispatch, currentUser]);
+  }, [currentUser]);
 
   const handleRemoveFromCart = (productId) => {
     dispatch(removeFromCart(productId));

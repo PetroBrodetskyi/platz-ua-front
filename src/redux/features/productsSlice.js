@@ -10,9 +10,9 @@ const initialState = {
   error: null,
 };
 
-export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
-  const response = await axios.get('/products/public');
-  return response.data.reverse();
+export const fetchProducts = createAsyncThunk('products/fetchProducts', async ({ page = 1 }) => {
+  const response = await axios.get(`/products/public?page=${page}`);
+  return response.data;
 });
 
 export const fetchProductById = createAsyncThunk('products/fetchProductById', async (productId) => {
@@ -22,7 +22,7 @@ export const fetchProductById = createAsyncThunk('products/fetchProductById', as
 });
 
 export const fetchUserProducts = createAsyncThunk('products/fetchUserProducts', async () => {
-  const response = await axios.get(`/products`);
+  const response = await axios.get('/products');
   return response.data.reverse();
 });
 
@@ -67,8 +67,16 @@ const productsSlice = createSlice({
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.loading = false;
-        state.products = action.payload;
-        state.favorites = action.payload.filter(product => product.favorite).map(product => product._id);
+        const newProducts = action.payload;
+        const existingProductIds = new Set(state.products.map(product => product._id));
+        
+        const filteredNewProducts = newProducts.filter(product => !existingProductIds.has(product._id));
+
+        state.products = [...state.products, ...filteredNewProducts];
+        state.favorites = [
+          ...state.favorites,
+          ...filteredNewProducts.filter(product => product.favorite).map(product => product._id),
+        ];
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.loading = false;
