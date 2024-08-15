@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import scss from './UserProfile.module.scss';
 
 const UserProfile = ({ user, onUpdate }) => {
   const [formData, setFormData] = useState({
-    name: user.name,
-    phone: user.phone,
-    email: user.email,
-    avatarURL: user.avatarURL,
+    name: '',
+    phone: '',
+    email: '',
+    avatarURL: '',
   });
+
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        name: user.name,
+        phone: user.phone,
+        email: user.email,
+        avatarURL: user.avatarURL,
+      });
+    }
+  }, [user]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

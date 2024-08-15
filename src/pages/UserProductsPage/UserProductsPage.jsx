@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchUserById } from '../../redux/features/authSlice';
 import { fetchUserProducts, fetchUsersPublicProducts } from '../../redux/features/productsSlice';
-import UserProducts from '../../components/UserProducts/UserProducts';
 import CreateAdButton from '../../components/CreateAdButton/CreateAdButton';
 import ProfileButton from '../../components/ProfileButton/ProfileButton';
+import UserProducts from '../../components/UserProducts/UserProducts';
 import scss from './UserProductsPage.module.scss';
 
 const UserProductsPage = () => {
@@ -31,17 +31,19 @@ const UserProductsPage = () => {
     setProducts(userProducts);
   }, [userProducts]);
 
+  const isCurrentUser = currentUser && currentUser._id === userId;
+
   return (
     <div className={scss.userPage}>
       {user ? (
         <div className={scss.productsProfileContainer}>
           <UserProducts products={products} setProducts={setProducts} />
+          <CreateAdButton />
+          {isCurrentUser && <ProfileButton />}
         </div>
       ) : (
         <p>Завантаження даних...</p>
       )}
-      <ProfileButton />
-      <CreateAdButton />
     </div>
   );
 };

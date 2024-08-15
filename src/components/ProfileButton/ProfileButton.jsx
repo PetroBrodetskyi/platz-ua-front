@@ -1,13 +1,14 @@
 import React from 'react';
 import { AiOutlineUser } from 'react-icons/ai';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import scss from './ProfileButton.module.scss';
 
 const ProfileButton = () => {
   const navigate = useNavigate();
+  const { userId } = useParams();
 
   const navigateToProfile = () => {
-    navigate('/user-profile/:userId');
+    navigate(`/user-profile/${userId}`);
   };
 
   return (

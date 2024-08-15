@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdOutlineFavorite, MdOutlineFavoriteBorder } from 'react-icons/md';
 import { PiShoppingCart, PiShoppingCartFill } from 'react-icons/pi';
-import { RiLoginCircleLine } from "react-icons/ri";
+import { RiLoginCircleLine } from 'react-icons/ri';
 import scss from './Header.module.scss';
 import SearchLocation from '../SearchLocation/SearchLocation';
 import Logo from '../Logo/Logo';
@@ -17,7 +17,7 @@ const Header = ({ onClick }) => {
   const [animateFavorite, setAnimateFavorite] = useState(false);
 
   const handleSearchResults = (results) => {
-    // console.log('Search results:', results);
+    // Handle search results if needed
   };
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const Header = ({ onClick }) => {
       <div className={scss.container}>
         <div className={scss.logoUserMobile}>
           <Logo />
-          <NavLink to={user ? `/user/${user._id}` : '/user'}>
+          <NavLink to={user ? `/user-profile/${user._id}` : '/user-profile'}>
             <button type="button" className={scss.iconUserMobile} onClick={onClick}>
               {user && (
                 <div className={scss.userInfo}>
@@ -52,7 +52,7 @@ const Header = ({ onClick }) => {
         </div>
         <SearchLocation onSearch={handleSearchResults} />
         <div className={scss.userMenu}>
-          <NavLink to={user ? `/user/${user._id}` : '/user'}>
+          <NavLink to={user ? `/user-profile/${user._id}` : '/user-profile'}>
             <button type="button" className={scss.iconUserDesktop} onClick={onClick}>
               {user && (
                 <div className={scss.userInfo}>

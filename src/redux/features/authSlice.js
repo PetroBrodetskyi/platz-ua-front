@@ -131,6 +131,7 @@ const authSlice = createSlice({
       })
       .addCase(fetchCurrentUser.rejected, (state, action) => {
         state.loading = false;
+        state.user = null;
         state.error = action.payload || action.error.message;
       })
       .addCase(fetchUserById.pending, (state) => {
@@ -144,6 +145,7 @@ const authSlice = createSlice({
       })
       .addCase(fetchUserById.rejected, (state, action) => {
         state.loading = false;
+        state.owner = null;
         state.error = action.error.message;
       })
       .addCase(updateUserDetails.pending, (state) => {
