@@ -3,6 +3,7 @@ import scss from './Categories.module.scss';
 import data from './products.json';
 import { MdOutlineFilterList, MdOutlineFilterListOff } from "react-icons/md";
 import { getCategoryIcon, getSubcategoryIcon } from './icons.jsx';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Categories = ({ onSubcategoriesChange }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -15,13 +16,17 @@ const Categories = ({ onSubcategoriesChange }) => {
     }
   }, [selectedSubcategories, onSubcategoriesChange]);
 
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
-    setSelectedSubcategories([]);
+  const handleCategoryClick = (category) => {
+    if (selectedCategory === category) {
+      setSelectedCategory(null);
+      setSelectedSubcategories([]);
+    } else {
+      setSelectedCategory(category);
+      setSelectedSubcategories([]);
+    }
   };
 
-  const handleSubcategoryChange = (event) => {
-    const subcategory = event.target.value;
+  const handleSubcategoryClick = (subcategory) => {
     setSelectedSubcategories((prev) =>
       prev.includes(subcategory)
         ? prev.filter((item) => item !== subcategory)
@@ -44,41 +49,56 @@ const Categories = ({ onSubcategoriesChange }) => {
         <button className={scss.toggleButton} onClick={handleToggleCategories}>
           {categoriesVisible ? <MdOutlineFilterList /> : <MdOutlineFilterListOff />}
         </button>
-        {categoriesVisible && (
-          <div className={scss.categoryButtons}>
-            {sortedProducts.map((product, index) => (
-              <button
-                key={index}
-                className={`${scss.categoryButton} ${selectedCategory === product.name ? scss.active : ''}`}
-                value={product.name}
-                onClick={handleCategoryChange}
-              >
-                {getCategoryIcon(product.name)}
-                {product.name}
-              </button>
-            ))}
-          </div>
-        )}
-        {categoriesVisible && selectedCategory && (
-          <div className={scss.subcategories}>
-            <div className={scss.subcategoryButtons}>
-              {sortedProducts
-                .find((product) => product.name === selectedCategory)
-                .categories.sort((a, b) => a.localeCompare(b))
-                .map((subcategory, index) => (
-                  <button
-                    key={index}
-                    className={`${scss.subcategoryButton} ${selectedSubcategories.includes(subcategory) ? scss.active : ''}`}
-                    value={subcategory}
-                    onClick={handleSubcategoryChange}
-                  >
-                    {getSubcategoryIcon(subcategory)}
-                    {subcategory}
-                  </button>
-                ))}
-            </div>
-          </div>
-        )}
+        <AnimatePresence initial={false}>
+          {categoriesVisible && (
+            <motion.div
+              className={scss.categoryButtons}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {sortedProducts.map((product, index) => (
+                <button
+                  key={index}
+                  className={`${scss.categoryButton} ${selectedCategory === product.name ? scss.active : ''}`}
+                  onClick={() => handleCategoryClick(product.name)}
+                >
+                  {getCategoryIcon(product.name)}
+                  {product.name}
+                </button>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence initial={false}>
+          {categoriesVisible && selectedCategory && (
+            <motion.div
+              className={scss.subcategories}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className={scss.subcategoryButtons}>
+                {sortedProducts
+                  .find((product) => product.name === selectedCategory)
+                  .categories.sort((a, b) => a.localeCompare(b))
+                  .map((subcategory, index) => (
+                    <button
+                      key={index}
+                      className={`${scss.subcategoryButton} ${selectedSubcategories.includes(subcategory) ? scss.active : ''}`}
+                      onClick={() => handleSubcategoryClick(subcategory)}
+                    >
+                      {getSubcategoryIcon(subcategory)}
+                      {subcategory}
+                    </button>
+                  ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
