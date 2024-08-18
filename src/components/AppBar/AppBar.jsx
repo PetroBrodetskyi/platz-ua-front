@@ -3,7 +3,6 @@ import { Suspense, lazy, useEffect, useState } from 'react';
 import scss from './AppBar.module.scss';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import Loader from '../Loader/Loader';
 import LinearDeterminate from '../LinearDeterminate/LinearDeterminate';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import ScrollToTop from '../ScrollToTop/ScrollToTop';
@@ -42,7 +41,7 @@ const AppBar = () => {
       <div className={scss.appBar}>
         <main>
           <ScrollToTop />
-          <Suspense fallback={<Loader />}>
+          <Suspense fallback={null}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/cart" element={<Cart />} />
