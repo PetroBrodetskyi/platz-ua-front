@@ -11,16 +11,13 @@ import { IoChevronUpOutline } from 'react-icons/io5';
 import { RiPlayList2Fill } from 'react-icons/ri';
 import { SlLocationPin } from 'react-icons/sl';
 import { FiX } from 'react-icons/fi';
-import TitleFavorite from './TitleFavorite/TitleFavorite';
-import CartPrice from './CartPrice/CartPrice';
-import CreateCondition from './CreateCondition/CreateCondition';
-import Notification from '../Notification/Notification';
 import { motion, AnimatePresence } from 'framer-motion';
 import scss from './ProductCard.module.scss';
 
-const MemoizedTitleFavorite = React.memo(TitleFavorite);
-const MemoizedCartPrice = React.memo(CartPrice);
-const MemoizedCreateCondition = React.memo(CreateCondition);
+const TitleFavorite = React.lazy(() => import('./TitleFavorite/TitleFavorite'));
+const CartPrice = React.lazy(() => import('./CartPrice/CartPrice'));
+const CreateCondition = React.lazy(() => import('./CreateCondition/CreateCondition'));
+const Notification = React.lazy(() => import('../Notification/Notification'));
 
 const ProductCard = () => {
   const dispatch = useDispatch();
@@ -37,7 +34,7 @@ const ProductCard = () => {
   });
   const [loadingOwners, setLoadingOwners] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(8);
+  const [productsPerPage] = useState(4);
 
   useEffect(() => {
     dispatch(fetchProducts({ page: currentPage, limit: productsPerPage }));
@@ -142,7 +139,7 @@ const ProductCard = () => {
                     <div className={scss.ownerViews}>
                       {owner ? (
                         <div className={scss.ownerContainer} onClick={() => handleOwnerClick(owner._id)}>
-                          <img src={owner.avatarURL} alt={owner.name} className={scss.avatar} />
+                          <img src={owner.avatarURL} alt={owner.name} className={scss.avatar} loading="lazy" />
                           <div className={scss.name}>{owner.name}</div>
                         </div>
                       ) : (
@@ -162,24 +159,29 @@ const ProductCard = () => {
                       src={product.image1}
                       alt={product.name}
                       onClick={() => handleProductClick(product._id)}
+                      loading="lazy"
                     />
                   </div>
                   <div className={scss.productInfo}>
                     <div>
-                      <MemoizedTitleFavorite
-                        name={product.name}
-                        id={product._id}
-                        onFavoriteToggle={() => dispatch(toggleFavorite(product._id))}
-                        isFavorite={favorites.includes(product._id)}
-                      />
+                      {owner && (
+                        <TitleFavorite
+                          name={product.name}
+                          id={product._id}
+                          onFavoriteToggle={() => dispatch(toggleFavorite(product._id))}
+                          isFavorite={favorites.includes(product._id)}
+                        />
+                      )}
                       <p className={scss.description}>{product.description}</p>
                     </div>
                     <div className={scss.dateCart}>
                       <div>
-                        <MemoizedCreateCondition
-                          addedDate={product.createdAt}
-                          condition={product.condition}
-                        />
+                        {product.createdAt && (
+                          <CreateCondition
+                            addedDate={product.createdAt}
+                            condition={product.condition}
+                          />
+                        )}
                       </div>
                       <div className={scss.expandButtonContainer}>
                         <button 
@@ -191,7 +193,7 @@ const ProductCard = () => {
                       </div>
                       <div>
                         {exchangeRate !== null && (
-                          <MemoizedCartPrice 
+                          <CartPrice 
                             price={product.price} 
                             exchangeRate={exchangeRate}
                             onAddToCart={() => handleAddToCart(product, isInCart)}
