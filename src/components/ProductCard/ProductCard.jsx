@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts, fetchExchangeRate, fetchProductById } from '../../redux/features/productsSlice';
 import { fetchUserById } from '../../redux/features/authSlice';
@@ -29,7 +28,7 @@ const ProductCard = () => {
   const { products, exchangeRate } = useSelector((state) => state.products);
   const favorites = useSelector((state) => state.favorites.items);
   const cartItems = useSelector((state) => state.cart.items);
-  
+
   const [notification, setNotification] = useState('');
   const [showDescriptions, setShowDescriptions] = useState({});
   const [owners, setOwners] = useState(() => {
@@ -38,7 +37,7 @@ const ProductCard = () => {
   });
   const [loadingOwners, setLoadingOwners] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(0);
+  const [productsPerPage] = useState(8);
 
   useEffect(() => {
     dispatch(fetchProducts({ page: currentPage, limit: productsPerPage }));
@@ -47,19 +46,19 @@ const ProductCard = () => {
 
   const fetchOwner = useCallback(async (ownerId) => {
     if (!owners[ownerId] && !loadingOwners[ownerId]) {
-      setLoadingOwners(prev => ({ ...prev, [ownerId]: true }));
+      setLoadingOwners((prev) => ({ ...prev, [ownerId]: true }));
       const response = await dispatch(fetchUserById(ownerId));
-      setOwners(prev => {
+      setOwners((prev) => {
         const newOwners = { ...prev, [ownerId]: response.payload };
         localStorage.setItem('owners', JSON.stringify(newOwners));
         return newOwners;
       });
-      setLoadingOwners(prev => ({ ...prev, [ownerId]: false }));
+      setLoadingOwners((prev) => ({ ...prev, [ownerId]: false }));
     }
-  }, [dispatch, owners, loadingOwners]);  
+  }, [dispatch, owners, loadingOwners]);
 
   useEffect(() => {
-    products.forEach(product => {
+    products.forEach((product) => {
       if (product.owner) {
         fetchOwner(product.owner);
       }
@@ -105,28 +104,34 @@ const ProductCard = () => {
     }));
   };
 
-  const handleScroll = () => {
-    if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
-      setCurrentPage(prevPage => prevPage + 1);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const totalPages = Math.ceil(products.length / productsPerPage);
+  const observer = useRef();
+  const lastProductElementRef = useCallback(
+    (node) => {
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setCurrentPage((prevPage) => prevPage + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [productsPerPage]
+  );
 
   return (
     <>
       <ul className={scss.list}>
-        {products.map((product) => {
+        {products.map((product, index) => {
           const isInCart = cartItems.some((item) => item._id === product._id);
           const owner = owners[product.owner];
+          const isLastElement = index === products.length - 1;
 
           return (
-            <li key={product._id} className={`${scss.productItem} ${product.isSquare ? 'square' : ''}`}>
+            <li
+              key={product._id}
+              ref={isLastElement ? lastProductElementRef : null}
+              className={`${scss.productItem} ${product.isSquare ? 'square' : ''}`}
+            >
               <div className={scss.product}>
                 <div className={scss.productImage}>
                   <div className={scss.ownerViews}>
