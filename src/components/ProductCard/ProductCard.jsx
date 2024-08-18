@@ -56,7 +56,7 @@ const ProductCard = () => {
       });
       setLoadingOwners(prev => ({ ...prev, [ownerId]: false }));
     }
-  }, [dispatch, owners, loadingOwners]);
+  }, [dispatch, owners, loadingOwners]);  
 
   useEffect(() => {
     products.forEach(product => {
