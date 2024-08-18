@@ -23,36 +23,6 @@ $gap-mobile: 4px;
     .container {
         position: relative;
 
-        .toggleButton {
-            position: absolute;
-            top: 2px;
-            right: 0;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 24px;
-            padding: 0;
-            z-index: 1001;
-
-            &:hover {
-                opacity: 0.8;
-            }
-
-            @include transition(top, right);
-
-            @media (max-width: $tablet) {
-                font-size: 20px;
-                top: 2px;
-                right: 8px;
-            }
-
-            @media (max-width: $mobile) {
-                font-size: 16px;
-                top: 2px;
-                right: 8px;
-            }
-        }
-
         .categoryButtons {
             display: flex;
             flex-wrap: nowrap;
@@ -181,12 +151,12 @@ $gap-mobile: 4px;
             border-radius: 4px;
 
             @media (min-width: $tablet) {
-                    padding: 8px;
-                }
-            
-                @media (min-width: $desktop) {
-                    padding: 14px;
-                }
+                padding: 8px;
+            }
+
+            @media (min-width: $desktop) {
+                padding: 14px;
+            }
 
             .subcategoryButtons {
                 display: flex;

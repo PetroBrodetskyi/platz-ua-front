@@ -121,117 +121,123 @@ const ProductCard = () => {
   return (
     <>
       <ul className={scss.list}>
-        {products.map((product, index) => {
-          const isInCart = cartItems.some((item) => item._id === product._id);
-          const owner = owners[product.owner];
-          const isLastElement = index === products.length - 1;
+        <AnimatePresence>
+          {products.map((product, index) => {
+            const isInCart = cartItems.some((item) => item._id === product._id);
+            const owner = owners[product.owner];
+            const isLastElement = index === products.length - 1;
 
-          return (
-            <li
-              key={product._id}
-              ref={isLastElement ? lastProductElementRef : null}
-              className={`${scss.productItem} ${product.isSquare ? 'square' : ''}`}
-            >
-              <div className={scss.product}>
-                <div className={scss.productImage}>
-                  <div className={scss.ownerViews}>
-                    {owner ? (
-                      <div className={scss.ownerContainer} onClick={() => handleOwnerClick(owner._id)}>
-                        <img src={owner.avatarURL} alt={owner.name} className={scss.avatar} />
-                        <div className={scss.name}>{owner.name}</div>
-                      </div>
-                    ) : (
-                      <div className={scss.ownerContainer}>
-                        <div className={scss.avatarPlaceholder}></div>
-                        <div className={scss.namePlaceholder}></div>
-                      </div>
-                    )}
-                    <div>
-                      <div className={scss.viewsQuantity}>
-                        <p>{product.views !== undefined ? product.views : 'N/A'}</p>
-                        <HiOutlineEye />
-                      </div>
-                    </div>
-                  </div>
-                  <img
-                    src={product.image1}
-                    alt={product.name}
-                    onClick={() => handleProductClick(product._id)}
-                  />
-                </div>
-                <div className={scss.productInfo}>
-                  <div>
-                    <MemoizedTitleFavorite
-                      name={product.name}
-                      id={product._id}
-                      onFavoriteToggle={() => dispatch(toggleFavorite(product._id))}
-                      isFavorite={favorites.includes(product._id)}
-                    />
-                    <p className={scss.description}>{product.description}</p>
-                  </div>
-                  <div className={scss.dateCart}>
-                    <div>
-                      <MemoizedCreateCondition
-                        addedDate={product.createdAt}
-                        condition={product.condition}
-                      />
-                    </div>
-                    <div className={scss.expandButtonContainer}>
-                      <button 
-                        className={scss.expandButton} 
-                        onClick={() => handleToggleDescription(product._id)}
-                      >
-                        {showDescriptions[product._id] ? <IoChevronUpOutline className={scss.icon}/> : <RiPlayList2Fill className={scss.icon}/>}
-                      </button>
-                    </div>
-                    <div>
-                      {exchangeRate !== null && (
-                        <MemoizedCartPrice 
-                          price={product.price} 
-                          exchangeRate={exchangeRate}
-                          onAddToCart={() => handleAddToCart(product, isInCart)}
-                          isInCart={isInCart}
-                        />
+            return (
+              <motion.li
+                key={product._id}
+                ref={isLastElement ? lastProductElementRef : null}
+                className={`${scss.productItem} ${product.isSquare ? 'square' : ''}`}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className={scss.product}>
+                  <div className={scss.productImage}>
+                    <div className={scss.ownerViews}>
+                      {owner ? (
+                        <div className={scss.ownerContainer} onClick={() => handleOwnerClick(owner._id)}>
+                          <img src={owner.avatarURL} alt={owner.name} className={scss.avatar} />
+                          <div className={scss.name}>{owner.name}</div>
+                        </div>
+                      ) : (
+                        <div className={scss.ownerContainer}>
+                          <div className={scss.avatarPlaceholder}></div>
+                          <div className={scss.namePlaceholder}></div>
+                        </div>
                       )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <AnimatePresence>
-                {showDescriptions[product._id] && (
-                  <motion.div
-                    className={`${scss.productDescription} ${scss.visible}`}
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <div>
-                      <div className={scss.paragraphContainer}>
-                        <div>
-                          <p className={scss.desc}>{product.description}</p>
-                        </div>
-                        <div className={scss.locationContainer}>
-                          <div className={scss.locationItem}>
-                            <TbLocation />
-                            <p>{product.PLZ}</p>
-                          </div>
-                          <button onClick={() => handleCloseDescription(product._id)}>
-                            <FiX className={scss.icon} />
-                          </button>
-                          <div className={scss.locationItem}>
-                            <SlLocationPin />
-                            <p>{product.city}</p>
-                          </div>
+                      <div>
+                        <div className={scss.viewsQuantity}>
+                          <p>{product.views !== undefined ? product.views : 'N/A'}</p>
+                          <HiOutlineEye />
                         </div>
                       </div>
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </li>
-          );
-        })}
+                    <img
+                      src={product.image1}
+                      alt={product.name}
+                      onClick={() => handleProductClick(product._id)}
+                    />
+                  </div>
+                  <div className={scss.productInfo}>
+                    <div>
+                      <MemoizedTitleFavorite
+                        name={product.name}
+                        id={product._id}
+                        onFavoriteToggle={() => dispatch(toggleFavorite(product._id))}
+                        isFavorite={favorites.includes(product._id)}
+                      />
+                      <p className={scss.description}>{product.description}</p>
+                    </div>
+                    <div className={scss.dateCart}>
+                      <div>
+                        <MemoizedCreateCondition
+                          addedDate={product.createdAt}
+                          condition={product.condition}
+                        />
+                      </div>
+                      <div className={scss.expandButtonContainer}>
+                        <button 
+                          className={scss.expandButton} 
+                          onClick={() => handleToggleDescription(product._id)}
+                        >
+                          {showDescriptions[product._id] ? <IoChevronUpOutline className={scss.icon}/> : <RiPlayList2Fill className={scss.icon}/>}
+                        </button>
+                      </div>
+                      <div>
+                        {exchangeRate !== null && (
+                          <MemoizedCartPrice 
+                            price={product.price} 
+                            exchangeRate={exchangeRate}
+                            onAddToCart={() => handleAddToCart(product, isInCart)}
+                            isInCart={isInCart}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <AnimatePresence>
+                  {showDescriptions[product._id] && (
+                    <motion.div
+                      className={`${scss.productDescription} ${scss.visible}`}
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <div>
+                        <div className={scss.paragraphContainer}>
+                          <div>
+                            <p className={scss.desc}>{product.description}</p>
+                          </div>
+                          <div className={scss.locationContainer}>
+                            <div className={scss.locationItem}>
+                              <TbLocation />
+                              <p>{product.PLZ}</p>
+                            </div>
+                            <button onClick={() => handleCloseDescription(product._id)}>
+                              <FiX className={scss.icon} />
+                            </button>
+                            <div className={scss.locationItem}>
+                              <SlLocationPin />
+                              <p>{product.city}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.li>
+            );
+          })}
+        </AnimatePresence>
       </ul>
       {notification && (
         <Notification
