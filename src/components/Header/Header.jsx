@@ -16,10 +16,6 @@ const Header = ({ onClick }) => {
   const cartItems = useSelector((state) => state.cart.items);
   const [animateFavorite, setAnimateFavorite] = useState(false);
 
-  const handleSearchResults = (results) => {
-    // Handle search results if needed
-  };
-
   useEffect(() => {
     if (token) {
       dispatch(fetchCurrentUser());
@@ -50,7 +46,7 @@ const Header = ({ onClick }) => {
             </button>
           </NavLink>
         </div>
-        <SearchLocation onSearch={handleSearchResults} />
+        <SearchLocation onSearch={() => {}} />
         <div className={scss.userMenu}>
           <NavLink to={user ? `/user-profile/${user._id}` : '/user-profile'}>
             <button type="button" className={scss.iconUserDesktop} onClick={onClick}>

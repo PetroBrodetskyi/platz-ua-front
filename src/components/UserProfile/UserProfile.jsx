@@ -12,10 +12,10 @@ const UserProfile = ({ user, onUpdate }) => {
   useEffect(() => {
     if (user) {
       setFormData({
-        name: user.name,
-        phone: user.phone,
-        email: user.email,
-        avatarURL: user.avatarURL,
+        name: user.name || '',
+        phone: user.phone || '',
+        email: user.email || '',
+        avatarURL: user.avatarURL || '',
       });
     }
   }, [user]);
@@ -25,7 +25,10 @@ const UserProfile = ({ user, onUpdate }) => {
   };
 
   const handleFileChange = (e) => {
-    setFormData({ ...formData, avatarURL: e.target.files[0] });
+    const file = e.target.files[0];
+    if (file) {
+      setFormData({ ...formData, avatarURL: URL.createObjectURL(file) });
+    }
   };
 
   const handleSubmit = (e) => {
@@ -33,11 +36,15 @@ const UserProfile = ({ user, onUpdate }) => {
     onUpdate(formData);
   };
 
+  if (!user) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className={scss.container}>
       <div className={scss.userProfile}>
         <h4>Ваші данні</h4>
-        <img src={user.avatarURL} alt={user.name} className={scss.avatar} />
+        <img src={formData.avatarURL} alt={formData.name} className={scss.avatar} />
         <form onSubmit={handleSubmit}>
           <div className={scss.formGroup}>
             <label htmlFor="name">Ім'я:</label>
