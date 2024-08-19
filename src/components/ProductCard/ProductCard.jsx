@@ -13,6 +13,7 @@ import { RiPlayList2Fill } from 'react-icons/ri';
 import { SlLocationPin } from 'react-icons/sl';
 import { FiX } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
+import Skeleton from '@mui/material/Skeleton';
 import scss from './ProductCard.module.scss';
 
 const TitleFavorite = React.lazy(() => import('./TitleFavorite/TitleFavorite'));
@@ -145,8 +146,8 @@ const ProductCard = () => {
                           </div>
                         ) : (
                           <div className={scss.ownerContainer}>
-                            <div className={scss.avatarPlaceholder}></div>
-                            <div className={scss.namePlaceholder}></div>
+                            <Skeleton variant="circular" width={40} height={40} />
+                            <Skeleton variant="text" width={100} />
                           </div>
                         )}
                         <div>
@@ -156,22 +157,28 @@ const ProductCard = () => {
                           </div>
                         </div>
                       </div>
-                      <img
-                        src={product.image1}
-                        alt={product.name}
-                        onClick={() => handleProductClick(product._id)}
-                        loading="lazy"
-                      />
+                      {product.image1 ? (
+                        <img
+                          src={product.image1}
+                          alt={product.name}
+                          onClick={() => handleProductClick(product._id)}
+                          loading="lazy"
+                        />
+                      ) : (
+                        <Skeleton variant="rectangular" width={210} height={118} />
+                      )}
                     </div>
                     <div className={scss.productInfo}>
                       <div>
-                        {owner && (
+                        {owner ? (
                           <TitleFavorite
                             name={product.name}
                             id={product._id}
                             onFavoriteToggle={() => dispatch(toggleFavorite(product._id))}
                             isFavorite={favorites.includes(product._id)}
                           />
+                        ) : (
+                          <Skeleton variant="text" width={150} />
                         )}
                         <p className={scss.description}>{product.description}</p>
                       </div>
@@ -193,13 +200,15 @@ const ProductCard = () => {
                           </button>
                         </div>
                         <div>
-                          {exchangeRate !== null && (
+                          {exchangeRate !== null ? (
                             <CartPrice
                               price={product.price}
                               exchangeRate={exchangeRate}
                               onAddToCart={() => handleAddToCart(product, isInCart)}
                               isInCart={isInCart}
                             />
+                          ) : (
+                            <Skeleton variant="text" width={80} />
                           )}
                         </div>
                       </div>
