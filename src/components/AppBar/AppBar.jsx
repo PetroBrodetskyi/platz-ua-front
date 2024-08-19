@@ -1,11 +1,12 @@
 import { Routes, Route, useNavigationType, useLocation } from 'react-router-dom';
 import { Suspense, lazy, useEffect, useState } from 'react';
-import scss from './AppBar.module.scss';
+import Loader from '../Loader/Loader';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import LinearDeterminate from '../LinearDeterminate/LinearDeterminate';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import ScrollToTop from '../ScrollToTop/ScrollToTop';
+import scss from './AppBar.module.scss';
 
 const Home = lazy(() => import('../../pages/Home/Home'));
 const Cart = lazy(() => import('../Cart/Cart'));
@@ -41,7 +42,7 @@ const AppBar = () => {
       <div className={scss.appBar}>
         <main>
           <ScrollToTop />
-          <Suspense fallback={null}>
+          <Suspense fallback={<Loader /> }>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/cart" element={<Cart />} />
