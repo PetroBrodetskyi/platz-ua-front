@@ -138,7 +138,7 @@ const ProductCard = () => {
                 >
                   <Suspense
                     fallback={
-                      <Skeleton variant="rectangular" width="100%" height={400} />
+                      <Skeleton variant="rectangular" width="100%" height={280} />
                     }
                   >
                     <div className={scss.product}>
