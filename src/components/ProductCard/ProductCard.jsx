@@ -21,7 +21,7 @@ import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
 import CreateCondition from './CreateCondition/CreateCondition';
 
-const ProductCard = () => {
+const ProductCard = ({ viewMode }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { products, exchangeRate, totalProducts } = useSelector((state) => state.products);
@@ -112,7 +112,7 @@ const ProductCard = () => {
         hasMore={hasMore}
         endMessage={null}
       >
-        <ul className={scss.list}>
+        <ul className={`${scss.list} ${scss[viewMode]}`}>
           <AnimatePresence>
             {products.map((product) => {
               const { _id, name, description, createdAt, condition, price, image1, owner, views, PLZ, city } = product;
@@ -122,7 +122,7 @@ const ProductCard = () => {
               return (
                 <motion.li
                   key={_id}
-                  className={`${scss.productItem} ${product.isSquare ? 'square' : ''}`}
+                  className={`${scss.productItem} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}

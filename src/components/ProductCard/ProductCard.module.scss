@@ -7,12 +7,20 @@
     padding: 0;
     list-style: none;
 
-    @media (min-width: $tablet) {
+    &.grid {
         gap: 8px;
     }
-    
+
+    &.list {
+        gap: 16px;
+    }
+
+    @media (min-width: $tablet) {
+        gap: 16px;
+    }
+
     @media (min-width: $desktop) {
-        gap: 8px;
+        gap: 24px;
     }
 }
 
@@ -27,15 +35,35 @@
 
     @include transition(box-shadow);
     box-sizing: border-box;
-    flex: 1 1 calc(50% - 4px);
+
+    &.gridItem {
+        flex: 1 1 calc(50% - 8px);
+    }
+
+    &.listItem {
+        flex: 1 1 100%;
+    }
 
     @media (min-width: $tablet) {
         padding: 10px;
-        flex: 1 1 calc(50% - 16px);
+
+        &.gridItem {
+            flex: 1 1 calc(33.333% - 16px);
+        }
+
+        &.listItem {
+            flex: 1 1 100%;
+        }
     }
 
     @media (min-width: $desktop) {
-        flex: 1 1 calc(33.333% - 16px);
+        &.gridItem {
+            flex: 1 1 calc(25% - 16px);
+        }
+
+        &.listItem {
+            flex: 1 1 100%;
+        }
     }
 }
 
@@ -111,7 +139,7 @@
                     width: 20px;
                     height: 20px;
                 }
-                
+
                 @media (min-width: $desktop) {
                     width: 30px;
                     height: 30px;
@@ -127,7 +155,7 @@
                 @media (min-width: $tablet) {
                     font-size: 12px;
                 }
-                
+
                 @media (min-width: $desktop) {
                     font-size: 14px;
                 }
@@ -142,11 +170,11 @@
             font-size: 10px;
             background-color: rgba(0, 0, 0, 0.2);
             text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-    
+
             @media (min-width: $tablet) {
                 font-size: 12px;
             }
-    
+
             @media (min-width: $desktop) {
                 font-size: 14px;
             }
@@ -161,12 +189,12 @@
         padding: 0 4px;
 
         @media (min-width: $tablet) {
-                padding: 0;
-            }
-        
-            @media (min-width: $desktop) {
-                padding: 0;
-            }
+            padding: 0;
+        }
+
+        @media (min-width: $desktop) {
+            padding: 0;
+        }
     }
 
     .description {
@@ -232,14 +260,12 @@
         transition: background-color 0.3s;
 
         .icon {
-                font-size: 16px;
+            font-size: 16px;
 
-                @media (min-width: $desktop) {
-                        font-size: 20px;
-                    
-                }
+            @media (min-width: $desktop) {
+                font-size: 20px;
             }
-        
+        }
     }
 }
 
@@ -267,11 +293,11 @@
     justify-content: space-between;
     font-size: 12px;
     gap: 12px;
-    
-        @media (min-width: $desktop) {
-            font-size: 14px;
-            gap: 16px;
-        }
+
+    @media (min-width: $desktop) {
+        font-size: 14px;
+        gap: 16px;
+    }
 }
 
 .desc {
@@ -279,8 +305,8 @@
     overflow: auto;
 
     @media (min-width: $desktop) {
-            max-height: 360px;
-        }
+        max-height: 360px;
+    }
 }
 
 .desc::-webkit-scrollbar {
