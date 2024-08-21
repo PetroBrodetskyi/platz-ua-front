@@ -29,7 +29,7 @@
 }
 
 .logo {
-    font-size: 34px;
+    font-size: 44px;
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -73,22 +73,22 @@
             font-size: 18px;
         }
 
-        @media (max-width: $mobile) {
-            font-size: 20px;
+        @media (min-width: $desktop) {
+            font-size: 24px;
         }
     }
 
     .logoLetterA2 {
-        font-size: 18px;
+        font-size: 16px;
         vertical-align: super;
         color: #ffd700;
 
-        @media (max-width: $tablet) {
-            font-size: 16px;
+        @media (min-width: $tablet) {
+            font-size: 18px;
         }
 
-        @media (max-width: $mobile) {
-            font-size: 14px;
+        @media (min-width: $desktop) {
+            font-size: 24px;
         }
     }
 
