@@ -26,6 +26,7 @@ const SplashScreen = ({ onFinish }) => {
             <span className={scss.logoLetterU}>U</span>
             <span className={scss.logoLetterA2}>A</span>
           </h1>
+          <h4>Der Marktplatz für Ukrainer</h4>
         </div>
       </div>
     )
