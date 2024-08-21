@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { fetchProducts, fetchExchangeRate, fetchProductById } from '../../redux/features/productsSlice';
@@ -16,10 +16,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Skeleton from '@mui/material/Skeleton';
 import scss from './ProductCard.module.scss';
 
-const TitleFavorite = React.lazy(() => import('./TitleFavorite/TitleFavorite'));
-const CartPrice = React.lazy(() => import('./CartPrice/CartPrice'));
-const CreateCondition = React.lazy(() => import('./CreateCondition/CreateCondition'));
-const Notification = React.lazy(() => import('../Notification/Notification'));
+import Notification from '../Notification/Notification';
+import TitleFavorite from './TitleFavorite/TitleFavorite';
+import CartPrice from './CartPrice/CartPrice';
+import CreateCondition from './CreateCondition/CreateCondition';
 
 const ProductCard = () => {
   const dispatch = useDispatch();
@@ -90,7 +90,11 @@ const ProductCard = () => {
 
   const handleAddToCart = (product, isInCart) => {
     const productWithOwner = { ...product, owner: owners[product.owner] };
-    dispatch(isInCart ? removeFromCart(product._id) : addToCart(productWithOwner));
+    if (isInCart) {
+      dispatch(removeFromCart(product._id));
+    } else {
+      dispatch(addToCart(productWithOwner));
+    }
     setNotification(`${product.name} ${isInCart ? 'видалено з кошика' : 'додано до кошика'}!`);
   };
 
@@ -124,66 +128,64 @@ const ProductCard = () => {
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <Suspense fallback={<Skeleton variant="rectangular" width="100%" height={280} />}>
-                    <div className={scss.product}>
-                      <div className={scss.productImage}>
-                        <div className={scss.ownerViews}>
-                          {ownerData ? (
-                            <div className={scss.ownerContainer} onClick={() => handleOwnerClick(ownerData._id)}>
-                              <img src={ownerData.avatarURL} alt={ownerData.name} className={scss.avatar} loading="lazy" />
-                              <div className={scss.name}>{ownerData.name}</div>
-                            </div>
-                          ) : (
-                            <div className={scss.ownerContainer}>
-                              <Skeleton variant="circular" width={40} height={40} />
-                              <Skeleton variant="text" width={100} />
-                            </div>
-                          )}
-                          <div className={scss.viewsQuantity}>
-                            <p>{views ?? 'N/A'}</p>
-                            <HiOutlineEye />
+                  <div className={scss.product}>
+                    <div className={scss.productImage}>
+                      <div className={scss.ownerViews}>
+                        {ownerData ? (
+                          <div className={scss.ownerContainer} onClick={() => handleOwnerClick(ownerData._id)}>
+                            <img src={ownerData.avatarURL} alt={ownerData.name} className={scss.avatar} loading="lazy" />
+                            <div className={scss.name}>{ownerData.name}</div>
                           </div>
-                        </div>
-                        {image1 ? (
-                          <img src={image1} alt={name} onClick={() => handleProductClick(_id)} loading="lazy" />
                         ) : (
-                          <Skeleton variant="rectangular" width={210} height={118} />
+                          <div className={scss.ownerContainer}>
+                            <Skeleton variant="circular" width={40} height={40} />
+                            <Skeleton variant="text" width={100} />
+                          </div>
                         )}
-                      </div>
-                      <div className={scss.productInfo}>
-                        <div>
-                          {ownerData ? (
-                            <TitleFavorite
-                              name={name}
-                              id={_id}
-                              onFavoriteToggle={() => dispatch(toggleFavorite(_id))}
-                              isFavorite={favorites.includes(_id)}
-                            />
-                          ) : (
-                            <Skeleton variant="text" width={150} />
-                          )}
-                          <p className={scss.description}>{description}</p>
+                        <div className={scss.viewsQuantity}>
+                          <p>{views ?? 'N/A'}</p>
+                          <HiOutlineEye />
                         </div>
-                        <div className={scss.dateCart}>
-                          <div>
-                            {createdAt && <CreateCondition addedDate={createdAt} condition={condition} />}
-                          </div>
-                          <div className={scss.expandButtonContainer}>
-                            <button className={scss.expandButton} onClick={() => handleToggleDescription(_id)}>
-                              {showDescriptions[_id] ? <IoChevronUpOutline className={scss.icon} /> : <RiPlayList2Fill className={scss.icon} />}
-                            </button>
-                          </div>
-                          <div>
-                            {exchangeRate !== null ? (
-                              <CartPrice price={price} exchangeRate={exchangeRate} onAddToCart={() => handleAddToCart(product, isInCart)} isInCart={isInCart} />
-                            ) : (
-                              <Skeleton variant="text" width={80} />
-                            )}
-                          </div>
+                      </div>
+                      {image1 ? (
+                        <img src={image1} alt={name} onClick={() => handleProductClick(_id)} loading="lazy" />
+                      ) : (
+                        <Skeleton variant="rectangular" width={210} height={118} />
+                      )}
+                    </div>
+                    <div className={scss.productInfo}>
+                      <div>
+                        {ownerData ? (
+                          <TitleFavorite
+                            name={name}
+                            id={_id}
+                            onFavoriteToggle={() => dispatch(toggleFavorite(_id))}
+                            isFavorite={favorites.includes(_id)}
+                          />
+                        ) : (
+                          <Skeleton variant="text" width={150} />
+                        )}
+                        <p className={scss.description}>{description}</p>
+                      </div>
+                      <div className={scss.dateCart}>
+                        <div>
+                          {createdAt && <CreateCondition addedDate={createdAt} condition={condition} />}
+                        </div>
+                        <div className={scss.expandButtonContainer}>
+                          <button className={scss.expandButton} onClick={() => handleToggleDescription(_id)}>
+                            {showDescriptions[_id] ? <IoChevronUpOutline className={scss.icon} /> : <RiPlayList2Fill className={scss.icon} />}
+                          </button>
+                        </div>
+                        <div>
+                          {exchangeRate !== null ? (
+                            <CartPrice price={price} exchangeRate={exchangeRate} onAddToCart={() => handleAddToCart(product, isInCart)} isInCart={isInCart} />
+                          ) : (
+                            <Skeleton variant="text" width={80} />
+                          )}
                         </div>
                       </div>
                     </div>
-                  </Suspense>
+                  </div>
                   <AnimatePresence>
                     {showDescriptions[_id] && (
                       <motion.div
@@ -220,10 +222,8 @@ const ProductCard = () => {
           </AnimatePresence>
         </ul>
       </InfiniteScroll>
-      <Suspense fallback={<Skeleton variant="rectangular" width="100%" height={50} />}>
-        {notification && <Notification message={notification} onClose={() => setNotification('')} />}
-        {endOfListNotification && <Notification message="Ви подивилися всі оголошення" onClose={() => setEndOfListNotification(false)} />}
-      </Suspense>
+      {notification && <Notification message={notification} onClose={() => setNotification('')} />}
+      {endOfListNotification && <Notification message="Ви подивилися всі оголошення" onClose={() => setEndOfListNotification(false)} />}
     </>
   );
 };
