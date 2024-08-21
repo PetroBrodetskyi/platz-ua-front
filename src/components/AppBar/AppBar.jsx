@@ -1,6 +1,6 @@
 import { Routes, Route, useNavigationType, useLocation } from 'react-router-dom';
 import { Suspense, lazy, useEffect, useState } from 'react';
-import Loader from '../Loader/Loader';
+// import Loader from '../Loader/Loader';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import LinearDeterminate from '../LinearDeterminate/LinearDeterminate';
@@ -42,7 +42,7 @@ const AppBar = () => {
       <div className={scss.appBar}>
         <main>
           <ScrollToTop />
-          <Suspense fallback={<Loader /> }>
+          <Suspense fallback={null}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/cart" element={<Cart />} />

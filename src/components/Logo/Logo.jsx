@@ -15,6 +15,7 @@ const Logo = () => {
             <span className={scss.logoLetterU}>U</span>
             <span className={scss.logoLetterA2}>A</span>
           </h1>
+          <h5>Der Marktplatz für Ukrainer</h5>
         </div>
       </NavLink>
     </div>
