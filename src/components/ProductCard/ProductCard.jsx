@@ -20,6 +20,7 @@ import Notification from '../Notification/Notification';
 import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
 import CreateCondition from './CreateCondition/CreateCondition';
+import Loader from '../Loader/Loader';
 
 const ProductCard = ({ viewMode }) => {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ const ProductCard = ({ viewMode }) => {
   const [loadingOwners, setLoadingOwners] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -46,6 +48,8 @@ const ProductCard = ({ viewMode }) => {
         }
       } catch (error) {
         console.error('Failed to fetch products:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -103,6 +107,10 @@ const ProductCard = ({ viewMode }) => {
   };
 
   const fetchMoreProducts = () => setCurrentPage((prevPage) => prevPage + 1);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <>
