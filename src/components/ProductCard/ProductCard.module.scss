@@ -8,20 +8,22 @@
     list-style: none;
 
     &.grid {
-        gap: 8px;
+        gap: 4px;
+
+        @media (min-width: $tablet) {
+            gap: 8px;
+        }
+        
+        @media (min-width: $desktop) {
+            gap: 12px;
+        }
     }
 
-    &.list {
-        gap: 16px;
-    }
+    // &.list {
+    //     gap: 16px;
+    // }
 
-    @media (min-width: $tablet) {
-        gap: 16px;
-    }
-
-    @media (min-width: $desktop) {
-        gap: 24px;
-    }
+    
 }
 
 .productItem {
@@ -37,7 +39,7 @@
     box-sizing: border-box;
 
     &.gridItem {
-        flex: 1 1 calc(50% - 8px);
+        flex: 1 1 calc(48% - 8px);
     }
 
     &.listItem {
