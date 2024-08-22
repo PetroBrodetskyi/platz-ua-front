@@ -22,17 +22,35 @@ const AdminPage = lazy(() => import('../../pages/AdminPage/AdminPage'));
 
 const AppBar = () => {
   const [loading, setLoading] = useState(false);
-  const [showSplash, setShowSplash] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
   const navigationType = useNavigationType();
   const location = useLocation();
 
   useEffect(() => {
     const hasVisited = sessionStorage.getItem('hasVisited');
+
     if (!hasVisited) {
-      setShowSplash(true);
       sessionStorage.setItem('hasVisited', 'true');
+      const splashTimer = setTimeout(() => {
+        setShowSplash(false);
+      }, 2000);
+
+      const handleContentLoad = () => {
+        clearTimeout(splashTimer);
+        setShowSplash(false);
+      };
+
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        handleContentLoad();
+      }, 1000);
+
+      return () => clearTimeout(splashTimer);
+    } else {
+      setShowSplash(false);
     }
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     if (navigationType === 'PUSH') {
@@ -44,14 +62,10 @@ const AppBar = () => {
     }
   }, [location, navigationType]);
 
-  const handleSplashFinish = () => {
-    setShowSplash(false);
-  };
-
   return (
     <div className={scss.wrapper}>
       {showSplash ? (
-        <SplashScreen onFinish={handleSplashFinish} />
+        <SplashScreen onFinish={() => setShowSplash(false)} />
       ) : (
         <>
           <Header />
