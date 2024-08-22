@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import scss from './SplashScreen.module.scss';
 
-const SplashScreen = ({ onFinish, duration }) => {
+const SplashScreen = ({ onFinish }) => {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setVisible(false);
       onFinish();
-    }, duration);
+    }, 2000);
 
     return () => clearTimeout(timer);
-  }, [onFinish, duration]);
+  }, [onFinish]);
 
   return (
     visible && (
