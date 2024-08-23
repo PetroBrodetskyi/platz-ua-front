@@ -13,6 +13,8 @@
 
     @media (min-width: $desktop) {
         padding: 10px 40px;
+        position: fixed;
+        z-index: 10000;
     }
 
     .container {
