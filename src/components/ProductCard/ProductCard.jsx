@@ -136,8 +136,8 @@ const ProductCard = ({ viewMode }) => {
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className={scss.product}>
-                    <div className={scss.productImage}>
+                  <div className={`${scss.product} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}>
+                    <div className={`${scss.productImage} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}>
                       <div className={scss.ownerViews}>
                         {ownerData ? (
                           <div className={scss.ownerContainer} onClick={() => handleOwnerClick(ownerData._id)}>
@@ -156,7 +156,8 @@ const ProductCard = ({ viewMode }) => {
                         </div>
                       </div>
                       {image1 ? (
-                        <img src={image1} alt={name} onClick={() => handleProductClick(_id)} loading="lazy" />
+                        <img src={image1} alt={name} onClick={() => handleProductClick(_id)} loading="lazy"
+                        className={scss.image}/>
                       ) : (
                         <Skeleton variant="rectangular" width={210} height={118} />
                       )}
