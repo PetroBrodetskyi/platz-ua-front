@@ -162,7 +162,7 @@ const ProductCard = ({ viewMode }) => {
                         <Skeleton variant="rectangular" width={210} height={118} />
                       )}
                     </div>
-                    <div className={scss.productInfo}>
+                    <div className={`${scss.productInfo} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}>
                       <div>
                         {ownerData ? (
                           <TitleFavorite
@@ -174,13 +174,13 @@ const ProductCard = ({ viewMode }) => {
                         ) : (
                           <Skeleton variant="text" width={150} />
                         )}
-                        <p className={scss.description}>{description}</p>
+                        <p className={`${scss.description} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}>{description}</p>
                       </div>
                       <div className={scss.dateCart}>
                         <div>
                           {createdAt && <CreateCondition addedDate={createdAt} condition={condition} />}
                         </div>
-                        <div className={scss.expandButtonContainer}>
+                        <div className={`${scss.expandButtonContainer} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}>
                           <button className={scss.expandButton} onClick={() => handleToggleDescription(_id)}>
                             {showDescriptions[_id] ? <IoChevronUpOutline className={scss.icon} /> : <RiPlayList2Fill className={scss.icon} />}
                           </button>

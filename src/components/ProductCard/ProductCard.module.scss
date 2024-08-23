@@ -2,7 +2,7 @@
 
 .list {
     display: grid;
-    gap: 4px;
+    gap: 12px;
     padding: 0;
     list-style: none;
 
@@ -20,7 +20,6 @@
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         }
     }
-
 }
 
 .productItem {
@@ -62,12 +61,14 @@
 
         &.listItem {
                 flex-direction: row;
+                gap: 0;
             }
     }
 
     @media (min-width: $desktop) {
         &.listItem {
         flex-direction: row;
+        gap: 0;
         }
     }
 
@@ -77,7 +78,7 @@
         height: 170px;
 
         &.listItem {
-                height: 300px;
+                height: 340px;
             }
 
         @media (min-width: $tablet) {
@@ -186,10 +187,18 @@
 
         @media (min-width: $tablet) {
             padding: 0 10px 10px;
+
+            &.listItem {
+                padding: 10px 10px;
+            }
         }
 
         @media (min-width: $desktop) {
             padding: 0 10px 10px;
+
+            &.listItem {
+                padding: 10px 20px;
+            }
         }
     }
 
@@ -198,16 +207,43 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 100px;
+        max-width: 80%;
+
+        &.listItem {
+            font-size: 12px;
+            max-width: 86%;
+        }
 
         @media (min-width: $tablet) {
             font-size: 12px;
             max-width: 100px;
+
+            &.listItem {
+                font-size: 14px;
+                white-space: wrap;
+                max-width: 100%;
+                overflow-y: auto;
+                max-height: 230px;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+            }
         }
 
         @media (min-width: $desktop) {
             font-size: 14px;
             max-width: 280px;
+
+            &.listItem {
+                white-space: wrap;
+                max-width: 100%;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+                
+            }
         }
     }
 
@@ -244,10 +280,18 @@
 
         @media (min-width: $tablet) {
             visibility: visible;
+
+            &.listItem {
+                visibility: hidden;
+            }
         }
 
         @media (min-width: $desktop) {
             visibility: visible;
+
+            &.listItem {
+                visibility: hidden;
+            }
         }
     }
 
