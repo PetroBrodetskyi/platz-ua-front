@@ -9,7 +9,7 @@ const ProductList = () => {
   return (
     <div className={`${scss.productList} ${scss[viewMode]}`}>
       <div className={scss.header}>
-        <h3>Найновіші</h3>
+        <h3 className={scss.title}>Найновіші</h3>
         <ViewToggle viewMode={viewMode} setViewMode={setViewMode} />
       </div>
       <div className={scss.container}>

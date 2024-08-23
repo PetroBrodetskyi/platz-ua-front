@@ -5,6 +5,9 @@ $product-list-padding-tablet: 16px;
 $product-list-padding-mobile: 4px;
 
 .productList {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     background-color: var(--light-bg);
     padding: $product-list-padding-mobile;
 
@@ -22,6 +25,19 @@ $product-list-padding-mobile: 4px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 0 10px 0 0;
+
+        @media (min-width: $desktop) {
+            padding: 0;
+        }
+
+        .title {
+            font-size: 14px;
+
+            @media (min-width: $desktop) {
+                    font-size: 16px;
+                }
+        }
     }
 
     &.list .container {
