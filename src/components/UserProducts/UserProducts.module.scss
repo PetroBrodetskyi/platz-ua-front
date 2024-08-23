@@ -1,8 +1,8 @@
 @import 'src/styles/mixins';
 
-$padding-desktop: 0 40px;
+$padding-desktop: 80px 40px;
 $padding-tablet: 20px;
-$padding-mobile: 10px;
+$padding-mobile: 0 10px;
 
 .userProducts {
     padding: $padding-mobile;
