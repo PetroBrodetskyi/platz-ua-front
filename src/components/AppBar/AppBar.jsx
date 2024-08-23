@@ -5,7 +5,6 @@ import Footer from '../Footer/Footer';
 import LinearDeterminate from '../LinearDeterminate/LinearDeterminate';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import ScrollToTop from '../ScrollToTop/ScrollToTop';
-import SplashScreen from '../SplashScreen/SplashScreen';
 import scss from './AppBar.module.scss';
 
 const Home = lazy(() => import('../../pages/Home/Home'));
@@ -22,17 +21,8 @@ const AdminPage = lazy(() => import('../../pages/AdminPage/AdminPage'));
 
 const AppBar = () => {
   const [loading, setLoading] = useState(false);
-  const [showSplash, setShowSplash] = useState(false);
   const navigationType = useNavigationType();
   const location = useLocation();
-
-  useEffect(() => {
-    const hasVisited = sessionStorage.getItem('hasVisited');
-    if (!hasVisited) {
-      setShowSplash(true);
-      sessionStorage.setItem('hasVisited', 'true');
-    }
-  }, []);
 
   useEffect(() => {
     if (navigationType === 'PUSH') {
@@ -44,41 +34,31 @@ const AppBar = () => {
     }
   }, [location, navigationType]);
 
-  const handleSplashFinish = () => {
-    setShowSplash(false);
-  };
-
   return (
     <div className={scss.wrapper}>
-      {showSplash ? (
-        <SplashScreen onFinish={handleSplashFinish} />
-      ) : (
-        <>
-          <Header />
-          <LinearDeterminate loading={loading} />
-          <div className={scss.appBar}>
-            <main>
-              <ScrollToTop />
-              <Suspense fallback={null}>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/cart" element={<Cart />} />
-                  <Route path="/login" element={<LoginPage />} />
-                  <Route path="/register" element={<RegisterPage />} />
-                  <Route path="/create" element={<AddProductPage />} />
-                  <Route path="/favorites" element={<FavoritesPage />} />
-                  <Route path="/product/:productId" element={<ProductDetailPage />} />
-                  <Route path="/user/:userId" element={<UserProductsPage />} />
-                  <Route path="/user-profile/:userId" element={<UserProfilePage />} />
-                  <Route path="/how-it-works" element={<HowItWorksPage />} />
-                  <Route path="/admin" element={<PrivateRoute element={<AdminPage />} />} />
-                </Routes>
-              </Suspense>
-            </main>
-            <Footer />
-          </div>
-        </>
-      )}
+      <Header />
+      <LinearDeterminate loading={loading} />
+      <div className={scss.appBar}>
+        <main>
+          <ScrollToTop />
+          <Suspense fallback={null}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/create" element={<AddProductPage />} />
+              <Route path="/favorites" element={<FavoritesPage />} />
+              <Route path="/product/:productId" element={<ProductDetailPage />} />
+              <Route path="/user/:userId" element={<UserProductsPage />} />
+              <Route path="/user-profile/:userId" element={<UserProfilePage />} />
+              <Route path="/how-it-works" element={<HowItWorksPage />} />
+              <Route path="/admin" element={<PrivateRoute element={<AdminPage />} />} />
+            </Routes>
+          </Suspense>
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 };
