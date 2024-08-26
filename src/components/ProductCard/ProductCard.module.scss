@@ -85,8 +85,8 @@
             height: 240px;
 
             &.listItem {
-                width: 44%;
-                height: 280px;
+                width: 40%;
+                height: 240px;
             }
         }
 
@@ -94,8 +94,7 @@
             height: 280px;
 
             &.listItem {
-                width: 44%;
-                height: 300px;
+                height: 280px;
             }
         }
 
@@ -134,6 +133,11 @@
                 width: 16px;
                 height: 16px;
 
+                &.listItem {
+                    width: 24px;
+                    height: 24px;
+                }
+
                 @media (min-width: $tablet) {
                     width: 20px;
                     height: 20px;
@@ -142,6 +146,11 @@
                 @media (min-width: $desktop) {
                     width: 30px;
                     height: 30px;
+
+                    &.listItem {
+                        width: 28px;
+                        height: 28px;
+                    }
                 }
             }
 
@@ -150,6 +159,10 @@
                 background-color: rgba(0, 0, 0, 0.2);
                 padding: 2px 4px;
                 cursor: pointer;
+
+                &.listItem {
+                    font-size: 12px;
+                }
 
                 @media (min-width: $tablet) {
                     font-size: 12px;
@@ -170,12 +183,28 @@
             background-color: rgba(0, 0, 0, 0.2);
             text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 
+            &.listItem {
+                font-size: 12px;
+            }
+
             @media (min-width: $tablet) {
                 font-size: 12px;
             }
 
             @media (min-width: $desktop) {
                 font-size: 14px;
+            }
+
+            .icon {
+                font-size: 12px;
+
+                &.listItem {
+                    font-size: 14px;
+                }
+
+                @media (min-width: $desktop) {
+                    font-size: 18px;
+                }
             }
         }
     }
@@ -212,7 +241,7 @@
         max-width: 80%;
 
         &.listItem {
-            font-size: 12px;
+            font-size: 14px;
             max-width: 86%;
         }
 
@@ -225,7 +254,7 @@
                 white-space: wrap;
                 max-width: 100%;
                 overflow-y: auto;
-                max-height: 184px;
+                max-height: 144px;
 
                 &::-webkit-scrollbar {
                     display: none;
@@ -239,7 +268,8 @@
 
             &.listItem {
                 white-space: wrap;
-                max-width: 100%;
+                max-width: 96%;
+                max-height: 164px;
 
                 &::-webkit-scrollbar {
                     display: none;

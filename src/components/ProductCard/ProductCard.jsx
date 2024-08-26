@@ -141,8 +141,8 @@ const ProductCard = ({ viewMode }) => {
                       <div className={scss.ownerViews}>
                         {ownerData ? (
                           <div className={scss.ownerContainer} onClick={() => handleOwnerClick(ownerData._id)}>
-                            <img src={ownerData.avatarURL} alt={ownerData.name} className={scss.avatar} loading="lazy" />
-                            <div className={scss.name}>{ownerData.name}</div>
+                            <img src={ownerData.avatarURL} alt={ownerData.name} className={`${scss.avatar} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`} loading="lazy" />
+                            <div className={`${scss.name} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}>{ownerData.name}</div>
                           </div>
                         ) : (
                           <div className={scss.ownerContainer}>
@@ -150,9 +150,9 @@ const ProductCard = ({ viewMode }) => {
                             <Skeleton variant="text" width={100} />
                           </div>
                         )}
-                        <div className={scss.viewsQuantity}>
+                        <div className={`${scss.viewsQuantity} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}>
                           <p>{views ?? 'N/A'}</p>
-                          <HiOutlineEye />
+                          <HiOutlineEye className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`} />
                         </div>
                       </div>
                       {image1 ? (
