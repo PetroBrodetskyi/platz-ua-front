@@ -5,6 +5,7 @@ import Footer from '../Footer/Footer';
 import LinearDeterminate from '../LinearDeterminate/LinearDeterminate';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import ScrollToTop from '../ScrollToTop/ScrollToTop';
+import SplashScreen from '../SplashScreen/SplashScreen';
 import scss from './AppBar.module.scss';
 
 const Home = lazy(() => import('../../pages/Home/Home'));
@@ -43,6 +44,10 @@ const AppBar = () => {
           <ScrollToTop />
           <Suspense fallback={null}>
             <Routes>
+              <Route 
+                path="/email-verified" 
+                element={<SplashScreen onFinish={() => window.location.href = `https://platz-ua-front.vercel.app/login`} />} 
+              />
               <Route path="/" element={<Home />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/login" element={<LoginPage />} />

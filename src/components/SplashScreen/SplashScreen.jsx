@@ -8,7 +8,7 @@ const SplashScreen = ({ onFinish }) => {
     const timer = setTimeout(() => {
       setVisible(false);
       onFinish();
-    }, 2000);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, [onFinish]);
@@ -26,7 +26,8 @@ const SplashScreen = ({ onFinish }) => {
             <span className={scss.logoLetterU}>U</span>
             <span className={scss.logoLetterA2}>A</span>
           </h1>
-          <h4>Der Marktplatz für Ukrainer</h4>
+          <h2 className={scss.messageTitle}>Ваш e-mail підтверджено</h2>
+            <p className={scss.messageText}>Виконується перенаправлення на сторінку авторизації...</p>
         </div>
       </div>
     )
