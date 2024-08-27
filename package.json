@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://petrobrodetskyi.github.io/platz-ua-front",
+  "homepage": "https://platz-ua-front.vercel.app",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
