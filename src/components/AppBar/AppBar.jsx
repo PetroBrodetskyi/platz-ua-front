@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigationType, useLocation } from 'react-router-dom';
+import { Routes, Route, useNavigationType, useLocation, useNavigate } from 'react-router-dom';
 import { Suspense, lazy, useEffect, useState } from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -24,6 +24,7 @@ const AppBar = () => {
   const [loading, setLoading] = useState(false);
   const navigationType = useNavigationType();
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (navigationType === 'PUSH') {
@@ -46,7 +47,7 @@ const AppBar = () => {
             <Routes>
               <Route 
                 path="/email-verified" 
-                element={<SplashScreen onFinish={() => window.location.href = `https://platz-ua-front.vercel.app/login`} />} 
+                element={<SplashScreen onFinish={() => navigate('/login')} />} 
               />
               <Route path="/" element={<Home />} />
               <Route path="/cart" element={<Cart />} />
