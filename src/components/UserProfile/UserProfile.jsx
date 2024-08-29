@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { AiOutlinePlus } from 'react-icons/ai';
 import scss from './UserProfile.module.scss';
 
 const UserProfile = ({ user, onUpdate }) => {
@@ -9,6 +10,8 @@ const UserProfile = ({ user, onUpdate }) => {
     avatarURL: '',
   });
 
+  const [preview, setPreview] = useState(null);
+
   useEffect(() => {
     if (user) {
       setFormData({
@@ -17,6 +20,7 @@ const UserProfile = ({ user, onUpdate }) => {
         email: user.email || '',
         avatarURL: user.avatarURL || '',
       });
+      setPreview(user.avatarURL || null);
     }
   }, [user]);
 
@@ -27,7 +31,9 @@ const UserProfile = ({ user, onUpdate }) => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setFormData({ ...formData, avatarURL: URL.createObjectURL(file) });
+      const imageUrl = URL.createObjectURL(file);
+      setPreview(imageUrl);
+      setFormData({ ...formData, avatarURL: imageUrl });
     }
   };
 
@@ -36,15 +42,34 @@ const UserProfile = ({ user, onUpdate }) => {
     onUpdate(formData);
   };
 
-  if (!user) {
-    return <div>Loading...</div>;
-  }
+  const handleAvatarClick = () => {
+    document.getElementById('avatarInput').click();
+  };
 
   return (
     <div className={scss.container}>
       <div className={scss.userProfile}>
         <h4>Ваші данні</h4>
-        <img src={formData.avatarURL} alt={formData.name} className={scss.avatar} />
+        <div className={scss.avatarContainer}>
+          <div className={scss.avatarInput}>
+            <img
+              src={preview}
+              alt={formData.name}
+              className={scss.avatar}
+              onClick={handleAvatarClick}
+            />
+            <input
+              id="avatarInput"
+              type="file"
+              onChange={handleFileChange}
+              className={scss.fileInput}
+              />
+            </div>
+          <AiOutlinePlus
+            className={scss.plusIcon}
+            onClick={handleAvatarClick}
+          />
+        </div>
         <form onSubmit={handleSubmit}>
           <div className={scss.formGroup}>
             <label htmlFor="name">Ім'я:</label>
@@ -74,15 +99,6 @@ const UserProfile = ({ user, onUpdate }) => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-            />
-          </div>
-          <div className={scss.formGroup}>
-            <label htmlFor="avatarURL">Аватар:</label>
-            <input
-              type="file"
-              id="avatarURL"
-              name="avatarURL"
-              onChange={handleFileChange}
             />
           </div>
           <button type="submit">Зберегти зміни</button>

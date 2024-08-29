@@ -30,32 +30,33 @@ const Header = ({ onClick }) => {
     }
   }, [favorites]);
 
+  const getUserProfileUrl = () => user ? `/user-profile/${user._id}` : '/login';
+
+  const renderUserInfo = () => (
+    user && (
+      <div className={scss.userInfo}>
+        <img src={user.avatarURL} alt={user.name} className={scss.avatar} />
+        <span>{user.name}</span>
+      </div>
+    )
+  );
+
   return (
     <header className={scss.header}>
       <div className={scss.container}>
         <div className={scss.logoUserMobile}>
           <Logo />
-          <NavLink to={user ? `/user-profile/${user._id}` : '/user-profile'}>
+          <NavLink to={getUserProfileUrl()}>
             <button type="button" className={scss.iconUserMobile} onClick={onClick}>
-              {user && (
-                <div className={scss.userInfo}>
-                  <img src={user.avatarURL} alt={user.name} className={scss.avatar} />
-                  <span>{user.name}</span>
-                </div>
-              )}
+              {renderUserInfo()}
             </button>
           </NavLink>
         </div>
         <SearchLocation onSearch={() => {}} />
         <div className={scss.userMenu}>
-          <NavLink to={user ? `/user-profile/${user._id}` : '/user-profile'}>
+          <NavLink to={getUserProfileUrl()}>
             <button type="button" className={scss.iconUserDesktop} onClick={onClick}>
-              {user && (
-                <div className={scss.userInfo}>
-                  <img src={user.avatarURL} alt={user.name} className={scss.avatar} />
-                  <span>{user.name}</span>
-                </div>
-              )}
+              {renderUserInfo()}
             </button>
           </NavLink>
           {!user && (
