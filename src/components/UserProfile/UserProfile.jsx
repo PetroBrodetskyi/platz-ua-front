@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import scss from './UserProfile.module.scss';
+import Loader from '../Loader/Loader';
 
 const UserProfile = ({ user, onUpdate }) => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ const UserProfile = ({ user, onUpdate }) => {
   });
 
   const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (user) {
@@ -21,6 +23,7 @@ const UserProfile = ({ user, onUpdate }) => {
         avatarURL: user.avatarURL || '',
       });
       setPreview(user.avatarURL || null);
+      setLoading(false);
     }
   }, [user]);
 
@@ -46,6 +49,10 @@ const UserProfile = ({ user, onUpdate }) => {
     document.getElementById('avatarInput').click();
   };
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <div className={scss.container}>
       <div className={scss.userProfile}>
@@ -63,8 +70,8 @@ const UserProfile = ({ user, onUpdate }) => {
               type="file"
               onChange={handleFileChange}
               className={scss.fileInput}
-              />
-            </div>
+            />
+          </div>
           <AiOutlinePlus
             className={scss.plusIcon}
             onClick={handleAvatarClick}
