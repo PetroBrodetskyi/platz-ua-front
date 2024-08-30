@@ -36,18 +36,35 @@ const UserProfile = ({ user, onUpdate }) => {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setPreview(imageUrl);
-      setFormData({ ...formData, avatarURL: imageUrl });
+      setFormData({ ...formData, avatar: file });
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onUpdate(formData);
+    const formDataToSend = new FormData();
+    formDataToSend.append('name', formData.name);
+    formDataToSend.append('phone', formData.phone);
+    formDataToSend.append('email', formData.email);
+    if (formData.avatar) {
+      formDataToSend.append('avatar', formData.avatar);
+    }
+    try {
+      await onUpdate(formDataToSend);
+    } catch (error) {
+      console.error('Error updating profile:', error);
+    }
   };
 
   const handleAvatarClick = () => {
     document.getElementById('avatarInput').click();
   };
+
+  useEffect(() => {
+    return () => {
+      if (preview) URL.revokeObjectURL(preview);
+    };
+  }, [preview]);
 
   if (loading) {
     return <Loader />;
