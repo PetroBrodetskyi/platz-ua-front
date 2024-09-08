@@ -1,8 +1,8 @@
 .PhoneInput {
     --PhoneInputCountryFlag-height: 2.5rem;
-    --PhoneInputCountryFlag-borderColor: none;
-    --PhoneInputCountryFlag-borderColor--focus: #fff;
-    --PhoneInputCountrySelectArrow-color: #fff;
+    --PhoneInputCountryFlag-borderColor: #000;
+    --PhoneInputCountryFlag-borderColor--focus: #000;
+    --PhoneInputCountrySelectArrow-color: #000;
 }
 
 .invalid {

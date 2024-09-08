@@ -87,7 +87,7 @@ const RegisterForm = () => {
                             class={phoneValid ? "valid" : "invalid"}
                             onBlur={() => setPhoneTouched(true)}
                         />
-                        {!phoneValid && phoneTouched && errors.email && <p>{errors.email.message}</p>}
+                        {!phoneValid && phoneTouched && errors.phone && <p>{errors.phone.message}</p>}
                     </div>
 
                     <div>

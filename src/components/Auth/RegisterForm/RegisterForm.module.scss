@@ -6,19 +6,17 @@ $auth-form-width-mobile: 100%;
 
 .auth {
     display: flex;
-    justify-content: flex-end;
     align-items: center;
     padding: 40px;
     height: 100vh;
-    background-color: #f9f9f9;
+    background-color: var(--light-bg);
 }
 
 .form {
-    background-color: rgba(13, 13, 14, 0.804);
     padding: 32px;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: $auth-form-width-desktop;
+    background-color: var(--white);
 
     @media (max-width: 768px) {
         width: $auth-form-width-tablet;
@@ -42,7 +40,6 @@ $auth-form-width-mobile: 100%;
 
     .classNavLink {
         text-decoration: none;
-        color: var(--white);
         font-weight: 500;
         padding-bottom: 4px;
         border-bottom: 2px solid transparent;
@@ -66,8 +63,7 @@ $auth-form-width-mobile: 100%;
 
     input {
         width: 100%;
-        padding: 12px;
-        color: var(--white);
+        padding: 10px;
         background-color: inherit;
         border-radius: 4px;
         transition: border-color 0.3s;
@@ -100,4 +96,3 @@ $auth-form-width-mobile: 100%;
         justify-content: center;
     }
 }
-
