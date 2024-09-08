@@ -4,9 +4,10 @@ $auth-form-width-desktop: 360px;
 $auth-form-width-tablet: 300px;
 $auth-form-width-mobile: 100%;
 
-.authPage {
+.auth {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
+    padding: 40px;
     align-items: center;
     height: 100vh;
     background-color: #f9f9f9;
@@ -49,11 +50,11 @@ $auth-form-width-mobile: 100%;
         transition: border-color 0.3s;
 
         &.active {
-            border-color: #007bff;
+            border-color: gold;
         }
 
         &:hover {
-            border-color: #0056b3;
+            border-color: gold;
         }
     }
 }
@@ -61,11 +62,8 @@ $auth-form-width-mobile: 100%;
 .authForm {
     display: flex;
     flex-direction: column;
+    gap: 26px;
     width: 100%;
-
-    div {
-        margin-bottom: 16px;
-    }
 
     input {
         width: 100%;
@@ -76,7 +74,7 @@ $auth-form-width-mobile: 100%;
         transition: border-color 0.3s;
 
         &:focus {
-            border-color: #007bff;
+            border-color: gold;
             outline: none;
         }
     }

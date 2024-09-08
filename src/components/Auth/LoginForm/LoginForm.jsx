@@ -41,7 +41,7 @@ const LoginForm = () => {
     }, [location]);
 
     return (
-        <section className={css.authPage}>
+        <section className={css.auth}>
             <div className={css.form}>
                 <div>
                     <ul className={css.authNav}>

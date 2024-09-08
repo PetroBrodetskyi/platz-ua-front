@@ -45,37 +45,36 @@ const UserProfile = ({ user }) => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  e.preventDefault();
+  setIsSubmitting(true);
 
-    const formDataToSend = new FormData();
-    formDataToSend.append('name', formData.name);
-    formDataToSend.append('phone', formData.phone);
-    formDataToSend.append('email', formData.email);
-    if (formData.avatar) {
-      formDataToSend.append('avatar', formData.avatar);
-    }
+  const formDataToSend = new FormData();
+  formDataToSend.append('name', formData.name);
+  formDataToSend.append('phone', formData.phone);
+  formDataToSend.append('email', formData.email);
+  if (formData.avatar) {
+    formDataToSend.append('avatar', formData.avatar);
+  }
 
-    try {
-      const response = await axios.patch('https://platz-ua-back.vercel.app/api/users/current', formDataToSend, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-      console.log('Response:', response);
-      console.log('Profile updated:', response.data);
-    } catch (error) {
-      console.error('Error updating profile:', error);
-      if (error.response) {
-        console.error('Response data:', error.response.data);
-        console.error('Response status:', error.response.status);
-        console.error('Response headers:', error.response.headers);
-      }
-    } finally {
-      setIsSubmitting(false);
+  try {
+    const response = await axios.patch('https://platz-ua-back.vercel.app/api/users/current', formDataToSend, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    console.log('Profile updated:', response.data);
+  } catch (error) {
+    console.error('Error updating profile:', error);
+    if (error.response) {
+      console.error('Response data:', error.response.data);
+      console.error('Response status:', error.response.status);
+      console.error('Response headers:', error.response.headers);
     }
-  };
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   const handleAvatarClick = () => {
     document.getElementById('avatarInput').click();

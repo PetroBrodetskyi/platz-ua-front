@@ -4,10 +4,11 @@ $auth-form-width-desktop: 360px;
 $auth-form-width-tablet: 300px;
 $auth-form-width-mobile: 100%;
 
-.authPage {
+.auth {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
+    padding: 40px;
     height: 100vh;
     background-color: #f9f9f9;
 }
@@ -60,11 +61,8 @@ $auth-form-width-mobile: 100%;
 .authForm {
     display: flex;
     flex-direction: column;
+    gap: 26px;
     width: 100%;
-
-    div {
-        margin-bottom: 16px;
-    }
 
     input {
         width: 100%;
@@ -103,10 +101,3 @@ $auth-form-width-mobile: 100%;
     }
 }
 
-.invalid {
-    border-color: red;
-}
-
-.valid {
-    border-color: blue;
-}
