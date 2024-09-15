@@ -1,5 +1,5 @@
 .PhoneInput {
-    --PhoneInputCountryFlag-height: 2.5rem;
+    --PhoneInputCountryFlag-height: 2rem;
     --PhoneInputCountryFlag-borderColor: #000;
     --PhoneInputCountryFlag-borderColor--focus: #000;
     --PhoneInputCountrySelectArrow-color: #000;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { RiEyeCloseLine } from "react-icons/ri";
@@ -13,7 +13,7 @@ import '../RegisterForm/register.css';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 
 const RegisterForm = () => {
-    const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm();
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm();
     const [showPassword, setShowPassword] = useState(false);
     const [phone, setPhone] = useState('');
     const [phoneValid, setPhoneValid] = useState(true);
