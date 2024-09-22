@@ -7,8 +7,14 @@ const initialState = {
   favorites: [],
   exchangeRate: null,
   loading: false,
+  location: '',
   error: null,
 };
+
+export const fetchProductsByLocation = createAsyncThunk('products/fetchProductsByLocation', async ({ PLZ, city, page = 1 }) => {
+  const response = await axios.get(`/products/public?plz=${PLZ}&city=${city}&page=${page}`);
+  return response.data;
+});
 
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async ({ page = 1 }) => {
   const response = await axios.get(`/products/public?page=${page}`);
@@ -16,7 +22,6 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts', async ({
 });
 
 export const fetchProductById = createAsyncThunk('products/fetchProductById', async (productId) => {
-  console.log(`Fetching product by ID: ${productId}`);
   const response = await axios.get(`/products/public/${productId}`);
   return response.data;
 });
@@ -58,6 +63,12 @@ const productsSlice = createSlice({
         state.favorites.push(productId);
       }
     },
+    setLocation(state, action) {
+      state.location = action.payload;
+    },
+    clearProducts(state) {
+      state.products = [];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -68,17 +79,29 @@ const productsSlice = createSlice({
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.loading = false;
         const newProducts = action.payload;
-        const existingProductIds = new Set(state.products.map(product => product._id));
-        
-        const filteredNewProducts = newProducts.filter(product => !existingProductIds.has(product._id));
+        const existingProductIds = new Set(state.products.map((product) => product._id));
+
+        const filteredNewProducts = newProducts.filter((product) => !existingProductIds.has(product._id));
 
         state.products = [...state.products, ...filteredNewProducts];
         state.favorites = [
           ...state.favorites,
-          ...filteredNewProducts.filter(product => product.favorite).map(product => product._id),
+          ...filteredNewProducts.filter((product) => product.favorite).map((product) => product._id),
         ];
       })
       .addCase(fetchProducts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(fetchProductsByLocation.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchProductsByLocation.fulfilled, (state, action) => {
+        state.loading = false;
+        state.products = action.payload;
+      })
+      .addCase(fetchProductsByLocation.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })
@@ -99,6 +122,7 @@ const productsSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchUserProducts.fulfilled, (state, action) => {
+        console.log('Fetching user products fulfilled:', action.payload);
         state.loading = false;
         state.userProducts = action.payload;
       })
@@ -145,6 +169,6 @@ const productsSlice = createSlice({
   },
 });
 
-export const { toggleFavorite } = productsSlice.actions;
+export const { toggleFavorite, setLocation, clearProducts } = productsSlice.actions;
 
 export default productsSlice.reducer;

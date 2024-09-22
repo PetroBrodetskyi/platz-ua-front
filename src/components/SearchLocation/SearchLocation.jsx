@@ -1,54 +1,67 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { IoClose, IoSearchSharp } from "react-icons/io5";
 import { ButtonBase } from '@mui/material';
 import { motion } from 'framer-motion';
+import { useDispatch } from 'react-redux';
 import scss from './SearchLocation.module.scss';
 import locationData from './locations.json';
+import { setLocation, fetchProducts, fetchProductsByLocation, clearProducts } from '../../redux/features/productsSlice';
 
-const SearchLocation = ({ onSearch }) => {
+const SearchLocation = () => {
   const [plzQuery, setPlzQuery] = useState('');
   const [cityQuery, setCityQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
+  const dispatch = useDispatch();
 
-  const handleSearch = () => {
-    const filteredResults = locationData.filter(
+  const filterLocations = useCallback(() => {
+    return locationData.filter(
       (location) =>
         (plzQuery === '' || location.plz.toString().includes(plzQuery)) &&
         (cityQuery === '' || location.city.toLowerCase().includes(cityQuery.toLowerCase()))
     );
+  }, [plzQuery, cityQuery]);
+
+  const handleSearch = useCallback(async () => {
+    const filteredResults = filterLocations();
     setSearchResults(filteredResults);
-    onSearch(filteredResults);
-  };
+
+    if (filteredResults.length > 0) {
+      dispatch(clearProducts()); // Очищення поточних продуктів перед завантаженням нових
+      dispatch(fetchProductsByLocation({ PLZ: plzQuery, city: cityQuery }));
+    } else {
+      console.log('No results found for products.');
+      dispatch(clearProducts()); // Очищення поточних продуктів
+      dispatch(fetchProductsByLocation([])); // Завантаження порожнього списку
+    }
+  }, [plzQuery, cityQuery, dispatch, filterLocations]);
 
   useEffect(() => {
-    if ((plzQuery || '').trim() !== '' || (cityQuery || '').trim() !== '') {
-      handleSearch();
+    if (plzQuery.trim() !== '' || cityQuery.trim() !== '') {
+      const filteredResults = filterLocations();
+      setSearchResults(filteredResults);
       setShowResults(true);
     } else {
       setSearchResults([]);
       setShowResults(false);
+      dispatch(clearProducts()); // Очищення поточних продуктів перед завантаженням нових
+      dispatch(fetchProducts({ page: 1 })); // Завантаження початкових продуктів (найновіших оголошень)
     }
-  }, [plzQuery, cityQuery]);
+  }, [plzQuery, cityQuery, filterLocations, dispatch]);
 
-  const handlePlzChange = (e) => {
-    setPlzQuery(e.target.value || '');
+  const handleChange = (setter) => (e) => {
+    const value = e.target.value || '';
+    setter(value);
   };
 
-  const handleCityChange = (e) => {
-    setCityQuery(e.target.value || '');
-  };
-
-  const handleClearPlz = () => {
+  const handleClearAll = () => {
     setPlzQuery('');
-    setSearchResults([]);
-    setShowResults(false);
-  };
-
-  const handleClearCity = () => {
     setCityQuery('');
     setSearchResults([]);
     setShowResults(false);
+
+    dispatch(clearProducts()); // Очищення поточних продуктів перед завантаженням нових
+    dispatch(fetchProducts({ page: 1 })); // Завантаження початкових продуктів (найновіших оголошень)
   };
 
   const handleResultClick = (result) => {
@@ -56,7 +69,7 @@ const SearchLocation = ({ onSearch }) => {
     setCityQuery(result.city);
     setSearchResults([]);
     setTimeout(() => setShowResults(false), 0);
-    onSearch([result]);
+    dispatch(setLocation(result));
   };
 
   return (
@@ -68,11 +81,11 @@ const SearchLocation = ({ onSearch }) => {
               type="text" 
               placeholder="PLZ" 
               value={plzQuery}
-              onChange={handlePlzChange}
+              onChange={handleChange(setPlzQuery)}
               className={scss.inputPlz}
             />
             {plzQuery && (
-              <button className={scss.clearButton} onClick={handleClearPlz}>
+              <button className={scss.clearButton} onClick={handleClearAll}>
                 <IoClose className={scss.icon} />
               </button>
             )}
@@ -83,11 +96,11 @@ const SearchLocation = ({ onSearch }) => {
               type="text" 
               placeholder="Місто" 
               value={cityQuery}
-              onChange={handleCityChange}
+              onChange={handleChange(setCityQuery)}
               className={scss.inputCity}
             />
             {cityQuery && (
-              <button className={scss.clearButton} onClick={handleClearCity}>
+              <button className={scss.clearButton} onClick={handleClearAll}>
                 <IoClose className={scss.icon} />
               </button>
             )}
@@ -110,7 +123,7 @@ const SearchLocation = ({ onSearch }) => {
         </div>
       </div>
 
-      {showResults && (
+      {showResults && searchResults.length > 0 && (
         <div className={scss.searchResults}>
           {searchResults.map(result => (
             <div 

@@ -4,6 +4,7 @@ import { SlLocationPin } from "react-icons/sl";
 import { MdOutlineDateRange } from "react-icons/md";
 import { FaRegFaceSmile, FaRegFaceMeh } from "react-icons/fa6";
 import { getCategoryIcon, getSubcategoryIcon } from '../../Categories/icons';
+import { HiOutlineEye } from "react-icons/hi";
 import scss from './UserProductsDetails.module.scss';
 
 const ProductDetails = ({ 
@@ -123,17 +124,26 @@ const ProductDetails = ({
         <div className={scss.info}>
           <h4>Категорії</h4>
           <p className={scss.detailsFlex}>
-            {getCategoryIcon(product.category)} {product.category}
+            {product.category} {getCategoryIcon(product.category)}
           </p>
           <p className={scss.detailsFlex}>
-            {getSubcategoryIcon(product.subcategory1)} {product.subcategory1}
+            {product.subcategory1} {getSubcategoryIcon(product.subcategory1)}
           </p>
-          <p className={scss.detailsFlex}>
-            {getSubcategoryIcon(product.subcategory2)} {product.subcategory2}
-          </p>
-          <p className={scss.detailsFlex}>
-            {getSubcategoryIcon(product.subcategory3)} {product.subcategory3}
-          </p>
+          {product.subcategory2 && (
+              <p className={scss.categoryFlex}>
+                {product.subcategory2} {getSubcategoryIcon(product.subcategory2)}
+              </p>
+            )}
+            {product.subcategory3 && (
+              <p className={scss.categoryFlex}>
+                {product.subcategory3} {getSubcategoryIcon(product.subcategory3)}
+              </p>
+            )}
+          <div className={scss.viewsContainer}>
+              <p>переглядів: </p>
+              <HiOutlineEye className={scss.icon} />
+              <div>{product.views !== undefined ? product.views : 'N/A'}</div>
+            </div>
         </div>
       </div>
     </div>

@@ -52,7 +52,7 @@ const Header = ({ onClick }) => {
             </button>
           </NavLink>
         </div>
-        <SearchLocation onSearch={() => {}} />
+        <SearchLocation onSearch={(products) => {products}} />
         <div className={scss.userMenu}>
           <NavLink to={getUserProfileUrl()}>
             <button type="button" className={scss.iconUserDesktop} onClick={onClick}>

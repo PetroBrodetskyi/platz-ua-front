@@ -4,8 +4,9 @@ import commentsReducer from './features/commentsSlice';
 import authReducer from './features/authSlice';
 import favoritesReducer from './features/favoritesSlice';
 import cartReducer from './features/cartSlice';
+import { setupAxiosInterceptors } from './axiosConfig';
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     products: productsReducer,
     comments: commentsReducer,
@@ -19,5 +20,7 @@ export const store = configureStore({
     }),
   devTools: process.env.NODE_ENV !== 'production',
 });
+
+setupAxiosInterceptors(store);
 
 export default store;

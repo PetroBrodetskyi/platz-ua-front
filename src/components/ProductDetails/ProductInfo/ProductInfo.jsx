@@ -151,12 +151,16 @@ const ProductInfo = ({
             <p className={scss.categoryFlex}>
               {product.subcategory1} {getSubcategoryIcon(product.subcategory1)}
             </p>
-            <p className={scss.categoryFlex}>
-              {product.subcategory2} {getSubcategoryIcon(product.subcategory2)}
-            </p>
-            <p className={scss.categoryFlex}>
-              {product.subcategory3} {getSubcategoryIcon(product.subcategory3)}
-            </p>
+            {product.subcategory2 && (
+              <p className={scss.categoryFlex}>
+                {product.subcategory2} {getSubcategoryIcon(product.subcategory2)}
+              </p>
+            )}
+            {product.subcategory3 && (
+              <p className={scss.categoryFlex}>
+                {product.subcategory3} {getSubcategoryIcon(product.subcategory3)}
+              </p>
+            )}
             <div className={scss.viewsContainer}>
               <p>переглядів: </p>
               <HiOutlineEye className={scss.icon} />
