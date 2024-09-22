@@ -4,14 +4,15 @@ $product-list-padding-desktop: 10px 40px 20px;
 $product-list-padding-tablet: 16px;
 $product-list-padding-mobile: 4px;
 
+.productListWrapper {
+    display: flex;
+}
+
 .productList {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    background-color: var(--light-bg);
-    padding: $product-list-padding-mobile;
-
-    
+    padding: $product-list-padding-mobile;    
 
     @media (min-width: $tablet) {
         padding: $product-list-padding-tablet;
@@ -19,6 +20,7 @@ $product-list-padding-mobile: 4px;
 
     @media (min-width: $desktop) {
         padding: $product-list-padding-desktop;
+        width: 74%;
     }
 
     .header {

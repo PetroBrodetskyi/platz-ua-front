@@ -1,0 +1,71 @@
+@import 'src/styles/mixins';
+
+.cartItem {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--white);
+  &:hover {
+    background-color: #f0f0f0;
+  }
+}
+
+.productImage {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.productDetails {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  flex: 1;
+}
+
+.productName {
+  cursor: pointer;
+  font-size: 14px;
+  margin: 0 0 5px;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.buyButton {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+
+  &:hover {
+    background-color: #45a049;
+  }
+}
+
+.removeButton {
+  background-color: #ff4d4d;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+
+  &:hover {
+    background-color: #ff3333;
+  }
+}
