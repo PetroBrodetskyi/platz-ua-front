@@ -22,7 +22,7 @@ const SidebarFavorites = () => {
   return (
     <div className={scss.sidebarFavorites}>
       {favoriteProducts.length === 0 ? (
-        <p>У вас немає обраних товарів.</p>
+        <p>У вас немає обраних товарів</p>
       ) : (
         <ul className={scss.favoriteList}>
           <TransitionGroup className={scss.list}>

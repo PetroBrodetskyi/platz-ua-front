@@ -1,20 +1,18 @@
 import React, { useState } from 'react';
 import SidebarCart from './SidebarCart/SidebarCart';
 import SidebarFavorites from './SidebarFavorites/SidebarFavorites';
+import SidebarMyAds from './SidebarMyAds/SidebarMyAds';
 import { IoChevronUpOutline, IoChevronDownSharp } from "react-icons/io5";
 import scss from './Sidebar.module.scss';
 
 const Sidebar = ({ cartItems, selectedProducts, handleRemoveFromCart, handleProductClick }) => {
   const [isCartOpen, setIsCartOpen] = useState(true);
   const [isFavoritesOpen, setIsFavoritesOpen] = useState(true);
+  const [isMyAdsOpen, setIsMyAdsOpen] = useState(true); // Додано новий стейт
 
-  const toggleCart = () => {
-    setIsCartOpen((prev) => !prev);
-  };
-
-  const toggleFavorites = () => {
-    setIsFavoritesOpen((prev) => !prev);
-  };
+  const toggleCart = () => setIsCartOpen((prev) => !prev);
+  const toggleFavorites = () => setIsFavoritesOpen((prev) => !prev);
+  const toggleMyAds = () => setIsMyAdsOpen((prev) => !prev); // Додано
 
   return (
     <div className={scss.cartSidebar}>
@@ -39,6 +37,15 @@ const Sidebar = ({ cartItems, selectedProducts, handleRemoveFromCart, handleProd
       )}
 
       <div className={scss.divider}></div>
+
+      <h3 onClick={toggleMyAds} className={scss.toggleHeader}>
+        Мої оголошення {isMyAdsOpen ? <IoChevronUpOutline /> : <IoChevronDownSharp />}
+      </h3>
+      {isMyAdsOpen && (
+        <div className={scss.cartContent}>
+          <SidebarMyAds />
+        </div>
+      )}
     </div>
   );
 };

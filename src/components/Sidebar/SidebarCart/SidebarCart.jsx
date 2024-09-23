@@ -22,7 +22,7 @@ const SidebarCart = () => {
   return (
     <div className={scss.sidebarCart}>
       {cartItems.length === 0 ? (
-        <p>Ваш кошик порожній.</p>
+        <p>Ваш кошик порожній</p>
       ) : (
         <ul className={scss.cartList}>
           <TransitionGroup className={scss.list}>
