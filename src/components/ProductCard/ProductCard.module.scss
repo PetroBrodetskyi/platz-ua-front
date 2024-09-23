@@ -43,123 +43,142 @@
         padding: 0;
     }
 
-        
-}
-
-.dateCart {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-}
-
-.product {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-
-    @media (min-width: $tablet) {
-        gap: 8px;
-
-        &.listItem {
-                flex-direction: row;
-                gap: 0;
-            }
+    .dateCart {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
     }
 
-    @media (min-width: $desktop) {
-        &.listItem {
-        flex-direction: row;
-        gap: 0;
-        }
-    }
-
-    .productImage {
-        position: relative;
-        width: 100%;
-        height: 170px;
-
-        &.listItem {
-                height: 340px;
-            }
+    .product {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
 
         @media (min-width: $tablet) {
-            height: 240px;
+            gap: 8px;
 
             &.listItem {
-                width: 40%;
-                height: 240px;
+                flex-direction: row;
+                gap: 0;
             }
         }
 
         @media (min-width: $desktop) {
-            height: 280px;
-
             &.listItem {
-                height: 280px;
+                flex-direction: row;
+                gap: 0;
             }
         }
 
-        .image {
+        .productImage {
+            position: relative;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            cursor: pointer;
+            height: 170px;
 
-        }
+            &.listItem {
+                height: 340px;
+            }
 
-        .ownerViews {
-            display: flex;
-            align-items: center;
-            position: absolute;
-            top: 0;
-            left: 0;
-            padding: 8px;
-            display: flex;
-            justify-content: space-between;
-            z-index: 1;
-            width: 100%;
-            color: var(--white);
-            font-size: 16px;
-        }
-
-        .ownerContainer {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-
-            .avatar {
-                border-radius: 50%;
-                border: 4px solid var(--white);
-                width: 16px;
-                height: 16px;
+            @media (min-width: $tablet) {
+                height: 240px;
 
                 &.listItem {
-                    width: 24px;
-                    height: 24px;
+                    width: 40%;
+                    height: 240px;
                 }
+            }
 
-                @media (min-width: $tablet) {
-                    width: 20px;
-                    height: 20px;
+            @media (min-width: $desktop) {
+                height: 280px;
+
+                &.listItem {
+                    height: 280px;
                 }
+            }
 
-                @media (min-width: $desktop) {
-                    width: 30px;
-                    height: 30px;
+            .image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                cursor: pointer;
+            }
+
+            .ownerViews {
+                display: flex;
+                align-items: center;
+                position: absolute;
+                top: 0;
+                left: 0;
+                padding: 8px;
+                display: flex;
+                justify-content: space-between;
+                z-index: 1;
+                width: 100%;
+                color: var(--white);
+                font-size: 16px;
+            }
+
+            .ownerContainer {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+
+                .avatar {
+                    border-radius: 50%;
+                    border: 4px solid var(--white);
+                    width: 16px;
+                    height: 16px;
 
                     &.listItem {
-                        width: 28px;
-                        height: 28px;
+                        width: 24px;
+                        height: 24px;
+                    }
+
+                    @media (min-width: $tablet) {
+                        width: 20px;
+                        height: 20px;
+                    }
+
+                    @media (min-width: $desktop) {
+                        width: 30px;
+                        height: 30px;
+
+                        &.listItem {
+                            width: 28px;
+                            height: 28px;
+                        }
+                    }
+                }
+
+                .name {
+                    font-size: 10px;
+                    background-color: rgba(0, 0, 0, 0.2);
+                    padding: 2px 4px;
+                    cursor: pointer;
+
+                    &.listItem {
+                        font-size: 12px;
+                    }
+
+                    @media (min-width: $tablet) {
+                        font-size: 12px;
+                    }
+
+                    @media (min-width: $desktop) {
+                        font-size: 14px;
                     }
                 }
             }
 
-            .name {
+            .viewsQuantity {
+                display: flex;
+                padding: 2px 4px;
+                gap: 4px;
+                align-items: center;
                 font-size: 10px;
                 background-color: rgba(0, 0, 0, 0.2);
-                padding: 2px 4px;
-                cursor: pointer;
+                text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 
                 &.listItem {
                     font-size: 12px;
@@ -172,244 +191,149 @@
                 @media (min-width: $desktop) {
                     font-size: 14px;
                 }
+
+                .icon {
+                    font-size: 12px;
+
+                    &.listItem {
+                        font-size: 14px;
+                    }
+
+                    @media (min-width: $desktop) {
+                        font-size: 18px;
+                    }
+                }
             }
         }
 
-        .viewsQuantity {
+        .productInfo {
             display: flex;
-            padding: 2px 4px;
-            gap: 4px;
-            align-items: center;
+            flex-direction: column;
+            justify-content: space-between;
+            flex: 1;
+            padding: 0 4px;
+
+            @media (min-width: $tablet) {
+                padding: 0 10px 10px;
+
+                &.listItem {
+                    padding: 10px 10px;
+                }
+            }
+
+            @media (min-width: $desktop) {
+                padding: 0 10px 10px;
+
+                &.listItem {
+                    padding: 10px 20px;
+                }
+            }
+        }
+
+        .description {
             font-size: 10px;
-            background-color: rgba(0, 0, 0, 0.2);
-            text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 80%;
 
             &.listItem {
-                font-size: 12px;
+                font-size: 14px;
+                max-width: 86%;
             }
 
             @media (min-width: $tablet) {
                 font-size: 12px;
-            }
-
-            @media (min-width: $desktop) {
-                font-size: 14px;
-            }
-
-            .icon {
-                font-size: 12px;
+                max-width: 100px;
 
                 &.listItem {
                     font-size: 14px;
-                }
+                    white-space: wrap;
+                    max-width: 100%;
+                    overflow-y: auto;
+                    max-height: 144px;
 
-                @media (min-width: $desktop) {
-                    font-size: 18px;
-                }
-            }
-        }
-    }
-
-    .productInfo {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        flex: 1;
-        padding: 0 4px;
-
-        @media (min-width: $tablet) {
-            padding: 0 10px 10px;
-
-            &.listItem {
-                padding: 10px 10px;
-            }
-        }
-
-        @media (min-width: $desktop) {
-            padding: 0 10px 10px;
-
-            &.listItem {
-                padding: 10px 20px;
-            }
-        }
-    }
-
-    .description {
-        font-size: 10px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 80%;
-
-        &.listItem {
-            font-size: 14px;
-            max-width: 86%;
-        }
-
-        @media (min-width: $tablet) {
-            font-size: 12px;
-            max-width: 100px;
-
-            &.listItem {
-                font-size: 14px;
-                white-space: wrap;
-                max-width: 100%;
-                overflow-y: auto;
-                max-height: 144px;
-
-                &::-webkit-scrollbar {
-                    display: none;
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
                 }
             }
-        }
-
-        @media (min-width: $desktop) {
-            font-size: 14px;
-            max-width: 280px;
-
-            &.listItem {
-                white-space: wrap;
-                max-width: 96%;
-                max-height: 164px;
-
-                &::-webkit-scrollbar {
-                    display: none;
-                }
-                
-            }
-        }
-    }
-
-    .tooltipWrapper {
-        position: relative;
-        display: inline-block;
-
-        &:hover .tooltip {
-            visibility: visible;
-            opacity: 1;
-        }
-    }
-
-    .tooltip {
-        visibility: hidden;
-        width: 120px;
-        background-color: #333333;
-        color: var(--white);
-        text-align: center;
-        padding: 5px 0;
-        position: absolute;
-        z-index: 1;
-        bottom: 100%;
-        left: 50%;
-        margin-left: -60px;
-        opacity: 0;
-        transition: opacity 0.3s;
-        font-size: 12px;
-        white-space: nowrap;
-    }
-
-    .expandButtonContainer {
-        visibility: hidden;
-
-        @media (min-width: $tablet) {
-            visibility: visible;
-
-            &.listItem {
-                visibility: hidden;
-            }
-        }
-
-        @media (min-width: $desktop) {
-            visibility: visible;
-
-            &.listItem {
-                visibility: hidden;
-            }
-        }
-    }
-
-    .expandButton {
-        cursor: pointer;
-        transition: background-color 0.3s;
-
-        .icon {
-            font-size: 16px;
 
             @media (min-width: $desktop) {
-                font-size: 20px;
+                font-size: 14px;
+                max-width: 280px;
+
+                &.listItem {
+                    white-space: wrap;
+                    max-width: 96%;
+                    max-height: 164px;
+
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .tooltipWrapper {
+            position: relative;
+            display: inline-block;
+
+            &:hover .tooltip {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+
+        .tooltip {
+            visibility: hidden;
+            width: 120px;
+            background-color: #333333;
+            color: var(--white);
+            text-align: center;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .expandButtonContainer {
+            visibility: hidden;
+
+            @media (min-width: $tablet) {
+                visibility: visible;
+
+                &.listItem {
+                    visibility: hidden;
+                }
+            }
+
+            @media (min-width: $desktop) {
+                visibility: visible;
+
+                &.listItem {
+                    visibility: hidden;
+                }
+            }
+        }
+
+        .expandButton {
+            cursor: pointer;
+            transition: background-color 0.3s;
+
+            .icon {
+                font-size: 16px;
+
+                @media (min-width: $desktop) {
+                    font-size: 20px;
+                }
             }
         }
     }
-}
-
-.productDescription {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    margin-top: 2px;
-    padding: 12px 10px;
-    background: var(--white);
-    border: 1px solid var(--light-grey);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: max-height 0.3s ease, padding 0.3s ease;
-    z-index: 10;
-
-    @media (min-width: $desktop) {
-        padding: 14px 12px;
-    }
-}
-
-.paragraphContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    font-size: 12px;
-    gap: 12px;
-
-    @media (min-width: $desktop) {
-        font-size: 14px;
-        gap: 16px;
-    }
-}
-
-.desc {
-    max-height: 310px;
-    overflow: auto;
-
-    @media (min-width: $desktop) {
-        max-height: 360px;
-    }
-}
-
-.desc::-webkit-scrollbar {
-    display: none;
-}
-
-.productDescription.visible {
-    display: block;
-}
-
-.productDescription.hidden {
-    display: none;
-}
-
-.locationContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .icon {
-        font-size: 14px;
-
-        @media (min-width: $desktop) {
-            font-size: 18px;
-        }
-    }
-}
-
-.locationItem {
-    display: flex;
-    gap: 4px;
-    align-items: center;
 }

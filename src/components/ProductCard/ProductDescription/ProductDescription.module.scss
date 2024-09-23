@@ -1,0 +1,73 @@
+@import 'src/styles/mixins';
+
+.productDescription {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 2px;
+    padding: 12px 10px;
+    background: var(--white);
+    border: 1px solid var(--light-grey);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    z-index: 10;
+
+    @media (min-width: $desktop) {
+        padding: 14px 12px;
+    }
+
+    .paragraphContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        font-size: 12px;
+        gap: 12px;
+
+        @media (min-width: $desktop) {
+            font-size: 14px;
+            gap: 16px;
+        }
+    }
+
+    .desc {
+        max-height: 310px;
+        overflow: auto;
+
+        @media (min-width: $desktop) {
+            max-height: 360px;
+        }
+    }
+
+    .desc::-webkit-scrollbar {
+        display: none;
+    }
+
+    &.visible {
+        display: block;
+    }
+
+    &.hidden {
+        display: none;
+    }
+
+    .locationContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .icon {
+            font-size: 14px;
+
+            @media (min-width: $desktop) {
+                font-size: 18px;
+            }
+        }
+    }
+
+    .locationItem {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+    }
+}

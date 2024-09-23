@@ -7,20 +7,17 @@ import { toggleFavorite } from '../../redux/features/favoritesSlice';
 import { addToCart, removeFromCart } from '../../redux/features/cartSlice';
 import { useNavigate } from 'react-router-dom';
 import { HiOutlineEye } from 'react-icons/hi';
-import { TbLocation } from 'react-icons/tb';
 import { IoChevronUpOutline } from 'react-icons/io5';
 import { RiPlayList2Fill } from 'react-icons/ri';
-import { SlLocationPin } from 'react-icons/sl';
-import { FiX } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import Skeleton from '@mui/material/Skeleton';
-import scss from './ProductCard.module.scss';
-
 import Notification from '../Notification/Notification';
 import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
 import CreateCondition from './CreateCondition/CreateCondition';
 import Loader from '../Loader/Loader';
+import ProductDescription from './ProductDescription/ProductDescription';
+import scss from './ProductCard.module.scss';
 
 const ProductCard = ({ viewMode }) => {
   const dispatch = useDispatch();
@@ -156,8 +153,7 @@ const ProductCard = ({ viewMode }) => {
                         </div>
                       </div>
                       {image1 ? (
-                        <img src={image1} alt={name} onClick={() => handleProductClick(_id)} loading="lazy"
-                        className={scss.image}/>
+                        <img src={image1} alt={name} onClick={() => handleProductClick(_id)} loading="lazy" className={scss.image} />
                       ) : (
                         <Skeleton variant="rectangular" width={210} height={118} />
                       )}
@@ -195,36 +191,13 @@ const ProductCard = ({ viewMode }) => {
                       </div>
                     </div>
                   </div>
-                  <AnimatePresence>
-                    {showDescriptions[_id] && (
-                      <motion.div
-                        className={`${scss.productDescription} ${scss.visible}`}
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <div className={scss.paragraphContainer}>
-                          <div>
-                            <p className={scss.desc}>{description}</p>
-                          </div>
-                          <div className={scss.locationContainer}>
-                            <div className={scss.locationItem}>
-                              <TbLocation />
-                              <p>{PLZ}</p>
-                            </div>
-                            <button onClick={() => handleToggleDescription(_id)}>
-                              <FiX className={scss.icon} />
-                            </button>
-                            <div className={scss.locationItem}>
-                              <SlLocationPin />
-                              <p>{city}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  <ProductDescription
+                    show={showDescriptions[_id]}
+                    description={description}
+                    PLZ={PLZ}
+                    city={city}
+                    onToggle={() => handleToggleDescription(_id)}
+                  />
                 </motion.li>
               );
             })}
