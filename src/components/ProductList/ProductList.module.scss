@@ -1,11 +1,19 @@
 @import 'src/styles/mixins';
 
-$product-list-padding-desktop: 10px 40px 20px;
+$product-list-padding-desktop: 10px 20px;
 $product-list-padding-tablet: 16px;
 $product-list-padding-mobile: 4px;
 
 .productListWrapper {
     display: flex;
+    
+    @media (min-width: $tablet) {
+        justify-content: center;
+    }
+
+    @media (min-width: $desktop) {
+        justify-content: flex-start;
+    }
 }
 
 .productList {

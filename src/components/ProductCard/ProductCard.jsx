@@ -100,8 +100,8 @@ const ProductCard = ({ viewMode }) => {
   };
 
   const handleToggleDescription = (productId) => {
-    setShowDescriptions((prev) => ({ ...prev, [productId]: !prev[productId] }));
-  };
+  setShowDescriptions((prev) => ({ ...prev, [productId]: !prev[productId] }));
+};
 
   const fetchMoreProducts = () => setCurrentPage((prevPage) => prevPage + 1);
 
@@ -193,6 +193,7 @@ const ProductCard = ({ viewMode }) => {
                   </div>
                   <ProductDescription
                     show={showDescriptions[_id]}
+                    name={name}
                     description={description}
                     PLZ={PLZ}
                     city={city}

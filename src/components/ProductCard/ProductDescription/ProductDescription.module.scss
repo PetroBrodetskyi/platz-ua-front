@@ -1,73 +1,70 @@
 @import 'src/styles/mixins';
 
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .productDescription {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    margin-top: 2px;
-    padding: 12px 10px;
-    background: var(--white);
-    border: 1px solid var(--light-grey);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: max-height 0.3s ease, padding 0.3s ease;
-    z-index: 10;
+  background: var(--white);
+  border: 1px solid var(--light-grey);
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  width: 90%;
+  max-width: 600px;
 
-    @media (min-width: $desktop) {
-        padding: 14px 12px;
+  .titleContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+        margin: 0;
     }
 
-    .paragraphContainer {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        font-size: 12px;
-        gap: 12px;
+    .icon {
+      font-size: 18px;
 
-        @media (min-width: $desktop) {
-            font-size: 14px;
-            gap: 16px;
-        }
+      @media (min-width: $desktop) {
+        font-size: 20px;
+      }
     }
+  }
 
-    .desc {
-        max-height: 310px;
-        overflow: auto;
+  .desc {
+    max-height: 300px;
+    overflow-y: auto;
 
-        @media (min-width: $desktop) {
-            max-height: 360px;
-        }
+    &::-webkit-scrollbar {
+      display: none;
     }
+  }
 
-    .desc::-webkit-scrollbar {
-        display: none;
-    }
-
-    &.visible {
-        display: block;
-    }
-
-    &.hidden {
-        display: none;
-    }
-
-    .locationContainer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        .icon {
-            font-size: 14px;
-
-            @media (min-width: $desktop) {
-                font-size: 18px;
-            }
-        }
-    }
+  .locationContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     .locationItem {
-        display: flex;
-        gap: 4px;
-        align-items: center;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
+  }
 }
+
