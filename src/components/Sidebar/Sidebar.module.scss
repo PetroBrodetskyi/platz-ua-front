@@ -7,11 +7,24 @@
   padding: 14px 0;
 }
 
-.cartItems, .selectedProducts {
+.toggleHeader {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cartContent {
+  overflow: hidden;
+  transition: max-height 2s ease-in-out;
+}
+
+.selectedProducts {
   margin-bottom: 20px;
 }
 
-.cartItem, .selectedProduct {
+.selectedProduct {
   display: flex;
   justify-content: space-between;
   align-items: center;

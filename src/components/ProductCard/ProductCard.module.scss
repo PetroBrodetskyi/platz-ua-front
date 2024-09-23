@@ -30,6 +30,7 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    border-bottom: 1px solid #ddd;
 
     @include transition(box-shadow);
     min-width: 192px;

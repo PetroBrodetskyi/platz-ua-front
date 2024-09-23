@@ -1,10 +1,11 @@
 @import 'src/styles/mixins';
 
-.cartItem {
+.favoriteItem {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #ddd;
   background-color: var(--white);
+  border-bottom: 1px solid #ddd;
+
   &:hover {
     background-color: var(--light-grey);
   }
@@ -40,8 +41,8 @@
   flex: 1;
 }
 
-.buyButton {
-  background-color: var(--logo-yellow);
+.viewButton {
+  background-color: var(--blue);
   color: var(--white);
   border: none;
   padding: 4px 10px;
@@ -50,7 +51,7 @@
   font-size: 12px;
 
   &:hover {
-    background-color: #45a049;
+    background-color: #0073e6;
   }
 }
 
@@ -66,4 +67,8 @@
   &:hover {
     background-color: #ff3333;
   }
+}
+
+.trashIcon {
+  margin-left: 5px;
 }
