@@ -8,16 +8,6 @@ const ProductList = () => {
   const [viewMode, setViewMode] = useState('grid');
   const [cartItems, setCartItems] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 767);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 767);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   useEffect(() => {
     const savedViewMode = localStorage.getItem('viewMode');
@@ -51,14 +41,12 @@ const ProductList = () => {
         </div>
       </div>
 
-      {isDesktop && (
         <Sidebar
           cartItems={cartItems}
           selectedProducts={selectedProducts}
           handleRemoveFromCart={handleRemoveFromCart}
           handleProductClick={handleProductClick}
         />
-      )}
     </div>
   );
 };

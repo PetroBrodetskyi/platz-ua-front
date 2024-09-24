@@ -76,7 +76,9 @@
             height: 170px;
 
             &.listItem {
-                height: 340px;
+                @media (max-width: $tablet) {
+                height: auto;
+                }
             }
 
             @media (min-width: $tablet) {
@@ -126,7 +128,7 @@
 
                 .avatar {
                     border-radius: 50%;
-                    border: 4px solid var(--white);
+                    border: 2px solid var(--white);
                     width: 16px;
                     height: 16px;
 
@@ -141,8 +143,8 @@
                     }
 
                     @media (min-width: $desktop) {
-                        width: 30px;
-                        height: 30px;
+                        width: 34px;
+                        height: 34px;
 
                         &.listItem {
                             width: 28px;
@@ -286,13 +288,13 @@
         }
 
         .expandButtonContainer {
-            visibility: hidden;
+            visibility: visible;
 
             @media (min-width: $tablet) {
                 visibility: visible;
 
                 &.listItem {
-                    visibility: hidden;
+                    visibility: visible;
                 }
             }
 
@@ -300,7 +302,7 @@
                 visibility: visible;
 
                 &.listItem {
-                    visibility: hidden;
+                    visibility: visible;
                 }
             }
         }

@@ -1,5 +1,17 @@
 @import 'src/styles/mixins';
 
+.container {
+    padding: 4px;
+
+    @media (min-width: $tablet) {
+        padding: 20px;
+    }
+
+    @media (min-width: $desktop) {
+        padding: 20px;
+    }
+}
+
 .list {
     display: flex;
     flex-wrap: wrap;

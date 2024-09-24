@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchComments, addComment } from '../../redux/features/commentsSlice';
+import { fetchComments, addComment, deleteComment } from '../../redux/features/commentsSlice';
 import Notification from '../Notification/Notification';
 import { nanoid } from 'nanoid';
 import scss from './Comments.module.scss';
@@ -30,6 +30,15 @@ const Comments = ({ productId }) => {
       } else {
         setNotification('Помилка додавання коментаря');
       }
+    }
+  };
+
+  const handleDeleteComment = async (commentId) => {
+  const resultAction = await dispatch(deleteComment({ productId, commentId }));
+    if (deleteComment.fulfilled.match(resultAction)) {
+      setNotification('Коментар видалено');
+    } else {
+      setNotification('Помилка видалення коментаря');
     }
   };
 
@@ -66,6 +75,14 @@ const Comments = ({ productId }) => {
                 <p>{new Date(comment.createdAt).toLocaleDateString()}</p>
                 <p>{new Date(comment.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
               </div>
+              {currentUser?._id === comment.user._id && (
+                <button 
+                  className={scss.deleteButton} 
+                  onClick={() => handleDeleteComment(comment._id)}
+                >
+                  Видалити
+                </button>
+              )}
             </div>
           ))
         ) : (

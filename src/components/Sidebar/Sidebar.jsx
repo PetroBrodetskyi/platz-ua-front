@@ -8,13 +8,14 @@ import scss from './Sidebar.module.scss';
 const Sidebar = ({ cartItems, selectedProducts, handleRemoveFromCart, handleProductClick }) => {
   const [isCartOpen, setIsCartOpen] = useState(true);
   const [isFavoritesOpen, setIsFavoritesOpen] = useState(true);
-  const [isMyAdsOpen, setIsMyAdsOpen] = useState(true); // Додано новий стейт
+  const [isMyAdsOpen, setIsMyAdsOpen] = useState(true);
 
   const toggleCart = () => setIsCartOpen((prev) => !prev);
   const toggleFavorites = () => setIsFavoritesOpen((prev) => !prev);
-  const toggleMyAds = () => setIsMyAdsOpen((prev) => !prev); // Додано
+  const toggleMyAds = () => setIsMyAdsOpen((prev) => !prev);
 
   return (
+    <div className={scss.sidebar}>
     <div className={scss.cartSidebar}>
       <h3 onClick={toggleCart} className={scss.toggleHeader}>
         Кошик {isCartOpen ? <IoChevronUpOutline /> : <IoChevronDownSharp />}
@@ -46,6 +47,7 @@ const Sidebar = ({ cartItems, selectedProducts, handleRemoveFromCart, handleProd
           <SidebarMyAds />
         </div>
       )}
+      </div>
     </div>
   );
 };

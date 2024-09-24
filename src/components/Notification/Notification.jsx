@@ -9,7 +9,7 @@ const Notification = ({ message, onClose }) => {
 
   return (
     <div className={scss.notification}>
-      <p>{message}</p>
+      <p className={scss.message}>{message}</p>
     </div>
   );
 };

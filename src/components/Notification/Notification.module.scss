@@ -1,10 +1,12 @@
+@import 'src/styles/mixins';
+
 .notification {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #333;
-    color: #fff;
+    color: var(--white);
     padding: 16px 24px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -12,9 +14,17 @@
     animation: fadeInOut 3s forwards;
     z-index: 200;
 
-    p {
-        margin: 0;
-        font-size: 1rem;
+    .message {
+        font-size: 12px;
+        text-align: center;
+
+        @media (min-width: $tablet) {
+        font-size: 14px;
+        }
+
+        @media (min-width: $desktop) {
+            font-size: 16px;
+        }
     }
 }
 

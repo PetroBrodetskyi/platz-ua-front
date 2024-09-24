@@ -30,6 +30,22 @@ export const addComment = createAsyncThunk(
   }
 );
 
+export const deleteComment = createAsyncThunk(
+  'comments/deleteComment',
+  async ({ productId, commentId }, { rejectWithValue }) => {
+    try {
+      await axios.delete(`/products/${productId}/comments/${commentId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      return { productId, commentId };
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const commentsSlice = createSlice({
   name: 'comments',
   initialState: {
@@ -64,6 +80,17 @@ const commentsSlice = createSlice({
         } else {
           state.comments.push({ productId, comments: [comment] });
         }
+      })
+      .addCase(deleteComment.fulfilled, (state, action) => {
+        state.comments = state.comments.map(comment => {
+          if (comment.productId === action.payload.productId) {
+            return {
+              ...comment,
+              comments: comment.comments.filter(c => c._id !== action.payload.commentId),
+            };
+          }
+          return comment;
+        });
       });
   },
 });

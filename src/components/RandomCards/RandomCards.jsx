@@ -89,7 +89,7 @@ const RandomCards = () => {
   }, [products, randomProducts]);
 
   return (
-    <>
+    <div className={scss.container}>
      <h3>Вас можуть зацікавити</h3>
       <ul className={scss.list}>
         {randomProducts.map((product) => {
@@ -165,7 +165,7 @@ const RandomCards = () => {
           onClose={() => setNotification('')}
         />
       )}
-    </>
+    </div>
   );
 };
 
