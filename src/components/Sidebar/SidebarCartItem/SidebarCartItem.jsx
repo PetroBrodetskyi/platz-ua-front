@@ -19,7 +19,7 @@ const SidebarCartItem = ({ item, onRemove, onProductClick }) => {
       <div className={scss.productDetails}>
         <div>
           <div onClick={() => onProductClick(item._id)} className={scss.productName}>
-          <h4>{item.name}</h4><p>€{item.price}</p>
+          <h4 className={scss.title}>{item.name}</h4><p>€{item.price}</p>
               </div>
           <div><p>{item.PLZ} {item.city}</p></div>
         </div>

@@ -26,7 +26,6 @@
 
 .comment {
     border-bottom: 1px solid #ddd;
-    padding: 10px 0;
 }
 
 .avatar {
@@ -34,10 +33,18 @@
     height: 40px;
     border-radius: 50%;
     border: 2px solid var(--dark-bg);
-    padding: 4px;
+}
+
+.textarea {
+    width: 100%;
+    resize: none;
+    font-family: var(--font-family);
+    padding: 10px;
 }
 
 .dateTime {
+    display: flex;
+    gap: 8px;
     font-size: 12px;
 }
 

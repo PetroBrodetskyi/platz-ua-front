@@ -31,6 +31,13 @@
   justify-content: space-between;
   cursor: pointer;
   font-size: 14px;
+
+  .title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+  }
 }
 
 .actions {

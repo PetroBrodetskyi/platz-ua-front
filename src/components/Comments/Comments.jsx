@@ -37,12 +37,15 @@ const Comments = ({ productId }) => {
     navigate(`/user/${userId}`);
   };
 
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
+
   if (loading) return <p>Завантаження коментарів...</p>;
   if (error) return <p>Помилка завантаження коментарів: {error}</p>;
 
   return (
     <div className={scss.comments}>
-      <h3>Питання та коментарі</h3>
       {notification && (
         <Notification message={notification} />
       )}
@@ -59,21 +62,30 @@ const Comments = ({ productId }) => {
                 <h4>{comment.user ? comment.user.name : 'Anonymous'}</h4>
               </div>
               <p>{comment.text}</p>
-              <p className={scss.dateTime}>{new Date(comment.createdAt).toLocaleDateString()} {new Date(comment.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+              <div className={scss.dateTime}>
+                <p>{new Date(comment.createdAt).toLocaleDateString()}</p>
+                <p>{new Date(comment.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+              </div>
             </div>
           ))
         ) : (
           <p>Ви можете написати перший коментар</p>
         )}
       </div>
-      {currentUser && (
+      {currentUser ? (
         <div className={scss.addComment}>
           <textarea
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="Додати коментар..."
+            className={scss.textarea}
           />
           <button onClick={handleAddComment}>Додати коментар</button>
+        </div>
+      ) : (
+        <div className={scss.loginPrompt}>
+          <p>Увійдіть, щоб відправити повідомлення.</p>
+          <button onClick={handleLoginClick}>Увійти</button>
         </div>
       )}
     </div>

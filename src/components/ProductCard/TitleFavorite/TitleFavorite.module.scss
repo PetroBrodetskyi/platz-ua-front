@@ -13,6 +13,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: 120px;
+        margin: 0;
 
         &.listItem {
             font-size: 16px;
@@ -30,24 +31,30 @@
         }
     }
 
-    .favoriteIcon {
-        font-size: 16px;
+    .icon {
         cursor: pointer;
 
         &.listItem {
             font-size: 20px;
+
+                @media (min-width: $tablet) {
+                font-size: 20px;
+            }
+        
+                @media (min-width: $desktop) {
+                    font-size: 22px;
+            }
         }
 
         &.favorite {
             color: red;
         }
 
-        @media (min-width: $tablet) {
-            font-size: 20px;
-        }
         
-        @media (min-width: $desktop) {
-            font-size: 24px;
-        }
+    }
+
+    .icons {
+        display: flex;
+        gap: 4px;
     }
 }

@@ -18,7 +18,7 @@ const SidebarFavoriteItem = ({ product, onRemove }) => {
       />
       <div className={scss.productDetails}>
         <div onClick={handleProductClick} className={scss.productName}>
-          <h4>{product.name}</h4><p>€{product.price}</p>
+          <h4 className={scss.title}>{product.name}</h4><p>€{product.price}</p>
               </div>
               <div>
               <p>{product.PLZ} {product.city}</p></div>

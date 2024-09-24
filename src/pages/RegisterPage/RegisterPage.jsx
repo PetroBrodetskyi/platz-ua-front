@@ -1,12 +1,12 @@
 import React from 'react';
 import RegisterForm from '../../components/Auth/RegisterForm/RegisterForm';
-import ProductList from '../../components/ProductList/ProductList';
+import RandomCards from '../../components/RandomCards/RandomCards';
 
 const RegisterPage = () => {
     return (
         <div>
             <RegisterForm />
-            <ProductList />
+            <RandomCards />
         </div>
     );
 };
