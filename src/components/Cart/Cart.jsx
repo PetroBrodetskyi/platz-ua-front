@@ -9,8 +9,9 @@ import { ConfirmationLogin } from '../Confirmation/Confirmation';
 
 const Cart = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [validCartItems, setValidCartItems] = useState([]);
   const cartItems = useSelector((state) => state.cart.items);
-  const { exchangeRate } = useSelector((state) => state.products);
+  const { products, exchangeRate } = useSelector((state) => state.products);
   const currentUser = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,18 +30,14 @@ const Cart = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const confirmationShown = localStorage.getItem('confirmationShown');
+    const filteredCartItems = cartItems.filter(item => products.some(product => product._id === item._id));
+    
+    setValidCartItems(filteredCartItems);
 
-    if (!currentUser) {
-      if (!confirmationShown) {
-        setShowConfirmation(true);
-        localStorage.setItem('confirmationShown', 'true');
-      }
-    } else {
-      setShowConfirmation(false);
-      localStorage.removeItem('confirmationShown');
-    }
-  }, [currentUser]);
+    const invalidCartItems = cartItems.filter(item => !products.some(product => product._id === item._id));
+    invalidCartItems.forEach(item => dispatch(removeFromCart(item._id)));
+
+  }, [cartItems, products, dispatch]);
 
   const handleRemoveFromCart = (productId) => {
     dispatch(removeFromCart(productId));
@@ -67,11 +64,11 @@ const Cart = () => {
   return (
     <div className={scss.cart}>
       <h2>Ваш кошик</h2>
-      {cartItems.length === 0 ? (
+      {validCartItems.length === 0 ? (
         <p>Ваш кошик порожній.</p>
       ) : (
         <ul className={scss.cartList}>
-          {cartItems.map((item) => (
+          {validCartItems.map((item) => (
             <CartItem 
               key={item._id} 
               item={item} 

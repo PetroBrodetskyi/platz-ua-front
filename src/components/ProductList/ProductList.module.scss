@@ -8,7 +8,7 @@ $product-list-padding-mobile: 4px;
     display: flex;
     
     @media (min-width: $tablet) {
-        justify-content: center;
+        justify-content: flex-start;
     }
 
     @media (min-width: $desktop) {
@@ -24,6 +24,7 @@ $product-list-padding-mobile: 4px;
 
     @media (min-width: $tablet) {
         padding: $product-list-padding-tablet;
+        width: 100%;
     }
 
     @media (min-width: $desktop) {
@@ -45,8 +46,8 @@ $product-list-padding-mobile: 4px;
             font-size: 14px;
 
             @media (min-width: $desktop) {
-                    font-size: 16px;
-                }
+                font-size: 16px;
+            }
         }
     }
 

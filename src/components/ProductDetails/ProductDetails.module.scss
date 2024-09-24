@@ -1,6 +1,6 @@
 @import 'src/styles/mixins';
 
-$padding-desktop: 80px 40px;
+$padding-desktop: 80px 20px;
 $padding-tablet: 0 20px;
 $padding-mobile: 20px;
 
@@ -9,7 +9,6 @@ $gap-tablet: 12px;
 $gap-mobile: 10px;
 
 .product {
-    background-color: var(--light-bg);
     display: flex;
     flex-direction: column;
 
@@ -34,7 +33,7 @@ $gap-mobile: 10px;
 
         @media (min-width: $desktop) {
             flex-direction: row;
-            gap: 0;
+            gap: 20px;
         }
 
     }

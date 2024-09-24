@@ -32,14 +32,14 @@ export const addComment = createAsyncThunk(
 
 export const deleteComment = createAsyncThunk(
   'comments/deleteComment',
-  async ({ productId, commentId }, { rejectWithValue }) => {
+  async ({ productId, userId }, { rejectWithValue }) => {
     try {
-      await axios.delete(`/products/${productId}/comments/${commentId}`, {
+      await axios.delete(`/products/${productId}/comments/${userId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       });
-      return { productId, commentId };
+      return { productId, userId };
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -86,7 +86,7 @@ const commentsSlice = createSlice({
           if (comment.productId === action.payload.productId) {
             return {
               ...comment,
-              comments: comment.comments.filter(c => c._id !== action.payload.commentId),
+              comments: comment.comments.filter(c => c._id !== action.payload.userId),
             };
           }
           return comment;

@@ -33,8 +33,8 @@ const Comments = ({ productId }) => {
     }
   };
 
-  const handleDeleteComment = async (commentId) => {
-  const resultAction = await dispatch(deleteComment({ productId, commentId }));
+  const handleDeleteComment = async (comment) => {
+  const resultAction = await dispatch(deleteComment({ productId, commentId: comment._id, userId: currentUser._id }));
     if (deleteComment.fulfilled.match(resultAction)) {
       setNotification('Коментар видалено');
     } else {
@@ -78,7 +78,7 @@ const Comments = ({ productId }) => {
               {currentUser?._id === comment.user._id && (
                 <button 
                   className={scss.deleteButton} 
-                  onClick={() => handleDeleteComment(comment._id)}
+                  onClick={() => handleDeleteComment(comment)}
                 >
                   Видалити
                 </button>

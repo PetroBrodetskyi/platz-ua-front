@@ -3,12 +3,11 @@ import { TbLocation } from 'react-icons/tb';
 import { SlLocationPin } from 'react-icons/sl';
 import { MdOutlineDateRange } from 'react-icons/md';
 import { FaRegFaceSmile, FaRegFaceMeh } from 'react-icons/fa6';
-import { HiOutlineEye } from "react-icons/hi";
 import scss from './ProductInfo.module.scss';
 import CartPrice from '../../ProductCard/CartPrice/CartPrice';
 import ShareMenu from '../../ShareMenu/ShareMenu';
 import ActionButton from '../ActionButton/ActionButton';
-import { getCategoryIcon, getSubcategoryIcon } from '../../Categories/icons';
+import Categoryes from '../Categories/Categories';
 
 const ProductInfo = ({
   product,
@@ -75,7 +74,7 @@ const ProductInfo = ({
           </div>
         </div>
 
-        <p>
+        <p className={scss.description} >
           {' '}
           {isEditing ? (
             <textarea
@@ -88,11 +87,24 @@ const ProductInfo = ({
             product.description
           )}
         </p>
-        </div>
+        <div className={scss.edit}>
+          {currentUser && currentUser._id === product.owner && (
+            <ActionButton
+              isEditing={isEditing}
+              onClick={isEditing ? handleSaveClick : handleEditClick}
+            />
+          )}
+      </div>
+      </div>
         <div className={scss.editContainer}>
           <div className={scss.infoContainer}>
-            <h4>Інформація</h4>
-            <div className={scss.radio}>
+            <p className={scss.detailsFlex}>
+              PLZ: <TbLocation className={scss.icon} /> {product.PLZ}
+            </p>
+            <p className={scss.detailsFlex}>
+              місто: <SlLocationPin className={scss.icon} /> {product.city}
+          </p>
+          <div className={scss.radio}>
               стан:{' '}
               {isEditing ? (
                 <div className={scss.conditionOptions}>
@@ -131,52 +143,14 @@ const ProductInfo = ({
                 </p>
               )}
             </div>
-
-            <p className={scss.detailsFlex}>
-              PLZ: <TbLocation className={scss.icon} /> {product.PLZ}
-            </p>
-            <p className={scss.detailsFlex}>
-              місто: <SlLocationPin className={scss.icon} /> {product.city}
-            </p>
             <p className={scss.detailsFlex}>
             додано: <MdOutlineDateRange className={scss.icon} /> {formattedDate}
           </p>
-          
-          </div>
-
-          <div className={scss.categoryesContainer}>
-            <p className={scss.categoryFlex}>
-              {product.category} {getCategoryIcon(product.category)}
-            </p>
-            <p className={scss.categoryFlex}>
-              {product.subcategory1} {getSubcategoryIcon(product.subcategory1)}
-            </p>
-            {product.subcategory2 && (
-              <p className={scss.categoryFlex}>
-                {product.subcategory2} {getSubcategoryIcon(product.subcategory2)}
-              </p>
-            )}
-            {product.subcategory3 && (
-              <p className={scss.categoryFlex}>
-                {product.subcategory3} {getSubcategoryIcon(product.subcategory3)}
-              </p>
-            )}
-            <div className={scss.viewsContainer}>
-              <p>переглядів: </p>
-              <HiOutlineEye className={scss.icon} />
-              <div>{product.views !== undefined ? product.views : 'N/A'}</div>
-            </div>
-          </div>
         </div>
-      <ShareMenu productUrl={productUrl} />
-      <div className={scss.edit}>
-          {currentUser && currentUser._id === product.owner && (
-            <ActionButton
-              isEditing={isEditing}
-              onClick={isEditing ? handleSaveClick : handleEditClick}
-            />
-          )}
       </div>
+      <Categoryes product={product} />
+      <ShareMenu productUrl={productUrl} />
+      
     </div>
   );
 };

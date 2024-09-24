@@ -17,18 +17,17 @@ $gap-mobile: 10px;
 
     @media (min-width: $desktop) {
         font-size: 16px;
-        padding: 20px;
+        flex-direction: row;
+        gap: 20px;
     }
 
     .info {
-        padding: 10px;
-
-        @media (max-width: $mobile) {
-                padding: 10px;
-            }
         
             @media (min-width: $desktop) {
-                padding: 0;
+                display: flex;
+                padding: 20px 0;
+                flex-direction: column;
+                gap: 10px;
             }
     }
 
@@ -83,6 +82,18 @@ $gap-mobile: 10px;
         }
     }
 
+    .description {
+        font-size: 12px;
+
+        @media (min-width: $tablet) {
+            font-size: 14px;
+        }
+
+        @media (min-width: $desktop) {
+            font-size: 16px;
+        }
+    }
+
     .descriptionField {
         width: 100%;
         padding: 10px;
@@ -126,26 +137,22 @@ $gap-mobile: 10px;
         gap: 10px;
     }
 
-    .categoryesContainer {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .viewsContainer {
-        display: flex;
-        gap: 4px;
-        align-items: center;
-    }
 
     .radio {
         display: flex;
-        gap: 10px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        width: 120px;
+        height: 120px;
+        font-size: 16px;
     }
 
     .conditionOptions {
         display: flex;
         gap: 10px;
+        
 
         label {
             display: flex;
@@ -162,24 +169,24 @@ $gap-mobile: 10px;
     .detailsFlex {
         display: flex;
         align-items: center;
-        gap: 8px;
-    }
-
-    .categoryFlex {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 8px;
+        gap: 4px;
+        flex-direction: column;
+        justify-content: center;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        width: 120px;
+        height: 120px;
+        font-size: 20px;
     }
 
     .icons {
         display: flex;
+        flex-direction: column;
         align-items: center;
         gap: 4px;
     }
 
     .icon {
-        font-size: 14px;
+        font-size: 24px;
     }
 
     .edit {

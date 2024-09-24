@@ -3,7 +3,7 @@
 .comments {
     width: auto;
     padding: 10px;
-    background-color: #fff;
+    background-color: var(--white);
 
     @media (min-width: $tablet) {
         width: auto;
