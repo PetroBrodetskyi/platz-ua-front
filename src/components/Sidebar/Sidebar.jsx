@@ -16,6 +16,7 @@ const Sidebar = ({ cartItems, selectedProducts, handleRemoveFromCart, handleProd
 
   return (
     <div className={scss.sidebar}>
+      <h3 className={scss.office}>Особистий кабінет</h3>
     <div className={scss.cartSidebar}>
       <h3 onClick={toggleCart} className={scss.toggleHeader}>
         Кошик {isCartOpen ? <IoChevronUpOutline /> : <IoChevronDownSharp />}

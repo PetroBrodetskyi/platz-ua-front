@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { fetchProducts, fetchProductById, fetchExchangeRate } from '../../redux/features/productsSlice';
-import { fetchUserById, fetchCurrentUser } from '../../redux/features/authSlice';
+import { fetchProducts, fetchProductById, fetchExchangeRate, selectProductById, selectExchangeRate, selectLoading, selectError } from '../../redux/features/productsSlice';
+import { selectOwner, selectCurrentUser, fetchUserById, fetchCurrentUser } from '../../redux/features/authSlice';
 import { addToCart, removeFromCart } from '../../redux/features/cartSlice';
 import Notification from '../Notification/Notification';
 import axios from 'axios';
@@ -17,14 +17,13 @@ const ProductDetails = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
   const [notification, setNotification] = useState('');
-  const products = useSelector((state) => state.products.products);
-  const exchangeRate = useSelector((state) => state.products.exchangeRate);
-  const loading = useSelector((state) => state.products.loading);
-  const error = useSelector((state) => state.products.error);
+  const exchangeRate = useSelector(selectExchangeRate);
+  const product = useSelector((state) => selectProductById(state, productId));
+  const loading = useSelector(selectLoading);
+  const error = useSelector(selectError);
+  const owner = useSelector(selectOwner);
+  const currentUser = useSelector(selectCurrentUser);
   const cartItems = useSelector((state) => state.cart.items);
-  const product = products.find((product) => product._id === productId);
-  const owner = useSelector((state) => state.auth.owner);
-  const currentUser = useSelector((state) => state.auth.user);
 
   const [isEditing, setIsEditing] = useState(false);
   const [updatedProduct, setUpdatedProduct] = useState({
@@ -35,25 +34,13 @@ const ProductDetails = () => {
   });
 
   useEffect(() => {
-    if (!products.length) {
-      dispatch(fetchProducts());
-      dispatch(fetchExchangeRate());
+    if (!product) {
+      dispatch(fetchProductById(productId));
     }
-  }, [dispatch, products.length]);
-
-  useEffect(() => {
-    if (product) {
-      setUpdatedProduct({
-        name: product.name || '',
-        price: product.price || '',
-        description: product.description || '',
-        condition: product.condition || '',
-      });
-      if (product.owner) {
-        dispatch(fetchUserById(product.owner));
-      }
+    if (product && product.owner) {
+      dispatch(fetchUserById(product.owner));
     }
-  }, [dispatch, product]);
+  }, [dispatch, product, productId]);
 
   useEffect(() => {
     dispatch(fetchCurrentUser());
@@ -62,11 +49,22 @@ const ProductDetails = () => {
   useEffect(() => {
     const viewedProducts = JSON.parse(localStorage.getItem('viewedProducts')) || [];
     if (!viewedProducts.includes(productId)) {
-      dispatch(fetchProductById(productId));
       viewedProducts.push(productId);
       localStorage.setItem('viewedProducts', JSON.stringify(viewedProducts));
     }
-  }, [dispatch, productId, product]);
+  }, [productId]);
+
+  // Додаємо логіку для налаштування значень updatedProduct
+  useEffect(() => {
+    if (product) {
+      setUpdatedProduct({
+        name: product.name || '',
+        price: product.price || '',
+        description: product.description || '',
+        condition: product.condition || '',
+      });
+    }
+  }, [product]);
 
   if (loading) {
     return <Loader />;

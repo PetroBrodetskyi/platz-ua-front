@@ -1,0 +1,20 @@
+@import 'src/styles/mixins';
+
+$padding-desktop: 10px 40px;
+$padding-tablet: 16px;
+$padding-mobile: 4px;
+
+.home {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: $padding-mobile;    
+
+    @media (min-width: $tablet) {
+        padding: $padding-tablet;
+    }
+
+    @media (min-width: $desktop) {
+        padding: $padding-desktop;
+    }
+}

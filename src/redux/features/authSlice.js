@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { createSelector } from 'reselect';
 
 const API_URL = 'https://platz-ua-back.vercel.app/api/users';
 
@@ -29,7 +30,6 @@ export const fetchCurrentUser = createAsyncThunk('auth/fetchCurrentUser', async 
     return response.data;
   } catch (error) {
     if (error.response && error.response.status === 401) {
-      // Автоматичний logout при 401 Unauthorized
       localStorage.removeItem('token');
       return rejectWithValue('Сесія завершена, будь ласка, увійдіть знову');
     }
@@ -69,6 +69,18 @@ export const updateUserDetails = createAsyncThunk('auth/updateUserDetails', asyn
     return rejectWithValue(error.message);
   }
 });
+
+const selectAuth = (state) => state.auth;
+
+export const selectUser = createSelector(
+  [selectAuth],
+  (auth) => auth.user
+);
+
+export const selectLoading = createSelector(
+  [selectAuth],
+  (auth) => auth.loading
+);
 
 const initialState = {
   user: null,
@@ -162,6 +174,9 @@ const authSlice = createSlice({
       });
   },
 });
+
+export const selectCurrentUser = (state) => state.auth.user;
+export const selectOwner = (state) => state.auth.owner;
 
 export const { logout } = authSlice.actions;
 

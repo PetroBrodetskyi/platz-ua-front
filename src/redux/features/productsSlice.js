@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../axiosConfig.js';
+import { createSelector } from 'reselect';
 
 const initialState = {
   products: [],
@@ -122,7 +123,6 @@ const productsSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchUserProducts.fulfilled, (state, action) => {
-        console.log('Fetching user products fulfilled:', action.payload);
         state.loading = false;
         state.userProducts = action.payload;
       })
@@ -168,6 +168,23 @@ const productsSlice = createSlice({
       });
   },
 });
+
+export const selectProducts = (state) => state.products.products;
+
+export const selectFavorites = (state) => state.products.favorites;
+
+export const selectExchangeRate = (state) => state.products.exchangeRate;
+
+export const selectLoading = (state) => state.products.loading;
+
+export const selectError = (state) => state.products.error;
+
+export const selectProductById = (state, productId) => state.products.products.find((product) => product._id === productId);
+
+export const selectProductsByLocation = createSelector(
+  [selectProducts, (state, PLZ, city) => ({ PLZ, city })],
+  (products, { PLZ, city }) => products.filter(product => product.location.PLZ === PLZ && product.location.city === city)
+);
 
 export const { toggleFavorite, setLocation, clearProducts } = productsSlice.actions;
 
