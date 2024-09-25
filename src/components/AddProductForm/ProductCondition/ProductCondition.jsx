@@ -19,7 +19,7 @@ const ProductCondition = ({ register, errors }) => {
           </div>
         </label>
       </div>
-      {errors.condition && <span>Це поле обов'язкове</span>}
+      {errors.condition && <span className={scss.error}>Це поле обов'язкове</span>}
     </div>
   );
 };
