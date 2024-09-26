@@ -10,18 +10,25 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 10000;
 }
 
 .commentsModal {
   background: var(--white);
   border: 1px solid var(--light-grey);
-  border-radius: 8px;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
   padding: 20px;
   width: 90%;
   max-width: 600px;
+  max-height: 100vh;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
+
+
 
 .container {
   display: flex;
@@ -41,4 +48,8 @@
     font-size: 20px;
     cursor: pointer;
   }
+}
+
+.noScroll {
+  overflow: hidden;
 }

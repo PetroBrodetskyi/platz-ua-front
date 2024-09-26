@@ -16,6 +16,12 @@
     }
 }
 
+.commentList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .userContainer {
     display: flex;
     gap: 8px;
@@ -26,6 +32,13 @@
 
 .comment {
     border-bottom: 1px solid #ddd;
+
+    .text {
+
+        @media (min-width: $desktop) {
+        font-size: 16px;
+      }
+    }
 }
 
 .avatar {

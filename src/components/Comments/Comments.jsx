@@ -66,7 +66,7 @@ const Comments = ({ productId }) => {
               <div 
                 className={scss.userContainer} 
                 onClick={() => comment.user ? handleUserClick(comment.user?._id) : null}
-                style={{ cursor: comment.user ? 'pointer' : 'default' }} // Додаємо стиль курсору
+                style={{ cursor: comment.user ? 'pointer' : 'default' }}
               >
                 {comment.user && comment.user.avatarURL ? (
                   <img 
@@ -81,7 +81,7 @@ const Comments = ({ productId }) => {
                 )}
                 <h4>{comment.user ? comment.user.name : 'Видалений акаунт'}</h4>
               </div>
-              <p>{comment.text}</p>
+              <p className={scss.text} >{comment.text}</p>
               <div className={scss.dateTime}>
                 <p>{new Date(comment.createdAt).toLocaleDateString()}</p>
                 <p>{new Date(comment.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>

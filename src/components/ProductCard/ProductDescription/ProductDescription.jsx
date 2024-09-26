@@ -20,8 +20,11 @@ const ProductDescription = ({ show, name, description, PLZ, city, onToggle }) =>
 
   useEffect(() => {
     if (show) {
+      document.body.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
+      
       return () => {
+        document.body.style.overflow = 'unset';
         window.removeEventListener('keydown', handleKeyDown);
       };
     }
@@ -46,16 +49,16 @@ const ProductDescription = ({ show, name, description, PLZ, city, onToggle }) =>
             transition={{ duration: 0.3 }}
           >
             <div className={scss.container}>
-                <div className={scss.titleContainer}>
-                    <h3 className={scss.title}>{name}</h3>
-                    <button onClick={onToggle}>
-                        <FiX className={scss.icon} />
-                    </button>
-                </div>
+              <div className={scss.titleContainer}>
+                <h3 className={scss.title}>{name}</h3>
+                <button onClick={onToggle}>
+                  <FiX className={scss.icon} />
+                </button>
+              </div>
               <div>
                 <p className={scss.desc}>{description}</p>
               </div>
-                <div className={scss.locationContainer}>
+              <div className={scss.locationContainer}>
                 <div className={scss.locationItem}>
                   <TbLocation className={scss.icon} />
                   <p>{PLZ}</p>
