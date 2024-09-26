@@ -129,4 +129,18 @@ $padding-mobile: 10px;
             }
         }
     }
+
+    .iconContainer {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--dark-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .icon {
+        font-size: 28px;
+    }
+}
 }

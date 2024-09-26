@@ -1,12 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import scss from './CommentsSection.module.scss';
+import { TbGhost } from 'react-icons/tb';
 import { nanoid } from 'nanoid';
+import scss from './CommentsSection.module.scss';
 
 const CommentsSection = ({ comments, newComment, setNewComment, handleAddComment, currentUser }) => {
   const navigate = useNavigate();
 
   const handleUserClick = (userId) => {
-    navigate(`/user/${userId}`);
+    if (userId) {
+      navigate(`/user/${userId}`);
+    }
   };
 
   return (
@@ -17,10 +20,21 @@ const CommentsSection = ({ comments, newComment, setNewComment, handleAddComment
           <li key={comment._id || nanoid()} className={scss.commentItem}>
             <div 
               className={scss.avatarName} 
-              onClick={() => handleUserClick(comment.user._id)}
+              onClick={() => handleUserClick(comment.user?._id)}
+              style={{ cursor: comment.user ? 'pointer' : 'default' }}
             >
-              <img src={comment.user.avatarURL} alt={comment.user.name} className={scss.avatar} />
-              <h4>{comment.user.name}</h4>
+              {comment.user && comment.user.avatarURL ? (
+                <img 
+                  src={comment.user.avatarURL} 
+                  alt={comment.user.name} 
+                  className={scss.avatar} 
+                />
+              ) : (
+                <div className={scss.iconContainer}>
+                  <TbGhost className={scss.icon} />
+                </div>
+              )}
+              <h4>{comment.user ? comment.user.name : 'Видалений акаунт'}</h4>
             </div>
             <p>{comment.text}</p>
             <p className={scss.dateTime}>

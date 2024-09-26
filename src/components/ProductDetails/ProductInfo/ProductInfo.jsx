@@ -1,4 +1,5 @@
-import React from 'react';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { TbLocation } from 'react-icons/tb';
 import { SlLocationPin } from 'react-icons/sl';
 import { MdOutlineDateRange } from 'react-icons/md';
@@ -8,10 +9,10 @@ import CartPrice from '../../ProductCard/CartPrice/CartPrice';
 import ShareMenu from '../../ShareMenu/ShareMenu';
 import ActionButton from '../ActionButton/ActionButton';
 import Categoryes from '../Categories/Categories';
+import { fetchExchangeRate } from '../../../redux/features/productsSlice';
 
 const ProductInfo = ({
   product,
-  exchangeRate,
   isEditing,
   updatedProduct,
   setUpdatedProduct,
@@ -19,10 +20,18 @@ const ProductInfo = ({
   handleSaveClick,
   currentUser,
   handleAddToCart,
-  isInCart
+  isInCart,
 }) => {
   const productUrl = window.location.href;
   const formattedDate = new Date(product.createdAt).toLocaleDateString();
+  const dispatch = useDispatch();
+  const exchangeRate = useSelector((state) => state.products.exchangeRate);
+
+  useEffect(() => {
+    if (!exchangeRate) {
+      dispatch(fetchExchangeRate());
+    }
+  }, [dispatch, exchangeRate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,7 +61,7 @@ const ProductInfo = ({
               className={scss.inputField}
             />
           ) : (
-              <h2 className={scss.title}>{product.name}</h2>
+            <h2 className={scss.title}>{product.name}</h2>
           )}
           <div className={scss.priceContainer}>
             {isEditing ? (
@@ -74,8 +83,7 @@ const ProductInfo = ({
           </div>
         </div>
 
-        <p className={scss.description} >
-          {' '}
+        <p className={scss.description}>
           {isEditing ? (
             <textarea
               name="description"
@@ -87,70 +95,62 @@ const ProductInfo = ({
             product.description
           )}
         </p>
-        <div className={scss.edit}>
-          {currentUser && currentUser._id === product.owner && (
+        {currentUser?._id === product.owner && (
+          <div className={scss.edit}>
             <ActionButton
               isEditing={isEditing}
               onClick={isEditing ? handleSaveClick : handleEditClick}
             />
-          )}
+          </div>
+        )}
       </div>
-      </div>
-        <div className={scss.editContainer}>
-          <div className={scss.infoContainer}>
-            <p className={scss.detailsFlex}>
-              PLZ: <TbLocation className={scss.icon} /> {product.PLZ}
-            </p>
-            <p className={scss.detailsFlex}>
-              місто: <SlLocationPin className={scss.icon} /> {product.city}
+
+      <div className={scss.editContainer}>
+        <div className={scss.infoContainer}>
+          <p className={scss.detailsFlex}>
+            PLZ: <TbLocation className={scss.icon} /> {product.PLZ}
+          </p>
+          <p className={scss.detailsFlex}>
+            Місто: <SlLocationPin className={scss.icon} /> {product.city}
           </p>
           <div className={scss.radio}>
-              стан:{' '}
-              {isEditing ? (
-                <div className={scss.conditionOptions}>
-                  <label>
+            Стан: 
+            {isEditing ? (
+              <div className={scss.conditionOptions}>
+                {['новий', 'вживаний'].map((condition) => (
+                  <label key={condition}>
                     <input
                       type="radio"
                       name="condition"
-                      value="новий"
-                      checked={updatedProduct.condition === 'новий'}
+                      value={condition}
+                      checked={updatedProduct.condition === condition}
                       onChange={handleConditionChange}
                     />
-                    новий
+                    {condition}
                   </label>
-                  <label>
-                    <input
-                      type="radio"
-                      name="condition"
-                      value="вживаний"
-                      checked={updatedProduct.condition === 'вживаний'}
-                      onChange={handleConditionChange}
-                    />
-                    вживаний
-                  </label>
-                </div>
-              ) : (
-                <p className={scss.icons}>
-                  {product.condition === 'новий' ? (
-                    <>
-                      <FaRegFaceSmile className={scss.icon} /> новий
-                    </>
-                  ) : (
-                    <>
-                      <FaRegFaceMeh className={scss.icon} /> вживаний
-                    </>
-                  )}
-                </p>
-              )}
-            </div>
-            <p className={scss.detailsFlex}>
-            додано: <MdOutlineDateRange className={scss.icon} /> {formattedDate}
+                ))}
+              </div>
+            ) : (
+              <p className={scss.icons}>
+                {product.condition === 'новий' ? (
+                  <>
+                    <FaRegFaceSmile className={scss.icon} /> новий
+                  </>
+                ) : (
+                  <>
+                    <FaRegFaceMeh className={scss.icon} /> вживаний
+                  </>
+                )}
+              </p>
+            )}
+          </div>
+          <p className={scss.detailsFlex}>
+            Додано: <MdOutlineDateRange className={scss.icon} /> {formattedDate}
           </p>
         </div>
       </div>
       <Categoryes product={product} />
       <ShareMenu productUrl={productUrl} />
-      
     </div>
   );
 };

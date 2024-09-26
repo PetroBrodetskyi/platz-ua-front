@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchComments, addComment, deleteComment } from '../../redux/features/commentsSlice';
 import Notification from '../Notification/Notification';
+import { TbGhost } from "react-icons/tb";
 import { nanoid } from 'nanoid';
 import scss from './Comments.module.scss';
 
@@ -34,7 +35,7 @@ const Comments = ({ productId }) => {
   };
 
   const handleDeleteComment = async (comment) => {
-  const resultAction = await dispatch(deleteComment({ productId, commentId: comment._id, userId: currentUser._id }));
+    const resultAction = await dispatch(deleteComment({ productId, commentId: comment._id, userId: currentUser._id }));
     if (deleteComment.fulfilled.match(resultAction)) {
       setNotification('Коментар видалено');
     } else {
@@ -62,20 +63,30 @@ const Comments = ({ productId }) => {
         {commentsForProduct.length > 0 ? (
           commentsForProduct.map((comment) => (
             <div key={comment._id || nanoid()} className={scss.comment}>
-              <div className={scss.userContainer} onClick={() => handleUserClick(comment.user._id)}>
-                <img 
-                  src={comment.user.avatarURL} 
-                  alt={comment.user.name} 
-                  className={scss.avatar} 
-                />
-                <h4>{comment.user ? comment.user.name : 'Anonymous'}</h4>
+              <div 
+                className={scss.userContainer} 
+                onClick={() => comment.user ? handleUserClick(comment.user?._id) : null}
+                style={{ cursor: comment.user ? 'pointer' : 'default' }} // Додаємо стиль курсору
+              >
+                {comment.user && comment.user.avatarURL ? (
+                  <img 
+                    src={comment.user.avatarURL}
+                    alt={comment.user.name}
+                    className={scss.avatar} 
+                  />
+                ) : (
+                  <div className={scss.iconContainer}>
+                    <TbGhost className={scss.icon} />
+                  </div>
+                )}
+                <h4>{comment.user ? comment.user.name : 'Видалений акаунт'}</h4>
               </div>
               <p>{comment.text}</p>
               <div className={scss.dateTime}>
                 <p>{new Date(comment.createdAt).toLocaleDateString()}</p>
                 <p>{new Date(comment.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
               </div>
-              {currentUser?._id === comment.user._id && (
+              {currentUser?._id === comment.user?._id && (
                 <button 
                   className={scss.deleteButton} 
                   onClick={() => handleDeleteComment(comment)}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { format } from 'date-fns';
@@ -33,12 +33,11 @@ const UserProducts = ({ products, setProducts }) => {
   const exchangeRate = useSelector((state) => state.products.exchangeRate);
   const dispatch = useDispatch();
 
-  const formattedDate = owner && format(new Date(owner.createdAt), "MMMM yyyy", { locale: uk });
+  const formattedDate = owner && format(new Date(owner.createdAt), 'MMMM yyyy', { locale: uk });
 
   useEffect(() => {
     if (products.length > 0) {
-      const ownerId = products[0].owner;
-      dispatch(fetchUserById(ownerId));
+      dispatch(fetchUserById(products[0].owner));
     }
   }, [dispatch, products]);
 
@@ -48,10 +47,8 @@ const UserProducts = ({ products, setProducts }) => {
 
   useEffect(() => {
     if (products.length > 0) {
-      products.forEach((product) => {
-        if (product._id) {
-          dispatch(fetchComments(product._id));
-        }
+      products.forEach(({ _id }) => {
+        dispatch(fetchComments(_id));
       });
     }
   }, [dispatch, products]);
@@ -75,7 +72,7 @@ const UserProducts = ({ products, setProducts }) => {
     }
 
     try {
-      const response = await axios.patch(
+      const { data } = await axios.patch(
         `https://platz-ua-back.vercel.app/api/products/${isEditing}`,
         updatedProduct,
         {
@@ -85,35 +82,23 @@ const UserProducts = ({ products, setProducts }) => {
         }
       );
 
-      const updatedProducts = products.map((prod) =>
-        prod._id === isEditing ? { ...prod, ...updatedProduct } : prod
+      setProducts((prev) =>
+        prev.map((prod) => (prod._id === isEditing ? { ...prod, ...updatedProduct } : prod))
       );
-      setProducts(updatedProducts);
-
       setNotification('Ваше оголошення успішно оновлено!');
       setIsEditing(null);
     } catch (error) {
-      console.error(
-        'Error updating product:',
-        error.response ? error.response.data : error.message
-      );
+      console.error('Error updating product:', error?.response?.data || error.message);
       setNotification('Виникла помилка при оновленні продукту. Спробуйте ще раз.');
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUpdatedProduct((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+  const handleChange = ({ target: { name, value } }) => {
+    setUpdatedProduct((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleConditionChange = (e) => {
-    setUpdatedProduct((prevState) => ({
-      ...prevState,
-      condition: e.target.value,
-    }));
+  const handleConditionChange = ({ target: { value } }) => {
+    setUpdatedProduct((prev) => ({ ...prev, condition: value }));
   };
 
   const handleAddComment = (productId) => {
@@ -131,29 +116,19 @@ const UserProducts = ({ products, setProducts }) => {
   };
 
   const confirmDelete = async () => {
-    setShowConfirmation(false);
-    if (!productIdToDelete) return;
-
     try {
-      const response = await axios.delete(
-        `https://platz-ua-back.vercel.app/api/products/${productIdToDelete}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        }
-      );
+      await axios.delete(`https://platz-ua-back.vercel.app/api/products/${productIdToDelete}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      });
 
-      const updatedProducts = products.filter((prod) => prod._id !== productIdToDelete);
-      setProducts(updatedProducts);
-
+      setProducts((prev) => prev.filter((prod) => prod._id !== productIdToDelete));
       setNotification('Ваше оголошення успішно видалено!');
     } catch (error) {
-      console.error(
-        'Error deleting product:',
-        error.response ? error.response.data : error.message
-      );
+      console.error('Error deleting product:', error?.response?.data || error.message);
       setNotification('Виникла помилка при видаленні продукту. Спробуйте ще раз.');
+    } finally {
+      setProductIdToDelete(null);
+      setShowConfirmation(false);
     }
   };
 
@@ -195,12 +170,7 @@ const UserProducts = ({ products, setProducts }) => {
           />
         ))}
       </ul>
-      {notification && (
-        <Notification
-          message={notification}
-          onClose={() => setNotification('')}
-        />
-      )}
+      {notification && <Notification message={notification} onClose={() => setNotification('')} />}
       {showConfirmation && (
         <Confirmation
           message="Ви впевнені, що хочете видалити це оголошення?"
