@@ -9,7 +9,7 @@ import { PiMessengerLogoBold, PiTelegramLogoFill } from "react-icons/pi";
 import { BiMessageSquareDetail } from "react-icons/bi";
 import scss from './ShareModal.module.scss';
 
-const ShareModal = ({ show, onToggle, name, productUrl, price, city, image1, metaDescription, metaImage }) => {
+const ShareModal = ({ show, onToggle, name, productUrl, price, city, image, metaImage }) => {
   const handleOverlayClick = (event) => {
     if (event.target.classList.contains(scss.modalOverlay)) {
       onToggle();
@@ -18,11 +18,13 @@ const ShareModal = ({ show, onToggle, name, productUrl, price, city, image1, met
 
   const handleShare = (platform) => {
     const encodedUrl = encodeURIComponent(productUrl);
-    const encodedName = encodeURIComponent(name);
+      const encodedName = encodeURIComponent(name);
+      const encodeDescription = encodeURIComponent(show);
     const encodedPrice = encodeURIComponent(price);
-    const encodedLocation = encodeURIComponent(city);
-    const encodedImage = encodeURIComponent(metaImage);
-    const message = `${encodedName}\nЦіна: ${encodedPrice}\nЛокація: ${encodedLocation}\nДеталі: ${encodedUrl}`;
+      const encodedLocation = encodeURIComponent(city);
+      const encodedImage = encodeURIComponent(image);
+    const encodedMetaImage = encodeURIComponent(metaImage);
+    const message = `${encodedName}\nЦіна: ${encodeDescription} ${encodedPrice}\nЛокація: ${encodedLocation}\nДеталі: ${encodedUrl} ${encodedImage}`;
 
     let shareUrl = '';
 
@@ -40,7 +42,7 @@ const ShareModal = ({ show, onToggle, name, productUrl, price, city, image1, met
         shareUrl = `https://www.linkedin.com/shareArticle?url=${encodedUrl}&title=${encodedName}&summary=${message}&source=PlatzUA`;
         break;
       case 'gmail':
-        shareUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=${encodedName}&body=${message}&imageurl=${encodedImage}`;
+        shareUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=${encodedName}&body=${message}&imageurl=${encodedMetaImage}`;
         break;
       case 'email':
         shareUrl = `mailto:?subject=${encodedName}&body=${message}`;
