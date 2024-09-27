@@ -6,7 +6,7 @@ import CommentsModal from '../CommentsModal/CommentsModal';
 import ShareModal from '../ShareModal/ShareModal';
 import scss from './TitleFavorite.module.scss';
 
-const TitleFavorite = ({ name, id, image, price, city, onFavoriteToggle, isFavorite, viewMode }) => {
+const TitleFavorite = ({ id, name, description, image, price, city, onFavoriteToggle, isFavorite, viewMode }) => {
   const [isCommentsOpen, setCommentsOpen] = useState(false);
   const [isShareOpen, setShareOpen] = useState(false);
   const navigate = useNavigate();
@@ -67,6 +67,7 @@ const TitleFavorite = ({ name, id, image, price, city, onFavoriteToggle, isFavor
         productUrl={productUrl} 
         price={price} 
         city={city} 
+        description={description}
         image={image} 
       />
     </div>
