@@ -30,7 +30,7 @@ const ShareModal = ({ show, description, onToggle, name, productUrl, price, city
         const encodedImage = encodeURIComponent(image);
         const encodedMetaImage = encodeURIComponent(metaImage);
         const encodedDescription = encodeURIComponent(trimmedDescription);
-        const message = `${encodedName} \nЦіна: ${encodedPrice} \nЛокація: ${encodedLocation} ${encodedDescription} \nДеталі: ${encodedUrl}`;
+        const message = `${encodedName} \nЦіна: ${encodedPrice} \nЛокація: ${encodedLocation} ${encodedImage} ${encodedDescription} \nДеталі: ${encodedUrl}`;
 
         let shareUrl = '';
 
@@ -86,7 +86,7 @@ const ShareModal = ({ show, description, onToggle, name, productUrl, price, city
                 {/* Open Graph for Facebook, Messenger, LinkedIn, Instagram */}
                 <meta property="og:title" content={name} />
                 <meta property="og:description" content={description || `Ціна: ${price}, Локація: ${city}`} />
-                <meta property="og:image" content={metaImage || image} />
+                <meta property="og:image" content={image} />
                 <meta property="og:url" content={productUrl} />
                 <meta property="og:type" content="product" />
 
@@ -94,7 +94,7 @@ const ShareModal = ({ show, description, onToggle, name, productUrl, price, city
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content={name} />
                 <meta name="twitter:description" content={description || `Ціна: ${price}, Локація: ${city}`} />
-                <meta property="og:image" content={metaImage || image} />
+                <meta name="twitter:image" content={image} />
                 <meta name="twitter:url" content={productUrl} />
             </Helmet>
 
