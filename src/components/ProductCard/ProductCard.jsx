@@ -166,6 +166,7 @@ const ProductCard = ({ viewMode }) => {
                             price={price}
                             description={description}
                             image={image1}
+                            metaImage={image1}
                             city={city}
                             id={_id}
                             onFavoriteToggle={() => dispatch(toggleFavorite(_id))}
