@@ -6,6 +6,8 @@ import Notification from '../Notification/Notification';
 import { TbGhost } from "react-icons/tb";
 import { nanoid } from 'nanoid';
 import scss from './Comments.module.scss';
+import { formatDistanceToNow } from 'date-fns';
+import { uk } from 'date-fns/locale';
 
 const Comments = ({ productId }) => {
   const dispatch = useDispatch();
@@ -51,7 +53,7 @@ const Comments = ({ productId }) => {
     navigate('/login');
   };
 
-  if (loading) return <p>Завантаження коментарів...</p>;
+  if (loading) return <p className={scss.message}>Завантаження коментарів...</p>;
   if (error) return <p>Помилка завантаження коментарів: {error}</p>;
 
   return (
@@ -81,19 +83,18 @@ const Comments = ({ productId }) => {
                 )}
                 <h4>{comment.user ? comment.user.name : 'Видалений акаунт'}</h4>
               </div>
-              <p className={scss.text} >{comment.text}</p>
+              <p className={scss.text}>{comment.text}</p>
               <div className={scss.dateTime}>
-                <p>{new Date(comment.createdAt).toLocaleDateString()}</p>
-                <p>{new Date(comment.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                {currentUser?._id === comment.user?._id && (
+                  <button 
+                    className={scss.deleteButton} 
+                    onClick={() => handleDeleteComment(comment)}
+                  >
+                    Видалити
+                  </button>
+                )}
+                <p>{formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true, locale: uk })}</p>
               </div>
-              {currentUser?._id === comment.user?._id && (
-                <button 
-                  className={scss.deleteButton} 
-                  onClick={() => handleDeleteComment(comment)}
-                >
-                  Видалити
-                </button>
-              )}
             </div>
           ))
         ) : (
@@ -101,14 +102,27 @@ const Comments = ({ productId }) => {
         )}
       </div>
       {currentUser ? (
-        <div className={scss.addComment}>
-          <textarea
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            placeholder="Додати коментар..."
-            className={scss.textarea}
-          />
-          <button onClick={handleAddComment}>Додати коментар</button>
+        <div>
+          <div className={scss.addComment}>
+            {currentUser.avatarURL ? (
+              <img 
+                src={currentUser.avatarURL}
+                alt={currentUser.name}
+                className={scss.avatar}
+              />
+            ) : (
+              <div className={scss.iconContainer}>
+                <TbGhost className={scss.icon} />
+              </div>
+            )}
+            <textarea
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              placeholder="Додати коментар..."
+              className={scss.textarea}
+            />
+          </div>
+          <button className={scss.add} onClick={handleAddComment}>Додати коментар</button>
         </div>
       ) : (
         <div className={scss.loginPrompt}>

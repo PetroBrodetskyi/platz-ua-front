@@ -1,0 +1,71 @@
+// ShareButton.module.scss
+
+@import 'src/styles/mixins';
+
+.button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 10px;
+    width: 100px;
+}
+
+.icon {
+  font-size: 26px;
+  transition: color 0.3s;
+
+  @media (min-width: $tablet) {
+    font-size: 30px;
+  }
+
+  @media (min-width: $desktop) {
+    font-size: 40px;
+  }
+}
+
+.facebook {
+  color: #3b5998;
+}
+
+.messenger {
+  color: #006AFF;
+}
+
+.instagram {
+  color: #E1306C;
+}
+
+.linkedin {
+  color: #0077B5;
+}
+
+.gmail {
+  color: #D44638;
+}
+
+.email {
+  color: #777;
+}
+
+.sms {
+  color: #4CAF50;
+}
+
+.viber {
+  color: #665CAC;
+}
+
+.telegram {
+  color: #0088CC;
+}
+
+.whatsapp {
+  color: #25D366;
+}
+
+.copy {
+  color: #777;
+}

@@ -1,31 +1,18 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX } from 'react-icons/fi';
-import { FaRegCopy } from 'react-icons/fa';
 import { Helmet } from "react-helmet";
-import {
-    FacebookShareButton,
-    FacebookIcon,
-    WhatsappShareButton,
-    WhatsappIcon,
-    TelegramShareButton,
-    TelegramIcon,
-    LinkedinShareButton,
-    LinkedinIcon,
-    EmailShareButton,
-    EmailIcon,
-    ViberShareButton,
-    ViberIcon,
-    InstapaperShareButton,
-    InstapaperIcon,
-} from 'react-share';
 import scss from './ShareModal.module.scss';
+import ShareButton from '../ShareButton/ShareButton';
 
-const ShareModal = ({ show, description, onToggle, name, productUrl, price, city, image, metaImage }) => {
+const ShareModal = ({ show, description, onToggle, name, productUrl, price, city, image }) => {
     const maxDescriptionLength = 80;
 
-    const trimmedDescription = description && description.length > maxDescriptionLength 
-        ? `${description.slice(0, maxDescriptionLength)}...` 
-        : description;
+    const getTrimmedDescription = (desc) => 
+        desc && desc.length > maxDescriptionLength 
+            ? `${desc.slice(0, maxDescriptionLength)}...` 
+            : desc;
+
+    const trimmedDescription = getTrimmedDescription(description);
 
     const handleOverlayClick = (event) => {
         if (event.target.classList.contains(scss.modalOverlay)) {
@@ -33,25 +20,45 @@ const ShareModal = ({ show, description, onToggle, name, productUrl, price, city
         }
     };
 
-    const handleCopy = () => {
-        navigator.clipboard.writeText(productUrl).then(() => {
-            alert("Посилання скопійовано!");
-        }).catch(err => {
-            console.error('Помилка копіювання посилання', err);
-        });
+    const sharePlatforms = {
+        facebook: (message) => `https://www.facebook.com/sharer/sharer.php?u=${productUrl}&quote=${message}`,
+        messenger: (message) => `fb-messenger://share?link=${productUrl}&quote=${message}`,
+        instagram: (message) => `https://www.instagram.com/direct/new/?text=${message}`,
+        linkedin: (message) => `https://www.linkedin.com/shareArticle?url=${productUrl}&title=${name}&summary=${message}&source=PlatzUA`,
+        gmail: (message) => `https://mail.google.com/mail/?view=cm&fs=1&to=&su=${name}&body=${message}&imageurl=${image}`,
+        email: () => `mailto:?subject=${name}&body=${message}`,
+        sms: (message) => `sms:?&body=${message}`,
+        viber: (message) => `viber://forward?text=${message}`,
+        telegram: (message) => `https://t.me/share/url?url=${message}`,
+        whatsapp: (message) => `https://api.whatsapp.com/send?text=${message}`,
+        copy: () => {
+            navigator.clipboard.writeText(productUrl).then(() => {
+                alert("Посилання скопійовано!");
+            }).catch(err => {
+                console.error('Помилка копіювання посилання', err);
+            });
+            return;
+        }
+    };
+
+    const handleShare = (platform) => {
+        const message = `${name} \nЦіна: ${price} \nЛокація: ${city} ${trimmedDescription} \nДеталі: ${productUrl} ${image}`;
+        
+        const shareUrl = sharePlatforms[platform](message);
+
+        if (shareUrl) {
+            window.open(shareUrl, '_blank');
+        }
     };
 
     return (
         <>
-            {/* Мета-теги для відображення фото і опису у соцмережах */}
             <Helmet>
                 <meta property="og:title" content={name} />
                 <meta property="og:description" content={description || `Ціна: ${price}, Локація: ${city}`} />
                 <meta property="og:image" content={image} />
                 <meta property="og:url" content={productUrl} />
                 <meta property="og:type" content="product" />
-
-                {/* Twitter Cards */}
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content={name} />
                 <meta name="twitter:description" content={description || `Ціна: ${price}, Локація: ${city}`} />
@@ -74,54 +81,21 @@ const ShareModal = ({ show, description, onToggle, name, productUrl, price, city
                             animate={{ scale: 1 }}
                             exit={{ scale: 0.8 }}
                         >
-                            <div className={scss.closeButton} onClick={onToggle}>
-                                <FiX />
-                            </div>
-                            <h2>Поділитися продуктом: {name}</h2>
-                            <p>Використовуйте наступні посилання для спільного використання:</p>
-                            <ul>
-                                <li>
-                                    <FacebookShareButton url={productUrl} quote={trimmedDescription}>
-                                        <FacebookIcon size={32} round />
-                                        Facebook
-                                    </FacebookShareButton>
-                                </li>
-                                <li>
-                                    <WhatsappShareButton url={productUrl} title={trimmedDescription}>
-                                        <WhatsappIcon size={32} round />
-                                        WhatsApp
-                                    </WhatsappShareButton>
-                                </li>
-                                <li>
-                                    <TelegramShareButton url={productUrl} title={trimmedDescription}>
-                                        <TelegramIcon size={32} round />
-                                        Telegram
-                                    </TelegramShareButton>
-                                </li>
-                                <li>
-                                    <LinkedinShareButton url={productUrl} summary={trimmedDescription} source="PlatzUA">
-                                        <LinkedinIcon size={32} round />
-                                        LinkedIn
-                                    </LinkedinShareButton>
-                                </li>
-                                <li>
-                                    <EmailShareButton url={productUrl} subject={name} body={trimmedDescription}>
-                                        <EmailIcon size={32} round />
-                                        Email
-                                    </EmailShareButton>
-                                </li>
-                                <li>
-                                    <ViberShareButton url={productUrl} title={trimmedDescription}>
-                                        <ViberIcon size={32} round />
-                                        Viber
-                                    </ViberShareButton>
-                                </li>
-                                <li>
-                                    <button onClick={handleCopy}>
-                                        <FaRegCopy /> Копіювати
-                                    </button>
-                                </li>
-                            </ul>
+                            <div className={scss.container}>
+                                <div className={scss.header}>
+                                    <h2>{name}</h2>
+                                    <div className={scss.closeIcon} onClick={onToggle}>
+                                        <FiX />
+                                    </div>
+                                </div>
+                                <ul className={scss.buttons}>
+                                    {Object.keys(sharePlatforms).map((platform) => (
+                                        <li key={platform}>
+                                            <ShareButton platform={platform} onClick={() => handleShare(platform)} />
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>   
                         </motion.div>
                     </motion.div>
                 )}

@@ -28,11 +28,10 @@
   }
 }
 
-
-
 .container {
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 
 .header {
@@ -48,6 +47,14 @@
     font-size: 20px;
     cursor: pointer;
   }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .noScroll {

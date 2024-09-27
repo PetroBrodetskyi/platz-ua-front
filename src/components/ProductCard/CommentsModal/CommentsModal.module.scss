@@ -17,10 +17,10 @@
   background: var(--white);
   border: 1px solid var(--light-grey);
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-  padding: 20px;
-  width: 90%;
+  padding: 40px 20px;
+  width: 100%;
   max-width: 600px;
-  max-height: 100vh;
+  height: 100vh;
   overflow-y: auto;
 
   &::-webkit-scrollbar {
@@ -39,10 +39,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  h3 {
-    margin: 0;
-  }
 
   .closeIcon {
     font-size: 20px;
