@@ -1,12 +1,23 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX } from 'react-icons/fi';
-import { FaRegCopy, FaInstagram, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
-import { FaSquareFacebook } from "react-icons/fa6";
-import { SiGmail, SiViber } from "react-icons/si"; 
-import { GrMailOption } from "react-icons/gr";
-import { PiMessengerLogoBold, PiTelegramLogoFill } from "react-icons/pi";
-import { BiMessageSquareDetail } from "react-icons/bi";
+import { FaRegCopy } from 'react-icons/fa';
 import { Helmet } from "react-helmet";
+import {
+    FacebookShareButton,
+    FacebookIcon,
+    WhatsappShareButton,
+    WhatsappIcon,
+    TelegramShareButton,
+    TelegramIcon,
+    LinkedinShareButton,
+    LinkedinIcon,
+    EmailShareButton,
+    EmailIcon,
+    ViberShareButton,
+    ViberIcon,
+    InstapaperShareButton,
+    InstapaperIcon,
+} from 'react-share';
 import scss from './ShareModal.module.scss';
 
 const ShareModal = ({ show, description, onToggle, name, productUrl, price, city, image, metaImage }) => {
@@ -15,75 +26,25 @@ const ShareModal = ({ show, description, onToggle, name, productUrl, price, city
     const trimmedDescription = description && description.length > maxDescriptionLength 
         ? `${description.slice(0, maxDescriptionLength)}...` 
         : description;
-  
+
     const handleOverlayClick = (event) => {
         if (event.target.classList.contains(scss.modalOverlay)) {
             onToggle();
         }
     };
 
-    const handleShare = (platform) => {
-        const encodedUrl = encodeURIComponent(productUrl);
-        const encodedName = encodeURIComponent(name);
-        const encodedPrice = encodeURIComponent(price);
-        const encodedLocation = encodeURIComponent(city);
-        const encodedImage = encodeURIComponent(image);
-        const encodedMetaImage = encodeURIComponent(metaImage);
-        const encodedDescription = encodeURIComponent(trimmedDescription);
-        const message = `${encodedName} \nЦіна: ${encodedPrice} \nЛокація: ${encodedLocation} ${encodedImage} ${encodedDescription} \nДеталі: ${encodedUrl}`;
-
-        let shareUrl = '';
-
-        switch (platform) {
-            case 'facebook':
-                shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${message}`;
-                break;
-            case 'messenger':
-                shareUrl = `fb-messenger://share?link=${encodedUrl}&quote=${message}`;
-                break;
-            case 'instagram':
-                shareUrl = `https://www.instagram.com/direct/new/?text=${message}`;
-                break;
-            case 'linkedin':
-                shareUrl = `https://www.linkedin.com/shareArticle?url=${encodedUrl}&title=${encodedName}&summary=${message}&source=PlatzUA`;
-                break;
-            case 'gmail':
-                shareUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=${encodedName}&body=${message}&imageurl=${encodedMetaImage}`;
-                break;
-            case 'email':
-                shareUrl = `mailto:?subject=${encodedName}&body=${message}`;
-                break;
-            case 'sms':
-                shareUrl = `sms:?&body=${message}`;
-                break;
-            case 'viber':
-                shareUrl = `viber://forward?text=${message} ${encodedImage}`;
-                break;
-            case 'telegram':
-                shareUrl = `https://t.me/share/url?url=${message}`;
-                break;
-            case 'whatsapp':
-                shareUrl = `https://api.whatsapp.com/send?text=${message}`;
-                break;
-            case 'copy':
-                navigator.clipboard.writeText(productUrl).then(() => {
-                    alert("Посилання скопійовано!");
-                }).catch(err => {
-                    console.error('Помилка копіювання посилання', err);
-                });
-                return;
-            default:
-                return;
-        }
-
-        window.open(shareUrl, '_blank');
+    const handleCopy = () => {
+        navigator.clipboard.writeText(productUrl).then(() => {
+            alert("Посилання скопійовано!");
+        }).catch(err => {
+            console.error('Помилка копіювання посилання', err);
+        });
     };
 
     return (
         <>
             {/* Мета-теги для відображення фото і опису у соцмережах */}
             <Helmet>
-                {/* Open Graph for Facebook, Messenger, LinkedIn, Instagram */}
                 <meta property="og:title" content={name} />
                 <meta property="og:description" content={description || `Ціна: ${price}, Локація: ${city}`} />
                 <meta property="og:image" content={image} />
@@ -120,57 +81,43 @@ const ShareModal = ({ show, description, onToggle, name, productUrl, price, city
                             <p>Використовуйте наступні посилання для спільного використання:</p>
                             <ul>
                                 <li>
-                                    <button onClick={() => handleShare('facebook')}>
-                                        <FaSquareFacebook /> Facebook
-                                    </button>
+                                    <FacebookShareButton url={productUrl} quote={trimmedDescription}>
+                                        <FacebookIcon size={32} round />
+                                        Facebook
+                                    </FacebookShareButton>
                                 </li>
                                 <li>
-                                    <button onClick={() => handleShare('messenger')}>
-                                        <PiMessengerLogoBold /> Messenger
-                                    </button>
+                                    <WhatsappShareButton url={productUrl} title={trimmedDescription}>
+                                        <WhatsappIcon size={32} round />
+                                        WhatsApp
+                                    </WhatsappShareButton>
                                 </li>
                                 <li>
-                                    <button onClick={() => handleShare('instagram')}>
-                                        <FaInstagram /> Instagram
-                                    </button>
+                                    <TelegramShareButton url={productUrl} title={trimmedDescription}>
+                                        <TelegramIcon size={32} round />
+                                        Telegram
+                                    </TelegramShareButton>
                                 </li>
                                 <li>
-                                    <button onClick={() => handleShare('linkedin')}>
-                                        <FaLinkedin /> LinkedIn
-                                    </button>
+                                    <LinkedinShareButton url={productUrl} summary={trimmedDescription} source="PlatzUA">
+                                        <LinkedinIcon size={32} round />
+                                        LinkedIn
+                                    </LinkedinShareButton>
                                 </li>
                                 <li>
-                                    <button onClick={() => handleShare('gmail')}>
-                                        <SiGmail /> Gmail
-                                    </button>
+                                    <EmailShareButton url={productUrl} subject={name} body={trimmedDescription}>
+                                        <EmailIcon size={32} round />
+                                        Email
+                                    </EmailShareButton>
                                 </li>
                                 <li>
-                                    <button onClick={() => handleShare('email')}>
-                                        <GrMailOption /> Email
-                                    </button>
+                                    <ViberShareButton url={productUrl} title={trimmedDescription}>
+                                        <ViberIcon size={32} round />
+                                        Viber
+                                    </ViberShareButton>
                                 </li>
                                 <li>
-                                    <button onClick={() => handleShare('sms')}>
-                                        <BiMessageSquareDetail /> SMS
-                                    </button>
-                                </li>
-                                <li>
-                                    <button onClick={() => handleShare('viber')}>
-                                        <SiViber /> Viber
-                                    </button>
-                                </li>
-                                <li>
-                                    <button onClick={() => handleShare('telegram')}>
-                                        <PiTelegramLogoFill /> Telegram
-                                    </button>
-                                </li>
-                                <li>
-                                    <button onClick={() => handleShare('whatsapp')}>
-                                        <FaWhatsapp /> WhatsApp
-                                    </button>
-                                </li>
-                                <li>
-                                    <button onClick={() => handleShare('copy')}>
+                                    <button onClick={handleCopy}>
                                         <FaRegCopy /> Копіювати
                                     </button>
                                 </li>
