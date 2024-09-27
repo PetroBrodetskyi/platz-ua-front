@@ -30,7 +30,7 @@ const ShareModal = ({ show, description, onToggle, name, productUrl, price, city
         const encodedImage = encodeURIComponent(image);
         const encodedMetaImage = encodeURIComponent(metaImage);
         const encodedDescription = encodeURIComponent(trimmedDescription);
-        const message = `${encodedName} \nЦіна: ${encodedPrice} \nЛокація: ${encodedLocation} ${encodedImage} ${encodedDescription}`;
+        const message = `${encodedName} \nЦіна: ${encodedPrice} \nЛокація: ${encodedLocation} \nДеталі: ${encodedUrl} ${encodedImage} ${encodedDescription}`;
 
         let shareUrl = '';
 
