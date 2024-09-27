@@ -9,7 +9,7 @@ import { PiMessengerLogoBold, PiTelegramLogoFill } from "react-icons/pi";
 import { BiMessageSquareDetail } from "react-icons/bi";
 import scss from './ShareModal.module.scss';
 
-const ShareModal = ({ show, onToggle, productName, productUrl, metaDescription, metaImage }) => {
+const ShareModal = ({ show, onToggle, name, productUrl, price, city, image1, metaDescription, metaImage }) => {
   const handleOverlayClick = (event) => {
     if (event.target.classList.contains(scss.modalOverlay)) {
       onToggle();
@@ -18,38 +18,44 @@ const ShareModal = ({ show, onToggle, productName, productUrl, metaDescription, 
 
   const handleShare = (platform) => {
     const encodedUrl = encodeURIComponent(productUrl);
+    const encodedName = encodeURIComponent(name);
+    const encodedPrice = encodeURIComponent(price);
+    const encodedLocation = encodeURIComponent(city);
+    const encodedImage = encodeURIComponent(metaImage);
+    const message = `${encodedName}\nЦіна: ${encodedPrice}\nЛокація: ${encodedLocation}\nДеталі: ${encodedUrl}`;
+
     let shareUrl = '';
 
     switch (platform) {
       case 'facebook':
-        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${message}`;
         break;
       case 'messenger':
-        shareUrl = `fb-messenger://share?link=${encodedUrl}`;
+        shareUrl = `fb-messenger://share?link=${encodedUrl}&quote=${message}`;
         break;
       case 'instagram':
-        shareUrl = `https://www.instagram.com/direct/new/?text=${encodedUrl}`;
+        shareUrl = `https://www.instagram.com/direct/new/?text=${message}`;
         break;
       case 'linkedin':
-        shareUrl = `https://www.linkedin.com/shareArticle?url=${encodedUrl}`;
+        shareUrl = `https://www.linkedin.com/shareArticle?url=${encodedUrl}&title=${encodedName}&summary=${message}&source=PlatzUA`;
         break;
       case 'gmail':
-        shareUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=${encodeURIComponent(metaDescription)}&body=${encodedUrl}&imageurl=${encodeURIComponent(metaImage)}`;
+        shareUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=${encodedName}&body=${message}&imageurl=${encodedImage}`;
         break;
       case 'email':
-        shareUrl = `mailto:?subject=${encodeURIComponent(metaDescription)}&body=${encodedUrl}`;
+        shareUrl = `mailto:?subject=${encodedName}&body=${message}`;
         break;
       case 'sms':
-        shareUrl = `sms:?&body=${encodedUrl}`;
+        shareUrl = `sms:?&body=${message}`;
         break;
       case 'viber':
-        shareUrl = `viber://forward?text=${encodedUrl}`;
+        shareUrl = `viber://forward?text=${message}`;
         break;
       case 'telegram':
-        shareUrl = `https://t.me/share/url?url=${encodedUrl}&text=${encodeURIComponent(metaDescription)}`;
+        shareUrl = `https://t.me/share/url?url=${encodedUrl}&text=${message}`;
         break;
       case 'whatsapp':
-        shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(metaDescription)}%0A${encodedUrl}`;
+        shareUrl = `https://api.whatsapp.com/send?text=${message}`;
         break;
       case 'copy':
         navigator.clipboard.writeText(productUrl).then(() => {
@@ -84,7 +90,7 @@ const ShareModal = ({ show, onToggle, productName, productUrl, metaDescription, 
             <div className={scss.closeButton} onClick={onToggle}>
               <FiX />
             </div>
-            <h2>Поділитися продуктом: {productName}</h2>
+            <h2>Поділитися продуктом: {name}</h2>
             <p>Використовуйте наступні посилання для спільного використання:</p>
             <ul>
               <li>

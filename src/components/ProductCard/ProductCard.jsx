@@ -163,6 +163,9 @@ const ProductCard = ({ viewMode }) => {
                         {ownerData ? (
                           <TitleFavorite
                             name={name}
+                            price={price}
+                            description={description}
+                            image={image1}
                             id={_id}
                             onFavoriteToggle={() => dispatch(toggleFavorite(_id))}
                             isFavorite={favorites.includes(_id)}
