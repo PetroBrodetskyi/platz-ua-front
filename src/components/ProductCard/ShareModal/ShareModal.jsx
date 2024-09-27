@@ -1,15 +1,16 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX } from 'react-icons/fi';
 import { FaRegCopy, FaInstagram, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
-import { FiShare2 } from "react-icons/fi";
 import { FaSquareFacebook } from "react-icons/fa6";
 import { SiGmail, SiViber } from "react-icons/si"; 
 import { GrMailOption } from "react-icons/gr";
 import { PiMessengerLogoBold, PiTelegramLogoFill } from "react-icons/pi";
 import { BiMessageSquareDetail } from "react-icons/bi";
+import { Helmet } from "react-helmet";
 import scss from './ShareModal.module.scss';
 
 const ShareModal = ({ show, onToggle, name, productUrl, price, city, image, metaImage }) => {
+  
   const handleOverlayClick = (event) => {
     if (event.target.classList.contains(scss.modalOverlay)) {
       onToggle();
@@ -18,13 +19,12 @@ const ShareModal = ({ show, onToggle, name, productUrl, price, city, image, meta
 
   const handleShare = (platform) => {
     const encodedUrl = encodeURIComponent(productUrl);
-      const encodedName = encodeURIComponent(name);
-      const encodeDescription = encodeURIComponent(show);
+    const encodedName = encodeURIComponent(name);
     const encodedPrice = encodeURIComponent(price);
-      const encodedLocation = encodeURIComponent(city);
-      const encodedImage = encodeURIComponent(image);
+    const encodedLocation = encodeURIComponent(city);
+    const encodedImage = encodeURIComponent(image);
     const encodedMetaImage = encodeURIComponent(metaImage);
-    const message = `${encodedName}\nЦіна: ${encodeDescription} ${encodedPrice}\nЛокація: ${encodedLocation}\nДеталі: ${encodedUrl} ${encodedImage}`;
+    const message = `${encodedName}\nЦіна: ${encodedPrice}\nЛокація: ${encodedLocation}\nДеталі: ${encodedUrl} ${encodedImage}`;
 
     let shareUrl = '';
 
@@ -74,87 +74,106 @@ const ShareModal = ({ show, onToggle, name, productUrl, price, city, image, meta
   };
 
   return (
-    <AnimatePresence>
-      {show && (
-        <motion.div
-          className={scss.modalOverlay}
-          onClick={handleOverlayClick}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
+    <>
+      {/* Додавання мета-тегів */}
+      <Helmet>
+        {/* Open Graph for Facebook, Messenger, LinkedIn, Instagram */}
+        <meta property="og:title" content={name} />
+        <meta property="og:description" content={`Ціна: ${price}, Локація: ${city}`} />
+        <meta property="og:image" content={image} />
+        <meta property="og:url" content={productUrl} />
+        <meta property="og:type" content="product" />
+
+        {/* Twitter Cards */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={name} />
+        <meta name="twitter:description" content={`Ціна: ${price}, Локація: ${city}`} />
+        <meta name="twitter:image" content={image} />
+        <meta name="twitter:url" content={productUrl} />
+      </Helmet>
+
+      <AnimatePresence>
+        {show && (
           <motion.div
-            className={scss.modalContent}
-            initial={{ scale: 0.8 }}
-            animate={{ scale: 1 }}
-            exit={{ scale: 0.8 }}
+            className={scss.modalOverlay}
+            onClick={handleOverlayClick}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
           >
-            <div className={scss.closeButton} onClick={onToggle}>
-              <FiX />
-            </div>
-            <h2>Поділитися продуктом: {name}</h2>
-            <p>Використовуйте наступні посилання для спільного використання:</p>
-            <ul>
-              <li>
-                <button onClick={() => handleShare('facebook')}>
-                  <FaSquareFacebook /> Facebook
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleShare('messenger')}>
-                  <PiMessengerLogoBold /> Messenger
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleShare('instagram')}>
-                  <FaInstagram /> Instagram
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleShare('linkedin')}>
-                  <FaLinkedin /> LinkedIn
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleShare('gmail')}>
-                  <SiGmail /> Gmail
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleShare('email')}>
-                  <GrMailOption /> Email
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleShare('sms')}>
-                  <BiMessageSquareDetail /> SMS
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleShare('viber')}>
-                  <SiViber /> Viber
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleShare('telegram')}>
-                  <PiTelegramLogoFill /> Telegram
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleShare('whatsapp')}>
-                  <FaWhatsapp /> WhatsApp
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleShare('copy')}>
-                  <FaRegCopy /> Копіювати
-                </button>
-              </li>
-            </ul>
+            <motion.div
+              className={scss.modalContent}
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
+            >
+              <div className={scss.closeButton} onClick={onToggle}>
+                <FiX />
+              </div>
+              <h2>Поділитися продуктом: {name}</h2>
+              <p>Використовуйте наступні посилання для спільного використання:</p>
+              <ul>
+                <li>
+                  <button onClick={() => handleShare('facebook')}>
+                    <FaSquareFacebook /> Facebook
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleShare('messenger')}>
+                    <PiMessengerLogoBold /> Messenger
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleShare('instagram')}>
+                    <FaInstagram /> Instagram
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleShare('linkedin')}>
+                    <FaLinkedin /> LinkedIn
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleShare('gmail')}>
+                    <SiGmail /> Gmail
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleShare('email')}>
+                    <GrMailOption /> Email
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleShare('sms')}>
+                    <BiMessageSquareDetail /> SMS
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleShare('viber')}>
+                    <SiViber /> Viber
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleShare('telegram')}>
+                    <PiTelegramLogoFill /> Telegram
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleShare('whatsapp')}>
+                    <FaWhatsapp /> WhatsApp
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleShare('copy')}>
+                    <FaRegCopy /> Копіювати
+                  </button>
+                </li>
+              </ul>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
