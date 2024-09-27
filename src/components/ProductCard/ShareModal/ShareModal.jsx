@@ -57,10 +57,10 @@ const ShareModal = ({ show, description, onToggle, name, productUrl, price, city
                 shareUrl = `sms:?&body=${message}`;
                 break;
             case 'viber':
-                shareUrl = `viber://forward?text=${message}`;
+                shareUrl = `viber://forward?text=${message} ${encodedImage}`;
                 break;
             case 'telegram':
-                shareUrl = `https://t.me/share/url?url=${encodedUrl}&text=${message}`;
+                shareUrl = `https://t.me/share/url?url=${message}`;
                 break;
             case 'whatsapp':
                 shareUrl = `https://api.whatsapp.com/send?text=${message}`;
