@@ -3,10 +3,62 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PlatzUA - Plattform</title>
 
+  <title>PlatzUA - Der Marktplatz für Ukrainer</title>
+  <meta name="description" content="PlatzUA - це онлайн-платформа для українців у Німеччині, де ви можете купувати і продавати товари." />
+  
+  <!-- SEO мета-теги -->
+  <meta name="robots" content="index, follow" />
+  <meta name="keywords" content="PlatzUA, маркетплейс, товари, Українці в Німеччині, купівля, продаж" />
+
+  <!-- Open Graph (для соцмереж як Facebook, LinkedIn, Instagram) -->
+  <meta property="og:title" content="PlatzUA - Der Marktplatz für Ukrainer" />
+  <meta property="og:description" content="PlatzUA - це онлайн-платформа для українців у Німеччині, де ви можете купувати і продавати товари." />
+  <meta property="og:image" content="/logo.png" />
+  <meta property="og:url" content="https://platzua.com" />
+  <meta property="og:type" content="website" />
+  
+  <!-- Twitter/X Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PlatzUA - Der Marktplatz für Ukrainer" />
+  <meta name="twitter:description" content="PlatzUA - це онлайн-платформа для українців у Німеччині, де ви можете купувати і продавати товари." />
+  <meta name="twitter:image" content="/logo.png" />
+  <meta name="twitter:site" content="@platzua" />
+
+  <!-- Google (Search Engine, Gmail) -->
+  <meta itemprop="name" content="PlatzUA - Der Marktplatz für Ukrainer" />
+  <meta itemprop="description" content="PlatzUA - це онлайн-платформа для українців у Німеччині." />
+  <meta itemprop="image" content="/logo.png" />
+
+  <!-- Telegram -->
+  <meta property="og:image" content="/logo.png" />
+  <meta property="og:title" content="PlatzUA - Der Marktplatz für Ukrainer" />
+  <meta property="og:description" content="Платформа для українців у Німеччині. Купуйте та продавайте зручно!" />
+
+  <!-- WhatsApp -->
+  <meta property="og:image" content="/logo.png" />
+  <meta property="og:title" content="PlatzUA - Der Marktplatz für Ukrainer" />
+  <meta property="og:description" content="Онлайн-платформа для купівлі та продажу товарів для українців у Німеччині." />
+
+  <!-- Viber -->
+  <meta property="og:title" content="PlatzUA - Der Marktplatz für Ukrainer" />
+  <meta property="og:description" content="PlatzUA - це платформа для українців у Німеччині, де ви можете знайти, купити або продати товари." />
+  <meta property="og:image" content="/logo.png" />
+
+  <!-- Facebook Messenger -->
+  <meta property="og:title" content="PlatzUA - Der Marktplatz für Ukrainer" />
+  <meta property="og:description" content="Платформа для купівлі та продажу товарів у Німеччині для українців." />
+  <meta property="og:image" content="/logo.png" />
+
+  <!-- Іконка сайту -->
+  <link rel="icon" type="image/svg+xml" href="/logo.png" />
+  <link rel="apple-touch-icon" href="/logo.png" />
+
+  <!-- Стилі -->
+  <link rel="stylesheet" href="/styles.css" />
+  
   <!-- Start Single Page Apps for GitHub Pages -->
   <script type="text/javascript">
     // Single Page Apps for GitHub Pages
@@ -21,18 +73,10 @@
     // the single page app to route accordingly.
     (function (l) {
       if (l.search[1] === '/') {
-        var decoded = l.search
-          .slice(1)
-          .split('&')
-          .map(function (s) {
-            return s.replace(/~and~/g, '&');
-          })
-          .join('?');
-        window.history.replaceState(
-          null,
-          null,
-          l.pathname.slice(0, -1) + decoded + l.hash
-        );
+        var decoded = l.search.slice(1).split('&').map(function (s) {
+          return s.replace(/~and~/g, '&');
+        }).join('?');
+        window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
       }
     })(window.location);
   </script>
