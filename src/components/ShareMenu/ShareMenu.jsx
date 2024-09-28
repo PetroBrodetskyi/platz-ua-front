@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaRegCopy, FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
 import { FaSquareFacebook } from "react-icons/fa6";

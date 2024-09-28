@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import scss from "./HowItWorks.module.scss";
 import Tabs from "./Tabs/Tabs";
 import Buyers from "./Buyers/Buyers";

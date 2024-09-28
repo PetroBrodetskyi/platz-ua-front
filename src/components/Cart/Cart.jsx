@@ -15,7 +15,6 @@ const Cart = () => {
   const [validCartItems, setValidCartItems] = useState([]);
   const cartItems = useSelector((state) => state.cart.items);
   const { products, exchangeRate } = useSelector((state) => state.products);
-  const currentUser = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

@@ -1,4 +1,3 @@
-import React from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import scss from "./CreateAdButton.module.scss";
