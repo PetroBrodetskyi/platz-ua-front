@@ -1,49 +1,49 @@
-@import 'reset';
-@import 'fonts';
+@import "reset";
+@import "fonts";
 
 :root {
-    //colors
-    --white: #ffffff;
-    --light-green: #bedbb0;
-    --dark-green: #9dc888;
-    --black: #161616;
-    --blue: #8fa1d0;
-    --rose: #e09cb5;
-    --black-form: #151515;
-    --dark-bg: #1f1f1f;
-    --dark-bg-sidebar: #121212;
-    --dark-grey: rgba(255, 255, 255, 0.5);
-    --light-grey: rgba(255, 255, 255, 0.3);
-    --dark-grey-line: rgba(255, 255, 255, 0.1);
-    --light-bg: #f6f6f7;
-    --violet-bg: #ecedfd;
-    --dark-violet: #5255bc;
-    --light-violet: #7b7ede;
-    --red: #DD0000;
-    --dark-yellow: #cc9900;
-    --logo-yellow: gold;
-    --primary: #007bff;
-    --secondary: #0056b3;
-    --input-bg: #f9f9f9;
-    --border: #dcdcdc;
-    --focus-border: #007bff;
-    --primary-text: #333;
-    --error: #dc3545;
+  //colors
+  --white: #ffffff;
+  --light-green: #bedbb0;
+  --dark-green: #9dc888;
+  --black: #161616;
+  --blue: #8fa1d0;
+  --rose: #e09cb5;
+  --black-form: #151515;
+  --dark-bg: #1f1f1f;
+  --dark-bg-sidebar: #121212;
+  --dark-grey: rgba(255, 255, 255, 0.5);
+  --light-grey: rgba(255, 255, 255, 0.3);
+  --dark-grey-line: rgba(255, 255, 255, 0.1);
+  --light-bg: #f6f6f7;
+  --violet-bg: #ecedfd;
+  --dark-violet: #5255bc;
+  --light-violet: #7b7ede;
+  --red: #dd0000;
+  --dark-yellow: #cc9900;
+  --logo-yellow: gold;
+  --primary: #007bff;
+  --secondary: #0056b3;
+  --input-bg: #f9f9f9;
+  --border: #dcdcdc;
+  --focus-border: #007bff;
+  --primary-text: #333;
+  --error: #dc3545;
 
-    //fonts
-    --font-family: 'Poppins', sans-serif;
+  //fonts
+  --font-family: "Poppins", sans-serif;
 }
 
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    font-family: var(--font-family);
-    font-size: 14px;
-    overflow-x: hidden;
-    background-color: var(--light-bg);
+  font-family: var(--font-family);
+  font-size: 14px;
+  overflow-x: hidden;
+  background-color: var(--light-bg);
 }
 
 p,
@@ -54,34 +54,34 @@ h4,
 h5,
 h6,
 body {
-    margin: 0;
+  margin: 0;
 }
 
 ul {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 li {
-    list-style: none;
+  list-style: none;
 }
 
 a {
-    text-decoration: none;
-    color: currentColor;
-    padding: 0;
-    margin: 0;
+  text-decoration: none;
+  color: currentColor;
+  padding: 0;
+  margin: 0;
 }
 
 .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    border: 0;
-    padding: 0;
-    white-space: nowrap;
-    clip-path: inset(100%);
-    clip: rect(0 0 0 0);
-    overflow: hidden;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }

@@ -1,12 +1,12 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 .formGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
-    span {
-        color: var(--red);
-        font-size: 0.875em;
-    }
+  span {
+    color: var(--red);
+    font-size: 0.875em;
+  }
 }

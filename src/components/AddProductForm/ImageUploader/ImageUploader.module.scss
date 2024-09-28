@@ -1,18 +1,18 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 .imageContainer {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+
+  @include media-rules(tablet) {
     gap: 10px;
     justify-content: space-between;
+  }
 
-    @media (min-width: $tablet) {
-        gap: 10px;
-        justify-content: space-between;
-    }
-    
-    @media (min-width: $desktop) {
-        gap: 10px;
-        justify-content: space-between;
-    }
+  @include media-rules(desktop) {
+    gap: 10px;
+    justify-content: space-between;
+  }
 }

@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 .modalOverlay {
   position: fixed;
@@ -14,9 +14,9 @@
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .productDescription {
@@ -34,13 +34,13 @@
     align-items: center;
 
     .title {
-        margin: 0;
+      margin: 0;
     }
 
     .icon {
       font-size: 18px;
 
-      @media (min-width: $desktop) {
+      @include media-rules(desktop) {
         font-size: 20px;
       }
     }
@@ -67,4 +67,3 @@
     }
   }
 }
-

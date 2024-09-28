@@ -1,50 +1,50 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 .productListWrapper {
-    display: flex;
+  display: flex;
 
-    @include media-rules(desktop) {
-        justify-content: space-between;
-    }
+  @include media-rules(desktop) {
+    justify-content: space-between;
+  }
 }
 
 .productList {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
-    @include media-rules(tablet) {
-        width: 100%;
-    }
+  @include media-rules(tablet) {
+    width: 100%;
+  }
+
+  @include media-rules(desktop) {
+    width: 74%;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4px;
 
     @include media-rules(desktop) {
-        width: 74%;
+      padding: 0;
     }
 
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 4px;
+    .title {
+      font-size: 14px;
 
-        @include media-rules(desktop) {
-            padding: 0;
-        }
-
-        .title {
-            font-size: 14px;
-
-            @include media-rules(desktop) {
-                font-size: 16px;
-                margin: 0;
-            }
-        }
+      @include media-rules(desktop) {
+        font-size: 16px;
+        margin: 0;
+      }
     }
+  }
 
-    &.list .container {
-        @include media-rules(desktop) {
-            width: 72%;
-            margin: 0 auto;
-        }
+  &.list .container {
+    @include media-rules(desktop) {
+      width: 72%;
+      margin: 0 auto;
     }
+  }
 }

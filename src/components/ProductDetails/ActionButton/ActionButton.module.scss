@@ -1,58 +1,57 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 $fontSize-desktop: 16px;
 $fontSize-tablet: 14px;
 $fontSize-mobile: 14px;
 
 .button {
-    display: flex;
-    gap: 4px;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  color: var(--white);
+  padding: 6px;
+  font-size: $fontSize-mobile;
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  @include transition(background-color);
+
+  @include media-rules(tablet) {
+    font-size: $fontSize-tablet;
+    padding: 8px;
+  }
+
+  @include media-rules(desktop) {
+    font-size: $fontSize-desktop;
+    padding: 8px;
+  }
+
+  &:hover {
+    background-color: #ffcc00;
     color: var(--white);
-    padding: 6px;
-    font-size: $fontSize-mobile;
-    cursor: pointer;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    @include transition(background-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
 
-    @media (min-width: $tablet) {
-        font-size: $fontSize-tablet;
-        padding: 8px;
-
-    }
-
-    @media (min-width: $desktop) {
-        font-size: $fontSize-desktop;
-        padding: 8px;
-    }
-
-    &:hover {
-        background-color: #ffcc00;
-        color: var(--white);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .icon {
-        font-size: 20px;
-    }
+  .icon {
+    font-size: 20px;
+  }
 }
 
 .editButton {
-    background-color: var(--logo-yellow);
+  background-color: var(--logo-yellow);
 
-    &:hover {
-        background-color: var(--light-violet);
-        color: var(--white);
-    }
+  &:hover {
+    background-color: var(--light-violet);
+    color: var(--white);
+  }
 }
 
 .saveButton {
-    background-color: var(--logo-yellow);
+  background-color: var(--logo-yellow);
 
-    &:hover {
-        background-color: var(--light-violet);
-        color: var(--white);
-    }
+  &:hover {
+    background-color: var(--light-violet);
+    color: var(--white);
+  }
 }

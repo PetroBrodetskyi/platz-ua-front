@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 $padding-desktop: 40px;
 $padding-tablet: 20px;
@@ -14,161 +14,160 @@ $font-size-xlarge: 24px;
 $font-size-xxlarge: 28px;
 
 .productDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .container {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 
-    .container {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        
-        @media (min-width: $tablet) {
-            gap: 14px;
-        }
-        
-        @media (min-width: $tablet) {
-            gap: 16px;
-        }
+    @include media-rules(tablet) {
+      gap: 14px;
     }
 
-    .inputField {
-        width: 320px;
-        padding: 6px;
-        font-size: 12px;
+    @include media-rules(tablet) {
+      gap: 16px;
+    }
+  }
 
-        @media (min-width: $tablet) {
-            font-size: 14px;
-            padding: 6px;
-        }
-        
-        @media (min-width: $desktop) {
-            font-size: 16px;
-            padding: 8px;
-        }
+  .inputField {
+    width: 320px;
+    padding: 6px;
+    font-size: 12px;
+
+    @include media-rules(tablet) {
+      font-size: 14px;
+      padding: 6px;
     }
 
-    .descriptionField {
-        width: 100%;
-        height: 200px;
-        font-size: 12px;
-        font-family: var(--font-family);
-        padding: 10px;
-        resize: none;
+    @include media-rules(desktop) {
+      font-size: 16px;
+      padding: 8px;
+    }
+  }
 
-        @media (min-width: $tablet) {
-            font-size: 14px;
-            padding: 8px;
-        }
-        
-        @media (min-width: $desktop) {
-            font-size: 16px;
-            padding: 10px;
-        }
+  .descriptionField {
+    width: 100%;
+    height: 200px;
+    font-size: 12px;
+    font-family: var(--font-family);
+    padding: 10px;
+    resize: none;
+
+    @include media-rules(tablet) {
+      font-size: 14px;
+      padding: 8px;
     }
 
-    .namePrice {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    @include media-rules(desktop) {
+      font-size: 16px;
+      padding: 10px;
+    }
+  }
+
+  .namePrice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .title {
+    font-size: 14px;
+
+    @include media-rules(tablet) {
+      font-size: 18px;
     }
 
-    .title {
+    @include media-rules(desktop) {
+      font-size: 24px;
+    }
+  }
+
+  .price {
+    color: $red-color;
+    font-weight: 600;
+    font-size: 18px;
+
+    @include media-rules(tablet) {
+      font-size: 20px;
+    }
+
+    @include media-rules(desktop) {
+      font-size: 24px;
+    }
+  }
+
+  .description {
+    font-size: $font-size-small;
+
+    @include media-rules(tablet) {
+      font-size: $font-size-medium;
+    }
+
+    @include media-rules(desktop) {
+      font-size: $font-size-large;
+    }
+  }
+
+  .detailsContainer {
+    display: flex;
+    justify-content: space-between;
+
+    @include media-rules(tablet) {
+      justify-content: space-between;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .detailsFlex,
+    .radioFlex {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+
+      @include media-rules(tablet) {
         font-size: 14px;
+      }
 
-        @media (min-width: $tablet) {
-            font-size: 18px;
+      @include media-rules(desktop) {
+        font-size: 16px;
+      }
+
+      .icon {
+        font-size: 12px;
+
+        @include media-rules(tablet) {
+          font-size: 14px;
         }
 
-        @media (min-width: $desktop) {
-            font-size: 24px;
+        @include media-rules(desktop) {
+          font-size: 16px;
         }
+      }
     }
 
-    .price {
-        color: $red-color;
-        font-weight: 600;
-        font-size: 18px;
-
-        @media (min-width: $tablet) {
-            font-size: 20px;
-        }
-
-        @media (min-width: $desktop) {
-            font-size: 24px;
-        }
+    .conditionOptions {
+      display: flex;
+      gap: 8px;
     }
 
-    .description {
-        font-size: $font-size-small;
-
-        @media (min-width: $tablet) {
-            font-size: $font-size-medium;
-        }
-
-        @media (min-width: $desktop) {
-            font-size: $font-size-large;
-        }
+    .icons {
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
+  }
 
-    .detailsContainer {
-        display: flex;
-        justify-content: space-between;
-
-        @media (min-width: $tablet) {
-            justify-content: space-between;
-        }
-
-        .info {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .detailsFlex,
-        .radioFlex {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 12px;
-
-
-            @media (min-width: $tablet) {
-                font-size: 14px;
-            }
-        
-            @media (min-width: $desktop) {
-                font-size: 16px;
-            }
-
-            .icon {
-                font-size: 12px;
-
-                @media (min-width: $tablet) {
-                    font-size: 14px;
-                }
-            
-                @media (min-width: $desktop) {
-                    font-size: 16px;
-                }
-            }
-        }
-
-        .conditionOptions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .icons {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-    }
-
-    .viewsContainer {
-        display: flex;
-        gap: 4px;
-        align-items: center;
-    }
+  .viewsContainer {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
 }

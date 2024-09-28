@@ -1,106 +1,106 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 $auth-form-width-desktop: 360px;
 $auth-form-width-tablet: 300px;
 $auth-form-width-mobile: 100%;
 
 .auth {
-    display: flex;
-    padding: 40px;
-    align-items: center;
-    height: 100vh;
-    background-color: var(--light-bg);
+  display: flex;
+  padding: 40px;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--light-bg);
 }
 
 .form {
-    background-color: var(--white);
-    padding: 24px;
-    width: $auth-form-width-mobile;
+  background-color: var(--white);
+  padding: 24px;
+  width: $auth-form-width-mobile;
 
-    @media (min-width: 481px) {
-        width: $auth-form-width-tablet;
-        border-radius: 8px;
-        padding: 32px;
-    }
+  @media (min-width: 481px) {
+    width: $auth-form-width-tablet;
+    border-radius: 8px;
+    padding: 32px;
+  }
 
-    @media (min-width: 769px) {
-        width: $auth-form-width-desktop;
-        border-radius: 8px;
-    }
+  @media (min-width: 769px) {
+    width: $auth-form-width-desktop;
+    border-radius: 8px;
+  }
 }
 
 .authNav {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
 
-    li {
-        list-style: none;
-        margin: 0 8px;
+  li {
+    list-style: none;
+    margin: 0 8px;
+  }
+
+  .classNavLink {
+    text-decoration: none;
+    font-weight: 500;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s;
+
+    &.active {
+      border-color: gold;
     }
 
-    .classNavLink {
-        text-decoration: none;
-        font-weight: 500;
-        padding-bottom: 4px;
-        border-bottom: 2px solid transparent;
-        transition: border-color 0.3s;
-
-        &.active {
-            border-color: gold;
-        }
-
-        &:hover {
-            border-color: gold;
-        }
+    &:hover {
+      border-color: gold;
     }
+  }
 }
 
 .authForm {
-    display: flex;
-    flex-direction: column;
-    gap: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  width: 100%;
+
+  input {
     width: 100%;
+    padding: 10px;
+    background-color: inherit;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+
+    &:focus {
+      border-color: gold;
+      outline: none;
+    }
+  }
+
+  p {
+    color: #d9534f;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+
+  .inputWrapper {
+    position: relative;
 
     input {
-        width: 100%;
-        padding: 10px;
-        background-color: inherit;
-        border-radius: 4px;
-        transition: border-color 0.3s;
-
-        &:focus {
-            border-color: gold;
-            outline: none;
-        }
+      padding-right: 40px;
     }
 
-    p {
-        color: #d9534f;
-        font-size: 14px;
-        margin-top: 4px;
+    .eye {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
     }
+  }
 
-    .inputWrapper {
-        position: relative;
-
-        input {
-            padding-right: 40px;
-        }
-
-        .eye {
-            position: absolute;
-            top: 50%;
-            right: 12px;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-    }
-
-    .buttonWrapper {
-        display: flex;
-        justify-content: center;
-    }
+  .buttonWrapper {
+    display: flex;
+    justify-content: center;
+  }
 }

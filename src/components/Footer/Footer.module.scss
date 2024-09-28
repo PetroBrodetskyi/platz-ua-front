@@ -1,37 +1,35 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 .footer {
-    
-    background-color: #1f1f1fd5;
-    color: var(--white);
-    padding: 40px;
-    width: 100%;
+  background-color: #1f1f1fd5;
+  color: var(--white);
+  padding: 40px;
+  width: 100%;
 
-    @media (max-width: $mobile) {
-        padding: 20px;
+  @media (max-width: $mobile) {
+    padding: 20px;
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .title {
+    font-size: 16px;
+    display: flex;
+  }
+
+  .adminButton {
+    display: flex;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--red);
     }
 
-    .container {
-        display: flex;
-        justify-content: space-between;
+    .icon {
+      font-size: 20px;
     }
-
-    .title {
-        font-size: 16px;
-        display: flex;
-    }
-
-
-    .adminButton {
-        display: flex;
-        cursor: pointer;
-
-        &:hover {
-            color: var(--red);
-        }
-
-        .icon {
-            font-size: 20px;
-        }
-    }
+  }
 }

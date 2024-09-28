@@ -1,82 +1,80 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 .logoFlex {
-    display: flex;
-    cursor: pointer;
+  display: flex;
+  cursor: pointer;
 }
 
 .logoLink {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .logo {
-    font-size: 44px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    background-color: var(--white);
+  font-size: 44px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  background-color: var(--white);
+
+  @media (max-width: $tablet) {
+    font-size: 38px;
+  }
+
+  @include media-rules(desktop) {
+    font-size: 42px;
+  }
+
+  .logoLetterP {
+    color: #000;
+    line-height: 1;
+  }
+
+  .logoLetterL {
+    color: #ff0202;
+    line-height: 1;
+  }
+
+  .logoLetterA {
+    color: var(--logo-yellow);
+    line-height: 1;
+  }
+
+  .logoLetterT {
+    color: #000;
+    line-height: 1;
+  }
+
+  .logoLetterZ {
+    color: #ff0202;
+    line-height: 1;
+  }
+
+  .logoLetterU {
+    font-size: 18px;
+    vertical-align: super;
+    color: #0057b7;
+    margin-left: 2px;
 
     @media (max-width: $tablet) {
-        font-size: 38px;
+      font-size: 16px;
     }
 
-    @media (min-width: $desktop) {
-        font-size: 42px;
+    @media (max-width: $mobile) {
+      font-size: 14px;
+    }
+  }
+
+  .logoLetterA2 {
+    font-size: 18px;
+    vertical-align: super;
+    color: #ffd700;
+
+    @media (max-width: $tablet) {
+      font-size: 16px;
     }
 
-    .logoLetterP {
-        color: #000;
-        line-height: 1;
-        
+    @media (max-width: $mobile) {
+      font-size: 14px;
     }
-
-    .logoLetterL {
-        color: #ff0202;
-        line-height: 1;
-    }
-
-    .logoLetterA {
-        color: var(--logo-yellow);
-        line-height: 1;
-    }
-
-    .logoLetterT {
-        color: #000;
-        line-height: 1;
-    }
-
-    .logoLetterZ {
-        color: #ff0202;
-        line-height: 1;
-    }
-
-    .logoLetterU {
-        font-size: 18px;
-        vertical-align: super;
-        color: #0057b7;
-        margin-left: 2px;
-
-        @media (max-width: $tablet) {
-            font-size: 16px;
-        }
-
-        @media (max-width: $mobile) {
-            font-size: 14px;
-        }
-    }
-
-    .logoLetterA2 {
-        font-size: 18px;
-        vertical-align: super;
-        color: #ffd700;
-
-        @media (max-width: $tablet) {
-            font-size: 16px;
-        }
-
-        @media (max-width: $mobile) {
-            font-size: 14px;
-        }
-    }
-
+  }
 }

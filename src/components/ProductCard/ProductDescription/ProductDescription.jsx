@@ -7,7 +7,14 @@ import scss from "./ProductDescription.module.scss";
 
 Modal.setAppElement("#root");
 
-const ProductDescription = ({ show, name, description, PLZ, city, onToggle }) => {
+const ProductDescription = ({
+  show,
+  name,
+  description,
+  PLZ,
+  city,
+  onToggle,
+}) => {
   const handleKeyDown = (event) => {
     if (event.key === "Escape") {
       onToggle();

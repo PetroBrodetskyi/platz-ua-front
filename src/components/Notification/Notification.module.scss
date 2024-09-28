@@ -1,51 +1,51 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 .notification {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #333;
-    color: var(--white);
-    padding: 16px 24px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    animation: fadeInOut 3s forwards;
-    z-index: 200;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #333;
+  color: var(--white);
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: fadeInOut 3s forwards;
+  z-index: 200;
 
-    .message {
-        font-size: 12px;
-        text-align: center;
+  .message {
+    font-size: 12px;
+    text-align: center;
 
-        @media (min-width: $tablet) {
-        font-size: 14px;
-        }
-
-        @media (min-width: $desktop) {
-            font-size: 16px;
-        }
+    @include media-rules(tablet) {
+      font-size: 14px;
     }
+
+    @include media-rules(desktop) {
+      font-size: 16px;
+    }
+  }
 }
 
 @keyframes fadeInOut {
-    0% {
-        opacity: 0;
-        transform: translate(-50%, -60%);
-    }
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
 
-    10% {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-    }
+  10% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
 
-    90% {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-    }
+  90% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
 
-    100% {
-        opacity: 0;
-        transform: translate(-50%, -60%);
-    }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
 }

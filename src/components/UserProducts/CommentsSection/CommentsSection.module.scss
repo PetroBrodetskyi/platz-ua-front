@@ -1,136 +1,134 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 $padding-desktop: 40px;
 $padding-tablet: 20px;
 $padding-mobile: 10px;
 
 .commentsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @include media-rules(desktop) {
+    width: 50%;
+  }
+
+  .commentsList {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    
+    gap: 10px;
 
-    @media (min-width: $desktop) {
-        width: 50%;
-    }
+    .commentItem {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 10px;
+      background-color: var(--white);
+      border: 1px solid #ccc;
+      border-radius: 4px;
 
-    .commentsList {
+      p {
+        margin: 0;
+        font-size: 12px;
+
+        &.dateTime {
+          font-size: 12px;
+          color: #999;
+        }
+      }
+
+      .avatarName {
         display: flex;
-        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid var(--dark-bg);
+        padding: 4px;
+      }
+
+      .editedMark {
+        font-size: 12px;
+        color: #888;
+        margin-left: 5px;
+      }
+
+      .commentActions {
+        display: flex;
         gap: 10px;
 
-        .commentItem {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            padding: 10px;
-            background-color: var(--white);
-            border: 1px solid #ccc;
-            border-radius: 4px;
+        .icon {
+          cursor: pointer;
+          font-size: 14px;
+          color: #888;
 
-
-            p {
-                margin: 0;
-                font-size: 12px;
-
-                &.dateTime {
-                    font-size: 12px;
-                    color: #999;
-                }
-            }
-
-            .avatarName {
-                display: flex;
-                gap: 8px;
-                align-items: center;
-                cursor: pointer;
-            }
-            
-            .avatar {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                border: 2px solid var(--dark-bg);
-                padding: 4px;
-            }
-
-            .editedMark {
-                font-size: 12px;
-                color: #888;
-                margin-left: 5px;
-            }
-
-            .commentActions {
-                display: flex;
-                gap: 10px;
-
-                .icon {
-                    cursor: pointer;
-                    font-size: 14px;
-                    color: #888;
-
-                    &:hover {
-                        color: #555;
-                    }
-                }
-            }
-
-            .editButtons {
-                display: flex;
-                gap: 10px;
-
-                button {
-                    padding: 5px 10px;
-                    border: none;
-                    background-color: var(--red);
-                    color: var(--white);
-                    cursor: pointer;
-                    border-radius: 4px;
-
-                    &:hover {
-                        background-color: var(--red);
-                    }
-                }
-            }
+          &:hover {
+            color: #555;
+          }
         }
-    }
+      }
 
-    .addComment {
+      .editButtons {
         display: flex;
-        flex-direction: column;
         gap: 10px;
-
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: none;
-            font-family: var(--font-family);
-            font-size: 14px;
-
-            &:focus {
-                border-color: #000;
-            }
-        }
 
         button {
-            align-self: flex-end;
-            padding: 10px 20px;
-            border: none;
-            background-color: var(--red);
-            color: var(--white);
-            font-size: 14px;
-            cursor: pointer;
-            border-radius: 4px;
+          padding: 5px 10px;
+          border: none;
+          background-color: var(--red);
+          color: var(--white);
+          cursor: pointer;
+          border-radius: 4px;
 
-            &:hover {
-                background-color: var(--red);
-            }
+          &:hover {
+            background-color: var(--red);
+          }
         }
+      }
+    }
+  }
+
+  .addComment {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: none;
+      font-family: var(--font-family);
+      font-size: 14px;
+
+      &:focus {
+        border-color: #000;
+      }
     }
 
-    .iconContainer {
+    button {
+      align-self: flex-end;
+      padding: 10px 20px;
+      border: none;
+      background-color: var(--red);
+      color: var(--white);
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: var(--red);
+      }
+    }
+  }
+
+  .iconContainer {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -140,7 +138,7 @@ $padding-mobile: 10px;
     justify-content: center;
 
     .icon {
-        font-size: 28px;
+      font-size: 28px;
     }
-}
+  }
 }

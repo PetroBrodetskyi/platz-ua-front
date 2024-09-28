@@ -58,7 +58,7 @@ const ShareModal = ({
   };
 
   const handleShare = (platform) => {
-    const shareMessage = `${name} \nЦіна: ${price} \nЛокація: ${city} ${trimmedDescription} \nДеталі: ${productUrl} ${image}`;
+    const shareMessage = `${name} \nЦіна: ${price} \nЛокація: ${city} ${trimmedDescription} \nДеталі: ${productUrl}`;
 
     const shareUrl = sharePlatforms[platform](shareMessage);
 

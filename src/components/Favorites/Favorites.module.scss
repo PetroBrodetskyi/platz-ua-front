@@ -1,23 +1,23 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 .favorite {
-    padding: 100px 40px;
+  padding: 100px 40px;
 
-    h1 {
-        margin-bottom: 20px;
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 18px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      margin: 10px 0;
+      font-size: 18px;
     }
-
-    p {
-        font-size: 18px;
-    }
-
-    ul {
-        list-style-type: none;
-        padding: 0;
-
-        li {
-            margin: 10px 0;
-            font-size: 18px;
-        }
-    }
+  }
 }

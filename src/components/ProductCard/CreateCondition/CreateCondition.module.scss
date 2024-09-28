@@ -1,29 +1,27 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 .container {
+  .condition {
+    font-size: 10px;
 
-    .condition {
-        font-size: 10px;
-
-        @media (min-width: $tablet) {
-            font-size: 12px;
-        }
-        
-        @media (min-width: $desktop) {
-            font-size: 14px;
-        }
+    @include media-rules(tablet) {
+      font-size: 12px;
     }
 
-    .addedDate {
-        font-size: 10px;
-
-        @media (min-width: $tablet) {
-            font-size: 12px;
-        }
-        
-        @media (min-width: $desktop) {
-            font-size: 14px;
-        }
+    @include media-rules(desktop) {
+      font-size: 14px;
     }
+  }
+
+  .addedDate {
+    font-size: 10px;
+
+    @include media-rules(tablet) {
+      font-size: 12px;
+    }
+
+    @include media-rules(desktop) {
+      font-size: 14px;
+    }
+  }
 }
-

@@ -1,59 +1,61 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 .tabsLineFlex {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .tabsContainer {
-    display: flex;
-    gap: 48px;
+  display: flex;
+  gap: 48px;
 }
 
 .tabDetails,
 .tabReviews {
-    background: none;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    position: relative;
-    outline: none;
-    transition: color 0.3s;
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+  outline: none;
+  transition: color 0.3s;
 
-    &:hover {
-        color: var(--red);
-    }
+  &:hover {
+    color: var(--red);
+  }
 }
 
 .tabDetails::after,
 .tabReviews::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background-color: var(--red);
-    transition: width 0.3s, left 0.3s;
-    transform: translateX(-50%);
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--red);
+  transition:
+    width 0.3s,
+    left 0.3s;
+  transform: translateX(-50%);
 }
 
 .active::after {
-    width: 100%;
-    left: 50%;
+  width: 100%;
+  left: 50%;
 }
 
 .tabsTitle {
-    font-size: 14px;
-    font-weight: 600;
+  font-size: 14px;
+  font-weight: 600;
 
-    @media (min-width: $tablet) {
-        font-size: 14px;
-    }
-    
-    @media (min-width: $desktop) {
-        font-size: 16px;
-    }
+  @include media-rules(tablet) {
+    font-size: 14px;
+  }
+
+  @include media-rules(desktop) {
+    font-size: 16px;
+  }
 }

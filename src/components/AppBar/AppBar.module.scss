@@ -1,14 +1,14 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .appBar {
-    flex: 1;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }

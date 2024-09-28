@@ -1,32 +1,30 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 .userInfo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  cursor: pointer;
+
+  @include media-rules(tablet) {
+    gap: 4px;
     padding: 10px;
-    cursor: pointer;
+  }
 
-    @media (min-width: $tablet) {
-        gap: 4px;
-        padding: 10px;
-    }
+  @include media-rules(desktop) {
+    gap: 4px;
+    padding: 20px;
+  }
 
-    @media (min-width: $desktop) {
-        gap: 4px;
-        padding: 20px;
-        
-    }
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--dark-bg);
+  }
 
-    .avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        border: 2px solid var(--dark-bg);
-    }
-
-    .name {
-        font-weight: 600;
-    }
-
+  .name {
+    font-weight: 600;
+  }
 }

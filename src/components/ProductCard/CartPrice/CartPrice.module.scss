@@ -1,67 +1,61 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 .cartPriceContainer {
+  .cartPrice {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
 
-    .cartPrice {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
+  .priceContainer {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+
+    @include media-rules(tablet) {
+      gap: 4px;
     }
 
-    .priceContainer {
-        display: flex;
-        align-items: center;
-        gap: 2px;
+    @include media-rules(desktop) {
+      gap: 4px;
+    }
+  }
 
-        @media (min-width: $tablet) {
-            gap: 4px;
-        }
-        
-        @media (min-width: $desktop) {
-            gap: 4px;
-        }
+  .priceInUAH {
+    font-size: 10px;
+
+    @include media-rules(tablet) {
+      font-size: 12px;
     }
 
-    .priceInUAH {
-        font-size: 10px;
+    @include media-rules(desktop) {
+      font-size: 16px;
+    }
+  }
 
-        @media (min-width: $tablet) {
-            font-size: 12px;
-        }
-        
-        @media (min-width: $desktop) {
-            font-size: 16px;
-        }
+  .productPrice {
+    color: var(--red);
+    font-weight: bold;
+    font-size: 18px;
 
+    @include media-rules(tablet) {
+      font-size: 20px;
     }
 
-    .productPrice {
-        color: var(--red);
-        font-weight: bold;
-        font-size: 18px;
+    @include media-rules(desktop) {
+      font-size: 24px;
+    }
+  }
 
-        @media (min-width: $tablet) {
-            font-size: 20px;
-        }
-        
-        @media (min-width: $desktop) {
-            font-size: 24px;
-        }
+  .icon {
+    font-size: 18px;
+
+    @include media-rules(tablet) {
+      font-size: 20px;
     }
 
-    .icon {
-        font-size: 18px;
-    
-
-        @media (min-width: $tablet) {
-            font-size: 20px;
-        }
-    
-        @media (min-width: $desktop) {
-            font-size: 24px;
-        }
-
+    @include media-rules(desktop) {
+      font-size: 24px;
     }
-
-
+  }
 }

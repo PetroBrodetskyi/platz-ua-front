@@ -1,32 +1,32 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 .viewToggle {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .viewButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-left: 10px;
-    font-size: 24px;
-    color: var(--primary-color);
-    transition: color 0.3s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 24px;
+  color: var(--primary-color);
+  transition: color 0.3s;
 
-    &.active {
-        color: var(--red);
-    }
+  &.active {
+    color: var(--red);
+  }
 
-    &:hover {
-        color: var(--red);
-    }
+  &:hover {
+    color: var(--red);
+  }
 }
 
 .icon {
-    font-size: 16px;
+  font-size: 16px;
 
-    @media (min-width: $desktop) {
-        font-size: 20px;
-    }
+  @include media-rules(desktop) {
+    font-size: 20px;
+  }
 }

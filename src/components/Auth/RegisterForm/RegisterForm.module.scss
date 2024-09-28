@@ -1,98 +1,98 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 $auth-form-width-desktop: 360px;
 $auth-form-width-tablet: 300px;
 $auth-form-width-mobile: 100%;
 
 .auth {
-    display: flex;
-    align-items: center;
-    padding: 40px;
-    height: 100vh;
-    background-color: var(--light-bg);
+  display: flex;
+  align-items: center;
+  padding: 40px;
+  height: 100vh;
+  background-color: var(--light-bg);
 }
 
 .form {
-    padding: 32px;
-    border-radius: 8px;
-    width: $auth-form-width-desktop;
-    background-color: var(--white);
+  padding: 32px;
+  border-radius: 8px;
+  width: $auth-form-width-desktop;
+  background-color: var(--white);
 
-    @media (max-width: 768px) {
-        width: $auth-form-width-tablet;
-    }
+  @media (max-width: 768px) {
+    width: $auth-form-width-tablet;
+  }
 
-    @media (max-width: 480px) {
-        width: $auth-form-width-mobile;
-        padding: 24px;
-    }
+  @media (max-width: 480px) {
+    width: $auth-form-width-mobile;
+    padding: 24px;
+  }
 }
 
 .authNav {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
 
-    li {
-        list-style: none;
-        margin: 0 8px;
+  li {
+    list-style: none;
+    margin: 0 8px;
+  }
+
+  .classNavLink {
+    text-decoration: none;
+    font-weight: 500;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s;
+
+    &.active {
+      border-color: #007bff;
     }
 
-    .classNavLink {
-        text-decoration: none;
-        font-weight: 500;
-        padding-bottom: 4px;
-        border-bottom: 2px solid transparent;
-        transition: border-color 0.3s;
-
-        &.active {
-            border-color: #007bff;
-        }
-
-        &:hover {
-            border-color: #0056b3;
-        }
+    &:hover {
+      border-color: #0056b3;
     }
+  }
 }
 
 .authForm {
-    display: flex;
-    flex-direction: column;
-    gap: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  width: 100%;
+
+  input {
     width: 100%;
+    padding: 10px;
+    background-color: inherit;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .inputWrapper {
+    position: relative;
 
     input {
-        width: 100%;
-        padding: 10px;
-        background-color: inherit;
-        border-radius: 4px;
-        transition: border-color 0.3s;
-
-        &:focus {
-            outline: none;
-        }
+      padding-right: 40px;
     }
 
-    .inputWrapper {
-        position: relative;
-
-        input {
-            padding-right: 40px;
-        }
-
-        .eye {
-            position: absolute;
-            top: 50%;
-            right: 12px;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
+    .eye {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
     }
+  }
 
-    .buttonWrapper {
-        display: flex;
-        justify-content: center;
-    }
+  .buttonWrapper {
+    display: flex;
+    justify-content: center;
+  }
 }

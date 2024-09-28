@@ -1,52 +1,51 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 $padding-desktop: 80px 40px;
 $padding-tablet: 20px;
 $padding-mobile: 0 10px;
 
 .userProducts {
+  padding: $padding-mobile;
+  display: flex;
+  background-color: var(--light-bg);
+  flex-direction: column;
+
+  @include media-rules(tablet) {
     padding: $padding-mobile;
+  }
+
+  @include media-rules(desktop) {
+    padding: $padding-desktop;
+  }
+
+  .productsList {
     display: flex;
-    background-color: var(--light-bg);
     flex-direction: column;
 
-    @media (min-width: $tablet) {
-        padding: $padding-mobile;
+    @include media-rules(tablet) {
+      flex-direction: column;
     }
 
-    @media (min-width: $desktop) {
-        padding: $padding-desktop;
+    @include media-rules(desktop) {
+      flex-direction: column;
+    }
+  }
+
+  .userInfo {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 20px;
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--dark-bg);
     }
 
-    .productsList {
-        display: flex;
-        flex-direction: column;
-
-        @media (min-width: $tablet) {
-                flex-direction: column;
-            }
-        
-            @media (min-width: $desktop) {
-                flex-direction: column;
-            }
+    .userName {
+      font-weight: 600;
     }
-
-    .userInfo {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-        padding: 20px;
-
-        .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid var(--dark-bg);
-        }
-
-        .userName {
-            font-weight: 600;
-        }
-    }
-
+  }
 }

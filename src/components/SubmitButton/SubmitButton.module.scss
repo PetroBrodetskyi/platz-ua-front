@@ -1,52 +1,54 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 .button {
-    padding: 12px;
-    font-size: 14px;
-    width: 160px;
-    border: none;
-    border-radius: 4px;
-    background-color: var(--red);
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    
-    &:hover {
-        background-color: var(--dark-yellow);
-    }
+  padding: 12px;
+  font-size: 14px;
+  width: 160px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--red);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: var(--dark-yellow);
+  }
 }
 
 .buttonWrapper {
-    padding: 12px;
-    border: none;
-    border-radius: 4px;
-    background-color: #6c757d;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #6c757d;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
 
-    &:hover {
-        background-color: #5a6268;
-    }
+  &:hover {
+    background-color: #5a6268;
+  }
 }
 
 .buttonSignIn {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    font-size: 14px;
-    width: 160px;
-    border: none;
-    border-radius: 12px;
-    background-color: var(--red);
-    color: #fff;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2), 3px 3px 6px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    transition: background-color 0.3s;
-    
-    &:hover {
-        background-color: var(--dark-yellow);
-    }
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  font-size: 14px;
+  width: 160px;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--red);
+  color: #fff;
+  box-shadow:
+    1px 1px 2px rgba(0, 0, 0, 0.2),
+    3px 3px 6px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: var(--dark-yellow);
+  }
 }

@@ -1,180 +1,175 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 .header {
+  display: flex;
+  align-items: center;
+  background: var(--white);
+  width: 100%;
+  padding: 10px;
+
+  @include media-rules(tablet) {
+    padding: 10px 20px;
+  }
+
+  @include media-rules(desktop) {
+    padding: 10px 40px;
+    position: fixed;
+    z-index: 10000;
+  }
+
+  .container {
     display: flex;
-    align-items: center;
-    background: var(--white);
+    gap: 8px;
+    justify-content: space-between;
     width: 100%;
-    padding: 10px;
 
-    @media (min-width: $tablet) {
-        padding: 10px 20px;
+    @media (max-width: $tablet) {
+      flex-direction: column;
     }
 
-    @media (min-width: $desktop) {
-        padding: 10px 40px;
-        position: fixed;
-        z-index: 10000;
+    @media screen and (max-width: $tablet) {
+      .iconUserDesktop {
+        font-size: 24px;
+        display: none;
+      }
     }
 
-    .container {
-        display: flex;
+    @media screen and (min-width: $tablet) {
+      .iconUserMobile {
+        font-size: 24px;
+        display: none;
+      }
+    }
+
+    .userMenu {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      padding: 4px;
+
+      @include media-rules(tablet) {
+        align-items: center;
         gap: 8px;
-        justify-content: space-between;
-        width: 100%;
+      }
+
+      @include media-rules(desktop) {
+        gap: 12px;
+      }
+
+      .loginButton,
+      .userButton {
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+
+        &:hover {
+          color: #0057b7;
+        }
+      }
+
+      .icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        font-size: 20px;
 
         @media (max-width: $tablet) {
-            flex-direction: column;
+          font-size: 20px;
         }
 
-        @media screen and (max-width: $tablet) {
-            .iconUserDesktop {
-                font-size: 24px;
-                display: none;
-            }
+        @include media-rules(desktop) {
+          font-size: 24px;
         }
 
-        @media screen and (min-width: $tablet) {
-            .iconUserMobile {
-                font-size: 24px;
-                display: none;
-            }
+        &.favorite {
+          color: var(--red);
+        }
+      }
+
+      .animate {
+        animation: blink 1.5s ease-in-out 1;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          color: var(--red);
         }
 
-        .userMenu {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            padding: 4px;
-
-            @media (min-width: $tablet) {
-                align-items: center;
-                gap: 8px;
-            }
-
-            @media (min-width: $desktop) {
-                gap: 12px;
-            }
-
-            .loginButton,
-            .userButton {
-                background: none;
-                border: none;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-
-                &:hover {
-                    color: #0057b7;
-                }
-            }
-
-            .icon {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                cursor: pointer;
-                font-size: 20px;
-
-                @media (max-width: $tablet) {
-                    font-size: 20px;
-                }
-
-                @media (min-width: $desktop) {
-                    font-size: 24px;
-                }
-
-                &.favorite {
-                    color: var(--red);
-                }
-            }
-
-            .animate {
-                animation: blink 1.5s ease-in-out 1;
-            }
-
-            @keyframes blink {
-
-                0%,
-                100% {
-                    color: var(--red);
-                }
-
-                25%,
-                75% {
-                    color: var(--white);
-                }
-
-                50% {
-                    color: var(--red);
-                }
-            }
+        25%,
+        75% {
+          color: var(--white);
         }
 
-        .logoUserMobile {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        50% {
+          color: var(--red);
         }
-
-        .navigateItem {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-
-
-            @media (min-width: $tablet) {
-                flex-direction: column;
-
-            }
-
-            @media (min-width: $desktop) {
-                flex-direction: column;
-
-            }
-        }
-
-        .userOptions {
-            font-size: 12px;
-
-            @media (min-width: $tablet) {
-                font-size: 14px;
-
-            }
-
-            @media (min-width: $desktop) {
-                font-size: 14px;
-            }
-        }
+      }
     }
+
+    .logoUserMobile {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navigateItem {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      @include media-rules(tablet) {
+        flex-direction: column;
+      }
+
+      @include media-rules(desktop) {
+        flex-direction: column;
+      }
+    }
+
+    .userOptions {
+      font-size: 12px;
+
+      @include media-rules(tablet) {
+        font-size: 14px;
+      }
+
+      @include media-rules(desktop) {
+        font-size: 14px;
+      }
+    }
+  }
 }
 
 .userInfo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
-    .avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        border: 2px solid var(--dark-bg);
-    }
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--dark-bg);
+  }
 
-    span {
-        font-size: 14px;
-        font-weight: 500;
-    }
+  span {
+    font-size: 14px;
+    font-weight: 500;
+  }
 }
 
 .iconUserMobile {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .iconUserDesktop {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }

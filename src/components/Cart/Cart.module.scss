@@ -1,28 +1,28 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 .cart {
+  padding: 10px;
+  background-color: var(--light-bg);
+
+  @include media-rules(tablet) {
     padding: 10px;
-    background-color: var(--light-bg);
+  }
 
-    @media (min-width: $tablet) {
-        padding: 10px;
-    }
-
-    @media (min-width: $desktop) {
-        padding: 100px 40px;
-    }
+  @include media-rules(desktop) {
+    padding: 100px 40px;
+  }
 }
 
 .cartList {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  @include media-rules(tablet) {
     gap: 10px;
+  }
 
-    @media (min-width: $tablet) {
-        gap: 10px;
-    }
-
-    @media (min-width: $desktop) {
-        gap: 20px;
-    }
+  @include media-rules(desktop) {
+    gap: 20px;
+  }
 }

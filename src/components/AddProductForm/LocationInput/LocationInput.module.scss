@@ -1,51 +1,50 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 .formGroup {
+  .inputPlz {
+    display: flex;
+    position: relative;
 
-    .inputPlz {
-        display: flex;
-        position: relative;
-    
-        input {
-            width: 100%;
-            padding: 6px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 14px;
+    input {
+      width: 100%;
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
 
-            @media (min-width: $tablet) {
-                padding: 8px;
-            }
-            
-            @media (min-width: $desktop) {
-                padding: 10px;
-            }
-        }
+      @include media-rules(tablet) {
+        padding: 8px;
+      }
 
-        .clearButton {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
-            margin: 0;
-        }
-
-        .icon {
-            font-size: 18px;
-        }
+      @include media-rules(desktop) {
+        padding: 10px;
+      }
     }
 
-    span {
-        color: red;
-        font-size: 12px;
-        margin-top: 5px;
-        display: block;
+    .clearButton {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
     }
+
+    .icon {
+      font-size: 18px;
+    }
+  }
+
+  span {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+  }
 }

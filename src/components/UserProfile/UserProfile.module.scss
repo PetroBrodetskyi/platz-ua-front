@@ -1,82 +1,82 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 $padding-desktop: 100px 40px;
 $padding-tablet: 20px;
 $padding-mobile: 10px;
 
 .container {
-    padding: $padding-desktop;
-    background-color: var(--white);
+  padding: $padding-desktop;
+  background-color: var(--white);
 }
 
 .userProfile {
-    max-width: 400px;
-    border-radius: 4px;
-    padding: 20px;
-    background-color: var(--white);
+  max-width: 400px;
+  border-radius: 4px;
+  padding: 20px;
+  background-color: var(--white);
 }
 
 .avatarContainer {
-    position: relative;
-    display: inline-block;
-    margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
 }
 
 .avatar {
-    border-radius: 50%;
-    cursor: pointer;
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
 }
 
 .fileInput {
-    display: none;
+  display: none;
 }
 
 .formGroup {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 
-    label {
-        margin-bottom: 5px;
-        font-weight: bold;
-        display: block;
-    }
+  label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    display: block;
+  }
 
-    input {
-        padding: 8px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        width: 100%;
-    }
+  input {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+  }
 }
 
-button[type='submit'] {
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+button[type="submit"] {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 
-    &:hover {
-        background-color: #0056b3;
-    }
+  &:hover {
+    background-color: #0056b3;
+  }
 }
 
 .plusIcon {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    font-size: 24px;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 50%;
-    cursor: pointer;
-    padding: 5px;
-    z-index: 10;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 24px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 10;
 }

@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@import "src/styles/mixins";
 
 .modalOverlay {
   position: fixed;
@@ -28,13 +28,10 @@
   }
 }
 
-
-
 .container {
   display: flex;
   flex-direction: column;
 }
-
 
 .header {
   display: flex;
