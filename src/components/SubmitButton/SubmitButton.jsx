@@ -1,7 +1,7 @@
 import { PiSignInBold } from "react-icons/pi";
 import scss from "./SubmitButton.module.scss";
 
-const SubmitButton = ({ buttonText, onSubmit, onClick }) => {
+const SubmitButton = ({ buttonText, onClick }) => {
   switch (buttonText) {
     case "Відправити":
     case "Реєстрація":

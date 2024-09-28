@@ -17,7 +17,7 @@ const SubcategoriesSelect = ({ subcategories, register, errors }) => {
             </option>
           ))}
         </select>
-        {errors.subcategory1 && <span>Це поле обов'язкове</span>}
+        {errors.subcategory1 && <span>Це поле обов&apos;язкове</span>}
       </div>
       <div>
         <label htmlFor="subcategory2"></label>

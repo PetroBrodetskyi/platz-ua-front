@@ -23,6 +23,8 @@ const ShareModal = ({
 
   const trimmedDescription = getTrimmedDescription(description);
 
+  const message = `${name} \nЦіна: ${price} \nЛокація: ${city} ${trimmedDescription} \nДеталі: ${productUrl} ${image}`;
+
   const handleOverlayClick = (event) => {
     if (event.target.classList.contains(scss.modalOverlay)) {
       onToggle();
@@ -59,9 +61,9 @@ const ShareModal = ({
   };
 
   const handleShare = (platform) => {
-    const message = `${name} \nЦіна: ${price} \nЛокація: ${city} ${trimmedDescription} \nДеталі: ${productUrl} ${image}`;
+    const shareMessage = `${name} \nЦіна: ${price} \nЛокація: ${city} ${trimmedDescription} \nДеталі: ${productUrl} ${image}`;
 
-    const shareUrl = sharePlatforms[platform](message);
+    const shareUrl = sharePlatforms[platform](shareMessage);
 
     if (shareUrl) {
       window.open(shareUrl, "_blank");

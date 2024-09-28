@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import axios from "axios";
 import scss from "./UserProfile.module.scss";
@@ -121,7 +121,7 @@ const UserProfile = ({ user }) => {
         </div>
         <form onSubmit={handleSubmit}>
           <div className={scss.formGroup}>
-            <label htmlFor="name">Ім'я:</label>
+            <label htmlFor="name">Ім&apos;я:</label>
             <input
               type="text"
               id="name"

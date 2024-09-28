@@ -1,4 +1,3 @@
-import React from "react";
 import { TbLocation } from "react-icons/tb";
 import { SlLocationPin } from "react-icons/sl";
 import { MdOutlineDateRange } from "react-icons/md";

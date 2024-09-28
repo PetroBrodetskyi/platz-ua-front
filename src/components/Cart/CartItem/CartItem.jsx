@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import scss from "./CartItem.module.scss";
@@ -128,7 +128,7 @@ const CartItem = ({
               <h4>Ваші данні:</h4>
               <div className={scss.userInfo}>
                 <p>
-                  <strong>Ім'я:</strong> {currentUser?.name}
+                  <strong>Ім&apos;я:</strong> {currentUser?.name}
                 </p>
                 <p>
                   <strong>Email:</strong> {currentUser?.email}

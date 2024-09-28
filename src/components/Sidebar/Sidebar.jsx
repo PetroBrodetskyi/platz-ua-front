@@ -1,16 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import SidebarCart from "./SidebarCart/SidebarCart";
 import SidebarFavorites from "./SidebarFavorites/SidebarFavorites";
 import SidebarMyAds from "./SidebarMyAds/SidebarMyAds";
 import { IoChevronUpOutline, IoChevronDownSharp } from "react-icons/io5";
 import scss from "./Sidebar.module.scss";
 
-const Sidebar = ({
-  cartItems,
-  selectedProducts,
-  handleRemoveFromCart,
-  handleProductClick,
-}) => {
+const Sidebar = ({ cartItems, handleRemoveFromCart }) => {
   const [isCartOpen, setIsCartOpen] = useState(true);
   const [isFavoritesOpen, setIsFavoritesOpen] = useState(true);
   const [isMyAdsOpen, setIsMyAdsOpen] = useState(true);

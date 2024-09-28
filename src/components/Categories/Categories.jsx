@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import scss from "./Categories.module.scss";
 import data from "./products.json";
 import { getCategoryIcon, getSubcategoryIcon } from "./icons.jsx";

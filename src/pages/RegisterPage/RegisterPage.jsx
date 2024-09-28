@@ -1,4 +1,3 @@
-import React from "react";
 import RegisterForm from "../../components/Auth/RegisterForm/RegisterForm";
 import RandomCards from "../../components/RandomCards/RandomCards";
 

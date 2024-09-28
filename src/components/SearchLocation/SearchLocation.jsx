@@ -33,12 +33,12 @@ const SearchLocation = () => {
     setSearchResults(filteredResults);
 
     if (filteredResults.length > 0) {
-      dispatch(clearProducts()); // Очищення поточних продуктів перед завантаженням нових
+      dispatch(clearProducts());
       dispatch(fetchProductsByLocation({ PLZ: plzQuery, city: cityQuery }));
     } else {
       console.log("No results found for products.");
-      dispatch(clearProducts()); // Очищення поточних продуктів
-      dispatch(fetchProductsByLocation([])); // Завантаження порожнього списку
+      dispatch(clearProducts());
+      dispatch(fetchProductsByLocation([]));
     }
   }, [plzQuery, cityQuery, dispatch, filterLocations]);
 
@@ -50,8 +50,8 @@ const SearchLocation = () => {
     } else {
       setSearchResults([]);
       setShowResults(false);
-      dispatch(clearProducts()); // Очищення поточних продуктів перед завантаженням нових
-      dispatch(fetchProducts({ page: 1 })); // Завантаження початкових продуктів (найновіших оголошень)
+      dispatch(clearProducts());
+      dispatch(fetchProducts({ page: 1 }));
     }
   }, [plzQuery, cityQuery, filterLocations, dispatch]);
 
@@ -66,8 +66,8 @@ const SearchLocation = () => {
     setSearchResults([]);
     setShowResults(false);
 
-    dispatch(clearProducts()); // Очищення поточних продуктів перед завантаженням нових
-    dispatch(fetchProducts({ page: 1 })); // Завантаження початкових продуктів (найновіших оголошень)
+    dispatch(clearProducts());
+    dispatch(fetchProducts({ page: 1 }));
   };
 
   const handleResultClick = (result) => {

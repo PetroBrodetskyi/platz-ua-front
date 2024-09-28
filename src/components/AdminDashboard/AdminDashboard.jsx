@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import scss from "./AdminDashboard.module.scss";
 
@@ -157,7 +157,7 @@ const AdminDashboard = () => {
               {product.owner && owners[product.owner] && (
                 <div className={scss.ownerInfo}>
                   <h4>Інформація про власника:</h4>
-                  <p>Ім'я: {owners[product.owner].name}</p>
+                  <p>Ім&apos;я: {owners[product.owner].name}</p>
                   <p>Електронна пошта: {owners[product.owner].email}</p>
                   <p>Телефон: {owners[product.owner].phone}</p>
                 </div>

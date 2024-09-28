@@ -92,7 +92,7 @@ const Buyers = () => {
           <div className={scss.info}>
             <div className={scss.iconTitle}>
               <FaPhone className={scss.icon} />
-              <p className={scss.title}>Зв'яжіться з продавцем</p>
+              <p className={scss.title}>Зв&apos;яжіться з продавцем</p>
             </div>
             <p className={scss.text}>
               Зателефонуйте продавцю або надішліть повідомлення через чат

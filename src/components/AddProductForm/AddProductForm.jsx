@@ -244,7 +244,7 @@ const AddProductForm = () => {
             <p className={scss.chars}>
               Доступно символів: {maxChars - charCount}
             </p>
-            {errors.description && <span>Це поле обов'язкове</span>}
+            {errors.description && <span>Це поле обов&apos;язкове</span>}
           </div>
           <SubmitButton buttonText="Розмістити" />
           {isLoading && <Loader />}

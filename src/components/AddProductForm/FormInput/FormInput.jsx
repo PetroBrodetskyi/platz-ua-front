@@ -21,7 +21,7 @@ const FormInput = ({
       onChange={onChange}
       value={value}
     />
-    {errors[id] && <span>Це поле обов'язкове</span>}
+    {errors[id] && <span>Це поле обов&apos;язкове</span>}
   </div>
 );
 

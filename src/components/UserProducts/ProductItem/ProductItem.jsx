@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { MdOutlineDeleteSweep } from "react-icons/md";
 import ProductDetails from "../UserProductsDetails/UserProductsDetails";
 import CommentsSection from "../CommentsSection/CommentsSection";
