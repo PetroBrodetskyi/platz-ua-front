@@ -1,8 +1,8 @@
 import { useState } from "react";
-import SidebarCart from "./SidebarCart/SidebarCart";
+import { IoChevronUpOutline, IoChevronDownSharp } from "react-icons/io5";
 import SidebarFavorites from "./SidebarFavorites/SidebarFavorites";
 import SidebarMyAds from "./SidebarMyAds/SidebarMyAds";
-import { IoChevronUpOutline, IoChevronDownSharp } from "react-icons/io5";
+import SidebarCart from "./SidebarCart/SidebarCart";
 import scss from "./Sidebar.module.scss";
 
 const Sidebar = ({ cartItems, handleRemoveFromCart }) => {

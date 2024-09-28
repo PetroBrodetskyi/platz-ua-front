@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import scss from "./SidebarMyAdItem.module.scss";
 import { memo } from "react";
+import scss from "./SidebarMyAdItem.module.scss";
 
 const SidebarMyAdItem = ({ product, onRemove }) => {
   const navigate = useNavigate();

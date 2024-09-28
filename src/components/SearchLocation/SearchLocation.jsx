@@ -4,7 +4,6 @@ import { ButtonBase } from "@mui/material";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import scss from "./SearchLocation.module.scss";
-import locationData from "./locations.json";
 import {
   setLocation,
   fetchProducts,
@@ -17,16 +16,26 @@ const SearchLocation = () => {
   const [cityQuery, setCityQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
+  const [locationData, setLocationData] = useState([]);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    const loadLocationData = async () => {
+      const response = await import("./locations.json");
+      setLocationData(response.default);
+    };
+    loadLocationData();
+  }, []);
+
   const filterLocations = useCallback(() => {
+    if (locationData.length === 0) return [];
     return locationData.filter(
       (location) =>
         (plzQuery === "" || location.plz.toString().includes(plzQuery)) &&
         (cityQuery === "" ||
           location.city.toLowerCase().includes(cityQuery.toLowerCase())),
     );
-  }, [plzQuery, cityQuery]);
+  }, [plzQuery, cityQuery, locationData]);
 
   const handleSearch = useCallback(async () => {
     const filteredResults = filterLocations();

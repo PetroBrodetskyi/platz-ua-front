@@ -1,10 +1,10 @@
+import { memo, useMemo } from "react";
+import SidebarFavoriteItem from "../SidebarFavoriteItem/SidebarFavoriteItem";
+import { toggleFavorite } from "../../../redux/features/favoritesSlice";
+import { TransitionGroup } from "react-transition-group";
 import { useSelector, useDispatch } from "react-redux";
 import { Collapse } from "@mui/material";
-import { TransitionGroup } from "react-transition-group";
-import { toggleFavorite } from "../../../redux/features/favoritesSlice";
-import SidebarFavoriteItem from "../SidebarFavoriteItem/SidebarFavoriteItem";
 import scss from "./SidebarFavorites.module.scss";
-import { memo, useMemo } from "react";
 
 const SidebarFavorites = () => {
   const dispatch = useDispatch();

@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Collapse } from "@mui/material";
-import { TransitionGroup } from "react-transition-group";
 import { fetchUserProducts } from "../../../redux/features/productsSlice";
 import SidebarMyAdItem from "../SidebarMyAdItem/SidebarMyAdItem";
-import scss from "./SidebarMyAds.module.scss";
-import Notification from "../../Notification/Notification";
 import { Confirmation } from "../../Confirmation/Confirmation";
+import Notification from "../../Notification/Notification";
+import { TransitionGroup } from "react-transition-group";
+import { useSelector, useDispatch } from "react-redux";
+
+import { Collapse } from "@mui/material";
 import axios from "axios";
+import scss from "./SidebarMyAds.module.scss";
 
 const SidebarMyAds = () => {
   const dispatch = useDispatch();

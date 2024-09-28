@@ -1,6 +1,6 @@
+import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 import scss from "./SidebarFavoriteItem.module.scss";
-import { memo } from "react";
 
 const SidebarFavoriteItem = ({ product, onRemove }) => {
   const navigate = useNavigate();
