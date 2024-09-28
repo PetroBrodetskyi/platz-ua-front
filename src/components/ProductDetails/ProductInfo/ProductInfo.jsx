@@ -6,7 +6,6 @@ import { MdOutlineDateRange } from "react-icons/md";
 import { FaRegFaceSmile, FaRegFaceMeh } from "react-icons/fa6";
 import scss from "./ProductInfo.module.scss";
 import CartPrice from "../../ProductCard/CartPrice/CartPrice";
-import ShareMenu from "../../ShareMenu/ShareMenu";
 import ActionButton from "../ActionButton/ActionButton";
 import Categoryes from "../Categories/Categories";
 import { fetchExchangeRate } from "../../../redux/features/productsSlice";
@@ -22,7 +21,7 @@ const ProductInfo = ({
   handleAddToCart,
   isInCart,
 }) => {
-  const productUrl = window.location.href;
+  const productUrl = window.location.href; // Залишимо цю змінну, якщо ви плануєте її використовувати далі
   const formattedDate = new Date(product.createdAt).toLocaleDateString();
   const dispatch = useDispatch();
   const exchangeRate = useSelector((state) => state.products.exchangeRate);
@@ -150,7 +149,6 @@ const ProductInfo = ({
         </div>
       </div>
       <Categoryes product={product} />
-      <ShareMenu productUrl={productUrl} />
     </div>
   );
 };

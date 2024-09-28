@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import scss from "./Notification.module.scss";
 
 const Notification = ({ message, onClose }) => {

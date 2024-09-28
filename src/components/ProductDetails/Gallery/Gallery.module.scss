@@ -8,13 +8,13 @@
   width: 100%;
   padding: 0 10px 10px;
 
-  @media (min-width: $tablet) {
+  @include media-rules(tablet) {
     background-color: var(--white);
     width: 50%;
     padding: 0;
   }
 
-  @media (min-width: $desktop) {
+  @include media-rules(desktop) {
     width: 42%;
   }
 
@@ -27,11 +27,11 @@
     height: 300px;
     object-fit: cover;
 
-    @media (min-width: $tablet) {
+    @include media-rules(tablet) {
       height: 320px;
     }
 
-    @media (min-width: $desktop) {
+    @include media-rules(desktop) {
       height: 400px;
     }
   }
@@ -47,12 +47,12 @@
       cursor: pointer;
       border: 2px solid transparent;
 
-      @media (min-width: $tablet) {
+      @include media-rules(tablet) {
         width: 23%;
         height: 90px;
       }
 
-      @media (min-width: $desktop) {
+      @include media-rules(desktop) {
         width: 24%;
         height: 140px;
       }

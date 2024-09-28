@@ -1,13 +1,9 @@
 @import 'src/styles/mixins';
 
-$product-list-padding-desktop: 10px 40px;
-$product-list-padding-tablet: 16px;
-$product-list-padding-mobile: 4px;
-
 .productListWrapper {
     display: flex;
 
-    @media (min-width: $desktop) {
+    @include media-rules(desktop) {
         justify-content: space-between;
     }
 }
@@ -17,11 +13,11 @@ $product-list-padding-mobile: 4px;
     flex-direction: column;
     gap: 20px;
 
-    @media (min-width: $tablet) {
+    @include media-rules(tablet) {
         width: 100%;
     }
 
-    @media (min-width: $desktop) {
+    @include media-rules(desktop) {
         width: 74%;
     }
 
@@ -31,14 +27,14 @@ $product-list-padding-mobile: 4px;
         align-items: center;
         padding: 0 4px;
 
-        @media (min-width: $desktop) {
+        @include media-rules(desktop) {
             padding: 0;
         }
 
         .title {
             font-size: 14px;
 
-            @media (min-width: $desktop) {
+            @include media-rules(desktop) {
                 font-size: 16px;
                 margin: 0;
             }
@@ -46,11 +42,9 @@ $product-list-padding-mobile: 4px;
     }
 
     &.list .container {
-
-        @media (min-width: $desktop) {
+        @include media-rules(desktop) {
             width: 72%;
             margin: 0 auto;
         }
-
     }
 }

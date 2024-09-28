@@ -1,4 +1,3 @@
-import React from "react";
 import { AiOutlineLogout } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
