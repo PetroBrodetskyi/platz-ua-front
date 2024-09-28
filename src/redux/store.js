@@ -1,10 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit';
-import productsReducer from './features/productsSlice';
-import commentsReducer from './features/commentsSlice';
-import authReducer from './features/authSlice';
-import favoritesReducer from './features/favoritesSlice';
-import cartReducer from './features/cartSlice';
-import { setupAxiosInterceptors } from './axiosConfig';
+import { configureStore } from "@reduxjs/toolkit";
+import productsReducer from "./features/productsSlice";
+import commentsReducer from "./features/commentsSlice";
+import authReducer from "./features/authSlice";
+import favoritesReducer from "./features/favoritesSlice";
+import cartReducer from "./features/cartSlice";
+import { setupAxiosInterceptors } from "./axiosConfig";
 
 const store = configureStore({
   reducer: {
@@ -18,7 +18,7 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
     }),
-  devTools: process.env.NODE_ENV !== 'production',
+  devTools: process.env.NODE_ENV !== "production",
 });
 
 setupAxiosInterceptors(store);

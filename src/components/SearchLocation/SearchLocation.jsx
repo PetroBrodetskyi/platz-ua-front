@@ -1,15 +1,20 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 import { IoClose, IoSearchSharp } from "react-icons/io5";
-import { ButtonBase } from '@mui/material';
-import { motion } from 'framer-motion';
-import { useDispatch } from 'react-redux';
-import scss from './SearchLocation.module.scss';
-import locationData from './locations.json';
-import { setLocation, fetchProducts, fetchProductsByLocation, clearProducts } from '../../redux/features/productsSlice';
+import { ButtonBase } from "@mui/material";
+import { motion } from "framer-motion";
+import { useDispatch } from "react-redux";
+import scss from "./SearchLocation.module.scss";
+import locationData from "./locations.json";
+import {
+  setLocation,
+  fetchProducts,
+  fetchProductsByLocation,
+  clearProducts,
+} from "../../redux/features/productsSlice";
 
 const SearchLocation = () => {
-  const [plzQuery, setPlzQuery] = useState('');
-  const [cityQuery, setCityQuery] = useState('');
+  const [plzQuery, setPlzQuery] = useState("");
+  const [cityQuery, setCityQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const dispatch = useDispatch();
@@ -17,8 +22,9 @@ const SearchLocation = () => {
   const filterLocations = useCallback(() => {
     return locationData.filter(
       (location) =>
-        (plzQuery === '' || location.plz.toString().includes(plzQuery)) &&
-        (cityQuery === '' || location.city.toLowerCase().includes(cityQuery.toLowerCase()))
+        (plzQuery === "" || location.plz.toString().includes(plzQuery)) &&
+        (cityQuery === "" ||
+          location.city.toLowerCase().includes(cityQuery.toLowerCase())),
     );
   }, [plzQuery, cityQuery]);
 
@@ -30,14 +36,14 @@ const SearchLocation = () => {
       dispatch(clearProducts()); // Очищення поточних продуктів перед завантаженням нових
       dispatch(fetchProductsByLocation({ PLZ: plzQuery, city: cityQuery }));
     } else {
-      console.log('No results found for products.');
+      console.log("No results found for products.");
       dispatch(clearProducts()); // Очищення поточних продуктів
       dispatch(fetchProductsByLocation([])); // Завантаження порожнього списку
     }
   }, [plzQuery, cityQuery, dispatch, filterLocations]);
 
   useEffect(() => {
-    if (plzQuery.trim() !== '' || cityQuery.trim() !== '') {
+    if (plzQuery.trim() !== "" || cityQuery.trim() !== "") {
       const filteredResults = filterLocations();
       setSearchResults(filteredResults);
       setShowResults(true);
@@ -50,13 +56,13 @@ const SearchLocation = () => {
   }, [plzQuery, cityQuery, filterLocations, dispatch]);
 
   const handleChange = (setter) => (e) => {
-    const value = e.target.value || '';
+    const value = e.target.value || "";
     setter(value);
   };
 
   const handleClearAll = () => {
-    setPlzQuery('');
-    setCityQuery('');
+    setPlzQuery("");
+    setCityQuery("");
     setSearchResults([]);
     setShowResults(false);
 
@@ -77,9 +83,9 @@ const SearchLocation = () => {
       <div className={scss.container}>
         <div className={scss.plzCity}>
           <div className={scss.inputWrapper}>
-            <input 
-              type="text" 
-              placeholder="PLZ" 
+            <input
+              type="text"
+              placeholder="PLZ"
               value={plzQuery}
               onChange={handleChange(setPlzQuery)}
               className={scss.inputPlz}
@@ -92,9 +98,9 @@ const SearchLocation = () => {
           </div>
 
           <div className={scss.inputWrapper}>
-            <input 
-              type="text" 
-              placeholder="Місто" 
+            <input
+              type="text"
+              placeholder="Місто"
               value={cityQuery}
               onChange={handleChange(setCityQuery)}
               className={scss.inputCity}
@@ -107,8 +113,8 @@ const SearchLocation = () => {
           </div>
         </div>
         <div>
-          <ButtonBase 
-            className={scss.searchButton} 
+          <ButtonBase
+            className={scss.searchButton}
             onClick={handleSearch}
             focusRipple
           >
@@ -125,8 +131,8 @@ const SearchLocation = () => {
 
       {showResults && searchResults.length > 0 && (
         <div className={scss.searchResults}>
-          {searchResults.map(result => (
-            <div 
+          {searchResults.map((result) => (
+            <div
               key={`${result.plz}-${result.city}`}
               onClick={() => handleResultClick(result)}
               className={scss.resultItem}

@@ -1,6 +1,6 @@
-import { BsPencil } from 'react-icons/bs';
+import { BsPencil } from "react-icons/bs";
 import { GrUpdate } from "react-icons/gr";
-import scss from './ActionButton.module.scss';
+import scss from "./ActionButton.module.scss";
 
 const ActionButton = ({ isEditing, onClick }) => {
   return (

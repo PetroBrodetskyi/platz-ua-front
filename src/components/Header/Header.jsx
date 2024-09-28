@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { MdOutlineFavorite, MdOutlineFavoriteBorder } from 'react-icons/md';
-import { PiShoppingCart, PiShoppingCartFill } from 'react-icons/pi';
-import { RiLoginCircleLine } from 'react-icons/ri';
-import scss from './Header.module.scss';
-import SearchLocation from '../SearchLocation/SearchLocation';
-import Logo from '../Logo/Logo';
-import { fetchCurrentUser } from '../../redux/features/authSlice';
+import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { MdOutlineFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
+import { PiShoppingCart, PiShoppingCartFill } from "react-icons/pi";
+import { RiLoginCircleLine } from "react-icons/ri";
+import scss from "./Header.module.scss";
+import SearchLocation from "../SearchLocation/SearchLocation";
+import Logo from "../Logo/Logo";
+import { fetchCurrentUser } from "../../redux/features/authSlice";
 
 const Header = ({ onClick }) => {
   const dispatch = useDispatch();
@@ -30,16 +30,16 @@ const Header = ({ onClick }) => {
     }
   }, [favorites]);
 
-  const getUserProfileUrl = () => user ? `/user-profile/${user._id}` : '/login';
+  const getUserProfileUrl = () =>
+    user ? `/user-profile/${user._id}` : "/login";
 
-  const renderUserInfo = () => (
+  const renderUserInfo = () =>
     user && (
       <div className={scss.userInfo}>
         <img src={user.avatarURL} alt={user.name} className={scss.avatar} />
         <span>{user.name}</span>
       </div>
-    )
-  );
+    );
 
   return (
     <header className={scss.header}>
@@ -47,15 +47,27 @@ const Header = ({ onClick }) => {
         <div className={scss.logoUserMobile}>
           <Logo />
           <NavLink to={getUserProfileUrl()}>
-            <button type="button" className={scss.iconUserMobile} onClick={onClick}>
+            <button
+              type="button"
+              className={scss.iconUserMobile}
+              onClick={onClick}
+            >
               {renderUserInfo()}
             </button>
           </NavLink>
         </div>
-        <SearchLocation onSearch={(products) => {products}} />
+        <SearchLocation
+          onSearch={(products) => {
+            products;
+          }}
+        />
         <div className={scss.userMenu}>
           <NavLink to={getUserProfileUrl()}>
-            <button type="button" className={scss.iconUserDesktop} onClick={onClick}>
+            <button
+              type="button"
+              className={scss.iconUserDesktop}
+              onClick={onClick}
+            >
               {renderUserInfo()}
             </button>
           </NavLink>
@@ -72,7 +84,11 @@ const Header = ({ onClick }) => {
           <NavLink to="/cart">
             <button type="button" className={scss.icon} onClick={onClick}>
               <div className={scss.navigateItem}>
-                {cartItems.length > 0 ? <PiShoppingCartFill /> : <PiShoppingCart />}
+                {cartItems.length > 0 ? (
+                  <PiShoppingCartFill />
+                ) : (
+                  <PiShoppingCart />
+                )}
                 <span className={scss.userOptions}></span>
               </div>
             </button>
@@ -80,11 +96,15 @@ const Header = ({ onClick }) => {
           <NavLink to="/favorites">
             <button
               type="button"
-              className={`${scss.icon} ${animateFavorite ? scss.animate : ''} ${favorites.length > 0 ? scss.favorite : ''}`}
+              className={`${scss.icon} ${animateFavorite ? scss.animate : ""} ${favorites.length > 0 ? scss.favorite : ""}`}
               onClick={onClick}
             >
               <div className={scss.navigateItem}>
-                {favorites.length > 0 ? <MdOutlineFavorite /> : <MdOutlineFavoriteBorder />}
+                {favorites.length > 0 ? (
+                  <MdOutlineFavorite />
+                ) : (
+                  <MdOutlineFavoriteBorder />
+                )}
                 <span className={scss.userOptions}></span>
               </div>
             </button>

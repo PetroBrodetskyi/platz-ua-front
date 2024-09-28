@@ -1,5 +1,5 @@
-import HowItWorks from '../../components/HowItWorks/HowItWorks';
-import scss from './HowItWorksPage.module.scss';
+import HowItWorks from "../../components/HowItWorks/HowItWorks";
+import scss from "./HowItWorksPage.module.scss";
 
 const HowItWorksPage = () => {
   return (

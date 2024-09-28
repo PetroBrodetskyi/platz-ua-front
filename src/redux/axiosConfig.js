@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: 'https://platz-ua-back.vercel.app/api',
+  baseURL: "https://platz-ua-back.vercel.app/api",
 });
 
 export const setupAxiosInterceptors = (store) => {
@@ -15,7 +15,7 @@ export const setupAxiosInterceptors = (store) => {
     },
     (error) => {
       return Promise.reject(error);
-    }
+    },
   );
 };
 

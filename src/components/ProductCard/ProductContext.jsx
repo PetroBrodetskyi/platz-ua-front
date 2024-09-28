@@ -1,6 +1,10 @@
-import { createContext, useContext } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchProducts, fetchExchangeRate, toggleFavorite } from '../../redux/features/productsSlice';
+import { createContext, useContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  fetchProducts,
+  fetchExchangeRate,
+  toggleFavorite,
+} from "../../redux/features/productsSlice";
 
 const ProductContext = createContext();
 
@@ -18,7 +22,16 @@ export const ProductProvider = ({ children }) => {
   }, [dispatch]);
 
   return (
-    <ProductContext.Provider value={{ products, favorites, exchangeRate, status, error, toggleFavorite }}>
+    <ProductContext.Provider
+      value={{
+        products,
+        favorites,
+        exchangeRate,
+        status,
+        error,
+        toggleFavorite,
+      }}
+    >
       {children}
     </ProductContext.Provider>
   );

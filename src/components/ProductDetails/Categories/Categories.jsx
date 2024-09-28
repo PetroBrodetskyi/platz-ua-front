@@ -1,14 +1,14 @@
 import { HiOutlineEye } from "react-icons/hi";
-import { getCategoryIcon, getSubcategoryIcon } from '../../Categories/icons';
-import scss from './Categories.module.scss';
+import { getCategoryIcon, getSubcategoryIcon } from "../../Categories/icons";
+import scss from "./Categories.module.scss";
 
 const Categoryes = ({ product }) => {
   return (
-      <div className={scss.categoryes}>
-          <div className={scss.category}>
+    <div className={scss.categoryes}>
+      <div className={scss.category}>
         <p>переглядів: </p>
         <HiOutlineEye className={scss.icon} />
-        <div>{product.views !== undefined ? product.views : 'N/A'}</div>
+        <div>{product.views !== undefined ? product.views : "N/A"}</div>
       </div>
       <p className={scss.category}>
         {product.category} {getCategoryIcon(product.category)}

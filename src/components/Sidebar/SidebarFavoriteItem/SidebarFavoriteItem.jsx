@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-import scss from './SidebarFavoriteItem.module.scss';
+import { useNavigate } from "react-router-dom";
+import scss from "./SidebarFavoriteItem.module.scss";
 
 const SidebarFavoriteItem = ({ product, onRemove }) => {
   const navigate = useNavigate();
@@ -18,10 +18,14 @@ const SidebarFavoriteItem = ({ product, onRemove }) => {
       />
       <div className={scss.productDetails}>
         <div onClick={handleProductClick} className={scss.productName}>
-          <h4 className={scss.title}>{product.name}</h4><p>€{product.price}</p>
-              </div>
-              <div>
-              <p>{product.PLZ} {product.city}</p></div>
+          <h4 className={scss.title}>{product.name}</h4>
+          <p>€{product.price}</p>
+        </div>
+        <div>
+          <p>
+            {product.PLZ} {product.city}
+          </p>
+        </div>
         <div className={scss.actions}>
           <button className={scss.viewButton} onClick={handleProductClick}>
             Переглянути

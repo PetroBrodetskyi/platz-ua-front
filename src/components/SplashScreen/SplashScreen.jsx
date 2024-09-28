@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import scss from './SplashScreen.module.scss';
+import { useEffect, useState } from "react";
+import scss from "./SplashScreen.module.scss";
 
 const SplashScreen = ({ onFinish }) => {
   const [visible, setVisible] = useState(true);
@@ -27,7 +27,9 @@ const SplashScreen = ({ onFinish }) => {
             <span className={scss.logoLetterA2}>A</span>
           </h1>
           <h2 className={scss.messageTitle}>Ваш e-mail підтверджено</h2>
-            <p className={scss.messageText}>Виконується перенаправлення на сторінку авторизації...</p>
+          <p className={scss.messageText}>
+            Виконується перенаправлення на сторінку авторизації...
+          </p>
         </div>
       </div>
     )

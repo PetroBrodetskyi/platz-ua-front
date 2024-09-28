@@ -1,6 +1,15 @@
-import scss from './FormInput.module.scss';
+import scss from "./FormInput.module.scss";
 
-const FormInput = ({ id, label, register, errors, placeholder, onChange, value, type = 'text' }) => (
+const FormInput = ({
+  id,
+  label,
+  register,
+  errors,
+  placeholder,
+  onChange,
+  value,
+  type = "text",
+}) => (
   <div className={scss.formGroup}>
     <label htmlFor={id}>{label}</label>
     <input

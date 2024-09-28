@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { AiOutlinePlus } from 'react-icons/ai';
-import axios from 'axios';
-import scss from './UserProfile.module.scss';
-import Loader from '../Loader/Loader';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { AiOutlinePlus } from "react-icons/ai";
+import axios from "axios";
+import scss from "./UserProfile.module.scss";
+import Loader from "../Loader/Loader";
+import { useSelector } from "react-redux";
 
 const UserProfile = ({ user }) => {
   const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
+    name: "",
+    phone: "",
+    email: "",
     avatar: null,
   });
 
@@ -21,9 +21,9 @@ const UserProfile = ({ user }) => {
   useEffect(() => {
     if (user) {
       setFormData({
-        name: user.name || '',
-        phone: user.phone || '',
-        email: user.email || '',
+        name: user.name || "",
+        phone: user.phone || "",
+        email: user.email || "",
         avatar: null,
       });
       setPreview(user.avatarURL || null);
@@ -45,39 +45,43 @@ const UserProfile = ({ user }) => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setIsSubmitting(true);
+    e.preventDefault();
+    setIsSubmitting(true);
 
-  const formDataToSend = new FormData();
-  formDataToSend.append('name', formData.name);
-  formDataToSend.append('phone', formData.phone);
-  formDataToSend.append('email', formData.email);
-  if (formData.avatar) {
-    formDataToSend.append('avatar', formData.avatar);
-  }
-
-  try {
-    const response = await axios.patch('https://platz-ua-back.vercel.app/api/users/current', formDataToSend, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-    console.log('Profile updated:', response.data);
-  } catch (error) {
-    console.error('Error updating profile:', error);
-    if (error.response) {
-      console.error('Response data:', error.response.data);
-      console.error('Response status:', error.response.status);
-      console.error('Response headers:', error.response.headers);
+    const formDataToSend = new FormData();
+    formDataToSend.append("name", formData.name);
+    formDataToSend.append("phone", formData.phone);
+    formDataToSend.append("email", formData.email);
+    if (formData.avatar) {
+      formDataToSend.append("avatar", formData.avatar);
     }
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+
+    try {
+      const response = await axios.patch(
+        "https://platz-ua-back.vercel.app/api/users/current",
+        formDataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      console.log("Profile updated:", response.data);
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      if (error.response) {
+        console.error("Response data:", error.response.data);
+        console.error("Response status:", error.response.status);
+        console.error("Response headers:", error.response.headers);
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const handleAvatarClick = () => {
-    document.getElementById('avatarInput').click();
+    document.getElementById("avatarInput").click();
   };
 
   useEffect(() => {
@@ -147,7 +151,7 @@ const UserProfile = ({ user }) => {
             />
           </div>
           <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? 'Зберігається...' : 'Зберегти зміни'}
+            {isSubmitting ? "Зберігається..." : "Зберегти зміни"}
           </button>
         </form>
       </div>

@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-import scss from './SidebarMyAdItem.module.scss';
+import { useNavigate } from "react-router-dom";
+import scss from "./SidebarMyAdItem.module.scss";
 
 const SidebarMyAdItem = ({ product, onRemove }) => {
   const navigate = useNavigate();
@@ -22,7 +22,9 @@ const SidebarMyAdItem = ({ product, onRemove }) => {
           <p>€{product.price}</p>
         </div>
         <div>
-          <p>{product.PLZ} {product.city}</p>
+          <p>
+            {product.PLZ} {product.city}
+          </p>
         </div>
         <div className={scss.actions}>
           <button className={scss.viewButton} onClick={handleProductClick}>

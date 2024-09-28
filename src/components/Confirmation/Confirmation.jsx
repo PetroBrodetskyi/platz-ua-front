@@ -2,26 +2,26 @@ import { MdOutlineDeleteSweep } from "react-icons/md";
 import { RiLoginCircleLine } from "react-icons/ri";
 import { GiCancel } from "react-icons/gi";
 import { motion } from "framer-motion";
-import scss from './Confirmation.module.scss';
+import scss from "./Confirmation.module.scss";
 
 const Confirmation = ({ message, onConfirm, onCancel }) => {
   return (
-    <motion.div 
+    <motion.div
       className={scss.dialogOverlay}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <motion.div 
+      <motion.div
         className={scss.dialogBox}
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.8, opacity: 0 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
       >
         <p>{message}</p>
         <div className={scss.dialogButtons}>
-          <motion.button 
+          <motion.button
             onClick={onConfirm}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
@@ -31,7 +31,7 @@ const Confirmation = ({ message, onConfirm, onCancel }) => {
               <span>підтвердити</span>
             </div>
           </motion.button>
-          <motion.button 
+          <motion.button
             onClick={onCancel}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
@@ -49,22 +49,22 @@ const Confirmation = ({ message, onConfirm, onCancel }) => {
 
 const ConfirmationOk = ({ message, onClose }) => {
   return (
-    <motion.div 
+    <motion.div
       className={scss.dialogOverlay}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <motion.div 
+      <motion.div
         className={scss.dialogBox}
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.8, opacity: 0 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
       >
         <p>{message}</p>
         <div className={scss.dialogButtons}>
-          <motion.button 
+          <motion.button
             onClick={onClose}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
@@ -79,22 +79,22 @@ const ConfirmationOk = ({ message, onClose }) => {
 
 const ConfirmationLogin = ({ message, onConfirm, onCancel }) => {
   return (
-    <motion.div 
+    <motion.div
       className={scss.dialogOverlay}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <motion.div 
+      <motion.div
         className={scss.dialogBox}
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.8, opacity: 0 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
       >
         <p>{message}</p>
         <div className={scss.dialogButtons}>
-          <motion.button 
+          <motion.button
             onClick={onConfirm}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
@@ -104,7 +104,7 @@ const ConfirmationLogin = ({ message, onConfirm, onCancel }) => {
               <span>Увійти</span>
             </div>
           </motion.button>
-          <motion.button 
+          <motion.button
             onClick={onCancel}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}

@@ -1,4 +1,4 @@
-import scss from './ProductCondition.module.scss';
+import scss from "./ProductCondition.module.scss";
 
 const ProductCondition = ({ register, errors }) => {
   return (
@@ -6,7 +6,12 @@ const ProductCondition = ({ register, errors }) => {
       <div>
         <label htmlFor="new">
           <div className={scss.stateButton}>
-            <input type="radio" id="new" value="новий" {...register('condition', { required: true })} />
+            <input
+              type="radio"
+              id="new"
+              value="новий"
+              {...register("condition", { required: true })}
+            />
             <span>Новий</span>
           </div>
         </label>
@@ -14,12 +19,19 @@ const ProductCondition = ({ register, errors }) => {
       <div>
         <label htmlFor="used">
           <div className={scss.stateButton}>
-            <input type="radio" id="used" value="вживаний" {...register('condition', { required: true })} />
+            <input
+              type="radio"
+              id="used"
+              value="вживаний"
+              {...register("condition", { required: true })}
+            />
             <span>Вживаний</span>
           </div>
         </label>
       </div>
-      {errors.condition && <span className={scss.error}>Це поле обов'язкове</span>}
+      {errors.condition && (
+        <span className={scss.error}>Це поле обов'язкове</span>
+      )}
     </div>
   );
 };

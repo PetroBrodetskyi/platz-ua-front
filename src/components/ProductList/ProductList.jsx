@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import ProductCard from '../ProductCard/ProductCard';
-import Sidebar from '../Sidebar/Sidebar';
-import scss from './ProductList.module.scss';
-import ViewToggle from './ViewToggle/ViewToggle';
+import React, { useState, useEffect } from "react";
+import ProductCard from "../ProductCard/ProductCard";
+import Sidebar from "../Sidebar/Sidebar";
+import scss from "./ProductList.module.scss";
+import ViewToggle from "./ViewToggle/ViewToggle";
 
 const ProductList = () => {
-  const [viewMode, setViewMode] = useState('grid');
+  const [viewMode, setViewMode] = useState("grid");
   const [cartItems, setCartItems] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
 
   useEffect(() => {
-    const savedViewMode = localStorage.getItem('viewMode');
+    const savedViewMode = localStorage.getItem("viewMode");
     if (savedViewMode) {
       setViewMode(savedViewMode);
     }
@@ -18,11 +18,13 @@ const ProductList = () => {
 
   const handleViewModeChange = (mode) => {
     setViewMode(mode);
-    localStorage.setItem('viewMode', mode);
+    localStorage.setItem("viewMode", mode);
   };
 
   const handleRemoveFromCart = (productId) => {
-    setCartItems((prevItems) => prevItems.filter(item => item._id !== productId));
+    setCartItems((prevItems) =>
+      prevItems.filter((item) => item._id !== productId),
+    );
   };
 
   const handleProductClick = (productId) => {
@@ -41,12 +43,12 @@ const ProductList = () => {
         </div>
       </div>
 
-        <Sidebar
-          cartItems={cartItems}
-          selectedProducts={selectedProducts}
-          handleRemoveFromCart={handleRemoveFromCart}
-          handleProductClick={handleProductClick}
-        />
+      <Sidebar
+        cartItems={cartItems}
+        selectedProducts={selectedProducts}
+        handleRemoveFromCart={handleRemoveFromCart}
+        handleProductClick={handleProductClick}
+      />
     </div>
   );
 };

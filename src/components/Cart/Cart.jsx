@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import scss from './Cart.module.scss';
-import { removeFromCart } from '../../redux/features/cartSlice';
-import { fetchProducts, fetchExchangeRate } from '../../redux/features/productsSlice';
-import CartItem from './CartItem/CartItem';
-import { ConfirmationLogin } from '../Confirmation/Confirmation';
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import scss from "./Cart.module.scss";
+import { removeFromCart } from "../../redux/features/cartSlice";
+import {
+  fetchProducts,
+  fetchExchangeRate,
+} from "../../redux/features/productsSlice";
+import CartItem from "./CartItem/CartItem";
+import { ConfirmationLogin } from "../Confirmation/Confirmation";
 
 const Cart = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -30,13 +33,16 @@ const Cart = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const filteredCartItems = cartItems.filter(item => products.some(product => product._id === item._id));
-    
+    const filteredCartItems = cartItems.filter((item) =>
+      products.some((product) => product._id === item._id),
+    );
+
     setValidCartItems(filteredCartItems);
 
-    const invalidCartItems = cartItems.filter(item => !products.some(product => product._id === item._id));
-    invalidCartItems.forEach(item => dispatch(removeFromCart(item._id)));
-
+    const invalidCartItems = cartItems.filter(
+      (item) => !products.some((product) => product._id === item._id),
+    );
+    invalidCartItems.forEach((item) => dispatch(removeFromCart(item._id)));
   }, [cartItems, products, dispatch]);
 
   const handleRemoveFromCart = (productId) => {
@@ -54,7 +60,7 @@ const Cart = () => {
 
   const handleConfirm = () => {
     setShowConfirmation(false);
-    navigate('/login');
+    navigate("/login");
   };
 
   const handleCancel = () => {
@@ -69,19 +75,19 @@ const Cart = () => {
       ) : (
         <ul className={scss.cartList}>
           {validCartItems.map((item) => (
-            <CartItem 
-              key={item._id} 
-              item={item} 
-              onRemove={handleRemoveFromCart} 
-              onProductClick={handleProductClick} 
-              exchangeRate={exchangeRate} 
-              onSubmitOrder={handleSubmitOrder} 
+            <CartItem
+              key={item._id}
+              item={item}
+              onRemove={handleRemoveFromCart}
+              onProductClick={handleProductClick}
+              exchangeRate={exchangeRate}
+              onSubmitOrder={handleSubmitOrder}
             />
           ))}
         </ul>
       )}
       {showConfirmation && (
-        <ConfirmationLogin 
+        <ConfirmationLogin
           message="Зареєструйтеся або увійдіть, щоб відправити замовлення"
           onConfirm={handleConfirm}
           onCancel={handleCancel}

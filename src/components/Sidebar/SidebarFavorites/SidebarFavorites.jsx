@@ -1,9 +1,9 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { Collapse } from '@mui/material';
-import { TransitionGroup } from 'react-transition-group';
-import { toggleFavorite } from '../../../redux/features/favoritesSlice';
-import SidebarFavoriteItem from '../SidebarFavoriteItem/SidebarFavoriteItem';
-import scss from './SidebarFavorites.module.scss';
+import { useSelector, useDispatch } from "react-redux";
+import { Collapse } from "@mui/material";
+import { TransitionGroup } from "react-transition-group";
+import { toggleFavorite } from "../../../redux/features/favoritesSlice";
+import SidebarFavoriteItem from "../SidebarFavoriteItem/SidebarFavoriteItem";
+import scss from "./SidebarFavorites.module.scss";
 
 const SidebarFavorites = () => {
   const dispatch = useDispatch();

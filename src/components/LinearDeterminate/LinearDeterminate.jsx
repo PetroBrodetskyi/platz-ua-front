@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
-import LinearProgress from '@mui/material/LinearProgress';
+import { useEffect, useState } from "react";
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const LinearDeterminate = ({ loading }) => {
   const [progress, setProgress] = useState(0);
@@ -24,17 +24,17 @@ const LinearDeterminate = ({ loading }) => {
   }, [loading]);
 
   return (
-    <Box sx={{ width: '100%', position: 'fixed', top: 0, zIndex: 1100 }}>
+    <Box sx={{ width: "100%", position: "fixed", top: 0, zIndex: 1100 }}>
       {loading && (
         <LinearProgress
           variant="determinate"
           value={progress}
           sx={{
-            '& .MuiLinearProgress-bar': {
-              backgroundColor: 'gold',
+            "& .MuiLinearProgress-bar": {
+              backgroundColor: "gold",
             },
-            '& .MuiLinearProgress-root': {
-              height: '4px',
+            "& .MuiLinearProgress-root": {
+              height: "4px",
             },
           }}
         />

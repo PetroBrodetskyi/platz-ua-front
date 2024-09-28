@@ -1,14 +1,14 @@
-import React from 'react';
-import RegisterForm from '../../components/Auth/RegisterForm/RegisterForm';
-import RandomCards from '../../components/RandomCards/RandomCards';
+import React from "react";
+import RegisterForm from "../../components/Auth/RegisterForm/RegisterForm";
+import RandomCards from "../../components/RandomCards/RandomCards";
 
 const RegisterPage = () => {
-    return (
-        <div>
-            <RegisterForm />
-            <RandomCards />
-        </div>
-    );
+  return (
+    <div>
+      <RegisterForm />
+      <RandomCards />
+    </div>
+  );
 };
 
 export default RegisterPage;

@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { fetchProducts } from '../../redux/features/productsSlice';
-import { FaTrash } from 'react-icons/fa';
-import scss from './Favorites.module.scss';
-import { toggleFavorite } from '../../redux/features/favoritesSlice';
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { fetchProducts } from "../../redux/features/productsSlice";
+import { FaTrash } from "react-icons/fa";
+import scss from "./Favorites.module.scss";
+import { toggleFavorite } from "../../redux/features/favoritesSlice";
 
 const Favorites = () => {
   const dispatch = useDispatch();
@@ -18,12 +18,12 @@ const Favorites = () => {
   }, [dispatch, products.length]);
 
   const favoriteProducts = favorites
-    .map(favId => products.find(product => product._id === favId))
-    .filter(product => product !== undefined)
+    .map((favId) => products.find((product) => product._id === favId))
+    .filter((product) => product !== undefined)
     .reverse();
 
   const handleRemoveFromFavorites = (productId) => {
-    console.log('Видалення товару з ID:', productId);
+    console.log("Видалення товару з ID:", productId);
     dispatch(toggleFavorite(productId));
   };
 
@@ -38,7 +38,11 @@ const Favorites = () => {
             <li key={product._id} className={scss.favoriteItem}>
               <Link to={`/product/${product._id}`}>
                 <h2>{product.name}</h2>
-                <img src={product.image1} alt={product.name} className={scss.productImage} />
+                <img
+                  src={product.image1}
+                  alt={product.name}
+                  className={scss.productImage}
+                />
               </Link>
               <p>{product.description}</p>
               <p>{product.PLZ}</p>

@@ -1,13 +1,20 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { TbLocation } from 'react-icons/tb';
-import { FiX } from 'react-icons/fi';
-import { SlLocationPin } from 'react-icons/sl';
-import { useEffect } from 'react';
-import scss from './ProductDescription.module.scss';
+import { motion, AnimatePresence } from "framer-motion";
+import { TbLocation } from "react-icons/tb";
+import { FiX } from "react-icons/fi";
+import { SlLocationPin } from "react-icons/sl";
+import { useEffect } from "react";
+import scss from "./ProductDescription.module.scss";
 
-const ProductDescription = ({ show, name, description, PLZ, city, onToggle }) => {
+const ProductDescription = ({
+  show,
+  name,
+  description,
+  PLZ,
+  city,
+  onToggle,
+}) => {
   const handleKeyDown = (event) => {
-    if (event.key === 'Escape') {
+    if (event.key === "Escape") {
       onToggle();
     }
   };
@@ -20,12 +27,12 @@ const ProductDescription = ({ show, name, description, PLZ, city, onToggle }) =>
 
   useEffect(() => {
     if (show) {
-      document.body.style.overflow = 'hidden';
-      window.addEventListener('keydown', handleKeyDown);
-      
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
+
       return () => {
-        document.body.style.overflow = 'unset';
-        window.removeEventListener('keydown', handleKeyDown);
+        document.body.style.overflow = "unset";
+        window.removeEventListener("keydown", handleKeyDown);
       };
     }
   }, [show]);

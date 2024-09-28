@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { MdOutlinePhotoLibrary } from "react-icons/md";
-import scss from './ImageButton.module.scss';
+import scss from "./ImageButton.module.scss";
 
 const ImageButton = ({ id, register, watch }) => {
   const [preview, setPreview] = useState(null);
@@ -11,7 +11,7 @@ const ImageButton = ({ id, register, watch }) => {
       const file = selectedFile[0];
       const imageUrl = URL.createObjectURL(file);
       setPreview(imageUrl);
-      
+
       return () => URL.revokeObjectURL(imageUrl);
     } else {
       setPreview(null);
@@ -31,11 +31,7 @@ const ImageButton = ({ id, register, watch }) => {
         {...register(id)}
         className={scss.hiddenInput}
       />
-      <button
-        type="button"
-        className={scss.customButton}
-        onClick={handleClick}
-      >
+      <button type="button" className={scss.customButton} onClick={handleClick}>
         {preview ? (
           <img src={preview} alt="Selected" className={scss.previewImage} />
         ) : (

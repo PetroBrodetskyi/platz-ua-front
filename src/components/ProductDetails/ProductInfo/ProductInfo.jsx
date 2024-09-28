@@ -1,15 +1,15 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { TbLocation } from 'react-icons/tb';
-import { SlLocationPin } from 'react-icons/sl';
-import { MdOutlineDateRange } from 'react-icons/md';
-import { FaRegFaceSmile, FaRegFaceMeh } from 'react-icons/fa6';
-import scss from './ProductInfo.module.scss';
-import CartPrice from '../../ProductCard/CartPrice/CartPrice';
-import ShareMenu from '../../ShareMenu/ShareMenu';
-import ActionButton from '../ActionButton/ActionButton';
-import Categoryes from '../Categories/Categories';
-import { fetchExchangeRate } from '../../../redux/features/productsSlice';
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { TbLocation } from "react-icons/tb";
+import { SlLocationPin } from "react-icons/sl";
+import { MdOutlineDateRange } from "react-icons/md";
+import { FaRegFaceSmile, FaRegFaceMeh } from "react-icons/fa6";
+import scss from "./ProductInfo.module.scss";
+import CartPrice from "../../ProductCard/CartPrice/CartPrice";
+import ShareMenu from "../../ShareMenu/ShareMenu";
+import ActionButton from "../ActionButton/ActionButton";
+import Categoryes from "../Categories/Categories";
+import { fetchExchangeRate } from "../../../redux/features/productsSlice";
 
 const ProductInfo = ({
   product,
@@ -114,10 +114,10 @@ const ProductInfo = ({
             Місто: <SlLocationPin className={scss.icon} /> {product.city}
           </p>
           <div className={scss.radio}>
-            Стан: 
+            Стан:
             {isEditing ? (
               <div className={scss.conditionOptions}>
-                {['новий', 'вживаний'].map((condition) => (
+                {["новий", "вживаний"].map((condition) => (
                   <label key={condition}>
                     <input
                       type="radio"
@@ -132,7 +132,7 @@ const ProductInfo = ({
               </div>
             ) : (
               <p className={scss.icons}>
-                {product.condition === 'новий' ? (
+                {product.condition === "новий" ? (
                   <>
                     <FaRegFaceSmile className={scss.icon} /> новий
                   </>

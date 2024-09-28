@@ -1,7 +1,6 @@
-import scss from './PlzCity.module.scss';
+import scss from "./PlzCity.module.scss";
 
 const PlzCity = ({ plz, city }) => {
-
   return (
     <div className={scss.locationContainer}>
       <p>{plz}</p>

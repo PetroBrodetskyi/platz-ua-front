@@ -1,11 +1,11 @@
-import scss from './SidebarCartItem.module.scss';
-import { useNavigate } from 'react-router-dom';
+import scss from "./SidebarCartItem.module.scss";
+import { useNavigate } from "react-router-dom";
 
 const SidebarCartItem = ({ item, onRemove, onProductClick }) => {
   const navigate = useNavigate();
 
   const handleBuyClick = () => {
-    navigate('/cart');
+    navigate("/cart");
   };
 
   return (
@@ -18,16 +18,27 @@ const SidebarCartItem = ({ item, onRemove, onProductClick }) => {
       />
       <div className={scss.productDetails}>
         <div>
-          <div onClick={() => onProductClick(item._id)} className={scss.productName}>
-          <h4 className={scss.title}>{item.name}</h4><p>€{item.price}</p>
-              </div>
-          <div><p>{item.PLZ} {item.city}</p></div>
+          <div
+            onClick={() => onProductClick(item._id)}
+            className={scss.productName}
+          >
+            <h4 className={scss.title}>{item.name}</h4>
+            <p>€{item.price}</p>
+          </div>
+          <div>
+            <p>
+              {item.PLZ} {item.city}
+            </p>
+          </div>
         </div>
         <div className={scss.actions}>
           <button className={scss.buyButton} onClick={handleBuyClick}>
             Купити
           </button>
-          <button className={scss.removeButton} onClick={() => onRemove(item._id)}>
+          <button
+            className={scss.removeButton}
+            onClick={() => onRemove(item._id)}
+          >
             Видалити
           </button>
         </div>

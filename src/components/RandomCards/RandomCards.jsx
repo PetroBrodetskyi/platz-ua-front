@@ -1,16 +1,20 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchProducts, fetchExchangeRate, fetchProductById } from '../../redux/features/productsSlice';
-import { fetchUserById } from '../../redux/features/authSlice';
-import { toggleFavorite } from '../../redux/features/favoritesSlice';
-import { addToCart, removeFromCart } from '../../redux/features/cartSlice';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchProducts,
+  fetchExchangeRate,
+  fetchProductById,
+} from "../../redux/features/productsSlice";
+import { fetchUserById } from "../../redux/features/authSlice";
+import { toggleFavorite } from "../../redux/features/favoritesSlice";
+import { addToCart, removeFromCart } from "../../redux/features/cartSlice";
+import { useNavigate } from "react-router-dom";
 import { HiOutlineEye } from "react-icons/hi";
-import TitleFavorite from '../ProductCard/TitleFavorite/TitleFavorite';
-import CartPrice from '../ProductCard/CartPrice/CartPrice';
-import CreateCondition from '../ProductCard/CreateCondition/CreateCondition';
-import Notification from '../Notification/Notification';
-import scss from './RandomCards.module.scss';
+import TitleFavorite from "../ProductCard/TitleFavorite/TitleFavorite";
+import CartPrice from "../ProductCard/CartPrice/CartPrice";
+import CreateCondition from "../ProductCard/CreateCondition/CreateCondition";
+import Notification from "../Notification/Notification";
+import scss from "./RandomCards.module.scss";
 
 const MemoizedTitleFavorite = React.memo(TitleFavorite);
 const MemoizedCartPrice = React.memo(CartPrice);
@@ -22,9 +26,9 @@ const RandomCards = () => {
   const favorites = useSelector((state) => state.favorites.items);
   const cartItems = useSelector((state) => state.cart.items);
   const navigate = useNavigate();
-  const [notification, setNotification] = useState('');
+  const [notification, setNotification] = useState("");
   const [owners, setOwners] = useState(() => {
-    const savedOwners = localStorage.getItem('owners');
+    const savedOwners = localStorage.getItem("owners");
     return savedOwners ? JSON.parse(savedOwners) : {};
   });
   const [loadingOwners, setLoadingOwners] = useState({});
@@ -35,18 +39,21 @@ const RandomCards = () => {
     dispatch(fetchExchangeRate());
   }, [dispatch]);
 
-  const fetchOwner = useCallback(async (ownerId) => {
-    if (!owners[ownerId] && !loadingOwners[ownerId]) {
-      setLoadingOwners(prev => ({ ...prev, [ownerId]: true }));
-      const response = await dispatch(fetchUserById(ownerId));
-      setOwners(prev => {
-        const newOwners = { ...prev, [ownerId]: response.payload };
-        localStorage.setItem('owners', JSON.stringify(newOwners));
-        return newOwners;
-      });
-      setLoadingOwners(prev => ({ ...prev, [ownerId]: false }));
-    }
-  }, [dispatch, owners, loadingOwners]);
+  const fetchOwner = useCallback(
+    async (ownerId) => {
+      if (!owners[ownerId] && !loadingOwners[ownerId]) {
+        setLoadingOwners((prev) => ({ ...prev, [ownerId]: true }));
+        const response = await dispatch(fetchUserById(ownerId));
+        setOwners((prev) => {
+          const newOwners = { ...prev, [ownerId]: response.payload };
+          localStorage.setItem("owners", JSON.stringify(newOwners));
+          return newOwners;
+        });
+        setLoadingOwners((prev) => ({ ...prev, [ownerId]: false }));
+      }
+    },
+    [dispatch, owners, loadingOwners],
+  );
 
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
@@ -74,7 +81,7 @@ const RandomCards = () => {
   };
 
   useEffect(() => {
-    products.forEach(product => {
+    products.forEach((product) => {
       if (product.owner) {
         fetchOwner(product.owner);
       }
@@ -90,20 +97,30 @@ const RandomCards = () => {
 
   return (
     <div className={scss.container}>
-     <h3>Вас можуть зацікавити</h3>
+      <h3>Вас можуть зацікавити</h3>
       <ul className={scss.list}>
         {randomProducts.map((product) => {
           const isInCart = cartItems.some((item) => item._id === product._id);
           const owner = owners[product.owner];
 
           return (
-            <li key={product._id} className={`${scss.productItem} ${product.isSquare ? 'square' : ''}`}>
+            <li
+              key={product._id}
+              className={`${scss.productItem} ${product.isSquare ? "square" : ""}`}
+            >
               <div className={scss.product}>
                 <div className={scss.productImage}>
                   <div className={scss.ownerViews}>
                     {owner ? (
-                      <div className={scss.ownerContainer} onClick={() => handleOwnerClick(owner._id)}>
-                        <img src={owner.avatarURL} alt={owner.name} className={scss.avatar} />
+                      <div
+                        className={scss.ownerContainer}
+                        onClick={() => handleOwnerClick(owner._id)}
+                      >
+                        <img
+                          src={owner.avatarURL}
+                          alt={owner.name}
+                          className={scss.avatar}
+                        />
                         <div className={scss.name}>{owner.name}</div>
                       </div>
                     ) : (
@@ -114,7 +131,9 @@ const RandomCards = () => {
                     )}
                     <div>
                       <div className={scss.viewsQuantity}>
-                        <p>{product.views !== undefined ? product.views : 'N/A'}</p>
+                        <p>
+                          {product.views !== undefined ? product.views : "N/A"}
+                        </p>
                         <HiOutlineEye />
                       </div>
                     </div>
@@ -130,7 +149,9 @@ const RandomCards = () => {
                     <MemoizedTitleFavorite
                       name={product.name}
                       id={product._id}
-                      onFavoriteToggle={() => dispatch(toggleFavorite(product._id))}
+                      onFavoriteToggle={() =>
+                        dispatch(toggleFavorite(product._id))
+                      }
                       isFavorite={favorites.includes(product._id)}
                     />
                     <p className={scss.description}>{product.description}</p>
@@ -144,8 +165,8 @@ const RandomCards = () => {
                     </div>
                     <div>
                       {exchangeRate !== null && (
-                        <MemoizedCartPrice 
-                          price={product.price} 
+                        <MemoizedCartPrice
+                          price={product.price}
                           exchangeRate={exchangeRate}
                           onAddToCart={() => handleAddToCart(product, isInCart)}
                           isInCart={isInCart}
@@ -162,7 +183,7 @@ const RandomCards = () => {
       {notification && (
         <Notification
           message={notification}
-          onClose={() => setNotification('')}
+          onClose={() => setNotification("")}
         />
       )}
     </div>

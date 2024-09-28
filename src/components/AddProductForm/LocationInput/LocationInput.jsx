@@ -1,7 +1,15 @@
 import { IoClose } from "react-icons/io5";
-import scss from './LocationInput.module.scss';
+import scss from "./LocationInput.module.scss";
 
-const LocationInput = ({ id, register, errors, placeholder, onChange, onClear, value }) => (
+const LocationInput = ({
+  id,
+  register,
+  errors,
+  placeholder,
+  onChange,
+  onClear,
+  value,
+}) => (
   <div className={scss.formGroup}>
     <div className={scss.inputPlz}>
       <input
@@ -13,9 +21,9 @@ const LocationInput = ({ id, register, errors, placeholder, onChange, onClear, v
         onChange={onChange}
         value={value}
       />
-      <button 
-        type="button" 
-        className={scss.clearButton} 
+      <button
+        type="button"
+        className={scss.clearButton}
         onClick={() => onClear(id)}
       >
         <IoClose className={scss.icon} />

@@ -1,10 +1,16 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { fetchUserById, updateUserDetails } from '../../redux/features/authSlice';
-import { fetchUserProducts, fetchUsersPublicProducts } from '../../redux/features/productsSlice';
-import UserProfile from '../../components/UserProfile/UserProfile';
-import scss from './UserProfilePage.module.scss';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import {
+  fetchUserById,
+  updateUserDetails,
+} from "../../redux/features/authSlice";
+import {
+  fetchUserProducts,
+  fetchUsersPublicProducts,
+} from "../../redux/features/productsSlice";
+import UserProfile from "../../components/UserProfile/UserProfile";
+import scss from "./UserProfilePage.module.scss";
 
 const UserProfilePage = () => {
   const { userId } = useParams();

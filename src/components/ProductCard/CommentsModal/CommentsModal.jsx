@@ -1,10 +1,10 @@
-import Modal from 'react-modal';
-import { FiX } from 'react-icons/fi';
-import Comments from '../../Comments/Comments';
-import scss from './CommentsModal.module.scss';
-import { useEffect, useState } from 'react';
+import Modal from "react-modal";
+import { FiX } from "react-icons/fi";
+import Comments from "../../Comments/Comments";
+import scss from "./CommentsModal.module.scss";
+import { useEffect, useState } from "react";
 
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 
 const CommentsModal = ({ show, onToggle, productId }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -14,8 +14,8 @@ const CommentsModal = ({ show, onToggle, productId }) => {
       setIsMobile(window.innerWidth <= 768);
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -44,7 +44,9 @@ const CommentsModal = ({ show, onToggle, productId }) => {
             <FiX className={scss.closeIcon} />
           </button>
         </div>
-        <Comments productId={productId} />
+        <div>
+          <Comments productId={productId} />
+        </div>
       </div>
     </Modal>
   );

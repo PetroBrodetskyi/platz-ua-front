@@ -1,10 +1,10 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import scss from './SidebarCart.module.scss';
-import { removeFromCart } from '../../../redux/features/cartSlice';
-import SidebarCartItem from '../SidebarCartItem/SidebarCartItem';
-import { Collapse } from '@mui/material';
-import { TransitionGroup } from 'react-transition-group';
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import scss from "./SidebarCart.module.scss";
+import { removeFromCart } from "../../../redux/features/cartSlice";
+import SidebarCartItem from "../SidebarCartItem/SidebarCartItem";
+import { Collapse } from "@mui/material";
+import { TransitionGroup } from "react-transition-group";
 
 const SidebarCart = () => {
   const cartItems = useSelector((state) => state.cart.items);

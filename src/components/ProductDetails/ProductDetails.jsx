@@ -1,35 +1,46 @@
-import { useEffect, useState, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { fetchProductById, selectProductById, selectLoading, selectError,
-} from '../../redux/features/productsSlice';
-import { selectOwner, selectCurrentUser, fetchUserById } from '../../redux/features/authSlice';
-import { addToCart, removeFromCart } from '../../redux/features/cartSlice';
-import Notification from '../Notification/Notification';
-import axios from 'axios';
-import scss from './ProductDetails.module.scss';
-import Gallery from './Gallery/Gallery';
-import ProductInfo from './ProductInfo/ProductInfo';
-import UserInfo from './UserInfo/UserInfo';
-import Loader from '../Loader/Loader';
-import Comments from '../Comments/Comments';
+import { useEffect, useState, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import {
+  fetchProductById,
+  selectProductById,
+  selectLoading,
+  selectError,
+} from "../../redux/features/productsSlice";
+import {
+  selectOwner,
+  selectCurrentUser,
+  fetchUserById,
+} from "../../redux/features/authSlice";
+import { addToCart, removeFromCart } from "../../redux/features/cartSlice";
+import Notification from "../Notification/Notification";
+import axios from "axios";
+import scss from "./ProductDetails.module.scss";
+import Gallery from "./Gallery/Gallery";
+import ProductInfo from "./ProductInfo/ProductInfo";
+import UserInfo from "./UserInfo/UserInfo";
+import Loader from "../Loader/Loader";
+import Comments from "../Comments/Comments";
 
 const ProductDetails = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
-  
-  const [notification, setNotification] = useState('');
+
+  const [notification, setNotification] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [updatedProduct, setUpdatedProduct] = useState({
-    name: '', price: '', description: '', condition: ''
+    name: "",
+    price: "",
+    description: "",
+    condition: "",
   });
 
-  const product = useSelector(state => selectProductById(state, productId));
+  const product = useSelector((state) => selectProductById(state, productId));
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
   const owner = useSelector(selectOwner);
   const currentUser = useSelector(selectCurrentUser);
-  const cartItems = useSelector(state => state.cart.items);
+  const cartItems = useSelector((state) => state.cart.items);
 
   useEffect(() => {
     if (!product) dispatch(fetchProductById(productId));
@@ -37,20 +48,21 @@ const ProductDetails = () => {
   }, [dispatch, product, productId]);
 
   useEffect(() => {
-    const viewedProducts = JSON.parse(localStorage.getItem('viewedProducts')) || [];
+    const viewedProducts =
+      JSON.parse(localStorage.getItem("viewedProducts")) || [];
     if (!viewedProducts.includes(productId)) {
       viewedProducts.push(productId);
-      localStorage.setItem('viewedProducts', JSON.stringify(viewedProducts));
+      localStorage.setItem("viewedProducts", JSON.stringify(viewedProducts));
     }
   }, [productId]);
 
   useEffect(() => {
     if (product) {
       setUpdatedProduct({
-        name: product.name || '',
-        price: product.price || '',
-        description: product.description || '',
-        condition: product.condition || '',
+        name: product.name || "",
+        price: product.price || "",
+        description: product.description || "",
+        condition: product.condition || "",
       });
     }
   }, [product]);
@@ -59,13 +71,13 @@ const ProductDetails = () => {
     if (currentUser?._id === product?.owner) {
       setIsEditing(true);
     } else {
-      alert('Ви не маєте права редагувати це оголошення.');
+      alert("Ви не маєте права редагувати це оголошення.");
     }
   }, [currentUser, product]);
 
   const handleSaveClick = useCallback(async () => {
     if (currentUser?._id !== product?.owner) {
-      alert('Ви не маєте права редагувати це оголошення.');
+      alert("Ви не маєте права редагувати це оголошення.");
       return;
     }
 
@@ -73,27 +85,32 @@ const ProductDetails = () => {
       const { data } = await axios.patch(
         `https://platz-ua-back.vercel.app/api/products/${product._id}`,
         updatedProduct,
-        { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        },
       );
 
       setUpdatedProduct({
-        name: data.name || '',
-        price: data.price || '',
-        description: data.description || '',
-        condition: data.condition || '',
+        name: data.name || "",
+        price: data.price || "",
+        description: data.description || "",
+        condition: data.condition || "",
       });
 
       setIsEditing(false);
       dispatch(fetchProductById(product._id));
-      setNotification('Продукт успішно оновлено!');
+      setNotification("Продукт успішно оновлено!");
     } catch (error) {
-      console.error('Error updating product:', error?.response?.data || error.message);
-      alert('Виникла помилка при оновленні продукту. Спробуйте ще раз.');
+      console.error(
+        "Error updating product:",
+        error?.response?.data || error.message,
+      );
+      alert("Виникла помилка при оновленні продукту. Спробуйте ще раз.");
     }
   }, [currentUser, product, updatedProduct, dispatch]);
 
   const handleAddToCart = useCallback(() => {
-    const isInCart = cartItems.some(item => item._id === product._id);
+    const isInCart = cartItems.some((item) => item._id === product._id);
     const productWithOwner = { ...product, owner };
 
     if (isInCart) {
@@ -109,7 +126,7 @@ const ProductDetails = () => {
   if (error) return <p>Помилка завантаження даних: {error}</p>;
   if (!product) return <p>Продукт не знайдено</p>;
 
-  const isInCart = cartItems.some(item => item._id === product._id);
+  const isInCart = cartItems.some((item) => item._id === product._id);
 
   return (
     <div className={scss.product}>
@@ -128,7 +145,10 @@ const ProductDetails = () => {
           isInCart={isInCart}
         />
         {notification && (
-          <Notification message={notification} onClose={() => setNotification('')} />
+          <Notification
+            message={notification}
+            onClose={() => setNotification("")}
+          />
         )}
       </div>
       <div>

@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-import scss from './UserInfo.module.scss';
+import { useNavigate } from "react-router-dom";
+import scss from "./UserInfo.module.scss";
 
 const UserInfo = ({ owner }) => {
   const navigate = useNavigate();
