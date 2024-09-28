@@ -76,7 +76,7 @@ const commentsSlice = createSlice({
         const { productId, comment } = action.payload;
         const existingProductComments = state.comments.find(c => c.productId === productId);
         if (existingProductComments) {
-          existingProductComments.comments.unshift(comment);
+          existingProductComments.comments.push(comment);
         } else {
           state.comments.push({ productId, comments: [comment] });
         }
