@@ -4,11 +4,11 @@
     width: auto;
     background-color: var(--white);
 
-    @media (min-width: $tablet) {
+    @include media-rules($tablet) {
         width: auto;
     }
-    
-    @media (min-width: $desktop) {
+
+    @include media-rules($desktop) {
         width: auto;
     }
 }
@@ -38,10 +38,9 @@
     padding: 4px;
 
     .text {
-
-        @media (min-width: $desktop) {
-        font-size: 16px;
-      }
+        @include media-rules($desktop) {
+            font-size: 16px;
+        }
     }
 }
 
@@ -59,6 +58,7 @@
     border-radius: 50%;
     border: 2px solid var(--dark-bg);
 }
+
 .iconContainer {
     width: 40px;
     height: 40px;
@@ -72,7 +72,6 @@
         font-size: 28px;
     }
 }
-
 
 .textarea {
     width: 100%;
@@ -89,20 +88,22 @@
     font-size: 12px;
 }
 
-.commentForm textarea {
-    width: 100%;
-    height: 80px;
-    margin-bottom: 10px;
-}
+.commentForm {
+    textarea {
+        width: 100%;
+        height: 80px;
+        margin-bottom: 10px;
+    }
 
-.commentForm button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-}
+    button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
 
-.commentForm button:hover {
-    background-color: #0056b3;
+        &:hover {
+            background-color: #0056b3;
+        }
+    }
 }

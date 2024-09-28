@@ -21,7 +21,6 @@ const ProductInfo = ({
   handleAddToCart,
   isInCart,
 }) => {
-  const productUrl = window.location.href; // Залишимо цю змінну, якщо ви плануєте її використовувати далі
   const formattedDate = new Date(product.createdAt).toLocaleDateString();
   const dispatch = useDispatch();
   const exchangeRate = useSelector((state) => state.products.exchangeRate);

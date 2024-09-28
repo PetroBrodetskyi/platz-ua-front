@@ -1,8 +1,11 @@
-import { motion, AnimatePresence } from "framer-motion";
+import Modal from "react-modal";
 import { FiX } from "react-icons/fi";
 import { Helmet } from "react-helmet";
 import scss from "./ShareModal.module.scss";
 import ShareButton from "../ShareButton/ShareButton";
+import { useEffect } from "react";
+
+Modal.setAppElement("#root");
 
 const ShareModal = ({
   show,
@@ -24,12 +27,6 @@ const ShareModal = ({
   const trimmedDescription = getTrimmedDescription(description);
 
   const message = `${name} \nЦіна: ${price} \nЛокація: ${city} ${trimmedDescription} \nДеталі: ${productUrl} ${image}`;
-
-  const handleOverlayClick = (event) => {
-    if (event.target.classList.contains(scss.modalOverlay)) {
-      onToggle();
-    }
-  };
 
   const sharePlatforms = {
     facebook: (message) =>
@@ -70,6 +67,16 @@ const ShareModal = ({
     }
   };
 
+  useEffect(() => {
+    if (show) {
+      document.body.classList.add(scss.noScroll);
+    } else {
+      document.body.classList.remove(scss.noScroll);
+    }
+
+    return () => document.body.classList.remove(scss.noScroll);
+  }, [show]);
+
   return (
     <>
       <Helmet>
@@ -91,43 +98,33 @@ const ShareModal = ({
         <meta name="twitter:url" content={productUrl} />
       </Helmet>
 
-      <AnimatePresence>
-        {show && (
-          <motion.div
-            className={scss.modalOverlay}
-            onClick={handleOverlayClick}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <motion.div
-              className={scss.modalContent}
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.8 }}
-            >
-              <div className={scss.container}>
-                <div className={scss.header}>
-                  <h2>{name}</h2>
-                  <div className={scss.closeIcon} onClick={onToggle}>
-                    <FiX />
-                  </div>
-                </div>
-                <ul className={scss.buttons}>
-                  {Object.keys(sharePlatforms).map((platform) => (
-                    <li key={platform}>
-                      <ShareButton
-                        platform={platform}
-                        onClick={() => handleShare(platform)}
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <Modal
+        isOpen={show}
+        onRequestClose={onToggle}
+        overlayClassName={scss.modalOverlay}
+        className={scss.shareModal}
+        contentLabel="Поділитися"
+        shouldCloseOnOverlayClick={true}
+      >
+        <div className={scss.container}>
+          <div className={scss.header}>
+            <h2>{name}</h2>
+            <button onClick={onToggle}>
+              <FiX className={scss.closeIcon} />
+            </button>
+          </div>
+          <ul className={scss.buttons}>
+            {Object.keys(sharePlatforms).map((platform) => (
+              <li key={platform}>
+                <ShareButton
+                  platform={platform}
+                  onClick={() => handleShare(platform)}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Modal>
     </>
   );
 };
