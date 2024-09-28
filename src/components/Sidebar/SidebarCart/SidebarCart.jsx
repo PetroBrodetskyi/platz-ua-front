@@ -5,6 +5,7 @@ import { removeFromCart } from "../../../redux/features/cartSlice";
 import SidebarCartItem from "../SidebarCartItem/SidebarCartItem";
 import { Collapse } from "@mui/material";
 import { TransitionGroup } from "react-transition-group";
+import { memo } from "react";
 
 const SidebarCart = () => {
   const cartItems = useSelector((state) => state.cart.items);
@@ -42,4 +43,4 @@ const SidebarCart = () => {
   );
 };
 
-export default SidebarCart;
+export default memo(SidebarCart);

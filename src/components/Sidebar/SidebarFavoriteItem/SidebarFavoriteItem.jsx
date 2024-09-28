@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import scss from "./SidebarFavoriteItem.module.scss";
+import { memo } from "react";
 
 const SidebarFavoriteItem = ({ product, onRemove }) => {
   const navigate = useNavigate();
@@ -42,4 +43,4 @@ const SidebarFavoriteItem = ({ product, onRemove }) => {
   );
 };
 
-export default SidebarFavoriteItem;
+export default memo(SidebarFavoriteItem);

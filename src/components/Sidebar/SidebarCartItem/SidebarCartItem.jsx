@@ -1,11 +1,8 @@
 import scss from "./SidebarCartItem.module.scss";
-import { useNavigate } from "react-router-dom";
 
 const SidebarCartItem = ({ item, onRemove, onProductClick }) => {
-  const navigate = useNavigate();
-
   const handleBuyClick = () => {
-    navigate("/cart");
+    onProductClick(item._id);
   };
 
   return (

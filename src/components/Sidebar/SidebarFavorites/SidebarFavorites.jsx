@@ -4,16 +4,21 @@ import { TransitionGroup } from "react-transition-group";
 import { toggleFavorite } from "../../../redux/features/favoritesSlice";
 import SidebarFavoriteItem from "../SidebarFavoriteItem/SidebarFavoriteItem";
 import scss from "./SidebarFavorites.module.scss";
+import { memo, useMemo } from "react";
 
 const SidebarFavorites = () => {
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites.items);
   const products = useSelector((state) => state.products.products);
 
-  const favoriteProducts = favorites
-    .map((favId) => products.find((product) => product._id === favId))
-    .filter((product) => product !== undefined)
-    .reverse();
+  const favoriteProducts = useMemo(
+    () =>
+      favorites
+        .map((favId) => products.find((product) => product._id === favId))
+        .filter(Boolean)
+        .reverse(),
+    [favorites, products],
+  );
 
   const handleRemoveFromFavorites = (productId) => {
     dispatch(toggleFavorite(productId));
@@ -41,4 +46,4 @@ const SidebarFavorites = () => {
   );
 };
 
-export default SidebarFavorites;
+export default memo(SidebarFavorites);

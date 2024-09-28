@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import scss from "./SidebarMyAdItem.module.scss";
+import { memo } from "react";
 
 const SidebarMyAdItem = ({ product, onRemove }) => {
   const navigate = useNavigate();
@@ -42,4 +43,4 @@ const SidebarMyAdItem = ({ product, onRemove }) => {
   );
 };
 
-export default SidebarMyAdItem;
+export default memo(SidebarMyAdItem);

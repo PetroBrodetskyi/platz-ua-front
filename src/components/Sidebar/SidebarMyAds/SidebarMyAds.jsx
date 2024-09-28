@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Collapse } from "@mui/material";
 import { TransitionGroup } from "react-transition-group";
@@ -20,12 +20,12 @@ const SidebarMyAds = () => {
     dispatch(fetchUserProducts());
   }, [dispatch]);
 
-  const handleRemoveFromMyAds = (productId) => {
+  const handleRemoveFromMyAds = useCallback((productId) => {
     setProductIdToDelete(productId);
     setShowConfirmation(true);
-  };
+  }, []);
 
-  const confirmDelete = async () => {
+  const confirmDelete = useCallback(async () => {
     setShowConfirmation(false);
     if (!productIdToDelete) return;
 
@@ -39,11 +39,7 @@ const SidebarMyAds = () => {
         },
       );
 
-      // Оновлення локального стану для видалення продукту
-      const updatedProducts = userProducts.filter(
-        (prod) => prod._id !== productIdToDelete,
-      );
-      dispatch(fetchUserProducts(updatedProducts));
+      dispatch(fetchUserProducts());
 
       setNotification("Ваше оголошення успішно видалено!");
     } catch (error) {
@@ -55,12 +51,12 @@ const SidebarMyAds = () => {
         "Виникла помилка при видаленні продукту. Спробуйте ще раз.",
       );
     }
-  };
+  }, [productIdToDelete, dispatch]);
 
-  const cancelDelete = () => {
+  const cancelDelete = useCallback(() => {
     setProductIdToDelete(null);
     setShowConfirmation(false);
-  };
+  }, []);
 
   return (
     <div className={scss.sidebarMyAds}>
@@ -97,4 +93,4 @@ const SidebarMyAds = () => {
   );
 };
 
-export default SidebarMyAds;
+export default React.memo(SidebarMyAds);
