@@ -130,8 +130,8 @@ const ProductDetails = () => {
 
   return (
     <div className={scss.product}>
-      <UserInfo owner={owner} />
       <div className={scss.infoContainer}>
+        <UserInfo owner={owner} />
         <Gallery images={product} />
         <ProductInfo
           product={product}

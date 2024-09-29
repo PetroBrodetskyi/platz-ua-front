@@ -1,6 +1,6 @@
 @import "src/styles/mixins";
 
-$padding-desktop: 80px 40px;
+$padding-desktop: 100px 40px;
 $padding-tablet: 0 20px;
 $padding-mobile: 20px;
 
@@ -32,6 +32,7 @@ $gap-mobile: 10px;
     }
 
     @include media-rules(desktop) {
+      padding: 20px;
       flex-direction: row;
       gap: 20px;
     }

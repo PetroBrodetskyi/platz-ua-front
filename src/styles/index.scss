@@ -1,5 +1,6 @@
 @import "reset";
 @import "fonts";
+@import "src/styles/mixins";
 
 :root {
   //colors
@@ -14,14 +15,14 @@
   --dark-bg-sidebar: #121212;
   --dark-grey: rgba(255, 255, 255, 0.5);
   --light-grey: rgba(255, 255, 255, 0.3);
-  --dark-grey-line: rgba(255, 255, 255, 0.1);
+  --dark-grey: rgba(49, 48, 48, 0.241);
   --light-bg: #f6f6f7;
   --violet-bg: #ecedfd;
   --dark-violet: #5255bc;
   --light-violet: #7b7ede;
   --red: #dd0000;
-  --dark-yellow: #cc9900;
-  --logo-yellow: gold;
+  --yellow: #cc9900;
+  --gold: gold;
   --primary: #007bff;
   --secondary: #0056b3;
   --input-bg: #f9f9f9;
@@ -71,6 +72,12 @@ a {
   color: currentColor;
   padding: 0;
   margin: 0;
+}
+
+img {
+  @include media-rules(desktop) {
+    border-radius: 4px;
+  }
 }
 
 .visually-hidden {

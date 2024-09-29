@@ -102,7 +102,7 @@
     transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: var(--logo-yellow);
+      background-color: var(--gold);
     }
 
     @include media-rules(tablet) {

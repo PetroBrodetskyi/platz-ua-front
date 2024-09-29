@@ -3,6 +3,7 @@
 .userInfo {
   display: flex;
   align-items: center;
+
   gap: 8px;
   padding: 10px;
   cursor: pointer;
@@ -13,6 +14,7 @@
   }
 
   @include media-rules(desktop) {
+    flex-direction: column;
     gap: 4px;
     padding: 20px;
   }
@@ -22,6 +24,16 @@
     height: 40px;
     border-radius: 50%;
     border: 2px solid var(--dark-bg);
+
+    @include media-rules(tablet) {
+      width: 40px;
+      height: 40px;
+    }
+
+    @include media-rules(desktop) {
+      width: 120px;
+      height: 120px;
+    }
   }
 
   .name {

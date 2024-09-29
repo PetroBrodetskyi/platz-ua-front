@@ -36,8 +36,8 @@ const Header = ({ onClick }) => {
   const renderUserInfo = () =>
     user && (
       <div className={scss.userInfo}>
+        {/* <span>{user.name}</span> */}
         <img src={user.avatarURL} alt={user.name} className={scss.avatar} />
-        <span>{user.name}</span>
       </div>
     );
 
