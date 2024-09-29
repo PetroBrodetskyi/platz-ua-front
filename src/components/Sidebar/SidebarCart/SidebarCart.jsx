@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { removeFromCart } from "../../../redux/features/cartSlice";
-import SidebarCartItem from "../SidebarCartItem/SidebarCartItem";
+import SidebarCartItem from "./SidebarCartItem/SidebarCartItem";
 import { TransitionGroup } from "react-transition-group";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";

@@ -14,6 +14,7 @@ import {
 } from "../../redux/features/authSlice";
 import { addToCart, removeFromCart } from "../../redux/features/cartSlice";
 import Notification from "../Notification/Notification";
+import Tags from "./Tags/Tags";
 import axios from "axios";
 import scss from "./ProductDetails.module.scss";
 import Gallery from "./Gallery/Gallery";
@@ -130,20 +131,25 @@ const ProductDetails = () => {
 
   return (
     <div className={scss.product}>
+      <UserInfo owner={owner} />
       <div className={scss.infoContainer}>
-        <UserInfo owner={owner} />
-        <Gallery images={product} />
-        <ProductInfo
-          product={product}
-          isEditing={isEditing}
-          updatedProduct={updatedProduct}
-          setUpdatedProduct={setUpdatedProduct}
-          handleEditClick={handleEditClick}
-          handleSaveClick={handleSaveClick}
-          currentUser={currentUser}
-          handleAddToCart={handleAddToCart}
-          isInCart={isInCart}
-        />
+        <div className={scss.gallery}>
+          <Gallery images={product} />
+        </div>
+        <div className={scss.productInfo}>
+          <ProductInfo
+            product={product}
+            isEditing={isEditing}
+            updatedProduct={updatedProduct}
+            setUpdatedProduct={setUpdatedProduct}
+            handleEditClick={handleEditClick}
+            handleSaveClick={handleSaveClick}
+            currentUser={currentUser}
+            handleAddToCart={handleAddToCart}
+            isInCart={isInCart}
+          />
+          <Tags product={product} />
+        </div>
         {notification && (
           <Notification
             message={notification}
@@ -151,6 +157,7 @@ const ProductDetails = () => {
           />
         )}
       </div>
+
       <div>
         <Comments productId={productId} />
       </div>

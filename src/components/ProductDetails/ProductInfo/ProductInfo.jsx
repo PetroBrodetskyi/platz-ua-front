@@ -7,7 +7,6 @@ import { FaRegFaceSmile, FaRegFaceMeh } from "react-icons/fa6";
 import scss from "./ProductInfo.module.scss";
 import CartPrice from "../../ProductCard/CartPrice/CartPrice";
 import ActionButton from "../ActionButton/ActionButton";
-import Categoryes from "../Categories/Categories";
 import { fetchExchangeRate } from "../../../redux/features/productsSlice";
 
 const ProductInfo = ({
@@ -147,7 +146,6 @@ const ProductInfo = ({
           </p>
         </div>
       </div>
-      <Categoryes product={product} />
     </div>
   );
 };

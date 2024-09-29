@@ -1,12 +1,8 @@
 @import "src/styles/mixins";
 
-$padding-desktop: 100px 40px;
+$padding-desktop: 80px 40px;
 $padding-tablet: 0 20px;
 $padding-mobile: 20px;
-
-$gap-desktop: 20px;
-$gap-tablet: 12px;
-$gap-mobile: 10px;
 
 .product {
   display: flex;
@@ -24,7 +20,6 @@ $gap-mobile: 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    background-color: #fff;
 
     @include media-rules(tablet) {
       flex-direction: row;
@@ -32,14 +27,25 @@ $gap-mobile: 10px;
     }
 
     @include media-rules(desktop) {
-      padding: 20px;
       flex-direction: row;
       gap: 20px;
     }
-  }
 
-  .userGallery {
-    display: flex;
-    flex-direction: column;
+    .gallery {
+      padding: 20px;
+      border-radius: 8px;
+      background-color: var(--white);
+      width: 50%;
+    }
+
+    .productInfo {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      @include media-rules(tablet) {
+        width: 50%;
+      }
+    }
   }
 }

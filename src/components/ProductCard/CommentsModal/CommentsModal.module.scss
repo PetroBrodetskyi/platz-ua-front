@@ -36,6 +36,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
+  background-color: var(--light-bg);
+
+  .title {
+    margin: 0;
+  }
 
   .closeIcon {
     font-size: 20px;
@@ -46,7 +51,7 @@
 .commentList {
   flex: 1;
   overflow-y: auto;
-  padding: 0 20px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -79,6 +84,7 @@
   flex-direction: column;
   gap: 10px;
   border-top: 1px solid #ddd;
+  background-color: var(--light-bg);
 }
 
 .addComment {
@@ -92,6 +98,7 @@
   resize: none;
   font-family: var(--font-family);
   padding: 10px;
+  background-color: var(--light-bg);
 }
 
 .dateTime {

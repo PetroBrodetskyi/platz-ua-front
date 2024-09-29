@@ -1,22 +1,17 @@
 @import "src/styles/mixins";
 
-.categoryes {
+.tags {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   gap: 10px;
   padding: 0;
 }
 
-.category {
+.tag {
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
   gap: 4px;
-  flex-direction: column;
-  justify-content: center;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-  width: 120px;
-  height: 120px;
+
   font-size: 18px;
 }
 

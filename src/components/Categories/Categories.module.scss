@@ -9,7 +9,6 @@ $gap-tablet: 8px;
 $gap-mobile: 4px;
 
 .categories {
-  background-color: var(--light-bg);
   padding: $categories-padding-desktop;
 
   @media (max-width: $desktop) {

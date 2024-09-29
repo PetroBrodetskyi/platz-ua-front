@@ -9,13 +9,11 @@
   padding: 0 10px 10px;
 
   @include media-rules(tablet) {
-    background-color: var(--white);
-    width: 50%;
     padding: 0;
   }
 
   @include media-rules(desktop) {
-    width: 32%;
+    padding: 0;
   }
 
   .mainImageContainer {
