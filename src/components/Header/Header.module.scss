@@ -54,6 +54,7 @@
 
       @include media-rules(desktop) {
         gap: 12px;
+        width: 240px;
       }
 
       .loginButton,
@@ -154,6 +155,8 @@
     height: 40px;
     border-radius: 50%;
     border: 2px solid var(--dark-bg);
+    min-width: 40px;
+    min-height: 40px;
   }
 
   span {

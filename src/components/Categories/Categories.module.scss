@@ -79,14 +79,14 @@ $gap-mobile: 4px;
       svg {
         margin-right: 8px;
 
-        @media (max-width: $desktop) {
-          width: 20px;
-          height: 20px;
-        }
-
-        @media (max-width: $tablet) {
+        @include media-rules(tablet) {
           width: 16px;
           height: 16px;
+        }
+
+        @include media-rules(desktop) {
+          width: 20px;
+          height: 20px;
         }
       }
     }
@@ -127,14 +127,14 @@ $gap-mobile: 4px;
       svg {
         margin-right: 8px;
 
-        @media (max-width: $desktop) {
-          width: 20px;
-          height: 20px;
-        }
-
-        @media (max-width: $tablet) {
+        @include media-rules(tablet) {
           width: 16px;
           height: 16px;
+        }
+
+        @include media-rules(desktop) {
+          width: 20px;
+          height: 20px;
         }
       }
     }
