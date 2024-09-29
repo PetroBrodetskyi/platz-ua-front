@@ -37,7 +37,7 @@ const SidebarMyAds = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
+        },
       );
 
       dispatch(fetchUserProducts());
@@ -46,10 +46,10 @@ const SidebarMyAds = () => {
     } catch (error) {
       console.error(
         "Error deleting product:",
-        error.response ? error.response.data : error.message
+        error.response ? error.response.data : error.message,
       );
       setNotification(
-        "Виникла помилка при видаленні продукту. Спробуйте ще раз."
+        "Виникла помилка при видаленні продукту. Спробуйте ще раз.",
       );
     }
   }, [productIdToDelete, dispatch]);

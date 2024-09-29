@@ -17,8 +17,6 @@ import { uk } from "date-fns/locale";
 import { Skeleton } from "@mui/material";
 import scss from "./CommentsModal.module.scss";
 
-Modal.setAppElement("#root");
-
 const CommentsModal = ({ show, onToggle, productId }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -17,7 +17,7 @@ const SidebarFavorites = () => {
         .map((favId) => products.find((product) => product._id === favId))
         .filter(Boolean)
         .reverse(),
-    [favorites, products]
+    [favorites, products],
   );
 
   const handleRemoveFromFavorites = (productId) => {
