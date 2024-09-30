@@ -23,6 +23,7 @@
   height: 96vh;
   display: flex;
   flex-direction: column;
+  position: fixed;
 }
 
 .container {
@@ -62,8 +63,8 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: var(--dark-grey); /* Колір повзунка */
-    border-radius: 10px; /* Закруглені кути повзунка */
+    background-color: var(--dark-grey);
+    border-radius: 10px;
   }
 }
 
