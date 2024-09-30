@@ -74,12 +74,6 @@ a {
   margin: 0;
 }
 
-img {
-  @include media-rules(desktop) {
-    border-radius: 8px;
-  }
-}
-
 .visually-hidden {
   position: absolute;
   width: 1px;
