@@ -1,13 +1,13 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { TbLocation } from "react-icons/tb";
-import { SlLocationPin } from "react-icons/sl";
-import { MdOutlineDateRange } from "react-icons/md";
-import { FaRegFaceSmile, FaRegFaceMeh } from "react-icons/fa6";
-import scss from "./ProductInfo.module.scss";
-import CartPrice from "../../ProductCard/CartPrice/CartPrice";
-import ActionButton from "../ActionButton/ActionButton";
-import { fetchExchangeRate } from "../../../redux/features/productsSlice";
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { TbLocation } from 'react-icons/tb';
+import { SlLocationPin } from 'react-icons/sl';
+import { MdOutlineDateRange } from 'react-icons/md';
+import { FaRegFaceSmile, FaRegFaceMeh } from 'react-icons/fa6';
+import scss from './ProductInfo.module.scss';
+import CartPrice from '../../ProductCard/CartPrice/CartPrice';
+import ActionButton from '../ActionButton/ActionButton';
+import { fetchExchangeRate } from '../../../redux/features/productsSlice';
 
 const ProductInfo = ({
   product,
@@ -18,7 +18,7 @@ const ProductInfo = ({
   handleSaveClick,
   currentUser,
   handleAddToCart,
-  isInCart,
+  isInCart
 }) => {
   const formattedDate = new Date(product.createdAt).toLocaleDateString();
   const dispatch = useDispatch();
@@ -34,14 +34,14 @@ const ProductInfo = ({
     const { name, value } = e.target;
     setUpdatedProduct((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: value
     }));
   };
 
   const handleConditionChange = (e) => {
     setUpdatedProduct((prevState) => ({
       ...prevState,
-      condition: e.target.value,
+      condition: e.target.value
     }));
   };
 
@@ -114,7 +114,7 @@ const ProductInfo = ({
             Стан:
             {isEditing ? (
               <div className={scss.conditionOptions}>
-                {["новий", "вживаний"].map((condition) => (
+                {['новий', 'вживаний'].map((condition) => (
                   <label key={condition}>
                     <input
                       type="radio"
@@ -129,7 +129,7 @@ const ProductInfo = ({
               </div>
             ) : (
               <p className={scss.icons}>
-                {product.condition === "новий" ? (
+                {product.condition === 'новий' ? (
                   <>
                     <FaRegFaceSmile className={scss.icon} /> новий
                   </>

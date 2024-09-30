@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { MdOutlineFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
-import { PiShoppingCart, PiShoppingCartFill } from "react-icons/pi";
-import { RiLoginCircleLine } from "react-icons/ri";
-import scss from "./Header.module.scss";
-import SearchLocation from "../SearchLocation/SearchLocation";
-import Logo from "../Logo/Logo";
-import { fetchCurrentUser } from "../../redux/features/authSlice";
+import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { MdOutlineFavorite, MdOutlineFavoriteBorder } from 'react-icons/md';
+import { PiShoppingCart, PiShoppingCartFill } from 'react-icons/pi';
+import { RiLoginCircleLine } from 'react-icons/ri';
+import scss from './Header.module.scss';
+import SearchLocation from '../SearchLocation/SearchLocation';
+import Logo from '../Logo/Logo';
+import { fetchCurrentUser } from '../../redux/features/authSlice';
 
 const Header = ({ onClick }) => {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const Header = ({ onClick }) => {
   }, [favorites]);
 
   const getUserProfileUrl = () =>
-    user ? `/user-profile/${user._id}` : "/login";
+    user ? `/user-profile/${user._id}` : '/login';
 
   const renderUserInfo = () =>
     user && (
@@ -96,7 +96,7 @@ const Header = ({ onClick }) => {
           <NavLink to="/favorites">
             <button
               type="button"
-              className={`${scss.icon} ${animateFavorite ? scss.animate : ""} ${favorites.length > 0 ? scss.favorite : ""}`}
+              className={`${scss.icon} ${animateFavorite ? scss.animate : ''} ${favorites.length > 0 ? scss.favorite : ''}`}
               onClick={onClick}
             >
               <div className={scss.navigateItem}>

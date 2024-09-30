@@ -1,19 +1,19 @@
-import { useNavigate } from "react-router-dom";
-import scss from "./Buyers.module.scss";
-import manwithlaptop from "/src/assets/images/manwithlaptop.png";
-import woman from "/src/assets/images/woman.png";
-import boyandphone from "/src/assets/images/boyandphone.png";
-import card from "/src/assets/images/card.png";
-import { FaSearch, FaInfoCircle, FaPhone, FaGift } from "react-icons/fa";
-import { IoSearchSharp } from "react-icons/io5";
-import { ButtonBase } from "@mui/material";
-import { motion } from "framer-motion";
+import { useNavigate } from 'react-router-dom';
+import scss from './Buyers.module.scss';
+import manwithlaptop from '/src/assets/images/manwithlaptop.png';
+import woman from '/src/assets/images/woman.png';
+import boyandphone from '/src/assets/images/boyandphone.png';
+import card from '/src/assets/images/card.png';
+import { FaSearch, FaInfoCircle, FaPhone, FaGift } from 'react-icons/fa';
+import { IoSearchSharp } from 'react-icons/io5';
+import { ButtonBase } from '@mui/material';
+import { motion } from 'framer-motion';
 
 const Buyers = () => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate("/");
+    navigate('/');
   };
 
   return (

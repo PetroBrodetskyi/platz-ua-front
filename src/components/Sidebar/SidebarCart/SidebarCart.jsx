@@ -1,11 +1,11 @@
-import { memo } from "react";
-import { removeFromCart } from "../../../redux/features/cartSlice";
-import SidebarCartItem from "./SidebarCartItem/SidebarCartItem";
-import { TransitionGroup } from "react-transition-group";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Collapse } from "@mui/material";
-import scss from "./SidebarCart.module.scss";
+import { memo } from 'react';
+import { removeFromCart } from '../../../redux/features/cartSlice';
+import SidebarCartItem from './SidebarCartItem/SidebarCartItem';
+import { TransitionGroup } from 'react-transition-group';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { Collapse } from '@mui/material';
+import scss from './SidebarCart.module.scss';
 
 const SidebarCart = () => {
   const cartItems = useSelector((state) => state.cart.items);

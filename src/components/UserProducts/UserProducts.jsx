@@ -1,30 +1,30 @@
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
-import { format } from "date-fns";
-import { uk } from "date-fns/locale";
-import scss from "./UserProducts.module.scss";
-import ProductItem from "./ProductItem/ProductItem";
-import Notification from "../Notification/Notification";
-import ProductsNotFound from "../UserProducts/ProductsNotFound/ProductsNotFound";
-import { Confirmation } from "../Confirmation/Confirmation";
-import Loader from "../Loader/Loader";
-import { fetchExchangeRate } from "../../redux/features/productsSlice";
-import { fetchComments, addComment } from "../../redux/features/commentsSlice";
-import { fetchUserById } from "../../redux/features/authSlice";
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import { format } from 'date-fns';
+import { uk } from 'date-fns/locale';
+import scss from './UserProducts.module.scss';
+import ProductItem from './ProductItem/ProductItem';
+import Notification from '../Notification/Notification';
+import ProductsNotFound from '../UserProducts/ProductsNotFound/ProductsNotFound';
+import { Confirmation } from '../Confirmation/Confirmation';
+import Loader from '../Loader/Loader';
+import { fetchExchangeRate } from '../../redux/features/productsSlice';
+import { fetchComments, addComment } from '../../redux/features/commentsSlice';
+import { fetchUserById } from '../../redux/features/authSlice';
 
 const UserProducts = ({ products, setProducts }) => {
   const [isEditing, setIsEditing] = useState(null);
   const [updatedProduct, setUpdatedProduct] = useState({
-    name: "",
-    price: "",
-    description: "",
-    condition: "",
+    name: '',
+    price: '',
+    description: '',
+    condition: ''
   });
-  const [notification, setNotification] = useState("");
+  const [notification, setNotification] = useState('');
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [productIdToDelete, setProductIdToDelete] = useState(null);
-  const [newComment, setNewComment] = useState("");
+  const [newComment, setNewComment] = useState('');
 
   const currentUser = useSelector((state) => state.auth.user);
   const owner = useSelector((state) => state.auth.owner);
@@ -34,7 +34,7 @@ const UserProducts = ({ products, setProducts }) => {
   const dispatch = useDispatch();
 
   const formattedDate =
-    owner && format(new Date(owner.createdAt), "MMMM yyyy", { locale: uk });
+    owner && format(new Date(owner.createdAt), 'MMMM yyyy', { locale: uk });
 
   useEffect(() => {
     if (products.length > 0) {
@@ -58,17 +58,17 @@ const UserProducts = ({ products, setProducts }) => {
     const product = products.find((prod) => prod._id === productId);
     setIsEditing(productId);
     setUpdatedProduct({
-      name: product.name || "",
-      price: product.price || "",
-      description: product.description || "",
-      condition: product.condition || "",
+      name: product.name || '',
+      price: product.price || '',
+      description: product.description || '',
+      condition: product.condition || ''
     });
   };
 
   const handleSaveClick = async () => {
     const product = products.find((prod) => prod._id === isEditing);
     if (!currentUser || currentUser._id !== product.owner) {
-      alert("Ви не маєте права редагувати це оголошення.");
+      alert('Ви не маєте права редагувати це оголошення.');
       return;
     }
 
@@ -78,25 +78,25 @@ const UserProducts = ({ products, setProducts }) => {
         updatedProduct,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        },
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        }
       );
 
       setProducts((prev) =>
         prev.map((prod) =>
-          prod._id === isEditing ? { ...prod, ...updatedProduct } : prod,
-        ),
+          prod._id === isEditing ? { ...prod, ...updatedProduct } : prod
+        )
       );
-      setNotification("Ваше оголошення успішно оновлено!");
+      setNotification('Ваше оголошення успішно оновлено!');
       setIsEditing(null);
     } catch (error) {
       console.error(
-        "Error updating product:",
-        error?.response?.data || error.message,
+        'Error updating product:',
+        error?.response?.data || error.message
       );
       setNotification(
-        "Виникла помилка при оновленні продукту. Спробуйте ще раз.",
+        'Виникла помилка при оновленні продукту. Спробуйте ще раз.'
       );
     }
   };
@@ -112,9 +112,9 @@ const UserProducts = ({ products, setProducts }) => {
   const handleAddComment = (productId) => {
     if (newComment.trim()) {
       dispatch(
-        addComment({ productId, comment: newComment, user: currentUser }),
+        addComment({ productId, comment: newComment, user: currentUser })
       );
-      setNewComment("");
+      setNewComment('');
     }
   };
 
@@ -130,21 +130,21 @@ const UserProducts = ({ products, setProducts }) => {
       await axios.delete(
         `https://platz-ua-back.vercel.app/api/products/${productIdToDelete}`,
         {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        },
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        }
       );
 
       setProducts((prev) =>
-        prev.filter((prod) => prod._id !== productIdToDelete),
+        prev.filter((prod) => prod._id !== productIdToDelete)
       );
-      setNotification("Ваше оголошення успішно видалено!");
+      setNotification('Ваше оголошення успішно видалено!');
     } catch (error) {
       console.error(
-        "Error deleting product:",
-        error?.response?.data || error.message,
+        'Error deleting product:',
+        error?.response?.data || error.message
       );
       setNotification(
-        "Виникла помилка при видаленні продукту. Спробуйте ще раз.",
+        'Виникла помилка при видаленні продукту. Спробуйте ще раз.'
       );
     } finally {
       setProductIdToDelete(null);
@@ -197,7 +197,7 @@ const UserProducts = ({ products, setProducts }) => {
       {notification && (
         <Notification
           message={notification}
-          onClose={() => setNotification("")}
+          onClose={() => setNotification('')}
         />
       )}
       {showConfirmation && (

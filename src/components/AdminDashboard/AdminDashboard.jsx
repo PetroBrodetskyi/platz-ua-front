@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import scss from "./AdminDashboard.module.scss";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import scss from './AdminDashboard.module.scss';
 
 const AdminDashboard = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filter, setFilter] = useState("pending");
+  const [filter, setFilter] = useState('pending');
   const [owners, setOwners] = useState({});
   const [loadingOwners, setLoadingOwners] = useState({});
 
@@ -16,13 +16,13 @@ const AdminDashboard = () => {
       if (!owners[ownerId] && !loadingOwners[ownerId]) {
         setLoadingOwners((prev) => ({ ...prev, [ownerId]: true }));
         const response = await axios.get(
-          `https://platz-ua-back.vercel.app/api/users/${ownerId}`,
+          `https://platz-ua-back.vercel.app/api/users/${ownerId}`
         );
         setOwners((prev) => ({ ...prev, [ownerId]: response.data }));
         setLoadingOwners((prev) => ({ ...prev, [ownerId]: false }));
       }
     } catch (err) {
-      console.error("Error fetching owner:", err);
+      console.error('Error fetching owner:', err);
     }
   };
 
@@ -32,19 +32,19 @@ const AdminDashboard = () => {
       await axios.patch(
         `https://platz-ua-back.vercel.app/api/products/${productId}`,
         {
-          status: newStatus,
-        },
+          status: newStatus
+        }
       );
       setProducts((prevProducts) =>
         prevProducts.map((product) =>
           product._id === productId
             ? { ...product, status: newStatus }
-            : product,
-        ),
+            : product
+        )
       );
     } catch (err) {
-      console.error("Error updating product status:", err);
-      setError("Не вдалося оновити статус оголошення.");
+      console.error('Error updating product status:', err);
+      setError('Не вдалося оновити статус оголошення.');
     }
   };
 
@@ -52,13 +52,13 @@ const AdminDashboard = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          "https://platz-ua-back.vercel.app/api/products/public/",
+          'https://platz-ua-back.vercel.app/api/products/public/'
         );
         setProducts(response.data);
 
         // Отримання даних про власників для всіх продуктів
         const uniqueOwnerIds = [
-          ...new Set(response.data.map((product) => product.owner)),
+          ...new Set(response.data.map((product) => product.owner))
         ];
         uniqueOwnerIds.forEach((ownerId) => fetchOwner(ownerId));
       } catch (err) {
@@ -89,9 +89,9 @@ const AdminDashboard = () => {
       <h2>Список оголошень:</h2>
 
       <div className={scss.filterButtons}>
-        <button onClick={() => setFilter("pending")}>На модерацію</button>
-        <button onClick={() => setFilter("approved")}>Затверджені</button>
-        <button onClick={() => setFilter("rejected")}>Відхилені</button>
+        <button onClick={() => setFilter('pending')}>На модерацію</button>
+        <button onClick={() => setFilter('approved')}>Затверджені</button>
+        <button onClick={() => setFilter('rejected')}>Відхилені</button>
       </div>
 
       {filteredProducts.length === 0 ? (
@@ -147,11 +147,11 @@ const AdminDashboard = () => {
               <p>Статус: {product.status}</p>
               <p>ID: {product._id}</p>
               <p>
-                Дата розміщення:{" "}
+                Дата розміщення:{' '}
                 {new Date(product.createdAt).toLocaleDateString()}
               </p>
               <p>
-                Час розміщення:{" "}
+                Час розміщення:{' '}
                 {new Date(product.createdAt).toLocaleTimeString()}
               </p>
               {product.owner && owners[product.owner] && (
@@ -164,34 +164,34 @@ const AdminDashboard = () => {
               )}
               {/* Кнопки для затвердження або відхилення оголошень */}
               <div className={scss.statusButtons}>
-                {product.status === "pending" && (
+                {product.status === 'pending' && (
                   <>
                     <button
                       onClick={() =>
-                        updateProductStatus(product._id, "approved")
+                        updateProductStatus(product._id, 'approved')
                       }
                     >
                       Затвердити
                     </button>
                     <button
                       onClick={() =>
-                        updateProductStatus(product._id, "rejected")
+                        updateProductStatus(product._id, 'rejected')
                       }
                     >
                       Відхилити
                     </button>
                   </>
                 )}
-                {product.status === "approved" && (
+                {product.status === 'approved' && (
                   <button
-                    onClick={() => updateProductStatus(product._id, "pending")}
+                    onClick={() => updateProductStatus(product._id, 'pending')}
                   >
                     Повернути на модерацію
                   </button>
                 )}
-                {product.status === "rejected" && (
+                {product.status === 'rejected' && (
                   <button
-                    onClick={() => updateProductStatus(product._id, "pending")}
+                    onClick={() => updateProductStatus(product._id, 'pending')}
                   >
                     Повернути на модерацію
                   </button>

@@ -1,21 +1,21 @@
-import Modal from "react-modal";
-import { FiX } from "react-icons/fi";
-import { useEffect, useState, useCallback } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import Modal from 'react-modal';
+import { FiX } from 'react-icons/fi';
+import { useEffect, useState, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   fetchComments,
   addComment,
-  deleteComment,
-} from "../../../redux/features/commentsSlice.js";
-import Notification from "../../Notification/Notification";
-import { TbGhost } from "react-icons/tb";
-import { LuArrowUpCircle } from "react-icons/lu";
-import { nanoid } from "nanoid";
-import { formatDistanceToNow } from "date-fns";
-import { uk } from "date-fns/locale";
-import { Skeleton } from "@mui/material";
-import scss from "./CommentsModal.module.scss";
+  deleteComment
+} from '../../../redux/features/commentsSlice.js';
+import Notification from '../../Notification/Notification';
+import { TbGhost } from 'react-icons/tb';
+import { LuArrowUpCircle } from 'react-icons/lu';
+import { nanoid } from 'nanoid';
+import { formatDistanceToNow } from 'date-fns';
+import { uk } from 'date-fns/locale';
+import { Skeleton } from '@mui/material';
+import scss from './CommentsModal.module.scss';
 
 const CommentsModal = ({ show, onToggle, productId }) => {
   const dispatch = useDispatch();
@@ -29,50 +29,62 @@ const CommentsModal = ({ show, onToggle, productId }) => {
     allComments.find((comment) => comment.productId === productId)?.comments ||
     [];
 
-  const [newComment, setNewComment] = useState("");
-  const [notification, setNotification] = useState("");
+  const [newComment, setNewComment] = useState('');
+  const [notification, setNotification] = useState('');
 
   useEffect(() => {
     dispatch(fetchComments(productId));
   }, [dispatch, productId]);
 
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [show]);
+
   const handleAddComment = useCallback(async () => {
     if (newComment.trim()) {
       const resultAction = await dispatch(
-        addComment({ productId, comment: newComment, user: currentUser }),
+        addComment({ productId, comment: newComment, user: currentUser })
       );
       setNotification(
         addComment.fulfilled.match(resultAction)
-          ? "Ваш коментар додано"
-          : "Помилка додавання коментаря",
+          ? 'Ваш коментар додано'
+          : 'Помилка додавання коментаря'
       );
-      setNewComment("");
+      setNewComment('');
     }
   }, [newComment, dispatch, productId, currentUser]);
 
   const handleDeleteComment = useCallback(
     async (commentId) => {
       const resultAction = await dispatch(
-        deleteComment({ productId, commentId }),
+        deleteComment({ productId, commentId })
       );
       setNotification(
         deleteComment.fulfilled.match(resultAction)
-          ? "Коментар видалено"
-          : "Помилка видалення коментаря",
+          ? 'Коментар видалено'
+          : 'Помилка видалення коментаря'
       );
     },
-    [dispatch, productId],
+    [dispatch, productId]
   );
 
   const handleUserClick = useCallback(
     (userId) => {
       navigate(`/user/${userId}`);
     },
-    [navigate],
+    [navigate]
   );
 
   const handleLoginClick = useCallback(() => {
-    navigate("/login");
+    navigate('/login');
   }, [navigate]);
 
   if (error) return <p>Помилка завантаження коментарів: {error}</p>;
@@ -110,7 +122,7 @@ const CommentsModal = ({ show, onToggle, productId }) => {
                 <div
                   className={scss.userContainer}
                   onClick={() => user && handleUserClick(user._id)}
-                  style={{ cursor: user ? "pointer" : "default" }}
+                  style={{ cursor: user ? 'pointer' : 'default' }}
                 >
                   {user?.avatarURL ? (
                     <img
@@ -123,7 +135,7 @@ const CommentsModal = ({ show, onToggle, productId }) => {
                       <TbGhost className={scss.icon} />
                     </div>
                   )}
-                  <h4>{user ? user.name : "Видалений акаунт"}</h4>
+                  <h4>{user ? user.name : 'Видалений акаунт'}</h4>
                 </div>
                 <p className={scss.text}>{text}</p>
                 <div className={scss.dateTime}>
@@ -138,7 +150,7 @@ const CommentsModal = ({ show, onToggle, productId }) => {
                   <p>
                     {formatDistanceToNow(new Date(createdAt), {
                       addSuffix: true,
-                      locale: uk,
+                      locale: uk
                     })}
                   </p>
                 </div>

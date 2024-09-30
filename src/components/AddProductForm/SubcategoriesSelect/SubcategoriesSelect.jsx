@@ -1,4 +1,4 @@
-import scss from "./SubcategoriesSelect.module.scss";
+import scss from './SubcategoriesSelect.module.scss';
 
 const SubcategoriesSelect = ({ subcategories, register, errors }) => {
   return (
@@ -7,7 +7,7 @@ const SubcategoriesSelect = ({ subcategories, register, errors }) => {
         <label htmlFor="subcategory1"></label>
         <select
           id="subcategory1"
-          {...register("subcategory1", { required: true })}
+          {...register('subcategory1', { required: true })}
           autoComplete="off"
         >
           <option value="">Виберіть підкатегорію</option>
@@ -23,7 +23,7 @@ const SubcategoriesSelect = ({ subcategories, register, errors }) => {
         <label htmlFor="subcategory2"></label>
         <select
           id="subcategory2"
-          {...register("subcategory2")}
+          {...register('subcategory2')}
           autoComplete="off"
         >
           <option value="">Виберіть підкатегорію</option>
@@ -38,7 +38,7 @@ const SubcategoriesSelect = ({ subcategories, register, errors }) => {
         <label htmlFor="subcategory3"></label>
         <select
           id="subcategory3"
-          {...register("subcategory3")}
+          {...register('subcategory3')}
           autoComplete="off"
         >
           <option value="">Виберіть підкатегорію</option>

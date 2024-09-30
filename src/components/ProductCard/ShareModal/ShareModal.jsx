@@ -1,11 +1,11 @@
-import Modal from "react-modal";
-import { FiX } from "react-icons/fi";
-import { Helmet } from "react-helmet";
-import scss from "./ShareModal.module.scss";
-import ShareButton from "../ShareButton/ShareButton";
-import { useEffect } from "react";
+import Modal from 'react-modal';
+import { FiX } from 'react-icons/fi';
+import { Helmet } from 'react-helmet';
+import scss from './ShareModal.module.scss';
+import ShareButton from '../ShareButton/ShareButton';
+import { useEffect } from 'react';
 
-Modal.setAppElement("#root");
+Modal.setAppElement('#root');
 
 const ShareModal = ({
   show,
@@ -15,7 +15,7 @@ const ShareModal = ({
   productUrl,
   price,
   city,
-  image,
+  image
 }) => {
   const maxDescriptionLength = 80;
 
@@ -48,13 +48,13 @@ const ShareModal = ({
       navigator.clipboard
         .writeText(productUrl)
         .then(() => {
-          alert("Посилання скопійовано!");
+          alert('Посилання скопійовано!');
         })
         .catch((err) => {
-          console.error("Помилка копіювання посилання", err);
+          console.error('Помилка копіювання посилання', err);
         });
       return;
-    },
+    }
   };
 
   const handleShare = (platform) => {
@@ -63,7 +63,7 @@ const ShareModal = ({
     const shareUrl = sharePlatforms[platform](shareMessage);
 
     if (shareUrl) {
-      window.open(shareUrl, "_blank");
+      window.open(shareUrl, '_blank');
     }
   };
 

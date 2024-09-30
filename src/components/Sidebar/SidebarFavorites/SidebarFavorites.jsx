@@ -1,10 +1,10 @@
-import { memo, useMemo } from "react";
-import SidebarFavoriteItem from "./SidebarFavoriteItem/SidebarFavoriteItem";
-import { toggleFavorite } from "../../../redux/features/favoritesSlice";
-import { TransitionGroup } from "react-transition-group";
-import { useSelector, useDispatch } from "react-redux";
-import { Collapse } from "@mui/material";
-import scss from "./SidebarFavorites.module.scss";
+import { memo, useMemo } from 'react';
+import SidebarFavoriteItem from './SidebarFavoriteItem/SidebarFavoriteItem';
+import { toggleFavorite } from '../../../redux/features/favoritesSlice';
+import { TransitionGroup } from 'react-transition-group';
+import { useSelector, useDispatch } from 'react-redux';
+import { Collapse } from '@mui/material';
+import scss from './SidebarFavorites.module.scss';
 
 const SidebarFavorites = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const SidebarFavorites = () => {
         .map((favId) => products.find((product) => product._id === favId))
         .filter(Boolean)
         .reverse(),
-    [favorites, products],
+    [favorites, products]
   );
 
   const handleRemoveFromFavorites = (productId) => {

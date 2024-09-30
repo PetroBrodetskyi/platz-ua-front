@@ -1,5 +1,5 @@
-import ImageButton from "../ImageButton/ImageButton";
-import scss from "./ImageUploader.module.scss";
+import ImageButton from '../ImageButton/ImageButton';
+import scss from './ImageUploader.module.scss';
 
 const ImageUploader = ({ register, watch }) => (
   <div className={scss.imageContainer}>

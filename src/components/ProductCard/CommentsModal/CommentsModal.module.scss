@@ -1,4 +1,4 @@
-@import "src/styles/mixins";
+@import 'src/styles/mixins';
 
 .modalOverlay {
   position: fixed;
@@ -20,7 +20,7 @@
   padding: 0;
   width: 100%;
   max-width: 600px;
-  height: 100vh;
+  height: 96vh;
   display: flex;
   flex-direction: column;
 }
@@ -124,10 +124,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
 
-  .icon {
-    font-size: 28px;
-  }
+.icon {
+  font-size: 28px;
 }
 
 .avatar {

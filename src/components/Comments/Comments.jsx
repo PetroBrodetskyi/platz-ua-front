@@ -1,18 +1,18 @@
-import { useEffect, useState, useCallback } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   fetchComments,
   addComment,
-  deleteComment,
-} from "../../redux/features/commentsSlice";
-import Notification from "../Notification/Notification";
-import { TbGhost } from "react-icons/tb";
-import { nanoid } from "nanoid";
-import scss from "./Comments.module.scss";
-import { formatDistanceToNow } from "date-fns";
-import { uk } from "date-fns/locale";
-import { Skeleton } from "@mui/material";
+  deleteComment
+} from '../../redux/features/commentsSlice';
+import Notification from '../Notification/Notification';
+import { TbGhost } from 'react-icons/tb';
+import { nanoid } from 'nanoid';
+import scss from './Comments.module.scss';
+import { formatDistanceToNow } from 'date-fns';
+import { uk } from 'date-fns/locale';
+import { Skeleton } from '@mui/material';
 
 const Comments = ({ productId }) => {
   const dispatch = useDispatch();
@@ -26,8 +26,8 @@ const Comments = ({ productId }) => {
     allComments.find((comment) => comment.productId === productId)?.comments ||
     [];
 
-  const [newComment, setNewComment] = useState("");
-  const [notification, setNotification] = useState("");
+  const [newComment, setNewComment] = useState('');
+  const [notification, setNotification] = useState('');
 
   useEffect(() => {
     dispatch(fetchComments(productId));
@@ -36,40 +36,40 @@ const Comments = ({ productId }) => {
   const handleAddComment = useCallback(async () => {
     if (newComment.trim()) {
       const resultAction = await dispatch(
-        addComment({ productId, comment: newComment, user: currentUser }),
+        addComment({ productId, comment: newComment, user: currentUser })
       );
       setNotification(
         addComment.fulfilled.match(resultAction)
-          ? "Ваш коментар додано"
-          : "Помилка додавання коментаря",
+          ? 'Ваш коментар додано'
+          : 'Помилка додавання коментаря'
       );
-      setNewComment("");
+      setNewComment('');
     }
   }, [newComment, dispatch, productId, currentUser]);
 
   const handleDeleteComment = useCallback(
     async (commentId) => {
       const resultAction = await dispatch(
-        deleteComment({ productId, commentId }),
+        deleteComment({ productId, commentId })
       );
       setNotification(
         deleteComment.fulfilled.match(resultAction)
-          ? "Коментар видалено"
-          : "Помилка видалення коментаря",
+          ? 'Коментар видалено'
+          : 'Помилка видалення коментаря'
       );
     },
-    [dispatch, productId],
+    [dispatch, productId]
   );
 
   const handleUserClick = useCallback(
     (userId) => {
       navigate(`/user/${userId}`);
     },
-    [navigate],
+    [navigate]
   );
 
   const handleLoginClick = useCallback(() => {
-    navigate("/login");
+    navigate('/login');
   }, [navigate]);
 
   if (error) return <p>Помилка завантаження коментарів: {error}</p>;
@@ -94,7 +94,7 @@ const Comments = ({ productId }) => {
               <div
                 className={scss.userContainer}
                 onClick={() => user && handleUserClick(user._id)}
-                style={{ cursor: user ? "pointer" : "default" }}
+                style={{ cursor: user ? 'pointer' : 'default' }}
               >
                 {user?.avatarURL ? (
                   <img
@@ -107,7 +107,7 @@ const Comments = ({ productId }) => {
                     <TbGhost className={scss.icon} />
                   </div>
                 )}
-                <h4>{user ? user.name : "Видалений акаунт"}</h4>
+                <h4>{user ? user.name : 'Видалений акаунт'}</h4>
               </div>
               <p className={scss.text}>{text}</p>
               <div className={scss.dateTime}>
@@ -122,7 +122,7 @@ const Comments = ({ productId }) => {
                 <p>
                   {formatDistanceToNow(new Date(createdAt), {
                     addSuffix: true,
-                    locale: uk,
+                    locale: uk
                   })}
                 </p>
               </div>

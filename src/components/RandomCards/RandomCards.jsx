@@ -1,20 +1,20 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchProducts,
   fetchExchangeRate,
-  fetchProductById,
-} from "../../redux/features/productsSlice";
-import { fetchUserById } from "../../redux/features/authSlice";
-import { toggleFavorite } from "../../redux/features/favoritesSlice";
-import { addToCart, removeFromCart } from "../../redux/features/cartSlice";
-import { useNavigate } from "react-router-dom";
-import { HiOutlineEye } from "react-icons/hi";
-import TitleFavorite from "../ProductCard/TitleFavorite/TitleFavorite";
-import CartPrice from "../ProductCard/CartPrice/CartPrice";
-import CreateCondition from "../ProductCard/CreateCondition/CreateCondition";
-import Notification from "../Notification/Notification";
-import scss from "./RandomCards.module.scss";
+  fetchProductById
+} from '../../redux/features/productsSlice';
+import { fetchUserById } from '../../redux/features/authSlice';
+import { toggleFavorite } from '../../redux/features/favoritesSlice';
+import { addToCart, removeFromCart } from '../../redux/features/cartSlice';
+import { useNavigate } from 'react-router-dom';
+import { HiOutlineEye } from 'react-icons/hi';
+import TitleFavorite from '../ProductCard/TitleFavorite/TitleFavorite';
+import CartPrice from '../ProductCard/CartPrice/CartPrice';
+import CreateCondition from '../ProductCard/CreateCondition/CreateCondition';
+import Notification from '../Notification/Notification';
+import scss from './RandomCards.module.scss';
 
 const MemoizedTitleFavorite = React.memo(TitleFavorite);
 const MemoizedCartPrice = React.memo(CartPrice);
@@ -26,9 +26,9 @@ const RandomCards = () => {
   const favorites = useSelector((state) => state.favorites.items);
   const cartItems = useSelector((state) => state.cart.items);
   const navigate = useNavigate();
-  const [notification, setNotification] = useState("");
+  const [notification, setNotification] = useState('');
   const [owners, setOwners] = useState(() => {
-    const savedOwners = localStorage.getItem("owners");
+    const savedOwners = localStorage.getItem('owners');
     return savedOwners ? JSON.parse(savedOwners) : {};
   });
   const [loadingOwners, setLoadingOwners] = useState({});
@@ -46,13 +46,13 @@ const RandomCards = () => {
         const response = await dispatch(fetchUserById(ownerId));
         setOwners((prev) => {
           const newOwners = { ...prev, [ownerId]: response.payload };
-          localStorage.setItem("owners", JSON.stringify(newOwners));
+          localStorage.setItem('owners', JSON.stringify(newOwners));
           return newOwners;
         });
         setLoadingOwners((prev) => ({ ...prev, [ownerId]: false }));
       }
     },
-    [dispatch, owners, loadingOwners],
+    [dispatch, owners, loadingOwners]
   );
 
   const handleProductClick = (productId) => {
@@ -73,7 +73,7 @@ const RandomCards = () => {
     } else {
       const productWithOwner = {
         ...product,
-        owner: owners[product.owner],
+        owner: owners[product.owner]
       };
       dispatch(addToCart(productWithOwner));
       setNotification(`${product.name} додано до кошика!`);
@@ -106,7 +106,7 @@ const RandomCards = () => {
           return (
             <li
               key={product._id}
-              className={`${scss.productItem} ${product.isSquare ? "square" : ""}`}
+              className={`${scss.productItem} ${product.isSquare ? 'square' : ''}`}
             >
               <div className={scss.product}>
                 <div className={scss.productImage}>
@@ -132,7 +132,7 @@ const RandomCards = () => {
                     <div>
                       <div className={scss.viewsQuantity}>
                         <p>
-                          {product.views !== undefined ? product.views : "N/A"}
+                          {product.views !== undefined ? product.views : 'N/A'}
                         </p>
                         <HiOutlineEye />
                       </div>
@@ -183,7 +183,7 @@ const RandomCards = () => {
       {notification && (
         <Notification
           message={notification}
-          onClose={() => setNotification("")}
+          onClose={() => setNotification('')}
         />
       )}
     </div>

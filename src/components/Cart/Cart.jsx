@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import scss from "./Cart.module.scss";
-import { removeFromCart } from "../../redux/features/cartSlice";
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import scss from './Cart.module.scss';
+import { removeFromCart } from '../../redux/features/cartSlice';
 import {
   fetchProducts,
-  fetchExchangeRate,
-} from "../../redux/features/productsSlice";
-import CartItem from "./CartItem/CartItem";
-import { ConfirmationLogin } from "../Confirmation/Confirmation";
+  fetchExchangeRate
+} from '../../redux/features/productsSlice';
+import CartItem from './CartItem/CartItem';
+import { ConfirmationLogin } from '../Confirmation/Confirmation';
 
 const Cart = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -24,7 +24,7 @@ const Cart = () => {
         await dispatch(fetchProducts({ page: 1 }));
         await dispatch(fetchExchangeRate());
       } catch (error) {
-        console.error("Failed to fetch products or exchange rate", error);
+        console.error('Failed to fetch products or exchange rate', error);
       }
     };
 
@@ -33,13 +33,13 @@ const Cart = () => {
 
   useEffect(() => {
     const filteredCartItems = cartItems.filter((item) =>
-      products.some((product) => product._id === item._id),
+      products.some((product) => product._id === item._id)
     );
 
     setValidCartItems(filteredCartItems);
 
     const invalidCartItems = cartItems.filter(
-      (item) => !products.some((product) => product._id === item._id),
+      (item) => !products.some((product) => product._id === item._id)
     );
     invalidCartItems.forEach((item) => dispatch(removeFromCart(item._id)));
   }, [cartItems, products, dispatch]);
@@ -54,12 +54,12 @@ const Cart = () => {
 
   const handleSubmitOrder = (event, itemId) => {
     event.preventDefault();
-    console.log("Order submitted for item:", itemId);
+    console.log('Order submitted for item:', itemId);
   };
 
   const handleConfirm = () => {
     setShowConfirmation(false);
-    navigate("/login");
+    navigate('/login');
   };
 
   const handleCancel = () => {

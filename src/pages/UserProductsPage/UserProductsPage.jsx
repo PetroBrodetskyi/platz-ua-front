@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { fetchUserById } from "../../redux/features/authSlice";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { fetchUserById } from '../../redux/features/authSlice';
 import {
   fetchUserProducts,
-  fetchUsersPublicProducts,
-} from "../../redux/features/productsSlice";
-import CreateAdButton from "../../components/CreateAdButton/CreateAdButton";
-import ProfileButton from "../../components/ProfileButton/ProfileButton";
-import UserProducts from "../../components/UserProducts/UserProducts";
-import scss from "./UserProductsPage.module.scss";
+  fetchUsersPublicProducts
+} from '../../redux/features/productsSlice';
+import CreateAdButton from '../../components/CreateAdButton/CreateAdButton';
+import ProfileButton from '../../components/ProfileButton/ProfileButton';
+import UserProducts from '../../components/UserProducts/UserProducts';
+import scss from './UserProductsPage.module.scss';
 
 const UserProductsPage = () => {
   const { userId } = useParams();

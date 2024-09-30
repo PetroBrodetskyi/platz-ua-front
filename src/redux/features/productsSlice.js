@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "../axiosConfig.js";
-import { createSelector } from "reselect";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from '../axiosConfig.js';
+import { createSelector } from 'reselect';
 
 const initialState = {
   products: [],
@@ -8,75 +8,75 @@ const initialState = {
   favorites: [],
   exchangeRate: null,
   loading: false,
-  location: "",
-  error: null,
+  location: '',
+  error: null
 };
 
 export const fetchProductsByLocation = createAsyncThunk(
-  "products/fetchProductsByLocation",
+  'products/fetchProductsByLocation',
   async ({ PLZ, city, page = 1 }) => {
     const response = await axios.get(
-      `/products/public?plz=${PLZ}&city=${city}&page=${page}`,
+      `/products/public?plz=${PLZ}&city=${city}&page=${page}`
     );
     return response.data;
-  },
+  }
 );
 
 export const fetchProducts = createAsyncThunk(
-  "products/fetchProducts",
+  'products/fetchProducts',
   async ({ page = 1 }) => {
     const response = await axios.get(`/products/public?page=${page}`);
     return response.data;
-  },
+  }
 );
 
 export const fetchProductById = createAsyncThunk(
-  "products/fetchProductById",
+  'products/fetchProductById',
   async (productId) => {
     const response = await axios.get(`/products/public/${productId}`);
     return response.data;
-  },
+  }
 );
 
 export const fetchUserProducts = createAsyncThunk(
-  "products/fetchUserProducts",
+  'products/fetchUserProducts',
   async () => {
-    const response = await axios.get("/products");
+    const response = await axios.get('/products');
     return response.data.reverse();
-  },
+  }
 );
 
 export const fetchUsersPublicProducts = createAsyncThunk(
-  "products/fetchUsersPublicProducts",
+  'products/fetchUsersPublicProducts',
   async (userId) => {
     if (!userId) {
-      throw new Error("User ID is required");
+      throw new Error('User ID is required');
     }
     const response = await axios.get(`/products/user/${userId}`);
     return response.data.reverse();
-  },
+  }
 );
 
 export const fetchProductsByCategory = createAsyncThunk(
-  "products/fetchProductsByCategory",
+  'products/fetchProductsByCategory',
   async (category) => {
-    const response = await axios.get("/products/public/category", {
-      params: { category },
+    const response = await axios.get('/products/public/category', {
+      params: { category }
     });
     return response.data.reverse();
-  },
+  }
 );
 
 export const fetchExchangeRate = createAsyncThunk(
-  "products/fetchExchangeRate",
+  'products/fetchExchangeRate',
   async () => {
-    const response = await axios.get("/exchange-rate");
+    const response = await axios.get('/exchange-rate');
     return parseFloat(response.data.sale);
-  },
+  }
 );
 
 const productsSlice = createSlice({
-  name: "products",
+  name: 'products',
   initialState,
   reducers: {
     toggleFavorite: (state, action) => {
@@ -92,7 +92,7 @@ const productsSlice = createSlice({
     },
     clearProducts(state) {
       state.products = [];
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -104,11 +104,11 @@ const productsSlice = createSlice({
         state.loading = false;
         const newProducts = action.payload;
         const existingProductIds = new Set(
-          state.products.map((product) => product._id),
+          state.products.map((product) => product._id)
         );
 
         const filteredNewProducts = newProducts.filter(
-          (product) => !existingProductIds.has(product._id),
+          (product) => !existingProductIds.has(product._id)
         );
 
         state.products = [...state.products, ...filteredNewProducts];
@@ -116,7 +116,7 @@ const productsSlice = createSlice({
           ...state.favorites,
           ...filteredNewProducts
             .filter((product) => product.favorite)
-            .map((product) => product._id),
+            .map((product) => product._id)
         ];
       })
       .addCase(fetchProducts.rejected, (state, action) => {
@@ -195,7 +195,7 @@ const productsSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       });
-  },
+  }
 });
 
 export const selectProducts = (state) => state.products.products;
@@ -216,8 +216,8 @@ export const selectProductsByLocation = createSelector(
   (products, { PLZ, city }) =>
     products.filter(
       (product) =>
-        product.location.PLZ === PLZ && product.location.city === city,
-    ),
+        product.location.PLZ === PLZ && product.location.city === city
+    )
 );
 
 export const { toggleFavorite, setLocation, clearProducts } =

@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { IoChevronUpOutline, IoChevronDownSharp } from "react-icons/io5";
-import SidebarFavorites from "./SidebarFavorites/SidebarFavorites";
-import SidebarMyAds from "./SidebarMyAds/SidebarMyAds";
-import SidebarCart from "./SidebarCart/SidebarCart";
-import scss from "./Sidebar.module.scss";
+import { useState } from 'react';
+import { IoChevronUpOutline, IoChevronDownSharp } from 'react-icons/io5';
+import SidebarFavorites from './SidebarFavorites/SidebarFavorites';
+import SidebarMyAds from './SidebarMyAds/SidebarMyAds';
+import SidebarCart from './SidebarCart/SidebarCart';
+import scss from './Sidebar.module.scss';
 
 const Sidebar = ({ cartItems, handleRemoveFromCart }) => {
   const [isCartOpen, setIsCartOpen] = useState(true);
@@ -33,7 +33,7 @@ const Sidebar = ({ cartItems, handleRemoveFromCart }) => {
         <div className={scss.divider}></div>
 
         <h3 onClick={toggleFavorites} className={scss.toggleHeader}>
-          Обрані{" "}
+          Обрані{' '}
           {isFavoritesOpen ? <IoChevronUpOutline /> : <IoChevronDownSharp />}
         </h3>
         {isFavoritesOpen && (
@@ -45,7 +45,7 @@ const Sidebar = ({ cartItems, handleRemoveFromCart }) => {
         <div className={scss.divider}></div>
 
         <h3 onClick={toggleMyAds} className={scss.toggleHeader}>
-          Мої оголошення{" "}
+          Мої оголошення{' '}
           {isMyAdsOpen ? <IoChevronUpOutline /> : <IoChevronDownSharp />}
         </h3>
         {isMyAdsOpen && (

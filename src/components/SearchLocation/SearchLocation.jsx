@@ -1,19 +1,19 @@
-import { useState, useEffect, useCallback } from "react";
-import { IoClose, IoSearchSharp } from "react-icons/io5";
-import { ButtonBase } from "@mui/material";
-import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
-import scss from "./SearchLocation.module.scss";
+import { useState, useEffect, useCallback } from 'react';
+import { IoClose, IoSearchSharp } from 'react-icons/io5';
+import { ButtonBase } from '@mui/material';
+import { motion } from 'framer-motion';
+import { useDispatch } from 'react-redux';
+import scss from './SearchLocation.module.scss';
 import {
   setLocation,
   fetchProducts,
   fetchProductsByLocation,
-  clearProducts,
-} from "../../redux/features/productsSlice";
+  clearProducts
+} from '../../redux/features/productsSlice';
 
 const SearchLocation = () => {
-  const [plzQuery, setPlzQuery] = useState("");
-  const [cityQuery, setCityQuery] = useState("");
+  const [plzQuery, setPlzQuery] = useState('');
+  const [cityQuery, setCityQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const [locationData, setLocationData] = useState([]);
@@ -21,7 +21,7 @@ const SearchLocation = () => {
 
   useEffect(() => {
     const loadLocationData = async () => {
-      const response = await import("./locations.json");
+      const response = await import('./locations.json');
       setLocationData(response.default);
     };
     loadLocationData();
@@ -31,9 +31,9 @@ const SearchLocation = () => {
     if (locationData.length === 0) return [];
     return locationData.filter(
       (location) =>
-        (plzQuery === "" || location.plz.toString().includes(plzQuery)) &&
-        (cityQuery === "" ||
-          location.city.toLowerCase().includes(cityQuery.toLowerCase())),
+        (plzQuery === '' || location.plz.toString().includes(plzQuery)) &&
+        (cityQuery === '' ||
+          location.city.toLowerCase().includes(cityQuery.toLowerCase()))
     );
   }, [plzQuery, cityQuery, locationData]);
 
@@ -45,14 +45,14 @@ const SearchLocation = () => {
       dispatch(clearProducts());
       dispatch(fetchProductsByLocation({ PLZ: plzQuery, city: cityQuery }));
     } else {
-      console.log("No results found for products.");
+      console.log('No results found for products.');
       dispatch(clearProducts());
       dispatch(fetchProductsByLocation([]));
     }
   }, [plzQuery, cityQuery, dispatch, filterLocations]);
 
   useEffect(() => {
-    if (plzQuery.trim() !== "" || cityQuery.trim() !== "") {
+    if (plzQuery.trim() !== '' || cityQuery.trim() !== '') {
       const filteredResults = filterLocations();
       setSearchResults(filteredResults);
       setShowResults(true);
@@ -65,13 +65,13 @@ const SearchLocation = () => {
   }, [plzQuery, cityQuery, filterLocations, dispatch]);
 
   const handleChange = (setter) => (e) => {
-    const value = e.target.value || "";
+    const value = e.target.value || '';
     setter(value);
   };
 
   const handleClearAll = () => {
-    setPlzQuery("");
-    setCityQuery("");
+    setPlzQuery('');
+    setCityQuery('');
     setSearchResults([]);
     setShowResults(false);
 

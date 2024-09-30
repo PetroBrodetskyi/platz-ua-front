@@ -1,4 +1,4 @@
-import scss from "./FormInput.module.scss";
+import scss from './FormInput.module.scss';
 
 const FormInput = ({
   id,
@@ -8,7 +8,7 @@ const FormInput = ({
   placeholder,
   onChange,
   value,
-  type = "text",
+  type = 'text'
 }) => (
   <div className={scss.formGroup}>
     <label htmlFor={id}>{label}</label>

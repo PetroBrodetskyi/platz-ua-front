@@ -1,6 +1,6 @@
-@import "reset";
-@import "fonts";
-@import "src/styles/mixins";
+@import 'reset';
+@import 'fonts';
+@import 'src/styles/mixins';
 
 :root {
   //colors
@@ -32,7 +32,7 @@
   --error: #dc3545;
 
   //fonts
-  --font-family: "Poppins", sans-serif;
+  --font-family: 'Poppins', sans-serif;
 }
 
 * {

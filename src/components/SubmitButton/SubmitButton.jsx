@@ -1,18 +1,18 @@
-import { PiSignInBold } from "react-icons/pi";
-import scss from "./SubmitButton.module.scss";
+import { PiSignInBold } from 'react-icons/pi';
+import scss from './SubmitButton.module.scss';
 
 const SubmitButton = ({ buttonText, onClick }) => {
   switch (buttonText) {
-    case "Відправити":
-    case "Реєстрація":
-    case "Логін":
-    case "Розмістити":
+    case 'Відправити':
+    case 'Реєстрація':
+    case 'Логін':
+    case 'Розмістити':
       return (
         <button className={scss.button} type="submit">
           {buttonText}
         </button>
       );
-    case "Увійти":
+    case 'Увійти':
       return (
         <button className={scss.buttonSignIn} type="button" onClick={onClick}>
           {buttonText}

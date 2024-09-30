@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import scss from "./SplashScreen.module.scss";
+import { useEffect, useState } from 'react';
+import scss from './SplashScreen.module.scss';
 
 const SplashScreen = ({ onFinish }) => {
   const [visible, setVisible] = useState(true);

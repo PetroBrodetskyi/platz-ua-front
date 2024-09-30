@@ -1,10 +1,10 @@
-import { TbLocation } from "react-icons/tb";
-import { SlLocationPin } from "react-icons/sl";
-import { MdOutlineDateRange } from "react-icons/md";
-import { FaRegFaceSmile, FaRegFaceMeh } from "react-icons/fa6";
-import { getCategoryIcon, getSubcategoryIcon } from "../../Categories/icons";
-import { HiOutlineEye } from "react-icons/hi";
-import scss from "./UserProductsDetails.module.scss";
+import { TbLocation } from 'react-icons/tb';
+import { SlLocationPin } from 'react-icons/sl';
+import { MdOutlineDateRange } from 'react-icons/md';
+import { FaRegFaceSmile, FaRegFaceMeh } from 'react-icons/fa6';
+import { getCategoryIcon, getSubcategoryIcon } from '../../Categories/icons';
+import { HiOutlineEye } from 'react-icons/hi';
+import scss from './UserProductsDetails.module.scss';
 
 const ProductDetails = ({
   product,
@@ -12,7 +12,7 @@ const ProductDetails = ({
   updatedProduct,
   handleChange,
   handleConditionChange,
-  exchangeRate,
+  exchangeRate
 }) => (
   <div className={scss.productDetails}>
     <div className={scss.container}>
@@ -85,7 +85,7 @@ const ProductDetails = ({
                     type="radio"
                     name="condition"
                     value="новий"
-                    checked={updatedProduct.condition === "новий"}
+                    checked={updatedProduct.condition === 'новий'}
                     onChange={handleConditionChange}
                   />
                   новий
@@ -95,7 +95,7 @@ const ProductDetails = ({
                     type="radio"
                     name="condition"
                     value="вживаний"
-                    checked={updatedProduct.condition === "вживаний"}
+                    checked={updatedProduct.condition === 'вживаний'}
                     onChange={handleConditionChange}
                   />
                   вживаний
@@ -103,7 +103,7 @@ const ProductDetails = ({
               </div>
             ) : (
               <p className={scss.icons}>
-                {product.condition === "новий" ? (
+                {product.condition === 'новий' ? (
                   <>
                     <FaRegFaceSmile className={scss.icon} /> новий
                   </>
@@ -143,7 +143,7 @@ const ProductDetails = ({
           <div className={scss.viewsContainer}>
             <p>переглядів: </p>
             <HiOutlineEye className={scss.icon} />
-            <div>{product.views !== undefined ? product.views : "N/A"}</div>
+            <div>{product.views !== undefined ? product.views : 'N/A'}</div>
           </div>
         </div>
       </div>

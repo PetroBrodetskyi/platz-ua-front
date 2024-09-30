@@ -1,4 +1,4 @@
-import scss from "./ProductCondition.module.scss";
+import scss from './ProductCondition.module.scss';
 
 const ProductCondition = ({ register, errors }) => {
   return (
@@ -10,7 +10,7 @@ const ProductCondition = ({ register, errors }) => {
               type="radio"
               id="new"
               value="новий"
-              {...register("condition", { required: true })}
+              {...register('condition', { required: true })}
             />
             <span>Новий</span>
           </div>
@@ -23,7 +23,7 @@ const ProductCondition = ({ register, errors }) => {
               type="radio"
               id="used"
               value="вживаний"
-              {...register("condition", { required: true })}
+              {...register('condition', { required: true })}
             />
             <span>Вживаний</span>
           </div>

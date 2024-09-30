@@ -1,19 +1,19 @@
-import { useNavigate } from "react-router-dom";
-import scss from "./Sellers.module.scss";
-import manshopping from "/src/assets/images/manshopping.png";
-import shopping from "/src/assets/images/shopping.png";
-import womantalking from "/src/assets/images/womantalking.png";
-import creditcard from "/src/assets/images/creditcard.png";
-import { FaCamera, FaBullhorn, FaComments, FaTruck } from "react-icons/fa";
-import { IoSearchSharp } from "react-icons/io5";
-import { ButtonBase } from "@mui/material";
-import { motion } from "framer-motion";
+import { useNavigate } from 'react-router-dom';
+import scss from './Sellers.module.scss';
+import manshopping from '/src/assets/images/manshopping.png';
+import shopping from '/src/assets/images/shopping.png';
+import womantalking from '/src/assets/images/womantalking.png';
+import creditcard from '/src/assets/images/creditcard.png';
+import { FaCamera, FaBullhorn, FaComments, FaTruck } from 'react-icons/fa';
+import { IoSearchSharp } from 'react-icons/io5';
+import { ButtonBase } from '@mui/material';
+import { motion } from 'framer-motion';
 
 const Sellers = () => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate("/");
+    navigate('/');
   };
 
   return (

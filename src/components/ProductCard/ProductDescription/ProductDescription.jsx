@@ -1,11 +1,11 @@
-import Modal from "react-modal";
-import { TbLocation } from "react-icons/tb";
-import { FiX } from "react-icons/fi";
-import { SlLocationPin } from "react-icons/sl";
-import { useEffect } from "react";
-import scss from "./ProductDescription.module.scss";
+import Modal from 'react-modal';
+import { TbLocation } from 'react-icons/tb';
+import { FiX } from 'react-icons/fi';
+import { SlLocationPin } from 'react-icons/sl';
+import { useEffect } from 'react';
+import scss from './ProductDescription.module.scss';
 
-Modal.setAppElement("#root");
+Modal.setAppElement('#root');
 
 const ProductDescription = ({
   show,
@@ -13,22 +13,22 @@ const ProductDescription = ({
   description,
   PLZ,
   city,
-  onToggle,
+  onToggle
 }) => {
   const handleKeyDown = (event) => {
-    if (event.key === "Escape") {
+    if (event.key === 'Escape') {
       onToggle();
     }
   };
 
   useEffect(() => {
     if (show) {
-      document.body.style.overflow = "hidden";
-      window.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
 
       return () => {
-        document.body.style.overflow = "unset";
-        window.removeEventListener("keydown", handleKeyDown);
+        document.body.style.overflow = 'unset';
+        window.removeEventListener('keydown', handleKeyDown);
       };
     }
   }, [show]);

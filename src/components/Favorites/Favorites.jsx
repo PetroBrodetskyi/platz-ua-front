@@ -1,10 +1,10 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { fetchProducts } from "../../redux/features/productsSlice";
-import { FaTrash } from "react-icons/fa";
-import scss from "./Favorites.module.scss";
-import { toggleFavorite } from "../../redux/features/favoritesSlice";
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { fetchProducts } from '../../redux/features/productsSlice';
+import { FaTrash } from 'react-icons/fa';
+import scss from './Favorites.module.scss';
+import { toggleFavorite } from '../../redux/features/favoritesSlice';
 
 const Favorites = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const Favorites = () => {
     .reverse();
 
   const handleRemoveFromFavorites = (productId) => {
-    console.log("Видалення товару з ID:", productId);
+    console.log('Видалення товару з ID:', productId);
     dispatch(toggleFavorite(productId));
   };
 

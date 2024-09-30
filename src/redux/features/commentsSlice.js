@@ -1,16 +1,16 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "../axiosConfig.js";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from '../axiosConfig.js';
 
 export const fetchComments = createAsyncThunk(
-  "comments/fetchComments",
+  'comments/fetchComments',
   async (productId) => {
     const response = await axios.get(`/products/${productId}/comments`);
     return { productId, comments: response.data };
-  },
+  }
 );
 
 export const addComment = createAsyncThunk(
-  "comments/addComment",
+  'comments/addComment',
   async ({ productId, comment, user }, { rejectWithValue }) => {
     try {
       const response = await axios.patch(
@@ -18,9 +18,9 @@ export const addComment = createAsyncThunk(
         { text: comment, user },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        },
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        }
       );
       const newComment =
         response.data.comments[response.data.comments.length - 1];
@@ -28,32 +28,32 @@ export const addComment = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
-  },
+  }
 );
 
 export const deleteComment = createAsyncThunk(
-  "comments/deleteComment",
+  'comments/deleteComment',
   async ({ productId, commentId }, { rejectWithValue }) => {
     try {
       await axios.delete(`/products/${productId}/comments/${commentId}`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
       });
       return { productId, commentId };
     } catch (error) {
-      console.error("Delete comment error:", error.response.data);
+      console.error('Delete comment error:', error.response.data);
       return rejectWithValue(error.response.data);
     }
-  },
+  }
 );
 
 const commentsSlice = createSlice({
-  name: "comments",
+  name: 'comments',
   initialState: {
     comments: [],
     loading: false,
-    error: null,
+    error: null
   },
   extraReducers: (builder) => {
     builder
@@ -64,14 +64,14 @@ const commentsSlice = createSlice({
       .addCase(fetchComments.fulfilled, (state, action) => {
         state.loading = false;
         const existingProductComments = state.comments.find(
-          (comment) => comment.productId === action.payload.productId,
+          (comment) => comment.productId === action.payload.productId
         );
         if (existingProductComments) {
           existingProductComments.comments = action.payload.comments;
         } else {
           state.comments.push({
             productId: action.payload.productId,
-            comments: action.payload.comments,
+            comments: action.payload.comments
           });
         }
       })
@@ -82,7 +82,7 @@ const commentsSlice = createSlice({
       .addCase(addComment.fulfilled, (state, action) => {
         const { productId, comment } = action.payload;
         const existingProductComments = state.comments.find(
-          (c) => c.productId === productId,
+          (c) => c.productId === productId
         );
         if (existingProductComments) {
           existingProductComments.comments.push(comment);
@@ -96,14 +96,14 @@ const commentsSlice = createSlice({
             return {
               ...comment,
               comments: comment.comments.filter(
-                (c) => c._id !== action.payload.commentId,
-              ),
+                (c) => c._id !== action.payload.commentId
+              )
             };
           }
           return comment;
         });
       });
-  },
+  }
 });
 
 export default commentsSlice.reducer;

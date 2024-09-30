@@ -1,12 +1,12 @@
-import { AiOutlinePlus } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
-import scss from "./CreateAdButton.module.scss";
+import { AiOutlinePlus } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
+import scss from './CreateAdButton.module.scss';
 
 const CreateAdButton = () => {
   const navigate = useNavigate();
 
   const navigateToCreateAd = () => {
-    navigate("/create");
+    navigate('/create');
   };
 
   return (

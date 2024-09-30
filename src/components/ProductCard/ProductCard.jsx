@@ -1,42 +1,42 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import InfiniteScroll from "react-infinite-scroll-component";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import {
   fetchProducts,
   fetchExchangeRate,
-  fetchProductById,
-} from "../../redux/features/productsSlice";
-import { fetchUserById } from "../../redux/features/authSlice";
-import { toggleFavorite } from "../../redux/features/favoritesSlice";
-import { addToCart, removeFromCart } from "../../redux/features/cartSlice";
-import { useNavigate } from "react-router-dom";
-import { HiOutlineEye } from "react-icons/hi";
-import { IoChevronUpOutline } from "react-icons/io5";
-import { RiPlayList2Fill } from "react-icons/ri";
-import { motion, AnimatePresence } from "framer-motion";
-import Skeleton from "@mui/material/Skeleton";
-import Notification from "../Notification/Notification";
-import TitleFavorite from "./TitleFavorite/TitleFavorite";
-import CartPrice from "./CartPrice/CartPrice";
-import CreateCondition from "./CreateCondition/CreateCondition";
-import Loader from "../Loader/Loader";
-import ProductDescription from "./ProductDescription/ProductDescription";
-import scss from "./ProductCard.module.scss";
+  fetchProductById
+} from '../../redux/features/productsSlice';
+import { fetchUserById } from '../../redux/features/authSlice';
+import { toggleFavorite } from '../../redux/features/favoritesSlice';
+import { addToCart, removeFromCart } from '../../redux/features/cartSlice';
+import { useNavigate } from 'react-router-dom';
+import { HiOutlineEye } from 'react-icons/hi';
+import { IoChevronUpOutline } from 'react-icons/io5';
+import { RiPlayList2Fill } from 'react-icons/ri';
+import { motion, AnimatePresence } from 'framer-motion';
+import Skeleton from '@mui/material/Skeleton';
+import Notification from '../Notification/Notification';
+import TitleFavorite from './TitleFavorite/TitleFavorite';
+import CartPrice from './CartPrice/CartPrice';
+import CreateCondition from './CreateCondition/CreateCondition';
+import Loader from '../Loader/Loader';
+import ProductDescription from './ProductDescription/ProductDescription';
+import scss from './ProductCard.module.scss';
 
 const ProductCard = ({ viewMode }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { products, exchangeRate, totalProducts } = useSelector(
-    (state) => state.products,
+    (state) => state.products
   );
   const favorites = useSelector((state) => state.favorites.items);
   const cartItems = useSelector((state) => state.cart.items);
 
-  const [notification, setNotification] = useState("");
+  const [notification, setNotification] = useState('');
   const [endOfListNotification, setEndOfListNotification] = useState(false);
   const [showDescriptions, setShowDescriptions] = useState({});
   const [owners, setOwners] = useState(
-    () => JSON.parse(localStorage.getItem("owners")) || {},
+    () => JSON.parse(localStorage.getItem('owners')) || {}
   );
   const [loadingOwners, setLoadingOwners] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -47,14 +47,14 @@ const ProductCard = ({ viewMode }) => {
     const loadProducts = async () => {
       try {
         const response = await dispatch(
-          fetchProducts({ page: currentPage, limit: 8 }),
+          fetchProducts({ page: currentPage, limit: 8 })
         ).unwrap();
         if (response.length === 0 || products.length >= totalProducts) {
           setHasMore(false);
           setEndOfListNotification(true);
         }
       } catch (error) {
-        console.error("Failed to fetch products:", error);
+        console.error('Failed to fetch products:', error);
       } finally {
         setLoading(false);
       }
@@ -72,11 +72,11 @@ const ProductCard = ({ viewMode }) => {
           const response = await dispatch(fetchUserById(ownerId)).unwrap();
           setOwners((prev) => {
             const newOwners = { ...prev, [ownerId]: response };
-            localStorage.setItem("owners", JSON.stringify(newOwners));
+            localStorage.setItem('owners', JSON.stringify(newOwners));
             return newOwners;
           });
         } catch (error) {
-          console.error("Failed to fetch owner:", error);
+          console.error('Failed to fetch owner:', error);
         } finally {
           setLoadingOwners((prev) => ({ ...prev, [ownerId]: false }));
         }
@@ -107,7 +107,7 @@ const ProductCard = ({ viewMode }) => {
       dispatch(addToCart(productWithOwner));
     }
     setNotification(
-      `${product.name} ${isInCart ? "видалено з кошика" : "додано до кошика"}!`,
+      `${product.name} ${isInCart ? 'видалено з кошика' : 'додано до кошика'}!`
     );
   };
 
@@ -143,7 +143,7 @@ const ProductCard = ({ viewMode }) => {
                 owner,
                 views,
                 PLZ,
-                city,
+                city
               } = product;
               const isInCart = cartItems.some((item) => item._id === _id);
               const ownerData = owners[owner];
@@ -151,17 +151,17 @@ const ProductCard = ({ viewMode }) => {
               return (
                 <motion.li
                   key={_id}
-                  className={`${scss.productItem} ${viewMode === "grid" ? scss.gridItem : scss.listItem}`}
+                  className={`${scss.productItem} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.3 }}
                 >
                   <div
-                    className={`${scss.product} ${viewMode === "grid" ? scss.gridItem : scss.listItem}`}
+                    className={`${scss.product} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
                   >
                     <div
-                      className={`${scss.productImage} ${viewMode === "grid" ? scss.gridItem : scss.listItem}`}
+                      className={`${scss.productImage} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
                     >
                       <div className={scss.ownerViews}>
                         {ownerData ? (
@@ -172,11 +172,11 @@ const ProductCard = ({ viewMode }) => {
                             <img
                               src={ownerData.avatarURL}
                               alt={ownerData.name}
-                              className={`${scss.avatar} ${viewMode === "grid" ? scss.gridItem : scss.listItem}`}
+                              className={`${scss.avatar} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
                               loading="lazy"
                             />
                             <div
-                              className={`${scss.name} ${viewMode === "grid" ? scss.gridItem : scss.listItem}`}
+                              className={`${scss.name} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
                             >
                               {ownerData.name}
                             </div>
@@ -192,11 +192,11 @@ const ProductCard = ({ viewMode }) => {
                           </div>
                         )}
                         <div
-                          className={`${scss.viewsQuantity} ${viewMode === "grid" ? scss.gridItem : scss.listItem}`}
+                          className={`${scss.viewsQuantity} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
                         >
-                          <p>{views ?? "N/A"}</p>
+                          <p>{views ?? 'N/A'}</p>
                           <HiOutlineEye
-                            className={`${scss.icon} ${viewMode === "grid" ? scss.gridItem : scss.listItem}`}
+                            className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
                           />
                         </div>
                       </div>
@@ -217,7 +217,7 @@ const ProductCard = ({ viewMode }) => {
                       )}
                     </div>
                     <div
-                      className={`${scss.productInfo} ${viewMode === "grid" ? scss.gridItem : scss.listItem}`}
+                      className={`${scss.productInfo} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
                     >
                       <div>
                         {ownerData ? (
@@ -237,7 +237,7 @@ const ProductCard = ({ viewMode }) => {
                           <Skeleton variant="text" width={150} />
                         )}
                         <p
-                          className={`${scss.description} ${viewMode === "grid" ? scss.gridItem : scss.listItem}`}
+                          className={`${scss.description} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
                         >
                           {description}
                         </p>
@@ -252,7 +252,7 @@ const ProductCard = ({ viewMode }) => {
                           )}
                         </div>
                         <div
-                          className={`${scss.expandButtonContainer} ${viewMode === "grid" ? scss.gridItem : scss.listItem}`}
+                          className={`${scss.expandButtonContainer} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
                         >
                           <button
                             className={scss.expandButton}
@@ -299,7 +299,7 @@ const ProductCard = ({ viewMode }) => {
       {notification && (
         <Notification
           message={notification}
-          onClose={() => setNotification("")}
+          onClose={() => setNotification('')}
         />
       )}
       {endOfListNotification && (

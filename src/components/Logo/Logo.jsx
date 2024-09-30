@@ -1,5 +1,5 @@
-import { NavLink } from "react-router-dom";
-import scss from "./Logo.module.scss";
+import { NavLink } from 'react-router-dom';
+import scss from './Logo.module.scss';
 
 const Logo = () => {
   return (

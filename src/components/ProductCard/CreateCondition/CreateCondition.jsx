@@ -1,4 +1,4 @@
-import scss from "./CreateCondition.module.scss";
+import scss from './CreateCondition.module.scss';
 
 const Condition = ({ condition, addedDate }) => {
   return (

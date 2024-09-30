@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import scss from "./Notification.module.scss";
+import { useEffect } from 'react';
+import scss from './Notification.module.scss';
 
 const Notification = ({ message, onClose }) => {
   useEffect(() => {

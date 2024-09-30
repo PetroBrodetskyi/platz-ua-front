@@ -1,5 +1,5 @@
-import { PiShoppingCart, PiShoppingCartFill } from "react-icons/pi";
-import scss from "./CartPrice.module.scss";
+import { PiShoppingCart, PiShoppingCartFill } from 'react-icons/pi';
+import scss from './CartPrice.module.scss';
 
 const CartPrice = ({ price, exchangeRate, onAddToCart, isInCart }) => {
   const priceInUAH = (price * exchangeRate).toFixed(2);

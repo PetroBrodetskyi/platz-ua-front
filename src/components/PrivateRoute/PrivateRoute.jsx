@@ -1,8 +1,8 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { fetchCurrentUser } from "../../redux/features/authSlice";
-import Loader from "../Loader/Loader";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { fetchCurrentUser } from '../../redux/features/authSlice';
+import Loader from '../Loader/Loader';
 
 const PrivateRoute = ({ element }) => {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const PrivateRoute = ({ element }) => {
     return <Loader />;
   }
 
-  if (!loading && (!user || user.subscription !== "admin")) {
+  if (!loading && (!user || user.subscription !== 'admin')) {
     return <NavLink to="/login" replace />;
   }
 

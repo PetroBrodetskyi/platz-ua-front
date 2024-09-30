@@ -1,4 +1,4 @@
-@import "src/styles/mixins";
+@import 'src/styles/mixins';
 
 .tabsLineFlex {
   display: flex;
@@ -29,7 +29,7 @@
 
 .tabDetails::after,
 .tabReviews::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0;
   left: 50%;

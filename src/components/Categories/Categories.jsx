@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import scss from "./Categories.module.scss";
-import data from "./products.json";
-import { getCategoryIcon, getSubcategoryIcon } from "./icons.jsx";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from 'react';
+import scss from './Categories.module.scss';
+import data from './products.json';
+import { getCategoryIcon, getSubcategoryIcon } from './icons.jsx';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Categories = ({ onSubcategoriesChange }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -28,12 +28,12 @@ const Categories = ({ onSubcategoriesChange }) => {
     setSelectedSubcategories((prev) =>
       prev.includes(subcategory)
         ? prev.filter((item) => item !== subcategory)
-        : [...prev, subcategory],
+        : [...prev, subcategory]
     );
   };
 
   const sortedProducts = data.products.sort((a, b) =>
-    a.name.localeCompare(b.name),
+    a.name.localeCompare(b.name)
   );
 
   return (
@@ -42,14 +42,14 @@ const Categories = ({ onSubcategoriesChange }) => {
         <motion.div
           className={scss.categoryButtons}
           initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
+          animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.3 }}
         >
           {sortedProducts.map((product, index) => (
             <button
               key={index}
-              className={`${scss.categoryButton} ${selectedCategory === product.name ? scss.active : ""}`}
+              className={`${scss.categoryButton} ${selectedCategory === product.name ? scss.active : ''}`}
               onClick={() => handleCategoryClick(product.name)}
             >
               {getCategoryIcon(product.name)}
@@ -63,7 +63,7 @@ const Categories = ({ onSubcategoriesChange }) => {
             <motion.div
               className={scss.subcategories}
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
+              animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
             >
@@ -74,7 +74,7 @@ const Categories = ({ onSubcategoriesChange }) => {
                   .map((subcategory, index) => (
                     <button
                       key={index}
-                      className={`${scss.subcategoryButton} ${selectedSubcategories.includes(subcategory) ? scss.active : ""}`}
+                      className={`${scss.subcategoryButton} ${selectedSubcategories.includes(subcategory) ? scss.active : ''}`}
                       onClick={() => handleSubcategoryClick(subcategory)}
                     >
                       {getSubcategoryIcon(subcategory)}

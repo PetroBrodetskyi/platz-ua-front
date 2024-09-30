@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { MdOutlinePhotoLibrary } from "react-icons/md";
-import scss from "./ImageButton.module.scss";
+import { useState, useEffect } from 'react';
+import { MdOutlinePhotoLibrary } from 'react-icons/md';
+import scss from './ImageButton.module.scss';
 
 const ImageButton = ({ id, register, watch }) => {
   const [preview, setPreview] = useState(null);

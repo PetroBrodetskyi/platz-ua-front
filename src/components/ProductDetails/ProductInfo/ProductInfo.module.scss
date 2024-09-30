@@ -1,4 +1,4 @@
-@import "src/styles/mixins";
+@import 'src/styles/mixins';
 
 $gap-desktop: 40px;
 $gap-tablet: 12px;
@@ -155,7 +155,7 @@ $gap-mobile: 10px;
       align-items: center;
       gap: 8px;
 
-      input[type="radio"] {
+      input[type='radio'] {
         accent-color: #007bff;
         cursor: pointer;
       }

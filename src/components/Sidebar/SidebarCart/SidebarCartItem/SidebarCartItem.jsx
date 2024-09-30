@@ -1,4 +1,4 @@
-import scss from "./SidebarCartItem.module.scss";
+import scss from './SidebarCartItem.module.scss';
 
 const SidebarCartItem = ({ item, onRemove, onProductClick }) => {
   const handleBuyClick = () => {

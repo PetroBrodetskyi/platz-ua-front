@@ -1,8 +1,8 @@
-import { AiOutlineLogout } from "react-icons/ai";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { logout } from "../../redux/features/authSlice";
-import scss from "./Logout.module.scss";
+import { AiOutlineLogout } from 'react-icons/ai';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../../redux/features/authSlice';
+import scss from './Logout.module.scss';
 
 const Logout = ({ onLogout }) => {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ const Logout = ({ onLogout }) => {
   const handleLogout = async () => {
     await dispatch(logout());
     if (onLogout) onLogout();
-    navigate("/");
+    navigate('/');
   };
 
   return (

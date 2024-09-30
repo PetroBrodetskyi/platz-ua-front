@@ -1,6 +1,6 @@
-import { AiOutlineUser } from "react-icons/ai";
-import { useNavigate, useParams } from "react-router-dom";
-import scss from "./ProfileButton.module.scss";
+import { AiOutlineUser } from 'react-icons/ai';
+import { useNavigate, useParams } from 'react-router-dom';
+import scss from './ProfileButton.module.scss';
 
 const ProfileButton = () => {
   const navigate = useNavigate();

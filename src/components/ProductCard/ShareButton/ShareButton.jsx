@@ -1,10 +1,10 @@
-import { FaRegCopy, FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa";
-import { FaSquareFacebook } from "react-icons/fa6";
-import { SiGmail, SiViber } from "react-icons/si";
-import { GrMailOption } from "react-icons/gr";
-import { PiMessengerLogoBold, PiTelegramLogoFill } from "react-icons/pi";
-import { BiMessageSquareDetail } from "react-icons/bi";
-import scss from "./ShareButton.module.scss";
+import { FaRegCopy, FaInstagram, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
+import { FaSquareFacebook } from 'react-icons/fa6';
+import { SiGmail, SiViber } from 'react-icons/si';
+import { GrMailOption } from 'react-icons/gr';
+import { PiMessengerLogoBold, PiTelegramLogoFill } from 'react-icons/pi';
+import { BiMessageSquareDetail } from 'react-icons/bi';
+import scss from './ShareButton.module.scss';
 
 const icons = {
   facebook: <FaSquareFacebook className={`${scss.icon} ${scss.facebook}`} />,
@@ -19,7 +19,7 @@ const icons = {
   viber: <SiViber className={`${scss.icon} ${scss.viber}`} />,
   telegram: <PiTelegramLogoFill className={`${scss.icon} ${scss.telegram}`} />,
   whatsapp: <FaWhatsapp className={`${scss.icon} ${scss.whatsapp}`} />,
-  copy: <FaRegCopy className={`${scss.icon} ${scss.copy}`} />,
+  copy: <FaRegCopy className={`${scss.icon} ${scss.copy}`} />
 };
 
 const ShareButton = ({ platform, onClick }) => {

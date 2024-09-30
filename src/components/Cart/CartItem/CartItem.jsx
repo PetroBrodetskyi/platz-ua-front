@@ -1,18 +1,18 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import scss from "./CartItem.module.scss";
-import { RiDeleteBin4Line } from "react-icons/ri";
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import scss from './CartItem.module.scss';
+import { RiDeleteBin4Line } from 'react-icons/ri';
 
 const CartItem = ({
   item,
   onRemove,
   onProductClick,
   exchangeRate,
-  onSubmitOrder,
+  onSubmitOrder
 }) => {
   const [mainImage, setMainImage] = useState(item.image1);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
 
   const currentUser = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
@@ -22,9 +22,9 @@ const CartItem = ({
   };
 
   const filterInput = (input) => {
-    input = input.replace(/<script.*?>.*?<\/script>/gi, "");
-    input = input.replace(/https?:\/\/[^\s]+/gi, "");
-    input = input.replace(/\b[A-Za-z0-9.-]+\.[A-Za-z]{2,6}\b/gi, "");
+    input = input.replace(/<script.*?>.*?<\/script>/gi, '');
+    input = input.replace(/https?:\/\/[^\s]+/gi, '');
+    input = input.replace(/\b[A-Za-z0-9.-]+\.[A-Za-z]{2,6}\b/gi, '');
     return input;
   };
 
@@ -54,7 +54,7 @@ const CartItem = ({
               <img
                 src={item.image1}
                 alt={`${item.name} thumbnail 1`}
-                className={`${scss.thumbnail} ${mainImage === item.image1 ? scss.selectedThumbnail : ""}`}
+                className={`${scss.thumbnail} ${mainImage === item.image1 ? scss.selectedThumbnail : ''}`}
                 onClick={() => handleThumbnailClick(item.image1)}
               />
             )}
@@ -62,7 +62,7 @@ const CartItem = ({
               <img
                 src={item.image2}
                 alt={`${item.name} thumbnail 2`}
-                className={`${scss.thumbnail} ${mainImage === item.image2 ? scss.selectedThumbnail : ""}`}
+                className={`${scss.thumbnail} ${mainImage === item.image2 ? scss.selectedThumbnail : ''}`}
                 onClick={() => handleThumbnailClick(item.image2)}
               />
             )}
@@ -70,7 +70,7 @@ const CartItem = ({
               <img
                 src={item.image3}
                 alt={`${item.name} thumbnail 3`}
-                className={`${scss.thumbnail} ${mainImage === item.image3 ? scss.selectedThumbnail : ""}`}
+                className={`${scss.thumbnail} ${mainImage === item.image3 ? scss.selectedThumbnail : ''}`}
                 onClick={() => handleThumbnailClick(item.image3)}
               />
             )}
@@ -78,7 +78,7 @@ const CartItem = ({
               <img
                 src={item.image4}
                 alt={`${item.name} thumbnail 4`}
-                className={`${scss.thumbnail} ${mainImage === item.image4 ? scss.selectedThumbnail : ""}`}
+                className={`${scss.thumbnail} ${mainImage === item.image4 ? scss.selectedThumbnail : ''}`}
                 onClick={() => handleThumbnailClick(item.image4)}
               />
             )}
@@ -103,8 +103,8 @@ const CartItem = ({
 
           <div className={scss.ownerInfo}>
             <h3>Продавець</h3>
-            <div onClick={handleOwnerClick} style={{ cursor: "pointer" }}>
-              {" "}
+            <div onClick={handleOwnerClick} style={{ cursor: 'pointer' }}>
+              {' '}
               {/* Додаємо onClick для переходу */}
               <img
                 src={item.owner.avatarURL}

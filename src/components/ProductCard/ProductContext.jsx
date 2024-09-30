@@ -1,11 +1,11 @@
-import { createContext, useContext } from "react";
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { createContext, useContext } from 'react';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   fetchProducts,
   fetchExchangeRate,
-  toggleFavorite,
-} from "../../redux/features/productsSlice";
+  toggleFavorite
+} from '../../redux/features/productsSlice';
 
 const ProductContext = createContext();
 
@@ -30,7 +30,7 @@ export const ProductProvider = ({ children }) => {
         exchangeRate,
         status,
         error,
-        toggleFavorite,
+        toggleFavorite
       }}
     >
       {children}

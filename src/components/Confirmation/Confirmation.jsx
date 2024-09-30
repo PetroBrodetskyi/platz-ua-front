@@ -1,8 +1,8 @@
-import { MdOutlineDeleteSweep } from "react-icons/md";
-import { RiLoginCircleLine } from "react-icons/ri";
-import { GiCancel } from "react-icons/gi";
-import { motion } from "framer-motion";
-import scss from "./Confirmation.module.scss";
+import { MdOutlineDeleteSweep } from 'react-icons/md';
+import { RiLoginCircleLine } from 'react-icons/ri';
+import { GiCancel } from 'react-icons/gi';
+import { motion } from 'framer-motion';
+import scss from './Confirmation.module.scss';
 
 const Confirmation = ({ message, onConfirm, onCancel }) => {
   return (
@@ -17,7 +17,7 @@ const Confirmation = ({ message, onConfirm, onCancel }) => {
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.8, opacity: 0 }}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       >
         <p>{message}</p>
         <div className={scss.dialogButtons}>
@@ -60,7 +60,7 @@ const ConfirmationOk = ({ message, onClose }) => {
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.8, opacity: 0 }}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       >
         <p>{message}</p>
         <div className={scss.dialogButtons}>
@@ -90,7 +90,7 @@ const ConfirmationLogin = ({ message, onConfirm, onCancel }) => {
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.8, opacity: 0 }}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       >
         <p>{message}</p>
         <div className={scss.dialogButtons}>

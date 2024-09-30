@@ -1,4 +1,4 @@
-import scss from "./ProductsNotFound.module.scss";
+import scss from './ProductsNotFound.module.scss';
 
 const ProductsNotFound = () => {
   return (

@@ -1,5 +1,5 @@
-import RegisterForm from "../../components/Auth/RegisterForm/RegisterForm";
-import RandomCards from "../../components/RandomCards/RandomCards";
+import RegisterForm from '../../components/Auth/RegisterForm/RegisterForm';
+import RandomCards from '../../components/RandomCards/RandomCards';
 
 const RegisterPage = () => {
   return (

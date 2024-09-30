@@ -1,4 +1,4 @@
-@import "src/styles/mixins";
+@import 'src/styles/mixins';
 
 $form-gap-desktop: 16px;
 $form-gap-tablet: 12px;
@@ -8,7 +8,7 @@ $form-gap-mobile: 18px;
   display: flex;
   flex-wrap: wrap;
 
-  input[type="file"] {
+  input[type='file'] {
     display: none;
   }
 

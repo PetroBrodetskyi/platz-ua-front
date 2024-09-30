@@ -1,5 +1,5 @@
-import { IoClose } from "react-icons/io5";
-import scss from "./LocationInput.module.scss";
+import { IoClose } from 'react-icons/io5';
+import scss from './LocationInput.module.scss';
 
 const LocationInput = ({
   id,
@@ -8,7 +8,7 @@ const LocationInput = ({
   placeholder,
   onChange,
   onClear,
-  value,
+  value
 }) => (
   <div className={scss.formGroup}>
     <div className={scss.inputPlz}>

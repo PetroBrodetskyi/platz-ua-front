@@ -1,9 +1,9 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { FaUserShield } from "react-icons/fa";
-import { fetchCurrentUser } from "../../redux/features/authSlice";
-import scss from "./Footer.module.scss";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { FaUserShield } from 'react-icons/fa';
+import { fetchCurrentUser } from '../../redux/features/authSlice';
+import scss from './Footer.module.scss';
 
 const Footer = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const Footer = () => {
   }, [dispatch, token]);
 
   const handleNavigateToHowItWorks = () => {
-    navigate("/how-it-works");
+    navigate('/how-it-works');
   };
 
   return (
@@ -35,8 +35,8 @@ const Footer = () => {
           </button>
         </div>
         <div className={scss.adminButton}>
-          {!loading && user && user.subscription === "admin" && (
-            <button onClick={() => navigate("/admin")}>
+          {!loading && user && user.subscription === 'admin' && (
+            <button onClick={() => navigate('/admin')}>
               <FaUserShield className={scss.icon} />
             </button>
           )}

@@ -1,14 +1,14 @@
-import { useNavigate } from "react-router-dom";
-import { TbGhost } from "react-icons/tb";
-import { nanoid } from "nanoid";
-import scss from "./CommentsSection.module.scss";
+import { useNavigate } from 'react-router-dom';
+import { TbGhost } from 'react-icons/tb';
+import { nanoid } from 'nanoid';
+import scss from './CommentsSection.module.scss';
 
 const CommentsSection = ({
   comments,
   newComment,
   setNewComment,
   handleAddComment,
-  currentUser,
+  currentUser
 }) => {
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ const CommentsSection = ({
             <div
               className={scss.avatarName}
               onClick={() => handleUserClick(comment.user?._id)}
-              style={{ cursor: comment.user ? "pointer" : "default" }}
+              style={{ cursor: comment.user ? 'pointer' : 'default' }}
             >
               {comment.user && comment.user.avatarURL ? (
                 <img
@@ -40,14 +40,14 @@ const CommentsSection = ({
                   <TbGhost className={scss.icon} />
                 </div>
               )}
-              <h4>{comment.user ? comment.user.name : "Видалений акаунт"}</h4>
+              <h4>{comment.user ? comment.user.name : 'Видалений акаунт'}</h4>
             </div>
             <p>{comment.text}</p>
             <p className={scss.dateTime}>
-              {new Date(comment.createdAt).toLocaleDateString()}{" "}
+              {new Date(comment.createdAt).toLocaleDateString()}{' '}
               {new Date(comment.createdAt).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
+                hour: '2-digit',
+                minute: '2-digit'
               })}
             </p>
           </li>
