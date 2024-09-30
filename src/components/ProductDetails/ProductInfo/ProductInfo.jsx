@@ -105,13 +105,12 @@ const ProductInfo = ({
       <div className={scss.editContainer}>
         <div className={scss.infoContainer}>
           <p className={scss.detailsFlex}>
-            PLZ: <TbLocation className={scss.icon} /> {product.PLZ}
+            <TbLocation className={scss.icon} /> {product.PLZ}
           </p>
           <p className={scss.detailsFlex}>
-            Місто: <SlLocationPin className={scss.icon} /> {product.city}
+            <SlLocationPin className={scss.icon} /> {product.city}
           </p>
           <div className={scss.radio}>
-            Стан:
             {isEditing ? (
               <div className={scss.conditionOptions}>
                 {['новий', 'вживаний'].map((condition) => (
@@ -142,7 +141,7 @@ const ProductInfo = ({
             )}
           </div>
           <p className={scss.detailsFlex}>
-            Додано: <MdOutlineDateRange className={scss.icon} /> {formattedDate}
+            <MdOutlineDateRange className={scss.icon} /> {formattedDate}
           </p>
         </div>
       </div>

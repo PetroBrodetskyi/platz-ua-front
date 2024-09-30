@@ -53,7 +53,7 @@ const Gallery = ({ images }) => {
   }
 
   return (
-    <div className={scss.galleryContainer}>
+    <div className={scss.gallery}>
       <div className={scss.mainImageContainer} onClick={toggleZoom}>
         <img
           src={selectedImage}
