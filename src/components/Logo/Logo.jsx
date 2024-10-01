@@ -4,7 +4,11 @@ import scss from './Logo.module.scss';
 const Logo = () => {
   return (
     <div className={scss.logoFlex}>
-      <NavLink to="/" className={scss.logoLink}>
+      <NavLink
+        to="/"
+        className={scss.logoLink}
+        aria-label="Перейти на головну сторінку"
+      >
         <div className={scss.logoBackground}>
           <h1 className={scss.logo}>
             <span className={scss.logoLetterP}>P</span>
