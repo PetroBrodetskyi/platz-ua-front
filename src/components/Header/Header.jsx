@@ -72,7 +72,7 @@ const Header = ({ onClick }) => {
             </button>
           </NavLink>
           {!user && (
-            <NavLink to="/login" aria-label="Перейти на  сторінку входу">
+            <NavLink to="/login">
               <button type="button" className={scss.icon} onClick={onClick}>
                 <div className={scss.navigateItem}>
                   <RiLoginCircleLine />
@@ -81,7 +81,7 @@ const Header = ({ onClick }) => {
               </button>
             </NavLink>
           )}
-          <NavLink to="/cart" aria-label="Перейти до кошика">
+          <NavLink to="/cart">
             <button type="button" className={scss.icon} onClick={onClick}>
               <div className={scss.navigateItem}>
                 {cartItems.length > 0 ? (
@@ -93,7 +93,7 @@ const Header = ({ onClick }) => {
               </div>
             </button>
           </NavLink>
-          <NavLink to="/favorites" aria-label="Перейти до обраних товарів">
+          <NavLink to="/favorites">
             <button
               type="button"
               className={`${scss.icon} ${animateFavorite ? scss.animate : ''} ${favorites.length > 0 ? scss.favorite : ''}`}
