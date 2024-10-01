@@ -77,7 +77,8 @@
 
       &.listItem {
         @media (max-width: $tablet) {
-          min-height: 300px;
+          height: auto;
+          min-height: 320px;
         }
       }
 
@@ -129,12 +130,12 @@
         .avatar {
           border-radius: 50%;
           border: 2px solid var(--white);
-          width: 16px;
-          height: 16px;
+          width: 18px;
+          height: 18px;
 
           &.listItem {
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
           }
 
           @include media-rules(tablet) {
