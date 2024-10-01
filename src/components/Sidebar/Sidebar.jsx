@@ -17,43 +17,49 @@ const Sidebar = ({ cartItems, handleRemoveFromCart }) => {
   return (
     <div className={scss.sidebar}>
       <h3 className={scss.office}>Особистий кабінет</h3>
-      <div className={scss.cartSidebar}>
-        <h3 onClick={toggleCart} className={scss.toggleHeader}>
-          Кошик {isCartOpen ? <IoChevronUpOutline /> : <IoChevronDownSharp />}
-        </h3>
-        {isCartOpen && (
-          <div className={scss.cartContent}>
-            <SidebarCart
-              cartItems={cartItems}
-              handleRemoveFromCart={handleRemoveFromCart}
-            />
-          </div>
-        )}
+      <ul className={scss.cartSidebar}>
+        <li>
+          <h3 onClick={toggleCart} className={scss.toggleHeader}>
+            Кошик {isCartOpen ? <IoChevronUpOutline /> : <IoChevronDownSharp />}
+          </h3>
+          {isCartOpen && (
+            <div className={scss.cartContent}>
+              <SidebarCart
+                cartItems={cartItems}
+                handleRemoveFromCart={handleRemoveFromCart}
+              />
+            </div>
+          )}
+        </li>
 
-        <div className={scss.divider}></div>
+        <li className={scss.divider}></li>
 
-        <h3 onClick={toggleFavorites} className={scss.toggleHeader}>
-          Обрані{' '}
-          {isFavoritesOpen ? <IoChevronUpOutline /> : <IoChevronDownSharp />}
-        </h3>
-        {isFavoritesOpen && (
-          <div className={scss.cartContent}>
-            <SidebarFavorites />
-          </div>
-        )}
+        <li>
+          <h3 onClick={toggleFavorites} className={scss.toggleHeader}>
+            Обрані{' '}
+            {isFavoritesOpen ? <IoChevronUpOutline /> : <IoChevronDownSharp />}
+          </h3>
+          {isFavoritesOpen && (
+            <div className={scss.cartContent}>
+              <SidebarFavorites />
+            </div>
+          )}
+        </li>
 
-        <div className={scss.divider}></div>
+        <li className={scss.divider}></li>
 
-        <h3 onClick={toggleMyAds} className={scss.toggleHeader}>
-          Мої оголошення{' '}
-          {isMyAdsOpen ? <IoChevronUpOutline /> : <IoChevronDownSharp />}
-        </h3>
-        {isMyAdsOpen && (
-          <div className={scss.cartContent}>
-            <SidebarMyAds />
-          </div>
-        )}
-      </div>
+        <li>
+          <h3 onClick={toggleMyAds} className={scss.toggleHeader}>
+            Мої оголошення{' '}
+            {isMyAdsOpen ? <IoChevronUpOutline /> : <IoChevronDownSharp />}
+          </h3>
+          {isMyAdsOpen && (
+            <div className={scss.cartContent}>
+              <SidebarMyAds />
+            </div>
+          )}
+        </li>
+      </ul>
     </div>
   );
 };
