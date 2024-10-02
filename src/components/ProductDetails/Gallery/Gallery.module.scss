@@ -43,25 +43,29 @@
     }
 
     .navigationButtons {
-      position: absolute;
-      top: 50%;
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      transform: translateY(-50%);
+      display: none;
+      @include media-rules(desktop) {
+        visibility: visible;
+        position: absolute;
+        top: 50%;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        transform: translateY(-50%);
 
-      .prevButton,
-      .nextButton {
-        background: rgba(0, 0, 0, 0.5);
-        border: none;
-        color: white;
-        font-size: 2rem;
-        padding: 0 20px;
-        cursor: pointer;
-        transition: background 0.3s ease;
+        .prevButton,
+        .nextButton {
+          background: rgba(0, 0, 0, 0.5);
+          border: none;
+          color: white;
+          font-size: 2rem;
+          padding: 0 20px;
+          cursor: pointer;
+          transition: background 0.3s ease;
 
-        &:hover {
-          background: rgba(0, 0, 0, 0.7);
+          &:hover {
+            background: rgba(0, 0, 0, 0.7);
+          }
         }
       }
     }

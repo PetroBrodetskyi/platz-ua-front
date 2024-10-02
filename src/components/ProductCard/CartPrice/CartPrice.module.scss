@@ -56,6 +56,11 @@
 
     @include media-rules(desktop) {
       font-size: 24px;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.2);
+      }
     }
   }
 }

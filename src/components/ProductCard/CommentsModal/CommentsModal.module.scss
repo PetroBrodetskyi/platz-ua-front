@@ -46,6 +46,11 @@
   .closeIcon {
     font-size: 20px;
     cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.2);
+    }
   }
 }
 
@@ -127,10 +132,6 @@
   justify-content: center;
 }
 
-.icon {
-  font-size: 28px;
-}
-
 .avatar {
   width: 40px;
   height: 40px;
@@ -151,5 +152,10 @@
 
   @include media-rules(desktop) {
     font-size: 24px;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.2);
+    }
   }
 }
