@@ -63,6 +63,7 @@ import {
 } from 'react-icons/ri';
 import { SiGumtree } from 'react-icons/si';
 import { GrBike } from 'react-icons/gr';
+import { BsPersonWorkspace } from 'react-icons/bs';
 import {
   TbPoint,
   TbSofa,
@@ -87,6 +88,7 @@ const categoryIcons = {
   дім: { icon: <MdOutlineMapsHomeWork />, label: 'Дім' },
   сад: { icon: <SiGumtree />, label: 'Сад' },
   одяг: { icon: <GiClothes />, label: 'Одяг' },
+  робота: { icon: <BsPersonWorkspace />, label: 'Робота' },
   іграшки: { icon: <MdOutlineToys />, label: 'Іграшки' },
   послуги: { icon: <RiCustomerService2Fill />, label: 'Послуги' },
   продукти: { icon: <MdEmojiFoodBeverage />, label: 'Продукти' },

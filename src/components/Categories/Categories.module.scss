@@ -1,40 +1,44 @@
 @import 'src/styles/mixins';
 
-$categories-padding-desktop: 80px 0 0;
-$categories-padding-tablet: 20px;
-$categories-padding-mobile: 10px;
+$padding-desktop: 90px 0 0;
+$padding-tablet: 80px 0 0;
+$padding-mobile: 10px;
 
-$gap-desktop: 10px;
+$gap-desktop: 20px;
 $gap-tablet: 8px;
 $gap-mobile: 4px;
 
 .categories {
-  padding: $categories-padding-desktop;
+  display: flex;
+  flex-direction: column;
+  gap: $gap-desktop;
+  padding: $padding-mobile;
 
-  @media (max-width: $desktop) {
-    padding: $categories-padding-tablet;
+  @include media-rules(tablet) {
+    padding: $padding-mobile;
   }
 
-  @media (max-width: $tablet) {
-    padding: $categories-padding-mobile;
+  @include media-rules(desktop) {
+    padding: $padding-desktop;
   }
 
   .container {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: $gap-tablet;
+
+    @include media-rules(desktop) {
+      gap: $gap-desktop;
+    }
 
     .categoryButtons {
       display: flex;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      gap: $gap-desktop;
-      white-space: nowrap;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: $gap-mobile;
 
-      @media (max-width: $desktop) {
+      @include media-rules(tablet) {
         gap: $gap-tablet;
-      }
-
-      @media (max-width: $tablet) {
-        gap: $gap-mobile;
       }
 
       &::-webkit-scrollbar {
@@ -43,24 +47,24 @@ $gap-mobile: 4px;
     }
 
     .categoryButton {
-      display: inline-flex;
+      display: flex;
       align-items: center;
+      justify-content: center;
       background-color: var(--white);
-      padding: 12px;
       font-size: 14px;
-      cursor: pointer;
+      gap: 4px;
+      padding: 8px;
       border-radius: 4px;
+      cursor: pointer;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
       @include transition(background-color);
 
-      @media (max-width: $desktop) {
-        padding: 10px;
-        font-size: 14px;
-      }
-
-      @media (max-width: $tablet) {
-        padding: 4px;
-        font-size: 12px;
+      @include media-rules(desktop) {
+        flex-direction: column;
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
       }
 
       &:hover {
@@ -76,16 +80,14 @@ $gap-mobile: 4px;
       }
 
       svg {
-        margin-right: 8px;
-
         @include media-rules(tablet) {
           width: 16px;
           height: 16px;
         }
 
         @include media-rules(desktop) {
-          width: 20px;
-          height: 20px;
+          width: 50px;
+          height: 50px;
         }
       }
     }
@@ -94,21 +96,16 @@ $gap-mobile: 4px;
       display: flex;
       align-items: center;
       background-color: var(--white);
-      padding: 12px;
-      font-size: 14px;
+      gap: 4px;
+      padding: 8px;
       cursor: pointer;
+      font-size: 14px;
       border-radius: 4px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       @include transition(background-color);
 
-      @media (max-width: $desktop) {
+      @include media-rules(desktop) {
         padding: 10px;
-        font-size: 14px;
-      }
-
-      @media (max-width: $tablet) {
-        padding: 4px;
-        font-size: 12px;
       }
 
       &:hover {
@@ -124,8 +121,6 @@ $gap-mobile: 4px;
       }
 
       svg {
-        margin-right: 8px;
-
         @include media-rules(tablet) {
           width: 16px;
           height: 16px;
@@ -139,35 +134,21 @@ $gap-mobile: 4px;
     }
 
     .subcategories {
-      position: absolute;
-      top: 110%;
-      left: 0;
       width: 100%;
-      background-color: var(--light-bg);
-      z-index: 1000;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      padding: 8px;
       border-radius: 4px;
-
-      @include media-rules(tablet) {
-        padding: 8px;
-      }
-
-      @include media-rules(desktop) {
-        padding: 14px;
-      }
 
       .subcategoryButtons {
         display: flex;
+        justify-content: center;
         flex-wrap: wrap;
-        gap: $gap-desktop;
+        gap: $gap-mobile;
 
-        @media (max-width: $desktop) {
+        @include media-rules(tablet) {
           gap: $gap-tablet;
         }
 
-        @media (max-width: $tablet) {
-          gap: $gap-mobile;
+        @include media-rules(desktop) {
+          gap: $gap-tablet;
         }
       }
     }
