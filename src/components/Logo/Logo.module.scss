@@ -67,7 +67,7 @@
   .logoLetterA2 {
     font-size: 18px;
     vertical-align: super;
-    color: #ffd700;
+    color: var(--yellow);
 
     @media (max-width: $tablet) {
       font-size: 16px;

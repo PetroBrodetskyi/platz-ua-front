@@ -5,7 +5,6 @@
   flex-direction: column;
   background-color: var(--light-bg);
   gap: 10px;
-  width: 100%;
   padding: 0 10px 10px;
 
   @include media-rules(tablet) {
@@ -13,24 +12,58 @@
   }
 
   @include media-rules(desktop) {
-    padding: 0;
+    padding: 20px;
+    background-color: var(--white);
+    border-radius: 4px;
   }
 
   .mainImageContainer {
+    position: relative;
     cursor: pointer;
-  }
 
-  .mainImage {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
+    .mainImage {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 4px;
+      transition: transform 0.3s ease;
 
-    @include media-rules(tablet) {
-      height: 320px;
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      @include media-rules(tablet) {
+        height: 320px;
+      }
+
+      @include media-rules(desktop) {
+        width: 600px;
+        height: 360px;
+      }
     }
 
-    @include media-rules(desktop) {
-      height: 400px;
+    .navigationButtons {
+      position: absolute;
+      top: 50%;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      transform: translateY(-50%);
+
+      .prevButton,
+      .nextButton {
+        background: rgba(0, 0, 0, 0.5);
+        border: none;
+        color: white;
+        font-size: 2rem;
+        padding: 0 20px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.7);
+        }
+      }
     }
   }
 
@@ -44,6 +77,9 @@
       object-fit: cover;
       cursor: pointer;
       border: 2px solid transparent;
+      transition:
+        border 0.3s ease,
+        transform 0.3s ease;
 
       @include media-rules(tablet) {
         width: 23%;
@@ -52,11 +88,13 @@
 
       @include media-rules(desktop) {
         width: 24%;
-        height: 140px;
+        height: 90px;
+        border-radius: 4px;
       }
 
       &:hover {
         border: 2px solid var(--dark-bg);
+        transform: scale(1.1);
       }
     }
 
@@ -75,8 +113,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
-    cursor: zoom-in;
+    z-index: 10000;
+    cursor: zoom-out;
 
     .zoomedImage {
       max-width: 90%;
@@ -86,7 +124,28 @@
 
       &.zoomedImageFull {
         transform: scale(1.5);
-        cursor: zoom-out;
+      }
+    }
+
+    .controls {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      display: flex;
+      gap: 10px;
+      z-index: 1001;
+    }
+
+    .closeIcon,
+    .zoomInIcon,
+    .zoomOutIcon {
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.2);
       }
     }
   }

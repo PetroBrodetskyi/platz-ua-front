@@ -157,7 +157,6 @@ const ProductDetails = () => {
           />
         )}
       </div>
-
       <div>
         <Comments productId={productId} />
       </div>

@@ -28,7 +28,8 @@ $padding-mobile: 20px;
 
     @include media-rules(desktop) {
       flex-direction: row;
-      gap: 40px;
+      justify-content: center;
+      gap: 20px;
     }
 
     .productInfo {
@@ -36,8 +37,8 @@ $padding-mobile: 20px;
       flex-direction: column;
       gap: 10px;
 
-      @include media-rules(tablet) {
-        width: 60%;
+      @include media-rules(desktop) {
+        width: 600px;
       }
     }
   }

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { TbLocation } from 'react-icons/tb';
 import { SlLocationPin } from 'react-icons/sl';
+import { HiOutlineEye } from 'react-icons/hi';
 import { MdOutlineDateRange } from 'react-icons/md';
 import { FaRegFaceSmile, FaRegFaceMeh } from 'react-icons/fa6';
 import scss from './ProductInfo.module.scss';
@@ -104,13 +105,13 @@ const ProductInfo = ({
 
       <div className={scss.editContainer}>
         <div className={scss.infoContainer}>
-          <p className={scss.detailsFlex}>
+          <p className={scss.detail}>
             <TbLocation className={scss.icon} /> {product.PLZ}
           </p>
-          <p className={scss.detailsFlex}>
+          <p className={scss.detail}>
             <SlLocationPin className={scss.icon} /> {product.city}
           </p>
-          <div className={scss.radio}>
+          <div className={scss.detail}>
             {isEditing ? (
               <div className={scss.conditionOptions}>
                 {['новий', 'вживаний'].map((condition) => (
@@ -140,8 +141,12 @@ const ProductInfo = ({
               </p>
             )}
           </div>
-          <p className={scss.detailsFlex}>
+          <p className={scss.detail}>
             <MdOutlineDateRange className={scss.icon} /> {formattedDate}
+          </p>
+          <p className={scss.detail}>
+            <HiOutlineEye className={scss.icon} />
+            {product.views !== undefined ? product.views : 'N/A'}
           </p>
         </div>
       </div>

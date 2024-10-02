@@ -68,7 +68,7 @@ $gap-mobile: 4px;
       }
 
       &:hover {
-        background-color: #ffcc00;
+        background-color: var(--yellow);
         color: var(--white);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }
@@ -115,7 +115,7 @@ $gap-mobile: 4px;
       }
 
       &.active {
-        background-color: #ffcc00;
+        background-color: var(--yellow);
         color: var(--white);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }

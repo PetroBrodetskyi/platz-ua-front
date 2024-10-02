@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { AiOutlineClose, AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import scss from './Gallery.module.scss';
 
 const Gallery = ({ images }) => {
@@ -12,20 +13,46 @@ const Gallery = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(imageList[0]);
   const [isZoomed, setIsZoomed] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
+  useEffect(() => {
+    setSelectedImage(imageList[currentIndex]);
+  }, [currentIndex, imageList]);
+
+  const handleImageClick = () => {
+    toggleZoom();
+  };
+
+  const nextImage = (e) => {
+    e.stopPropagation();
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % imageList.length);
+  };
+
+  const prevImage = (e) => {
+    e.stopPropagation();
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? imageList.length - 1 : prevIndex - 1
+    );
   };
 
   const toggleZoom = () => {
-    if (zoomLevel === 0) {
-      setZoomLevel(1);
-      setIsZoomed(true);
-    } else if (zoomLevel === 1) {
-      setZoomLevel(2);
-    } else {
+    setIsZoomed(!isZoomed);
+    if (!isZoomed) {
       setZoomLevel(0);
-      setIsZoomed(false);
+    }
+  };
+
+  const increaseZoom = (e) => {
+    e.stopPropagation();
+    if (zoomLevel < 2) {
+      setZoomLevel((prevLevel) => prevLevel + 1);
+    }
+  };
+
+  const decreaseZoom = (e) => {
+    e.stopPropagation();
+    if (zoomLevel > 0) {
+      setZoomLevel((prevLevel) => prevLevel - 1);
     }
   };
 
@@ -33,6 +60,12 @@ const Gallery = ({ images }) => {
     if (event.key === 'Escape' && isZoomed) {
       setZoomLevel(0);
       setIsZoomed(false);
+    }
+    if (event.key === 'ArrowRight') {
+      nextImage(event);
+    }
+    if (event.key === 'ArrowLeft') {
+      prevImage(event);
     }
   };
 
@@ -54,12 +87,20 @@ const Gallery = ({ images }) => {
 
   return (
     <div className={scss.gallery}>
-      <div className={scss.mainImageContainer} onClick={toggleZoom}>
+      <div className={scss.mainImageContainer} onClick={handleImageClick}>
         <img
           src={selectedImage}
           alt="Selected Product"
           className={scss.mainImage}
         />
+        <div className={scss.navigationButtons}>
+          <button className={scss.prevButton} onClick={prevImage}>
+            &#9664;
+          </button>
+          <button className={scss.nextButton} onClick={nextImage}>
+            &#9654;
+          </button>
+        </div>
       </div>
       <div className={scss.thumbnailContainer}>
         {imageList.map((image, index) => (
@@ -68,7 +109,7 @@ const Gallery = ({ images }) => {
             src={image}
             alt={`Product thumbnail ${index + 1}`}
             className={`${scss.thumbnail} ${selectedImage === image ? scss.selectedThumbnail : ''}`}
-            onClick={() => handleImageClick(image)}
+            onClick={() => setCurrentIndex(index)}
           />
         ))}
       </div>
@@ -78,8 +119,24 @@ const Gallery = ({ images }) => {
           <img
             src={selectedImage}
             alt="Zoomed Product"
-            className={`${scss.zoomedImage} ${zoomLevel === 2 ? scss.zoomedImageFull : ''}`} // Клас для повного збільшення
+            className={`${scss.zoomedImage} ${zoomLevel === 2 ? scss.zoomedImageFull : ''}`}
+            onClick={(e) => e.stopPropagation()}
           />
+          <div className={scss.controls}>
+            <AiOutlineClose className={scss.closeIcon} onClick={toggleZoom} />
+            {zoomLevel < 2 && (
+              <AiOutlinePlus
+                className={scss.zoomInIcon}
+                onClick={increaseZoom}
+              />
+            )}
+            {zoomLevel > 0 && (
+              <AiOutlineMinus
+                className={scss.zoomOutIcon}
+                onClick={decreaseZoom}
+              />
+            )}
+          </div>
         </div>
       )}
     </div>
