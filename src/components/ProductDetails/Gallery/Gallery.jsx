@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { AiOutlineClose, AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
+import { useSwipeable } from 'react-swipeable';
 import scss from './Gallery.module.scss';
 
 const Gallery = ({ images }) => {
@@ -23,13 +24,11 @@ const Gallery = ({ images }) => {
     toggleZoom();
   };
 
-  const nextImage = (e) => {
-    e.stopPropagation();
+  const nextImage = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % imageList.length);
   };
 
-  const prevImage = (e) => {
-    e.stopPropagation();
+  const prevImage = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? imageList.length - 1 : prevIndex - 1
     );
@@ -62,10 +61,10 @@ const Gallery = ({ images }) => {
       setIsZoomed(false);
     }
     if (event.key === 'ArrowRight') {
-      nextImage(event);
+      nextImage();
     }
     if (event.key === 'ArrowLeft') {
-      prevImage(event);
+      prevImage();
     }
   };
 
@@ -81,12 +80,17 @@ const Gallery = ({ images }) => {
     };
   }, [isZoomed]);
 
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => nextImage(),
+    onSwipedRight: () => prevImage()
+  });
+
   if (imageList.length === 0) {
     return <p>No images available</p>;
   }
 
   return (
-    <div className={scss.gallery}>
+    <div className={scss.gallery} {...swipeHandlers}>
       <div className={scss.mainImageContainer} onClick={handleImageClick}>
         <img
           src={selectedImage}
@@ -94,10 +98,22 @@ const Gallery = ({ images }) => {
           className={scss.mainImage}
         />
         <div className={scss.navigationButtons}>
-          <button className={scss.prevButton} onClick={prevImage}>
+          <button
+            className={scss.prevButton}
+            onClick={(e) => {
+              e.stopPropagation();
+              prevImage();
+            }}
+          >
             &#9664;
           </button>
-          <button className={scss.nextButton} onClick={nextImage}>
+          <button
+            className={scss.nextButton}
+            onClick={(e) => {
+              e.stopPropagation();
+              nextImage();
+            }}
+          >
             &#9654;
           </button>
         </div>
