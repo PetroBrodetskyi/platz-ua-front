@@ -128,6 +128,25 @@ const ProductCard = ({ viewMode }) => {
 
   const fetchMoreProducts = () => setCurrentPage((prevPage) => prevPage + 1);
 
+  const renderSkeletons = (count) => {
+    return Array.from({ length: count }).map((_, index) => (
+      <li key={index}>
+        <div>
+          <Skeleton
+            variant="rectangular"
+            className={`${scss.skelet} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+          />
+          <div>
+            <Skeleton variant="text" width="60%" />
+            <Skeleton variant="text" width="40%" />
+            <Skeleton variant="text" width="100%" />
+            <Skeleton variant="text" width="80%" />
+          </div>
+        </div>
+      </li>
+    ));
+  };
+
   return (
     <>
       <InfiniteScroll
@@ -137,159 +156,167 @@ const ProductCard = ({ viewMode }) => {
         endMessage={null}
       >
         <ul className={`${scss.list} ${scss[viewMode]}`}>
-          {products.map((product) => {
-            const {
-              _id,
-              name,
-              description,
-              createdAt,
-              condition,
-              price,
-              image1,
-              owner,
-              views,
-              PLZ,
-              city
-            } = product;
-            const isInCart = cartItems.some((item) => item._id === _id);
-            const ownerData = owners[owner];
+          {loading
+            ? renderSkeletons(6)
+            : products.map((product) => {
+                const {
+                  _id,
+                  name,
+                  description,
+                  createdAt,
+                  condition,
+                  price,
+                  image1,
+                  owner,
+                  views,
+                  PLZ,
+                  city
+                } = product;
+                const isInCart = cartItems.some((item) => item._id === _id);
+                const ownerData = owners[owner];
 
-            return (
-              <li
-                key={_id}
-                className={`${scss.productItem} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-              >
-                <div
-                  className={`${scss.product} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-                >
-                  <div
-                    className={`${scss.productImage} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+                return (
+                  <li
+                    key={_id}
+                    className={`${scss.productItem} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
                   >
-                    <div className={scss.ownerViews}>
-                      {ownerData ? (
-                        <div
-                          className={scss.ownerContainer}
-                          onClick={() => handleOwnerClick(ownerData._id)}
-                        >
-                          <img
-                            src={ownerData.avatarURL}
-                            alt={ownerData.name}
-                            className={`${scss.avatar} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-                            loading="lazy"
-                          />
+                    <div
+                      className={`${scss.product} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+                    >
+                      <div
+                        className={`${scss.productImage} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+                      >
+                        <div className={scss.ownerViews}>
+                          {ownerData ? (
+                            <div
+                              className={scss.ownerContainer}
+                              onClick={() => handleOwnerClick(ownerData._id)}
+                            >
+                              <img
+                                src={ownerData.avatarURL}
+                                alt={ownerData.name}
+                                className={`${scss.avatar} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+                                loading="lazy"
+                              />
+                              <div
+                                className={`${scss.name} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+                              >
+                                {ownerData.name}
+                              </div>
+                            </div>
+                          ) : (
+                            <div className={scss.ownerContainer}>
+                              <Skeleton
+                                variant="circular"
+                                width={40}
+                                height={40}
+                              />
+                              <Skeleton variant="text" width={100} />
+                            </div>
+                          )}
                           <div
-                            className={`${scss.name} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+                            className={`${scss.viewsQuantity} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
                           >
-                            {ownerData.name}
+                            <p>{views ?? 'N/A'}</p>
+                            <HiOutlineEye
+                              className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+                            />
                           </div>
                         </div>
-                      ) : (
-                        <div className={scss.ownerContainer}>
-                          <Skeleton variant="circular" width={40} height={40} />
-                          <Skeleton variant="text" width={100} />
-                        </div>
-                      )}
-                      <div
-                        className={`${scss.viewsQuantity} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-                      >
-                        <p>{views ?? 'N/A'}</p>
-                        <HiOutlineEye
-                          className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-                        />
-                      </div>
-                    </div>
-                    {image1 ? (
-                      <img
-                        src={image1}
-                        alt={name}
-                        onClick={() => handleProductClick(_id)}
-                        loading="lazy"
-                        className={scss.image}
-                      />
-                    ) : loading ? (
-                      <Skeleton
-                        variant="rectangular"
-                        width="100%"
-                        height={118}
-                        animation="pulse"
-                      />
-                    ) : null}
-                  </div>
-                  <div
-                    className={`${scss.productInfo} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-                  >
-                    <div>
-                      {ownerData ? (
-                        <TitleFavorite
-                          name={name}
-                          price={price}
-                          description={description}
-                          image={image1}
-                          city={city}
-                          id={_id}
-                          onFavoriteToggle={() => dispatch(toggleFavorite(_id))}
-                          isFavorite={favorites.includes(_id)}
-                        />
-                      ) : (
-                        <Skeleton variant="text" width={150} />
-                      )}
-                      <p
-                        className={`${scss.description} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-                      >
-                        {description}
-                      </p>
-                    </div>
-                    <div className={scss.dateCart}>
-                      <div>
-                        {createdAt && (
-                          <CreateCondition
-                            addedDate={createdAt}
-                            condition={condition}
+                        {image1 ? (
+                          <img
+                            src={image1}
+                            alt={name}
+                            onClick={() => handleProductClick(_id)}
+                            loading="lazy"
+                            className={scss.image}
                           />
-                        )}
+                        ) : loading ? (
+                          <Skeleton
+                            variant="rectangular"
+                            width="100%"
+                            height={118}
+                            animation="pulse"
+                          />
+                        ) : null}
                       </div>
                       <div
-                        className={`${scss.expandButtonContainer} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+                        className={`${scss.productInfo} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
                       >
-                        <button
-                          className={scss.expandButton}
-                          onClick={() => handleToggleDescription(_id)}
-                        >
-                          {showDescriptions[_id] ? (
-                            <IoChevronUpOutline className={scss.icon} />
+                        <div>
+                          {ownerData ? (
+                            <TitleFavorite
+                              name={name}
+                              price={price}
+                              description={description}
+                              image={image1}
+                              city={city}
+                              id={_id}
+                              onFavoriteToggle={() =>
+                                dispatch(toggleFavorite(_id))
+                              }
+                              isFavorite={favorites.includes(_id)}
+                            />
                           ) : (
-                            <RiPlayList2Fill className={scss.icon} />
+                            <Skeleton variant="text" width={150} />
                           )}
-                        </button>
-                      </div>
-                      <div>
-                        {exchangeRate !== null ? (
-                          <CartPrice
-                            price={price}
-                            exchangeRate={exchangeRate}
-                            onAddToCart={() =>
-                              handleAddToCart(product, isInCart)
-                            }
-                            isInCart={isInCart}
-                          />
-                        ) : (
-                          <Skeleton variant="text" width={80} />
-                        )}
+                          <p
+                            className={`${scss.description} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+                          >
+                            {description}
+                          </p>
+                        </div>
+                        <div className={scss.dateCart}>
+                          <div>
+                            {createdAt && (
+                              <CreateCondition
+                                addedDate={createdAt}
+                                condition={condition}
+                              />
+                            )}
+                          </div>
+                          <div
+                            className={`${scss.expandButtonContainer} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+                          >
+                            <button
+                              className={scss.expandButton}
+                              onClick={() => handleToggleDescription(_id)}
+                            >
+                              {showDescriptions[_id] ? (
+                                <IoChevronUpOutline className={scss.icon} />
+                              ) : (
+                                <RiPlayList2Fill className={scss.icon} />
+                              )}
+                            </button>
+                          </div>
+                          <div>
+                            {exchangeRate !== null ? (
+                              <CartPrice
+                                price={price}
+                                exchangeRate={exchangeRate}
+                                onAddToCart={() =>
+                                  handleAddToCart(product, isInCart)
+                                }
+                                isInCart={isInCart}
+                              />
+                            ) : (
+                              <Skeleton variant="text" width={80} />
+                            )}
+                          </div>
+                        </div>
+                        <ProductDescription
+                          show={showDescriptions[_id]}
+                          name={name}
+                          description={description}
+                          PLZ={PLZ}
+                          city={city}
+                          onToggle={() => handleToggleDescription(_id)}
+                        />
                       </div>
                     </div>
-                    <ProductDescription
-                      show={showDescriptions[_id]}
-                      name={name}
-                      description={description}
-                      PLZ={PLZ}
-                      city={city}
-                      onToggle={() => handleToggleDescription(_id)}
-                    />
-                  </div>
-                </div>
-              </li>
-            );
-          })}
+                  </li>
+                );
+              })}
         </ul>
       </InfiniteScroll>
       {notification && (
