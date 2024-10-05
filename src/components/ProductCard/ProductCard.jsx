@@ -18,8 +18,9 @@ import Notification from '../Notification/Notification';
 import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
 import CreateCondition from './CreateCondition/CreateCondition';
+import Loader from '../Loader/Loader';
 import ProductDescription from './ProductDescription/ProductDescription';
-import scss from '../ProductCard/ProductCard.module.scss';
+import scss from './ProductCard.module.scss';
 
 const ProductCard = ({ viewMode }) => {
   const dispatch = useDispatch();
@@ -115,25 +116,6 @@ const ProductCard = ({ viewMode }) => {
 
   const fetchMoreProducts = () => setCurrentPage((prevPage) => prevPage + 1);
 
-  if (loading) {
-    return (
-      <ul className={`${scss.list} ${scss[viewMode]}`}>
-        {Array.from(new Array(8)).map((_, index) => (
-          <li key={index} className={scss.skeletonItem}>
-            <Skeleton
-              variant="rectangular"
-              width="100%"
-              height={240}
-              animation="pulse"
-            />
-            <Skeleton variant="text" width={150} animation="pulse" />
-            <Skeleton variant="text" width={100} animation="pulse" />
-          </li>
-        ))}
-      </ul>
-    );
-  }
-
   return (
     <>
       <InfiniteScroll
@@ -212,13 +194,14 @@ const ProductCard = ({ viewMode }) => {
                         loading="lazy"
                         className={scss.image}
                       />
-                    ) : (
+                    ) : loading ? (
                       <Skeleton
                         variant="rectangular"
-                        width={210}
+                        width="100%"
                         height={118}
+                        animation="pulse"
                       />
-                    )}
+                    ) : null}
                   </div>
                   <div
                     className={`${scss.productInfo} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
@@ -282,17 +265,11 @@ const ProductCard = ({ viewMode }) => {
                         )}
                       </div>
                     </div>
+                    {showDescriptions[_id] && (
+                      <ProductDescription product={product} />
+                    )}
                   </div>
                 </div>
-                <ProductDescription
-                  show={showDescriptions[_id]}
-                  description={description}
-                  price={price}
-                  condition={condition}
-                  owner={ownerData}
-                  PLZ={PLZ}
-                  city={city}
-                />
               </li>
             );
           })}
@@ -306,7 +283,7 @@ const ProductCard = ({ viewMode }) => {
       )}
       {endOfListNotification && (
         <Notification
-          message="Це всі оголошення"
+          message="Ви подивилися всі оголошення"
           onClose={() => setEndOfListNotification(false)}
         />
       )}
