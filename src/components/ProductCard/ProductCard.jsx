@@ -18,7 +18,7 @@ import Notification from '../Notification/Notification';
 import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
 import CreateCondition from './CreateCondition/CreateCondition';
-import Loader from '../Loader/Loader';
+// import Loader from '../Loader/Loader';
 import ProductDescription from './ProductDescription/ProductDescription';
 import scss from './ProductCard.module.scss';
 
@@ -46,7 +46,7 @@ const ProductCard = ({ viewMode }) => {
     const loadProducts = async () => {
       try {
         const response = await dispatch(
-          fetchProducts({ page: currentPage, limit: 8 })
+          fetchProducts({ page: currentPage, limit: 4 })
         ).unwrap();
         if (response.length === 0 || products.length >= totalProducts) {
           setHasMore(false);
@@ -78,6 +78,18 @@ const ProductCard = ({ viewMode }) => {
           console.error('Failed to fetch owner:', error);
         } finally {
           setLoadingOwners((prev) => ({ ...prev, [ownerId]: false }));
+        }
+      } else if (owners[ownerId]) {
+        const ownerData = await dispatch(fetchUserById(ownerId)).unwrap();
+        if (ownerData.avatarURL !== owners[ownerId].avatarURL) {
+          setOwners((prev) => ({
+            ...prev,
+            [ownerId]: ownerData
+          }));
+          localStorage.setItem(
+            'owners',
+            JSON.stringify({ ...owners, [ownerId]: ownerData })
+          );
         }
       }
     };
