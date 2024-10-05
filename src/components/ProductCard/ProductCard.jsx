@@ -19,7 +19,7 @@ import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
 import CreateCondition from './CreateCondition/CreateCondition';
 import ProductDescription from './ProductDescription/ProductDescription';
-import scss from './ProductCard.module.scss';
+import scss from '../ProductCard/ProductCard.module.scss';
 
 const ProductCard = ({ viewMode }) => {
   const dispatch = useDispatch();
@@ -122,8 +122,8 @@ const ProductCard = ({ viewMode }) => {
           <li key={index} className={scss.skeletonItem}>
             <Skeleton
               variant="rectangular"
-              width={210}
-              height={118}
+              width="100%"
+              height={240}
               animation="pulse"
             />
             <Skeleton variant="text" width={150} animation="pulse" />
@@ -161,9 +161,16 @@ const ProductCard = ({ viewMode }) => {
             const ownerData = owners[owner];
 
             return (
-              <li key={_id} className={`${scss.productItem}`}>
-                <div className={scss.product}>
-                  <div className={scss.productImage}>
+              <li
+                key={_id}
+                className={`${scss.productItem} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+              >
+                <div
+                  className={`${scss.product} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+                >
+                  <div
+                    className={`${scss.productImage} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+                  >
                     <div className={scss.ownerViews}>
                       {ownerData ? (
                         <div
@@ -173,29 +180,28 @@ const ProductCard = ({ viewMode }) => {
                           <img
                             src={ownerData.avatarURL}
                             alt={ownerData.name}
-                            className={scss.avatar}
+                            className={`${scss.avatar} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
                             loading="lazy"
                           />
-                          <div className={scss.name}>{ownerData.name}</div>
+                          <div
+                            className={`${scss.name} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+                          >
+                            {ownerData.name}
+                          </div>
                         </div>
                       ) : (
                         <div className={scss.ownerContainer}>
-                          <Skeleton
-                            variant="circular"
-                            width={40}
-                            height={40}
-                            animation="pulse"
-                          />
-                          <Skeleton
-                            variant="text"
-                            width={100}
-                            animation="pulse"
-                          />
+                          <Skeleton variant="circular" width={40} height={40} />
+                          <Skeleton variant="text" width={100} />
                         </div>
                       )}
-                      <div className={scss.viewsQuantity}>
+                      <div
+                        className={`${scss.viewsQuantity} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+                      >
                         <p>{views ?? 'N/A'}</p>
-                        <HiOutlineEye className={scss.icon} />
+                        <HiOutlineEye
+                          className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+                        />
                       </div>
                     </div>
                     {image1 ? (
@@ -211,11 +217,12 @@ const ProductCard = ({ viewMode }) => {
                         variant="rectangular"
                         width={210}
                         height={118}
-                        animation="pulse"
                       />
                     )}
                   </div>
-                  <div className={scss.productInfo}>
+                  <div
+                    className={`${scss.productInfo} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+                  >
                     <div>
                       {ownerData ? (
                         <TitleFavorite
@@ -229,13 +236,13 @@ const ProductCard = ({ viewMode }) => {
                           isFavorite={favorites.includes(_id)}
                         />
                       ) : (
-                        <Skeleton
-                          variant="text"
-                          width={150}
-                          animation="pulse"
-                        />
+                        <Skeleton variant="text" width={150} />
                       )}
-                      <p className={scss.description}>{description}</p>
+                      <p
+                        className={`${scss.description} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+                      >
+                        {description}
+                      </p>
                     </div>
                     <div className={scss.dateCart}>
                       <div>
@@ -246,7 +253,9 @@ const ProductCard = ({ viewMode }) => {
                           />
                         )}
                       </div>
-                      <div className={scss.expandButtonContainer}>
+                      <div
+                        className={`${scss.expandButtonContainer} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+                      >
                         <button
                           className={scss.expandButton}
                           onClick={() => handleToggleDescription(_id)}
@@ -269,11 +278,7 @@ const ProductCard = ({ viewMode }) => {
                             isInCart={isInCart}
                           />
                         ) : (
-                          <Skeleton
-                            variant="text"
-                            width={80}
-                            animation="pulse"
-                          />
+                          <Skeleton variant="text" width={80} />
                         )}
                       </div>
                     </div>
@@ -281,11 +286,12 @@ const ProductCard = ({ viewMode }) => {
                 </div>
                 <ProductDescription
                   show={showDescriptions[_id]}
-                  name={name}
                   description={description}
+                  price={price}
+                  condition={condition}
+                  owner={ownerData}
                   PLZ={PLZ}
                   city={city}
-                  onToggle={() => handleToggleDescription(_id)}
                 />
               </li>
             );
