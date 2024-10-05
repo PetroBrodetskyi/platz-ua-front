@@ -134,13 +134,14 @@ const ProductCard = ({ viewMode }) => {
         <div>
           <Skeleton
             variant="rectangular"
+            animation="pulse"
             className={`${scss.skelet} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
           />
           <div>
-            <Skeleton variant="text" width="60%" />
-            <Skeleton variant="text" width="40%" />
-            <Skeleton variant="text" width="100%" />
-            <Skeleton variant="text" width="80%" />
+            <Skeleton variant="text" width="60%" animation="pulse" />
+            <Skeleton variant="text" width="40%" animation="pulse" />
+            <Skeleton variant="text" width="100%" animation="pulse" />
+            <Skeleton variant="text" width="80%" animation="pulse" />
           </div>
         </div>
       </li>
