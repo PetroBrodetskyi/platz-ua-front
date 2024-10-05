@@ -158,7 +158,7 @@ const ProductCard = ({ viewMode }) => {
       >
         <ul className={`${scss.list} ${scss[viewMode]}`}>
           {loading
-            ? renderSkeletons(6)
+            ? renderSkeletons(4)
             : products.map((product) => {
                 const {
                   _id,
