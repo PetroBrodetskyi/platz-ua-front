@@ -265,9 +265,14 @@ const ProductCard = ({ viewMode }) => {
                         )}
                       </div>
                     </div>
-                    {showDescriptions[_id] && (
-                      <ProductDescription product={product} />
-                    )}
+                    <ProductDescription
+                      show={showDescriptions[_id]}
+                      name={name}
+                      description={description}
+                      PLZ={PLZ}
+                      city={city}
+                      onToggle={() => handleToggleDescription(_id)}
+                    />
                   </div>
                 </div>
               </li>

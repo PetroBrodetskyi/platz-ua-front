@@ -1,7 +1,7 @@
 @import 'src/styles/mixins';
 
 .footer {
-  background-color: #1f1f1fd5;
+  background-color: var(--grey);
   color: var(--white);
   padding: 40px;
   width: 100%;
