@@ -26,13 +26,14 @@
   display: flex;
 
   &.gridItem {
-    min-width: 500px;
+    width: 100%;
+    min-width: 767px;
     height: 180px;
   }
 
   &.listItem {
-    min-width: 500px;
-    height: 320px;
+    min-width: 767px;
+    height: 360px;
   }
 
   @include media-rules(tablet) {

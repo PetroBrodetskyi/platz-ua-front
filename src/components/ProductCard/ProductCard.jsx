@@ -79,23 +79,13 @@ const ProductCard = ({ viewMode }) => {
         } finally {
           setLoadingOwners((prev) => ({ ...prev, [ownerId]: false }));
         }
-      } else if (owners[ownerId]) {
-        const ownerData = await dispatch(fetchUserById(ownerId)).unwrap();
-        if (ownerData.avatarURL !== owners[ownerId].avatarURL) {
-          setOwners((prev) => ({
-            ...prev,
-            [ownerId]: ownerData
-          }));
-          localStorage.setItem(
-            'owners',
-            JSON.stringify({ ...owners, [ownerId]: ownerData })
-          );
-        }
       }
     };
 
     products.forEach(({ owner }) => {
-      if (owner) fetchOwner(owner);
+      if (owner && !owners[owner]) {
+        fetchOwner(owner);
+      }
     });
   }, [products, owners, loadingOwners, dispatch]);
 
@@ -138,10 +128,10 @@ const ProductCard = ({ viewMode }) => {
             className={`${scss.skelet} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
           />
           <div>
-            <Skeleton variant="text" width="60%" animation="pulse" />
-            <Skeleton variant="text" width="40%" animation="pulse" />
             <Skeleton variant="text" width="100%" animation="pulse" />
             <Skeleton variant="text" width="80%" animation="pulse" />
+            <Skeleton variant="text" width="60%" animation="pulse" />
+            <Skeleton variant="text" width="100%" animation="pulse" />
           </div>
         </div>
       </li>
@@ -158,7 +148,7 @@ const ProductCard = ({ viewMode }) => {
       >
         <ul className={`${scss.list} ${scss[viewMode]}`}>
           {loading
-            ? renderSkeletons(4)
+            ? renderSkeletons(6)
             : products.map((product) => {
                 const {
                   _id,
