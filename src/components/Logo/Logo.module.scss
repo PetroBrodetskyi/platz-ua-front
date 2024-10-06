@@ -2,19 +2,33 @@
 
 .logoFlex {
   display: flex;
+  align-items: center;
   cursor: pointer;
+  gap: 10px;
+}
+
+.logoImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 6px 20px rgba(177, 177, 177, 0.786);
 }
 
 .logoLink {
   text-decoration: none;
 }
 
+.text {
+  color: var(--white);
+}
+
 .logo {
   font-size: 44px;
   font-weight: bold;
   display: flex;
+  gap: 2px;
   align-items: center;
-  background-color: var(--white);
+  color: var(--white);
 
   @media (max-width: $tablet) {
     font-size: 38px;
@@ -24,57 +38,31 @@
     font-size: 42px;
   }
 
-  .logoLetterP {
-    color: #000;
-    line-height: 1;
-  }
-
-  .logoLetterL {
-    color: #ff0202;
-    line-height: 1;
-  }
-
-  .logoLetterA {
-    color: var(--gold);
-    line-height: 1;
-  }
-
-  .logoLetterT {
-    color: #000;
-    line-height: 1;
-  }
-
-  .logoLetterZ {
-    color: #ff0202;
-    line-height: 1;
-  }
-
-  .logoLetterU {
-    font-size: 18px;
+  .letterU {
+    font-size: 14px;
     vertical-align: super;
-    color: #0057b7;
-    margin-left: 2px;
+    color: #3586dc;
 
-    @media (max-width: $tablet) {
+    @media (min-width: $tablet) {
       font-size: 16px;
     }
 
-    @media (max-width: $mobile) {
-      font-size: 14px;
+    @media (min-width: $desktop) {
+      font-size: 18px;
     }
   }
 
-  .logoLetterA2 {
-    font-size: 18px;
-    vertical-align: super;
+  .letterA {
+    font-size: 14px;
     color: var(--yellow);
+    vertical-align: super;
 
-    @media (max-width: $tablet) {
+    @media (min-width: $tablet) {
       font-size: 16px;
     }
 
-    @media (max-width: $mobile) {
-      font-size: 14px;
+    @media (min-width: $desktop) {
+      font-size: 18px;
     }
   }
 }

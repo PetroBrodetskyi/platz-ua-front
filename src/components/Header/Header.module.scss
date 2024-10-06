@@ -3,7 +3,7 @@
 .header {
   display: flex;
   align-items: center;
-  background: var(--white);
+  background: var(--grey);
   width: 100%;
   padding: 10px;
 
@@ -76,6 +76,7 @@
         align-items: center;
         cursor: pointer;
         font-size: 20px;
+        color: var(--white);
 
         @media (max-width: $tablet) {
           font-size: 20px;

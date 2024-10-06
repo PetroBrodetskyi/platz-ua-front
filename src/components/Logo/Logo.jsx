@@ -9,17 +9,17 @@ const Logo = () => {
         className={scss.logoLink}
         aria-label="Перейти на головну сторінку"
       >
-        <div className={scss.logoBackground}>
-          <h1 className={scss.logo}>
-            <span className={scss.logoLetterP}>P</span>
-            <span className={scss.logoLetterL}>l</span>
-            <span className={scss.logoLetterA}>a</span>
-            <span className={scss.logoLetterT}>t</span>
-            <span className={scss.logoLetterZ}>z</span>
-            <span className={scss.logoLetterU}>U</span>
-            <span className={scss.logoLetterA2}>A</span>
-          </h1>
-          <h5>Der Marktplatz für Ukrainer</h5>
+        <div className={scss.logoFlex}>
+          <img src="/logo.svg" alt="Logo" className={scss.logoImage} />
+          <div className={scss.logoText}>
+            <h1 className={scss.logo}>
+              <span>Platz</span>
+              <div className={scss.logoLetters}>
+                <span className={scss.letterU}>U</span>
+                <span className={scss.letterA}>A</span>
+              </div>
+            </h1>
+          </div>
         </div>
       </NavLink>
     </div>
