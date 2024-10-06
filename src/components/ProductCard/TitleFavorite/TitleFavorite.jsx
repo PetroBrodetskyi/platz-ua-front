@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from 'react-icons/md';
 import { RiMessage3Line, RiSendPlaneLine } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
-import CommentsModal from '../CommentsModal/CommentsModal';
-import ShareModal from '../ShareModal/ShareModal';
+import CommentsModal from '../CommentsModal';
+import ShareModal from '../ShareModal';
 import scss from './TitleFavorite.module.scss';
 
 const TitleFavorite = ({

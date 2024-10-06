@@ -8,7 +8,7 @@ import {
   addComment,
   deleteComment
 } from '../../../redux/features/commentsSlice.js';
-import Notification from '../../Notification/Notification';
+import Notification from '../../Notification';
 import { TbGhost } from 'react-icons/tb';
 import { LuArrowUpCircle } from 'react-icons/lu';
 import { nanoid } from 'nanoid';

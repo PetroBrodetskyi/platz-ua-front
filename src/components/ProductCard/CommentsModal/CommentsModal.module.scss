@@ -24,6 +24,9 @@
   display: flex;
   flex-direction: column;
   position: fixed;
+  @include media-rules(desktop) {
+    border-radius: 8px;
+  }
 }
 
 .container {
@@ -38,6 +41,10 @@
   align-items: center;
   padding: 20px;
   background-color: var(--light-bg);
+
+  @include media-rules(desktop) {
+    border-radius: 8px 8px 0 0;
+  }
 
   .title {
     margin: 0;
@@ -91,6 +98,10 @@
   gap: 10px;
   border-top: 1px solid #ddd;
   background-color: var(--light-bg);
+
+  @include media-rules(desktop) {
+    border-radius: 0 0 8px 8px;
+  }
 }
 
 .addComment {

@@ -2,7 +2,7 @@ import Modal from 'react-modal';
 import { FiX } from 'react-icons/fi';
 import { Helmet } from 'react-helmet';
 import scss from './ShareModal.module.scss';
-import ShareButton from '../ShareButton/ShareButton';
+import ShareButton from '../ShareButton';
 import { useEffect } from 'react';
 
 Modal.setAppElement('#root');

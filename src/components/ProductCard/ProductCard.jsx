@@ -16,9 +16,9 @@ import { RiPlayList2Fill } from 'react-icons/ri';
 import Skeleton from '@mui/material/Skeleton';
 import Notification from '../Notification/Notification';
 import TitleFavorite from './TitleFavorite/TitleFavorite';
-import CartPrice from './CartPrice/CartPrice';
-import CreateCondition from './CreateCondition/CreateCondition';
-import ProductDescription from './ProductDescription/ProductDescription';
+import CartPrice from './CartPrice';
+import CreateCondition from './CreateCondition';
+import ProductDescription from './ProductDescription';
 import scss from './ProductCard.module.scss';
 
 const ProductCard = ({ viewMode }) => {

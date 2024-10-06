@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import axios from 'axios';
 import scss from './UserProfile.module.scss';
-import Loader from '../Loader/Loader';
+import Loader from '../Loader';
 import { useSelector } from 'react-redux';
 
 const UserProfile = ({ user }) => {
