@@ -10,15 +10,9 @@ import { fetchUserById } from '../../redux/features/authSlice';
 import { toggleFavorite } from '../../redux/features/favoritesSlice';
 import { addToCart, removeFromCart } from '../../redux/features/cartSlice';
 import { useNavigate } from 'react-router-dom';
-import { HiOutlineEye } from 'react-icons/hi';
-import { IoChevronUpOutline } from 'react-icons/io5';
-import { RiPlayList2Fill } from 'react-icons/ri';
 import Skeleton from '@mui/material/Skeleton';
 import Notification from '../Notification/Notification';
-import TitleFavorite from './TitleFavorite/TitleFavorite';
-import CartPrice from './CartPrice';
-import CreateCondition from './CreateCondition';
-import ProductDescription from './ProductDescription';
+import Card from './Card';
 import scss from './ProductCard.module.scss';
 
 const ProductCard = ({ viewMode }) => {
@@ -45,7 +39,7 @@ const ProductCard = ({ viewMode }) => {
     const loadProducts = async () => {
       try {
         const response = await dispatch(
-          fetchProducts({ page: currentPage, limit: 4 })
+          fetchProducts({ page: currentPage, limit: 6 })
         ).unwrap();
         if (response.length === 0 || products.length >= totalProducts) {
           setHasMore(false);
@@ -149,162 +143,31 @@ const ProductCard = ({ viewMode }) => {
           {loading
             ? renderSkeletons(6)
             : products.map((product) => {
-                const {
-                  _id,
-                  name,
-                  description,
-                  createdAt,
-                  condition,
-                  price,
-                  image1,
-                  owner,
-                  views,
-                  PLZ,
-                  city
-                } = product;
-                const isInCart = cartItems.some((item) => item._id === _id);
-                const ownerData = owners[owner];
+                const isInCart = cartItems.some(
+                  (item) => item._id === product._id
+                );
+                const ownerData = owners[product.owner];
 
                 return (
-                  <li
-                    key={_id}
-                    className={`${scss.productItem} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-                  >
-                    <div
-                      className={`${scss.product} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-                    >
-                      <div
-                        className={`${scss.productImage} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-                      >
-                        <div className={scss.ownerViews}>
-                          {ownerData ? (
-                            <div
-                              className={scss.ownerContainer}
-                              onClick={() => handleOwnerClick(ownerData._id)}
-                            >
-                              <img
-                                src={ownerData.avatarURL}
-                                alt={ownerData.name}
-                                className={`${scss.avatar} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-                                loading="lazy"
-                              />
-                              <div
-                                className={`${scss.name} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-                              >
-                                {ownerData.name}
-                              </div>
-                            </div>
-                          ) : (
-                            <div className={scss.ownerContainer}>
-                              <Skeleton
-                                variant="circular"
-                                width={40}
-                                height={40}
-                              />
-                              <Skeleton variant="text" width={100} />
-                            </div>
-                          )}
-                          <div
-                            className={`${scss.viewsQuantity} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-                          >
-                            <p>{views ?? 'N/A'}</p>
-                            <HiOutlineEye
-                              className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-                            />
-                          </div>
-                        </div>
-                        {image1 ? (
-                          <img
-                            src={image1}
-                            alt={name}
-                            onClick={() => handleProductClick(_id)}
-                            loading="lazy"
-                            className={scss.image}
-                          />
-                        ) : loading ? (
-                          <Skeleton
-                            variant="rectangular"
-                            width="100%"
-                            height={118}
-                            animation="pulse"
-                          />
-                        ) : null}
-                      </div>
-                      <div
-                        className={`${scss.productInfo} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-                      >
-                        <div>
-                          {ownerData ? (
-                            <TitleFavorite
-                              name={name}
-                              price={price}
-                              description={description}
-                              image={image1}
-                              city={city}
-                              id={_id}
-                              onFavoriteToggle={() =>
-                                dispatch(toggleFavorite(_id))
-                              }
-                              isFavorite={favorites.includes(_id)}
-                            />
-                          ) : (
-                            <Skeleton variant="text" width={150} />
-                          )}
-                          <p
-                            className={`${scss.description} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-                          >
-                            {description}
-                          </p>
-                        </div>
-                        <div className={scss.dateCart}>
-                          <div>
-                            {createdAt && (
-                              <CreateCondition
-                                addedDate={createdAt}
-                                condition={condition}
-                              />
-                            )}
-                          </div>
-                          <div
-                            className={`${scss.expandButtonContainer} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-                          >
-                            <button
-                              className={scss.expandButton}
-                              onClick={() => handleToggleDescription(_id)}
-                            >
-                              {showDescriptions[_id] ? (
-                                <IoChevronUpOutline className={scss.icon} />
-                              ) : (
-                                <RiPlayList2Fill className={scss.icon} />
-                              )}
-                            </button>
-                          </div>
-                          <div>
-                            {exchangeRate !== null ? (
-                              <CartPrice
-                                price={price}
-                                exchangeRate={exchangeRate}
-                                onAddToCart={() =>
-                                  handleAddToCart(product, isInCart)
-                                }
-                                isInCart={isInCart}
-                              />
-                            ) : (
-                              <Skeleton variant="text" width={80} />
-                            )}
-                          </div>
-                        </div>
-                        <ProductDescription
-                          show={showDescriptions[_id]}
-                          name={name}
-                          description={description}
-                          PLZ={PLZ}
-                          city={city}
-                          onToggle={() => handleToggleDescription(_id)}
-                        />
-                      </div>
-                    </div>
-                  </li>
+                  <Card
+                    key={product._id}
+                    product={product}
+                    ownerData={ownerData}
+                    isInCart={isInCart}
+                    favorites={favorites}
+                    showDescription={showDescriptions[product._id]}
+                    exchangeRate={exchangeRate}
+                    onToggleDescription={() =>
+                      handleToggleDescription(product._id)
+                    }
+                    onAddToCart={() => handleAddToCart(product, isInCart)}
+                    onFavoriteToggle={() =>
+                      dispatch(toggleFavorite(product._id))
+                    }
+                    onProductClick={handleProductClick}
+                    onOwnerClick={handleOwnerClick}
+                    viewMode={viewMode}
+                  />
                 );
               })}
         </ul>
