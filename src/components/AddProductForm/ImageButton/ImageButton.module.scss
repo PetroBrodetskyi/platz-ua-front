@@ -19,7 +19,7 @@ $form-gap-mobile: 18px;
     width: 180px;
     height: 180px;
     background-color: #68686831;
-    border: 2px solid var(--grey);
+    border: 2px solid var(--dark-grey);
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -27,6 +27,7 @@ $form-gap-mobile: 18px;
 
     &:hover {
       background-color: #4b4b4b;
+      color: var(--white);
     }
 
     .icon {

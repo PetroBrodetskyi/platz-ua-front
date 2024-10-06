@@ -5,9 +5,9 @@ import { RiPlayList2Fill } from 'react-icons/ri';
 import Skeleton from '@mui/material/Skeleton';
 import CreateCondition from '../CreateCondition';
 import ProductDescription from '../ProductDescription';
-import TitleFavorite from '../TitleFavorite/TitleFavorite';
+import TitleFavorite from '../TitleFavorite';
 import CartPrice from '../CartPrice';
-import scss from '../ProductCard.module.scss';
+import scss from './Card.module.scss';
 
 const Card = ({
   product,

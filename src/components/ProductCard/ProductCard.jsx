@@ -37,6 +37,7 @@ const ProductCard = ({ viewMode }) => {
 
   useEffect(() => {
     const loadProducts = async () => {
+      setLoading(true);
       try {
         const response = await dispatch(
           fetchProducts({ page: currentPage, limit: 6 })
@@ -54,7 +55,7 @@ const ProductCard = ({ viewMode }) => {
 
     loadProducts();
     dispatch(fetchExchangeRate());
-  }, [dispatch, currentPage, products.length, totalProducts]);
+  }, [dispatch, currentPage, totalProducts]);
 
   useEffect(() => {
     const fetchOwner = async (ownerId) => {
@@ -62,11 +63,9 @@ const ProductCard = ({ viewMode }) => {
         setLoadingOwners((prev) => ({ ...prev, [ownerId]: true }));
         try {
           const response = await dispatch(fetchUserById(ownerId)).unwrap();
-          setOwners((prev) => {
-            const newOwners = { ...prev, [ownerId]: response };
-            localStorage.setItem('owners', JSON.stringify(newOwners));
-            return newOwners;
-          });
+          const updatedOwners = { ...owners, [ownerId]: response };
+          setOwners(updatedOwners);
+          localStorage.setItem('owners', JSON.stringify(updatedOwners));
         } catch (error) {
           console.error('Failed to fetch owner:', error);
         } finally {
@@ -76,9 +75,7 @@ const ProductCard = ({ viewMode }) => {
     };
 
     products.forEach(({ owner }) => {
-      if (owner && !owners[owner]) {
-        fetchOwner(owner);
-      }
+      if (owner) fetchOwner(owner);
     });
   }, [products, owners, loadingOwners, dispatch]);
 
@@ -88,9 +85,7 @@ const ProductCard = ({ viewMode }) => {
   };
 
   const handleOwnerClick = (ownerId) => {
-    if (ownerId) {
-      navigate(`/user/${ownerId}`);
-    }
+    if (ownerId) navigate(`/user/${ownerId}`);
   };
 
   const handleAddToCart = (product, isInCart) => {
@@ -114,18 +109,16 @@ const ProductCard = ({ viewMode }) => {
   const renderSkeletons = (count) => {
     return Array.from({ length: count }).map((_, index) => (
       <li key={index}>
+        <Skeleton
+          variant="rectangular"
+          animation="pulse"
+          className={`${scss.skelet} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+        />
         <div>
-          <Skeleton
-            variant="rectangular"
-            animation="pulse"
-            className={`${scss.skelet} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-          />
-          <div>
-            <Skeleton variant="text" width="100%" animation="pulse" />
-            <Skeleton variant="text" width="80%" animation="pulse" />
-            <Skeleton variant="text" width="60%" animation="pulse" />
-            <Skeleton variant="text" width="100%" animation="pulse" />
-          </div>
+          <Skeleton variant="text" width="100%" animation="pulse" />
+          <Skeleton variant="text" width="80%" animation="pulse" />
+          <Skeleton variant="text" width="60%" animation="pulse" />
+          <Skeleton variant="text" width="100%" animation="pulse" />
         </div>
       </li>
     ));

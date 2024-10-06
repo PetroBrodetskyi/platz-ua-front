@@ -2,13 +2,13 @@
 
 $padding-desktop: 100px 40px;
 $padding-tablet: 16px;
-$padding-mobile: 4px;
+$padding-mobile: 24px 0;
 
 .home {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 0;
+  padding: $padding-mobile;
 
   @include media-rules(tablet) {
     padding: $padding-tablet;

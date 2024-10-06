@@ -5,11 +5,11 @@ import { IoMdInformationCircleOutline } from 'react-icons/io';
 const CategorySelector = ({ categories, subcategories, register, errors }) => (
   <div className={scss.formGroup}>
     <div className={scss.info}>
-      <h4>Виберіть категорію та від 1 до 3 підкатегорій</h4>
+      <h4>Виберіть розділ та від 1 до 3 категорій</h4>
       <IoMdInformationCircleOutline className={scss.icon} />
     </div>
     <select id="category" {...register('category', { required: true })}>
-      <option value="">Виберіть категорію</option>
+      <option value="">Виберіть розділ</option>
       {categories.map((cat) => (
         <option key={cat.name} value={cat.name}>
           {cat.name}

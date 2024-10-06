@@ -56,15 +56,15 @@ const Header = ({ onClick }) => {
             </button>
           </NavLink>
         </div>
+        <div className={scss.menu}>
+          <Catalog />
 
-        <Catalog />
-
-        <SearchLocation
-          onSearch={(products) => {
-            products;
-          }}
-        />
-
+          <SearchLocation
+            onSearch={(products) => {
+              products;
+            }}
+          />
+        </div>
         <div className={scss.userMenu}>
           <NavLink to={getUserProfileUrl()}>
             <button

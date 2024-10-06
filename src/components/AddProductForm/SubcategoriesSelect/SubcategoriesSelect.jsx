@@ -10,7 +10,7 @@ const SubcategoriesSelect = ({ subcategories, register, errors }) => {
           {...register('subcategory1', { required: true })}
           autoComplete="off"
         >
-          <option value="">Виберіть підкатегорію</option>
+          <option value="">Виберіть категорію</option>
           {subcategories.map((subcat) => (
             <option key={subcat} value={subcat}>
               {subcat}
@@ -26,7 +26,7 @@ const SubcategoriesSelect = ({ subcategories, register, errors }) => {
           {...register('subcategory2')}
           autoComplete="off"
         >
-          <option value="">Виберіть підкатегорію</option>
+          <option value="">Виберіть категорію</option>
           {subcategories.map((subcat) => (
             <option key={subcat} value={subcat}>
               {subcat}
@@ -41,7 +41,7 @@ const SubcategoriesSelect = ({ subcategories, register, errors }) => {
           {...register('subcategory3')}
           autoComplete="off"
         >
-          <option value="">Виберіть підкатегорію</option>
+          <option value="">Виберіть категорію</option>
           {subcategories.map((subcat) => (
             <option key={subcat} value={subcat}>
               {subcat}

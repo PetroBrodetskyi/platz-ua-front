@@ -1,4 +1,23 @@
+@import 'src/styles/mixins';
+
 .catalog {
   display: flex;
   justify-content: center;
+}
+.button {
+  padding: 4px;
+
+  @include media-rules(tablet) {
+    padding: 10px;
+  }
+}
+.icon {
+  font-size: 34px;
+  color: var(--red);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &.hover {
+    background: #000;
+  }
 }
