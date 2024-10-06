@@ -18,10 +18,8 @@ import Notification from '../Notification/Notification';
 import TitleFavorite from './TitleFavorite/TitleFavorite';
 import CartPrice from './CartPrice/CartPrice';
 import CreateCondition from './CreateCondition/CreateCondition';
-// import Loader from '../Loader/Loader';
 import ProductDescription from './ProductDescription/ProductDescription';
 import scss from './ProductCard.module.scss';
-import GalleryCard from '../ProductCard/GalleryCard/GalleryCard';
 
 const ProductCard = ({ viewMode }) => {
   const dispatch = useDispatch();
@@ -215,7 +213,7 @@ const ProductCard = ({ viewMode }) => {
                             />
                           </div>
                         </div>
-                        {/* {image1 ? (
+                        {image1 ? (
                           <img
                             src={image1}
                             alt={name}
@@ -230,8 +228,7 @@ const ProductCard = ({ viewMode }) => {
                             height={118}
                             animation="pulse"
                           />
-                        ) : null} */}
-                        <GalleryCard images={product} />
+                        ) : null}
                       </div>
                       <div
                         className={`${scss.productInfo} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
