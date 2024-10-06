@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import Categories from '../../components/Categories/Categories';
 import ProductList from '../../components/ProductList/ProductList';
 import CreateAdButton from '../../components/CreateAdButton/CreateAdButton';
 import Logout from '../../components/Logout/Logout';
@@ -35,7 +34,6 @@ const Home = () => {
           onClose={handleCloseNotification}
         />
       )}
-      <Categories />
       <ProductList />
       <CreateAdButton />
       {user && <Logout onLogout={handleLogout} />}

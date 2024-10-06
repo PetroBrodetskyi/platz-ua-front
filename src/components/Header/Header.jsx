@@ -8,6 +8,7 @@ import scss from './Header.module.scss';
 import SearchLocation from '../SearchLocation/SearchLocation';
 import Logo from '../Logo/Logo';
 import { fetchCurrentUser } from '../../redux/features/authSlice';
+import Catalog from '../Catalog';
 
 const Header = ({ onClick }) => {
   const dispatch = useDispatch();
@@ -36,7 +37,6 @@ const Header = ({ onClick }) => {
   const renderUserInfo = () =>
     user && (
       <div className={scss.userInfo}>
-        {/* <span>{user.name}</span> */}
         <img src={user.avatarURL} alt={user.name} className={scss.avatar} />
       </div>
     );
@@ -56,11 +56,15 @@ const Header = ({ onClick }) => {
             </button>
           </NavLink>
         </div>
+
+        <Catalog />
+
         <SearchLocation
           onSearch={(products) => {
             products;
           }}
         />
+
         <div className={scss.userMenu}>
           <NavLink to={getUserProfileUrl()}>
             <button

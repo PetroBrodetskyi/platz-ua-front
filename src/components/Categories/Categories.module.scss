@@ -1,9 +1,5 @@
 @import 'src/styles/mixins';
 
-$padding-desktop: 90px 0 0;
-$padding-tablet: 80px 0 0;
-$padding-mobile: 10px;
-
 $gap-desktop: 20px;
 $gap-tablet: 8px;
 $gap-mobile: 4px;
@@ -12,33 +8,34 @@ $gap-mobile: 4px;
   display: flex;
   flex-direction: column;
   gap: $gap-desktop;
-  padding: $padding-mobile;
-
-  @include media-rules(tablet) {
-    padding: $padding-mobile;
-  }
-
-  @include media-rules(desktop) {
-    padding: $padding-desktop;
-  }
+  padding: 40px 20px;
+  min-width: 98vw;
+  min-height: 90vh;
 
   .container {
     display: flex;
     flex-direction: column;
-    gap: $gap-tablet;
+    gap: $gap-desktop;
+
+    @include media-rules(tablet) {
+      gap: $gap-tablet;
+    }
 
     @include media-rules(desktop) {
-      gap: $gap-desktop;
+      flex-direction: row;
     }
 
     .categoryButtons {
       display: flex;
-      justify-content: center;
       flex-wrap: wrap;
       gap: $gap-mobile;
 
       @include media-rules(tablet) {
-        gap: $gap-tablet;
+        width: 25%;
+      }
+
+      @include media-rules(desktop) {
+        flex-direction: column;
       }
 
       &::-webkit-scrollbar {
@@ -49,24 +46,17 @@ $gap-mobile: 4px;
     .categoryButton {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       background-color: var(--white);
       color: var(--grey);
       font-size: 14px;
-      gap: 4px;
-      padding: 8px;
+      gap: 8px;
+      padding: 12px;
       border-radius: 4px;
       cursor: pointer;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
       @include transition(background-color);
-
-      @include media-rules(desktop) {
-        flex-direction: column;
-        border-radius: 50%;
-        width: 120px;
-        height: 120px;
-      }
 
       &:hover {
         background-color: var(--yellow);
@@ -87,8 +77,8 @@ $gap-mobile: 4px;
         }
 
         @include media-rules(desktop) {
-          width: 50px;
-          height: 50px;
+          width: 20px;
+          height: 20px;
         }
       }
     }
@@ -135,21 +125,36 @@ $gap-mobile: 4px;
     }
 
     .subcategories {
-      width: 100%;
-      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      width: 70%;
 
       .subcategoryButtons {
         display: flex;
-        justify-content: center;
         flex-wrap: wrap;
         gap: $gap-mobile;
 
         @include media-rules(tablet) {
           gap: $gap-tablet;
         }
+      }
 
-        @include media-rules(desktop) {
-          gap: $gap-tablet;
+      .subcategoryButton {
+        padding: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        border-radius: 4px;
+        background-color: var(--white);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        &:hover {
+          background-color: var(--dark-violet);
+          color: var(--white);
+        }
+
+        &.active {
+          background-color: var(--yellow);
+          color: var(--white);
         }
       }
     }

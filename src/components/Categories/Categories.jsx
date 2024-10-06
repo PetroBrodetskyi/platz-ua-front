@@ -4,7 +4,9 @@ import data from './products.json';
 import { getCategoryIcon, getSubcategoryIcon } from './icons.jsx';
 
 const Categories = ({ onSubcategoriesChange }) => {
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(
+    data.products[0].name
+  );
   const [selectedSubcategories, setSelectedSubcategories] = useState([]);
 
   useEffect(() => {
@@ -13,14 +15,9 @@ const Categories = ({ onSubcategoriesChange }) => {
     }
   }, [selectedSubcategories, onSubcategoriesChange]);
 
-  const handleCategoryClick = (category) => {
-    if (selectedCategory === category) {
-      setSelectedCategory(null);
-      setSelectedSubcategories([]);
-    } else {
-      setSelectedCategory(category);
-      setSelectedSubcategories([]);
-    }
+  const handleCategoryHover = (category) => {
+    setSelectedCategory(category);
+    setSelectedSubcategories([]); // Очищаємо підкатегорії при зміні категорії
   };
 
   const handleSubcategoryClick = (subcategory) => {
@@ -44,7 +41,7 @@ const Categories = ({ onSubcategoriesChange }) => {
             <button
               key={index}
               className={`${scss.categoryButton} ${selectedCategory === product.name ? scss.active : ''}`}
-              onClick={() => handleCategoryClick(product.name)}
+              onMouseEnter={() => handleCategoryHover(product.name)} // Заміна onClick на onMouseEnter
             >
               {getCategoryIcon(product.name)}
               {product.name}
@@ -52,25 +49,23 @@ const Categories = ({ onSubcategoriesChange }) => {
           ))}
         </div>
 
-        {selectedCategory && (
-          <div className={scss.subcategories}>
-            <div className={scss.subcategoryButtons}>
-              {sortedProducts
-                .find((product) => product.name === selectedCategory)
-                .categories.sort((a, b) => a.localeCompare(b))
-                .map((subcategory, index) => (
-                  <button
-                    key={index}
-                    className={`${scss.subcategoryButton} ${selectedSubcategories.includes(subcategory) ? scss.active : ''}`}
-                    onClick={() => handleSubcategoryClick(subcategory)}
-                  >
-                    {getSubcategoryIcon(subcategory)}
-                    {subcategory}
-                  </button>
-                ))}
-            </div>
+        <div className={scss.subcategories}>
+          <div className={scss.subcategoryButtons}>
+            {sortedProducts
+              .find((product) => product.name === selectedCategory)
+              .categories.sort((a, b) => a.localeCompare(b))
+              .map((subcategory, index) => (
+                <button
+                  key={index}
+                  className={`${scss.subcategoryButton} ${selectedSubcategories.includes(subcategory) ? scss.active : ''}`}
+                  onClick={() => handleSubcategoryClick(subcategory)}
+                >
+                  {getSubcategoryIcon(subcategory)}
+                  {subcategory}
+                </button>
+              ))}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
