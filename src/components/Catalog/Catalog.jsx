@@ -32,7 +32,8 @@ const Catalog = () => {
         TransitionComponent={Fade}
         transitionDuration={350}
         anchorOrigin={{
-          vertical: 'bottom'
+          vertical: 'bottom',
+          horizontal: 'right'
         }}
         transformOrigin={{
           vertical: 'top',

@@ -58,6 +58,7 @@ const Header = ({ onClick }) => {
         </div>
         <div className={scss.menu}>
           <Catalog />
+
           <SearchLocation
             onSearch={(products) => {
               products;
