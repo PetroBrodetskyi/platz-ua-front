@@ -37,7 +37,6 @@ const ProductCard = ({ viewMode }) => {
 
   useEffect(() => {
     const loadProducts = async () => {
-      setLoading(true);
       try {
         const response = await dispatch(
           fetchProducts({ page: currentPage, limit: 6 })
@@ -55,7 +54,7 @@ const ProductCard = ({ viewMode }) => {
 
     loadProducts();
     dispatch(fetchExchangeRate());
-  }, [dispatch, currentPage, totalProducts]);
+  }, [dispatch, currentPage, products.length, totalProducts]);
 
   useEffect(() => {
     const fetchOwner = async (ownerId) => {
