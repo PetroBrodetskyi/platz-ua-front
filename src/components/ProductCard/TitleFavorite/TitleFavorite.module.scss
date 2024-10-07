@@ -34,10 +34,10 @@
     cursor: pointer;
 
     &.listItem {
-      font-size: 20px;
+      font-size: 22px;
 
       @include media-rules(tablet) {
-        font-size: 20px;
+        font-size: 22px;
       }
 
       @include media-rules(desktop) {

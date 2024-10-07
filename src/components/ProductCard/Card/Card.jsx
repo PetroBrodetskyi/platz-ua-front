@@ -99,7 +99,9 @@ const Card = ({
         <div
           className={`${scss.productInfo} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
         >
-          <div>
+          <div
+            className={`${scss.titleDescription} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+          >
             {ownerData ? (
               <TitleFavorite
                 name={name}

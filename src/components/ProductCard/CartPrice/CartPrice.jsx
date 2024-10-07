@@ -1,7 +1,13 @@
 import { PiShoppingCart, PiShoppingCartFill } from 'react-icons/pi';
 import scss from './CartPrice.module.scss';
 
-const CartPrice = ({ price, exchangeRate, onAddToCart, isInCart }) => {
+const CartPrice = ({
+  price,
+  exchangeRate,
+  onAddToCart,
+  isInCart,
+  viewMode
+}) => {
   const priceInUAH = (price * exchangeRate).toFixed(2);
 
   return (
@@ -10,7 +16,9 @@ const CartPrice = ({ price, exchangeRate, onAddToCart, isInCart }) => {
         <p className={scss.priceInUAH}>₴{priceInUAH}</p>
         <div className={scss.priceContainer}>
           <p className={scss.productPrice}>€{price}</p>
-          <div className={scss.icon}>
+          <div
+            className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+          >
             {isInCart ? <PiShoppingCartFill /> : <PiShoppingCart />}
           </div>
         </div>

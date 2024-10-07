@@ -50,8 +50,12 @@
   .icon {
     font-size: 18px;
 
+    &.listItem {
+      font-size: 24px;
+    }
+
     @include media-rules(tablet) {
-      font-size: 20px;
+      font-size: 24px;
     }
 
     @include media-rules(desktop) {
