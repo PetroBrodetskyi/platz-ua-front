@@ -13,7 +13,7 @@ const CartPrice = ({
 
   return (
     <div className={scss.cartPriceContainer}>
-      <button type="button" className={scss.cartPrice} onClick={onAddToCart}>
+      <div className={scss.cartPrice}>
         <p className={scss.priceInUAH}>₴{priceInUAH}</p>
         <div className={scss.priceContainer}>
           <p className={scss.productPrice}>€{price}</p>
@@ -22,16 +22,15 @@ const CartPrice = ({
             arrow
           >
             <button
-              type="button"
               className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-              aria-label={isInCart ? 'Видалити з кошика' : 'Додати у кошик'}
               onClick={onAddToCart}
+              type="button"
             >
               {isInCart ? <PiShoppingCartFill /> : <PiShoppingCart />}
             </button>
           </Tooltip>
         </div>
-      </button>
+      </div>
     </div>
   );
 };

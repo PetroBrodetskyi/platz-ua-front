@@ -3,7 +3,6 @@
 .cartItem {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #ddd;
   background-color: var(--white);
   &:hover {
     background-color: var(--light-grey);

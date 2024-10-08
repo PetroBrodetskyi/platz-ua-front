@@ -13,9 +13,7 @@ export const setupAxiosInterceptors = (store) => {
       }
       return config;
     },
-    (error) => {
-      return Promise.reject(error);
-    }
+    (error) => Promise.reject(error)
   );
 };
 

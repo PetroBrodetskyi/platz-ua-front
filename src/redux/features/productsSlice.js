@@ -12,30 +12,25 @@ const initialState = {
   error: null
 };
 
+const fetchProductsWithParams = async (url, params) => {
+  const response = await axios.get(url, { params });
+  return response.data;
+};
+
 export const fetchProductsByLocation = createAsyncThunk(
   'products/fetchProductsByLocation',
-  async ({ PLZ, city, page = 1 }) => {
-    const response = await axios.get(
-      `/products/public?plz=${PLZ}&city=${city}&page=${page}`
-    );
-    return response.data;
-  }
+  async ({ PLZ, city, page = 1 }) =>
+    fetchProductsWithParams(`/products/public`, { plz: PLZ, city, page })
 );
 
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
-  async ({ page = 1 }) => {
-    const response = await axios.get(`/products/public?page=${page}`);
-    return response.data;
-  }
+  async ({ page = 1 }) => fetchProductsWithParams(`/products/public`, { page })
 );
 
 export const fetchProductById = createAsyncThunk(
   'products/fetchProductById',
-  async (productId) => {
-    const response = await axios.get(`/products/public/${productId}`);
-    return response.data;
-  }
+  async (productId) => fetchProductsWithParams(`/products/public/${productId}`)
 );
 
 export const fetchUserProducts = createAsyncThunk(
@@ -49,22 +44,15 @@ export const fetchUserProducts = createAsyncThunk(
 export const fetchUsersPublicProducts = createAsyncThunk(
   'products/fetchUsersPublicProducts',
   async (userId) => {
-    if (!userId) {
-      throw new Error('User ID is required');
-    }
-    const response = await axios.get(`/products/user/${userId}`);
-    return response.data.reverse();
+    if (!userId) throw new Error('User ID is required');
+    return fetchProductsWithParams(`/products/user/${userId}`);
   }
 );
 
 export const fetchProductsByCategory = createAsyncThunk(
   'products/fetchProductsByCategory',
-  async (category) => {
-    const response = await axios.get('/products/public/category', {
-      params: { category }
-    });
-    return response.data.reverse();
-  }
+  async (category) =>
+    fetchProductsWithParams('/products/public/category', { category })
 );
 
 export const fetchExchangeRate = createAsyncThunk(
@@ -81,11 +69,9 @@ const productsSlice = createSlice({
   reducers: {
     toggleFavorite: (state, action) => {
       const productId = action.payload;
-      if (state.favorites.includes(productId)) {
-        state.favorites = state.favorites.filter((id) => id !== productId);
-      } else {
-        state.favorites.push(productId);
-      }
+      state.favorites = state.favorites.includes(productId)
+        ? state.favorites.filter((id) => id !== productId)
+        : [...state.favorites, productId];
     },
     setLocation(state, action) {
       state.location = action.payload;
@@ -95,119 +81,82 @@ const productsSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
+    const handlePending = (state) => {
+      state.loading = true;
+      state.error = null;
+    };
+
+    const handleFulfilled = (state, action) => {
+      state.loading = false;
+      state.products = [
+        ...state.products,
+        ...action.payload.filter(
+          (product) => !state.products.some((p) => p._id === product._id)
+        )
+      ];
+
+      state.favorites = [
+        ...state.favorites,
+        ...action.payload
+          .filter((product) => product.favorite)
+          .map((product) => product._id)
+      ];
+    };
+
+    const handleRejected = (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    };
+
     builder
-      .addCase(fetchProducts.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.loading = false;
-        const newProducts = action.payload;
-        const existingProductIds = new Set(
-          state.products.map((product) => product._id)
-        );
-
-        const filteredNewProducts = newProducts.filter(
-          (product) => !existingProductIds.has(product._id)
-        );
-
-        state.products = [...state.products, ...filteredNewProducts];
-        state.favorites = [
-          ...state.favorites,
-          ...filteredNewProducts
-            .filter((product) => product.favorite)
-            .map((product) => product._id)
-        ];
-      })
-      .addCase(fetchProducts.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
-      .addCase(fetchProductsByLocation.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+      .addCase(fetchProducts.pending, handlePending)
+      .addCase(fetchProducts.fulfilled, handleFulfilled)
+      .addCase(fetchProducts.rejected, handleRejected)
+      .addCase(fetchProductsByLocation.pending, handlePending)
       .addCase(fetchProductsByLocation.fulfilled, (state, action) => {
         state.loading = false;
         state.products = action.payload;
       })
-      .addCase(fetchProductsByLocation.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
-      .addCase(fetchProductById.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+      .addCase(fetchProductsByLocation.rejected, handleRejected)
+      .addCase(fetchProductById.pending, handlePending)
       .addCase(fetchProductById.fulfilled, (state, action) => {
         state.loading = false;
         state.product = action.payload;
       })
-      .addCase(fetchProductById.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
-      .addCase(fetchUserProducts.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+      .addCase(fetchProductById.rejected, handleRejected)
+      .addCase(fetchUserProducts.pending, handlePending)
       .addCase(fetchUserProducts.fulfilled, (state, action) => {
         state.loading = false;
         state.userProducts = action.payload;
       })
-      .addCase(fetchUserProducts.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
-      .addCase(fetchUsersPublicProducts.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+      .addCase(fetchUserProducts.rejected, handleRejected)
+      .addCase(fetchUsersPublicProducts.pending, handlePending)
       .addCase(fetchUsersPublicProducts.fulfilled, (state, action) => {
         state.loading = false;
         state.userProducts = action.payload;
       })
-      .addCase(fetchUsersPublicProducts.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
-      .addCase(fetchProductsByCategory.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+      .addCase(fetchUsersPublicProducts.rejected, handleRejected)
+      .addCase(fetchProductsByCategory.pending, handlePending)
       .addCase(fetchProductsByCategory.fulfilled, (state, action) => {
         state.loading = false;
         state.products = action.payload;
       })
-      .addCase(fetchProductsByCategory.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
-      .addCase(fetchExchangeRate.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+      .addCase(fetchProductsByCategory.rejected, handleRejected)
+      .addCase(fetchExchangeRate.pending, handlePending)
       .addCase(fetchExchangeRate.fulfilled, (state, action) => {
         state.loading = false;
         state.exchangeRate = action.payload;
       })
-      .addCase(fetchExchangeRate.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      });
+      .addCase(fetchExchangeRate.rejected, handleRejected);
   }
 });
 
+// Selectors
 export const selectProducts = (state) => state.products.products;
-
 export const selectFavorites = (state) => state.products.favorites;
-
 export const selectExchangeRate = (state) => state.products.exchangeRate;
-
 export const selectLoading = (state) => state.products.loading;
-
 export const selectError = (state) => state.products.error;
-
 export const selectProductById = (state, productId) =>
   state.products.products.find((product) => product._id === productId);
 

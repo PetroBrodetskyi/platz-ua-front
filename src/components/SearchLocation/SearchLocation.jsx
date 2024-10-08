@@ -3,7 +3,7 @@ import { IoClose, IoSearchSharp } from 'react-icons/io5';
 import { ButtonBase } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useDispatch } from 'react-redux';
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import scss from './SearchLocation.module.scss';
 import {
   setLocation,
@@ -88,6 +88,13 @@ const SearchLocation = () => {
     dispatch(setLocation(result));
   };
 
+  const tooltipStyles = {
+    [`&.${tooltipClasses.popper}[data-popper-placement*="bottom"] .${tooltipClasses.tooltip}`]:
+      {
+        marginTop: '24px'
+      }
+  };
+
   return (
     <div className={scss.searchLocation}>
       <div className={scss.container}>
@@ -123,7 +130,13 @@ const SearchLocation = () => {
           </div>
         </div>
         <div>
-          <Tooltip title="Пошук" arrow>
+          <Tooltip
+            title="Пошук"
+            placement="bottom-end"
+            slotProps={{
+              popper: { sx: tooltipStyles }
+            }}
+          >
             <ButtonBase
               className={scss.searchButton}
               onClick={handleSearch}

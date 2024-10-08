@@ -49,7 +49,7 @@ const TitleFavorite = ({
         {name}
       </h3>
       <div className={scss.icons}>
-        <Tooltip title="Поділитися" arrow>
+        <Tooltip title="Поділитися" arrow placement="top">
           <button
             className={scss.iconButton}
             onClick={toggleShareModal}
@@ -61,7 +61,7 @@ const TitleFavorite = ({
           </button>
         </Tooltip>
 
-        <Tooltip title="Коментарі" arrow>
+        <Tooltip title="Коментарі" arrow placement="top">
           <button
             className={scss.iconButton}
             onClick={toggleCommentsModal}
@@ -76,6 +76,7 @@ const TitleFavorite = ({
         <Tooltip
           title={isFavorite ? 'Видалити з обраних' : 'Додати в обрані'}
           arrow
+          placement="top"
         >
           <button
             className={scss.iconButton}

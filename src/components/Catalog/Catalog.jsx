@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Popover, Fade } from '@mui/material';
 import Categories from '../Categories';
 import { TfiMenu } from 'react-icons/tfi';
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import scss from './Catalog.module.scss';
 
 const Catalog = () => {
@@ -20,9 +20,21 @@ const Catalog = () => {
     setIsOpen(false);
   };
 
+  const tooltipStyles = {
+    [`&.${tooltipClasses.popper}[data-popper-placement*="bottom"] .${tooltipClasses.tooltip}`]:
+      {
+        marginTop: '20px'
+      }
+  };
+
   return (
     <div className={scss.catalog}>
-      <Tooltip title="Каталог" arrow>
+      <Tooltip
+        title="Каталог"
+        slotProps={{
+          popper: { sx: tooltipStyles }
+        }}
+      >
         <button onClick={handleToggleMenu} className={scss.button}>
           <TfiMenu className={scss.icon} />
         </button>

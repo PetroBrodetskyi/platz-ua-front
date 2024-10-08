@@ -5,7 +5,11 @@ import scss from './Logo.module.scss';
 const Logo = () => {
   return (
     <div className={scss.logoFlex}>
-      <Tooltip title="На головну" arrow>
+      <Tooltip
+        title="На головну"
+        placement="bottom-end"
+        classes={{ tooltip: scss.tooltipCustom }}
+      >
         <NavLink to="/" className={scss.logoLink}>
           <div className={scss.logoFlex}>
             <img src="/logo.svg" alt="Logo" className={scss.logoImage} />

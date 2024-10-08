@@ -5,7 +5,7 @@ import SidebarMyAds from './SidebarMyAds/SidebarMyAds';
 import SidebarCart from './SidebarCart/SidebarCart';
 import scss from './Sidebar.module.scss';
 
-const Sidebar = ({ cartItems, handleRemoveFromCart }) => {
+const Sidebar = ({ handleRemoveFromCart }) => {
   const [isCartOpen, setIsCartOpen] = useState(true);
   const [isFavoritesOpen, setIsFavoritesOpen] = useState(true);
   const [isMyAdsOpen, setIsMyAdsOpen] = useState(true);
@@ -24,15 +24,11 @@ const Sidebar = ({ cartItems, handleRemoveFromCart }) => {
           </h3>
           {isCartOpen && (
             <div className={scss.cartContent}>
-              <SidebarCart
-                cartItems={cartItems}
-                handleRemoveFromCart={handleRemoveFromCart}
-              />
+              <SidebarCart handleRemoveFromCart={handleRemoveFromCart} />
             </div>
           )}
+          <div className={scss.divider}></div>
         </li>
-
-        <li className={scss.divider}></li>
 
         <li>
           <h3 onClick={toggleFavorites} className={scss.toggleHeader}>
@@ -44,9 +40,8 @@ const Sidebar = ({ cartItems, handleRemoveFromCart }) => {
               <SidebarFavorites />
             </div>
           )}
+          <div className={scss.divider}></div>
         </li>
-
-        <li className={scss.divider}></li>
 
         <li>
           <h3 onClick={toggleMyAds} className={scss.toggleHeader}>
@@ -58,6 +53,7 @@ const Sidebar = ({ cartItems, handleRemoveFromCart }) => {
               <SidebarMyAds />
             </div>
           )}
+          <div className={scss.divider}></div>
         </li>
       </ul>
     </div>

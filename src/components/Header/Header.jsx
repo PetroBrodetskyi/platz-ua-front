@@ -4,12 +4,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MdOutlineFavorite, MdOutlineFavoriteBorder } from 'react-icons/md';
 import { PiShoppingCart, PiShoppingCartFill } from 'react-icons/pi';
 import { RiLoginCircleLine } from 'react-icons/ri';
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import SearchLocation from '../SearchLocation/SearchLocation';
 import Logo from '../Logo/Logo';
 import { fetchCurrentUser } from '../../redux/features/authSlice';
 import Catalog from '../Catalog';
 import scss from './Header.module.scss';
+
+// Функція для створення стилів Tooltip
+const createTooltipStyles = (marginTop) => ({
+  [`&.${tooltipClasses.popper}[data-popper-placement*="bottom"] .${tooltipClasses.tooltip}`]:
+    {
+      marginTop: `${marginTop}px`
+    }
+});
 
 const Header = ({ onClick }) => {
   const dispatch = useDispatch();
@@ -37,7 +45,13 @@ const Header = ({ onClick }) => {
 
   const renderUserInfo = () =>
     user && (
-      <Tooltip title={user.name} arrow>
+      <Tooltip
+        title={user.name}
+        placement="bottom-end"
+        slotProps={{
+          popper: { sx: createTooltipStyles(24) }
+        }}
+      >
         <div className={scss.userInfo}>
           <img src={user.avatarURL} alt={user.name} className={scss.avatar} />
         </div>
@@ -78,7 +92,12 @@ const Header = ({ onClick }) => {
             </button>
           </NavLink>
           {!user && (
-            <Tooltip title="Увійти" arrow className={scss.tooltip}>
+            <Tooltip
+              title="Увійти"
+              slotProps={{
+                popper: { sx: createTooltipStyles(32) }
+              }}
+            >
               <NavLink to="/login">
                 <button type="button" className={scss.icon} onClick={onClick}>
                   <div className={scss.navigateItem}>
@@ -89,7 +108,12 @@ const Header = ({ onClick }) => {
               </NavLink>
             </Tooltip>
           )}
-          <Tooltip title="Кошик" arrow className={scss.tooltip}>
+          <Tooltip
+            title="Кошик"
+            slotProps={{
+              popper: { sx: createTooltipStyles(32) }
+            }}
+          >
             <NavLink to="/cart">
               <button type="button" className={scss.icon} onClick={onClick}>
                 <div className={scss.navigateItem}>
@@ -103,7 +127,12 @@ const Header = ({ onClick }) => {
               </button>
             </NavLink>
           </Tooltip>
-          <Tooltip title="Улюблені" arrow className={scss.tooltip}>
+          <Tooltip
+            title="Улюблені"
+            slotProps={{
+              popper: { sx: createTooltipStyles(32) }
+            }}
+          >
             <NavLink to="/favorites">
               <button
                 type="button"

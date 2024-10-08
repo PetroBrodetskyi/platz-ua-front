@@ -3,7 +3,7 @@ import { HiOutlineEye } from 'react-icons/hi';
 import { IoChevronUpOutline } from 'react-icons/io5';
 import { RiPlayList2Fill } from 'react-icons/ri';
 import Skeleton from '@mui/material/Skeleton';
-import Tooltip from '@mui/material/Tooltip'; // Імпорт Tooltip
+import Tooltip from '@mui/material/Tooltip';
 import CreateCondition from '../CreateCondition';
 import ProductDescription from '../ProductDescription';
 import TitleFavorite from '../TitleFavorite';
