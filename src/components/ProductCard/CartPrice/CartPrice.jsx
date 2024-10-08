@@ -21,11 +21,14 @@ const CartPrice = ({
             title={isInCart ? 'Видалити з кошика' : 'Додати у кошик'}
             arrow
           >
-            <div
+            <button
+              type="button"
               className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+              aria-label={isInCart ? 'Видалити з кошика' : 'Додати у кошик'}
+              onClick={onAddToCart}
             >
               {isInCart ? <PiShoppingCartFill /> : <PiShoppingCart />}
-            </div>
+            </button>
           </Tooltip>
         </div>
       </button>

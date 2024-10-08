@@ -3,6 +3,7 @@ import { IoClose, IoSearchSharp } from 'react-icons/io5';
 import { ButtonBase } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useDispatch } from 'react-redux';
+import Tooltip from '@mui/material/Tooltip';
 import scss from './SearchLocation.module.scss';
 import {
   setLocation,
@@ -122,19 +123,21 @@ const SearchLocation = () => {
           </div>
         </div>
         <div>
-          <ButtonBase
-            className={scss.searchButton}
-            onClick={handleSearch}
-            focusRipple
-          >
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className={scss.motionWrapper}
+          <Tooltip title="Пошук" arrow>
+            <ButtonBase
+              className={scss.searchButton}
+              onClick={handleSearch}
+              focusRipple
             >
-              <IoSearchSharp className={scss.iconSearch} />
-            </motion.div>
-          </ButtonBase>
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className={scss.motionWrapper}
+              >
+                <IoSearchSharp className={scss.iconSearch} />
+              </motion.div>
+            </ButtonBase>
+          </Tooltip>
         </div>
       </div>
 

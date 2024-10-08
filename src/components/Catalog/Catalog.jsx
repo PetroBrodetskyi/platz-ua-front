@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Popover, Fade } from '@mui/material';
 import Categories from '../Categories';
 import { TfiMenu } from 'react-icons/tfi';
+import Tooltip from '@mui/material/Tooltip';
 import scss from './Catalog.module.scss';
 
 const Catalog = () => {
@@ -21,9 +22,11 @@ const Catalog = () => {
 
   return (
     <div className={scss.catalog}>
-      <button onClick={handleToggleMenu} className={scss.button}>
-        <TfiMenu className={scss.icon} />
-      </button>
+      <Tooltip title="Каталог" arrow>
+        <button onClick={handleToggleMenu} className={scss.button}>
+          <TfiMenu className={scss.icon} />
+        </button>
+      </Tooltip>
       <Popover
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}

@@ -61,7 +61,6 @@ const Header = ({ onClick }) => {
         </div>
         <div className={scss.menu}>
           <Catalog />
-
           <SearchLocation
             onSearch={(products) => {
               products;
@@ -79,43 +78,49 @@ const Header = ({ onClick }) => {
             </button>
           </NavLink>
           {!user && (
-            <NavLink to="/login">
+            <Tooltip title="Увійти" arrow className={scss.tooltip}>
+              <NavLink to="/login">
+                <button type="button" className={scss.icon} onClick={onClick}>
+                  <div className={scss.navigateItem}>
+                    <RiLoginCircleLine />
+                    <span className={scss.userOptions}></span>
+                  </div>
+                </button>
+              </NavLink>
+            </Tooltip>
+          )}
+          <Tooltip title="Кошик" arrow className={scss.tooltip}>
+            <NavLink to="/cart">
               <button type="button" className={scss.icon} onClick={onClick}>
                 <div className={scss.navigateItem}>
-                  <RiLoginCircleLine />
+                  {cartItems.length > 0 ? (
+                    <PiShoppingCartFill />
+                  ) : (
+                    <PiShoppingCart />
+                  )}
                   <span className={scss.userOptions}></span>
                 </div>
               </button>
             </NavLink>
-          )}
-          <NavLink to="/cart">
-            <button type="button" className={scss.icon} onClick={onClick}>
-              <div className={scss.navigateItem}>
-                {cartItems.length > 0 ? (
-                  <PiShoppingCartFill />
-                ) : (
-                  <PiShoppingCart />
-                )}
-                <span className={scss.userOptions}></span>
-              </div>
-            </button>
-          </NavLink>
-          <NavLink to="/favorites">
-            <button
-              type="button"
-              className={`${scss.icon} ${animateFavorite ? scss.animate : ''} ${favorites.length > 0 ? scss.favorite : ''}`}
-              onClick={onClick}
-            >
-              <div className={scss.navigateItem}>
-                {favorites.length > 0 ? (
-                  <MdOutlineFavorite />
-                ) : (
-                  <MdOutlineFavoriteBorder />
-                )}
-                <span className={scss.userOptions}></span>
-              </div>
-            </button>
-          </NavLink>
+          </Tooltip>
+          <Tooltip title="Улюблені" arrow className={scss.tooltip}>
+            <NavLink to="/favorites">
+              <button
+                type="button"
+                className={`${scss.icon} ${animateFavorite ? scss.animate : ''} ${favorites.length > 0 ? scss.favorite : ''}`}
+                onClick={onClick}
+              >
+                <div className={scss.navigateItem}>
+                  {favorites.length > 0 ? (
+                    <MdOutlineFavorite />
+                  ) : (
+                    <MdOutlineFavoriteBorder />
+                  )}
+                  <span className={scss.userOptions}></span>
+                </div>
+              </button>
+            </NavLink>
+          </Tooltip>
         </div>
       </div>
     </header>
