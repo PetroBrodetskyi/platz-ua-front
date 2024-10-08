@@ -95,13 +95,13 @@ const ProductCard = ({ viewMode }) => {
   const handleAddToCart = async (product, isInCart) => {
     const productWithOwner = { ...product, owner: owners[product.owner] };
     if (isInCart) {
-      await dispatch(removeFromCartBack(product._id)); // Викликаємо видалення
-      dispatch(fetchProductsInCart()); // Оновлюємо продукти в кошику
-      setCartItems((prev) => prev.filter((item) => item._id !== product._id)); // Оновлюємо локальний стан
+      await dispatch(removeFromCartBack(product._id));
+      dispatch(fetchProductsInCart());
+      setCartItems((prev) => prev.filter((item) => item._id !== product._id));
     } else {
-      await dispatch(addToCartBack(product)); // Додаємо товар
-      dispatch(fetchProductsInCart()); // Оновлюємо продукти в кошику
-      setCartItems((prev) => [...prev, product]); // Оновлюємо локальний стан
+      await dispatch(addToCartBack(product));
+      dispatch(fetchProductsInCart());
+      setCartItems((prev) => [...prev, product]);
     }
     setNotification(
       `${product.name} ${isInCart ? 'видалено з кошика' : 'додано до кошика'}!`

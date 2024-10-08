@@ -9,6 +9,8 @@ import {
   addToCart
 } from '../../../redux/features/cartSlice';
 import SidebarCartItem from './SidebarCartItem/SidebarCartItem';
+import { Collapse } from '@mui/material';
+import { TransitionGroup } from 'react-transition-group'; // Імпорт TransitionGroup
 import scss from './SidebarCart.module.scss';
 
 const SidebarCart = () => {
@@ -31,27 +33,27 @@ const SidebarCart = () => {
   };
 
   const handleProductClick = (productId) => {
-    navigate(`/product/${productId}`);
+    navigate(`/cart`);
   };
 
   return (
     <div className={scss.sidebarCart}>
-      {loading ? (
-        <p>Завантаження...</p>
-      ) : cartItems.length === 0 ? (
+      {cartItems.length === 0 ? (
         <p>Ваш кошик порожній</p>
       ) : (
         <ul className={scss.cartList}>
-          {cartItems.map((item) => (
-            <li key={item._id}>
-              <SidebarCartItem
-                item={item}
-                onRemove={handleRemoveFromCart}
-                onProductClick={handleProductClick}
-                onAdd={handleAddToCart}
-              />
-            </li>
-          ))}
+          <TransitionGroup>
+            {cartItems.map((item) => (
+              <Collapse key={item._id} timeout={500}>
+                <SidebarCartItem
+                  item={item}
+                  onRemove={handleRemoveFromCart}
+                  onProductClick={handleProductClick}
+                  onAdd={handleAddToCart}
+                />
+              </Collapse>
+            ))}
+          </TransitionGroup>
         </ul>
       )}
     </div>

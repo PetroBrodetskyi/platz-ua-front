@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MdOutlineFavorite, MdOutlineFavoriteBorder } from 'react-icons/md';
 import { PiShoppingCart, PiShoppingCartFill } from 'react-icons/pi';
 import { RiLoginCircleLine } from 'react-icons/ri';
+import Tooltip from '@mui/material/Tooltip';
 import scss from './Header.module.scss';
 import SearchLocation from '../SearchLocation/SearchLocation';
 import Logo from '../Logo/Logo';
@@ -36,9 +37,11 @@ const Header = ({ onClick }) => {
 
   const renderUserInfo = () =>
     user && (
-      <div className={scss.userInfo}>
-        <img src={user.avatarURL} alt={user.name} className={scss.avatar} />
-      </div>
+      <Tooltip title={user.name} arrow>
+        <div className={scss.userInfo}>
+          <img src={user.avatarURL} alt={user.name} className={scss.avatar} />
+        </div>
+      </Tooltip>
     );
 
   return (
