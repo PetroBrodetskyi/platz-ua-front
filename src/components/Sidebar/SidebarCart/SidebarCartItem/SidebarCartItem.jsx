@@ -6,7 +6,7 @@ const SidebarCartItem = ({ item, onRemove, onProductClick }) => {
   };
 
   return (
-    <li className={scss.cartItem}>
+    <div className={scss.cartItem}>
       <img
         src={item.image1}
         alt={item.name}
@@ -40,7 +40,7 @@ const SidebarCartItem = ({ item, onRemove, onProductClick }) => {
           </button>
         </div>
       </div>
-    </li>
+    </div>
   );
 };
 

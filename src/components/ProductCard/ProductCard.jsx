@@ -8,7 +8,12 @@ import {
 } from '../../redux/features/productsSlice';
 import { fetchUserById } from '../../redux/features/authSlice';
 import { toggleFavorite } from '../../redux/features/favoritesSlice';
-import { addToCart, removeFromCart } from '../../redux/features/cartSlice';
+import {
+  addToCartBack,
+  removeFromCartBack,
+  fetchProductsInCart,
+  setCartItems
+} from '../../redux/features/cartSlice';
 import { useNavigate } from 'react-router-dom';
 import Skeleton from '@mui/material/Skeleton';
 import Notification from '../Notification/Notification';
@@ -87,20 +92,20 @@ const ProductCard = ({ viewMode }) => {
     if (ownerId) navigate(`/user/${ownerId}`);
   };
 
-  const handleAddToCart = (product, isInCart) => {
+  const handleAddToCart = async (product, isInCart) => {
     const productWithOwner = { ...product, owner: owners[product.owner] };
     if (isInCart) {
-      dispatch(removeFromCart(product._id));
+      await dispatch(removeFromCartBack(product._id)); // Викликаємо видалення
+      dispatch(fetchProductsInCart()); // Оновлюємо продукти в кошику
+      setCartItems((prev) => prev.filter((item) => item._id !== product._id)); // Оновлюємо локальний стан
     } else {
-      dispatch(addToCart(productWithOwner));
+      await dispatch(addToCartBack(product)); // Додаємо товар
+      dispatch(fetchProductsInCart()); // Оновлюємо продукти в кошику
+      setCartItems((prev) => [...prev, product]); // Оновлюємо локальний стан
     }
     setNotification(
       `${product.name} ${isInCart ? 'видалено з кошика' : 'додано до кошика'}!`
     );
-  };
-
-  const handleToggleDescription = (productId) => {
-    setShowDescriptions((prev) => ({ ...prev, [productId]: !prev[productId] }));
   };
 
   const fetchMoreProducts = () => setCurrentPage((prevPage) => prevPage + 1);

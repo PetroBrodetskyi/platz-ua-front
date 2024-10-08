@@ -3,10 +3,13 @@ import ProductCard from '../ProductCard/ProductCard';
 import Sidebar from '../Sidebar/Sidebar';
 import scss from './ProductList.module.scss';
 import ViewToggle from './ViewToggle/ViewToggle';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeFromCartBack } from '../../redux/features/cartSlice';
 
 const ProductList = () => {
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.items);
   const [viewMode, setViewMode] = useState('grid');
-  const [cartItems, setCartItems] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
 
   useEffect(() => {
@@ -21,10 +24,12 @@ const ProductList = () => {
     localStorage.setItem('viewMode', mode);
   };
 
-  const handleRemoveFromCart = (productId) => {
-    setCartItems((prevItems) =>
-      prevItems.filter((item) => item._id !== productId)
-    );
+  const handleRemoveFromCart = async (productId) => {
+    try {
+      await dispatch(removeFromCartBack(productId)).unwrap();
+    } catch (error) {
+      console.error('Failed to remove product from cart:', error);
+    }
   };
 
   const handleProductClick = (productId) => {

@@ -12,7 +12,11 @@ import {
   selectCurrentUser,
   fetchUserById
 } from '../../redux/features/authSlice';
-import { addToCart, removeFromCart } from '../../redux/features/cartSlice';
+import {
+  addToCartBack,
+  removeFromCartBack
+} from '../../redux/features/cartSlice';
+
 import Notification from '../Notification/Notification';
 import Tags from './Tags/Tags';
 import axios from 'axios';
@@ -47,15 +51,6 @@ const ProductDetails = () => {
     if (!product) dispatch(fetchProductById(productId));
     if (product?.owner) dispatch(fetchUserById(product.owner));
   }, [dispatch, product, productId]);
-
-  useEffect(() => {
-    const viewedProducts =
-      JSON.parse(localStorage.getItem('viewedProducts')) || [];
-    if (!viewedProducts.includes(productId)) {
-      viewedProducts.push(productId);
-      localStorage.setItem('viewedProducts', JSON.stringify(viewedProducts));
-    }
-  }, [productId]);
 
   useEffect(() => {
     if (product) {
@@ -115,10 +110,10 @@ const ProductDetails = () => {
     const productWithOwner = { ...product, owner };
 
     if (isInCart) {
-      dispatch(removeFromCart(product._id));
+      dispatch(removeFromCartBack(product._id)); // Видалити з бекенду
       setNotification(`${product.name} видалено з кошика!`);
     } else {
-      dispatch(addToCart(productWithOwner));
+      dispatch(addToCartBack(productWithOwner)); // Додати до бекенду
       setNotification(`${product.name} додано до кошика!`);
     }
   }, [cartItems, dispatch, product, owner]);

@@ -1,19 +1,33 @@
-import { memo } from 'react';
-import { removeFromCart } from '../../../redux/features/cartSlice';
-import SidebarCartItem from './SidebarCartItem/SidebarCartItem';
-import { TransitionGroup } from 'react-transition-group';
-import { useSelector, useDispatch } from 'react-redux';
+import { memo, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Collapse } from '@mui/material';
+import {
+  removeFromCartBack,
+  fetchProductsInCart,
+  selectCartItems,
+  selectCartLoading,
+  addToCart
+} from '../../../redux/features/cartSlice';
+import SidebarCartItem from './SidebarCartItem/SidebarCartItem';
 import scss from './SidebarCart.module.scss';
 
 const SidebarCart = () => {
-  const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const cartItems = useSelector(selectCartItems);
+  const loading = useSelector(selectCartLoading);
 
-  const handleRemoveFromCart = (productId) => {
-    dispatch(removeFromCart(productId));
+  useEffect(() => {
+    dispatch(fetchProductsInCart());
+  }, [dispatch]);
+
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+  };
+
+  const handleRemoveFromCart = async (productId) => {
+    await dispatch(removeFromCartBack(productId));
+    dispatch(fetchProductsInCart());
   };
 
   const handleProductClick = (productId) => {
@@ -22,21 +36,22 @@ const SidebarCart = () => {
 
   return (
     <div className={scss.sidebarCart}>
-      {cartItems.length === 0 ? (
+      {loading ? (
+        <p>Завантаження...</p>
+      ) : cartItems.length === 0 ? (
         <p>Ваш кошик порожній</p>
       ) : (
         <ul className={scss.cartList}>
-          <TransitionGroup className={scss.list}>
-            {cartItems.map((item) => (
-              <Collapse key={item._id} timeout={500}>
-                <SidebarCartItem
-                  item={item}
-                  onRemove={handleRemoveFromCart}
-                  onProductClick={handleProductClick}
-                />
-              </Collapse>
-            ))}
-          </TransitionGroup>
+          {cartItems.map((item) => (
+            <li key={item._id}>
+              <SidebarCartItem
+                item={item}
+                onRemove={handleRemoveFromCart}
+                onProductClick={handleProductClick}
+                onAdd={handleAddToCart}
+              />
+            </li>
+          ))}
         </ul>
       )}
     </div>
