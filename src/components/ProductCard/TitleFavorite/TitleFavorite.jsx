@@ -50,40 +50,48 @@ const TitleFavorite = ({
       </h3>
       <div className={scss.icons}>
         <Tooltip title="Поділитися" arrow>
-          <div>
+          <button
+            className={scss.iconButton}
+            onClick={toggleShareModal}
+            aria-label="Поділитися"
+          >
             <RiSendPlaneLine
               className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-              onClick={toggleShareModal}
             />
-          </div>
+          </button>
         </Tooltip>
 
         <Tooltip title="Коментарі" arrow>
-          <div>
+          <button
+            className={scss.iconButton}
+            onClick={toggleCommentsModal}
+            aria-label="Коментарі"
+          >
             <RiMessage3Line
               className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-              onClick={toggleCommentsModal}
             />
-          </div>
+          </button>
         </Tooltip>
 
         <Tooltip
           title={isFavorite ? 'Видалити з обраних' : 'Додати в обрані'}
           arrow
         >
-          <div>
+          <button
+            className={scss.iconButton}
+            onClick={handleFavoriteToggle}
+            aria-label={isFavorite ? 'Видалити з обраних' : 'Додати в обрані'}
+          >
             {isFavorite ? (
               <MdOutlineFavorite
                 className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem} ${scss.favorite}`}
-                onClick={handleFavoriteToggle}
               />
             ) : (
               <MdOutlineFavoriteBorder
                 className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-                onClick={handleFavoriteToggle}
               />
             )}
-          </div>
+          </button>
         </Tooltip>
       </div>
       {isCommentsOpen && (
