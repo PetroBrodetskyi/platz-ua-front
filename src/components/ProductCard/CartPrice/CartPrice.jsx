@@ -1,4 +1,5 @@
 import { PiShoppingCart, PiShoppingCartFill } from 'react-icons/pi';
+import Tooltip from '@mui/material/Tooltip';
 import scss from './CartPrice.module.scss';
 
 const CartPrice = ({
@@ -16,11 +17,16 @@ const CartPrice = ({
         <p className={scss.priceInUAH}>₴{priceInUAH}</p>
         <div className={scss.priceContainer}>
           <p className={scss.productPrice}>€{price}</p>
-          <div
-            className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+          <Tooltip
+            title={isInCart ? 'Видалити з кошика' : 'Додати у кошик'}
+            arrow
           >
-            {isInCart ? <PiShoppingCartFill /> : <PiShoppingCart />}
-          </div>
+            <div
+              className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+            >
+              {isInCart ? <PiShoppingCartFill /> : <PiShoppingCart />}
+            </div>
+          </Tooltip>
         </div>
       </button>
     </div>

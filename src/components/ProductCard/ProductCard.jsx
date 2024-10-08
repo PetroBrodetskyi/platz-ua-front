@@ -92,6 +92,10 @@ const ProductCard = ({ viewMode }) => {
     if (ownerId) navigate(`/user/${ownerId}`);
   };
 
+  const handleToggleDescription = (productId) => {
+    setShowDescriptions((prev) => ({ ...prev, [productId]: !prev[productId] }));
+  };
+
   const handleAddToCart = async (product, isInCart) => {
     const productWithOwner = { ...product, owner: owners[product.owner] };
     if (isInCart) {

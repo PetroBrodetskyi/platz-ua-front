@@ -5,11 +5,12 @@ import { MdOutlineFavorite, MdOutlineFavoriteBorder } from 'react-icons/md';
 import { PiShoppingCart, PiShoppingCartFill } from 'react-icons/pi';
 import { RiLoginCircleLine } from 'react-icons/ri';
 import Tooltip from '@mui/material/Tooltip';
-import scss from './Header.module.scss';
 import SearchLocation from '../SearchLocation/SearchLocation';
 import Logo from '../Logo/Logo';
 import { fetchCurrentUser } from '../../redux/features/authSlice';
+import Tooltip from '@mui/material/Tooltip';
 import Catalog from '../Catalog';
+import scss from './Header.module.scss';
 
 const Header = ({ onClick }) => {
   const dispatch = useDispatch();

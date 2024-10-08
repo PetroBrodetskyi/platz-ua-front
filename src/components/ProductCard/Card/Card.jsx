@@ -3,6 +3,7 @@ import { HiOutlineEye } from 'react-icons/hi';
 import { IoChevronUpOutline } from 'react-icons/io5';
 import { RiPlayList2Fill } from 'react-icons/ri';
 import Skeleton from '@mui/material/Skeleton';
+import Tooltip from '@mui/material/Tooltip'; // Імпорт Tooltip
 import CreateCondition from '../CreateCondition';
 import ProductDescription from '../ProductDescription';
 import TitleFavorite from '../TitleFavorite';
@@ -131,16 +132,21 @@ const Card = ({
             <div
               className={`${scss.expandButtonContainer} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
             >
-              <button
-                className={scss.expandButton}
-                onClick={onToggleDescription}
+              <Tooltip
+                title={showDescription ? 'Закрити' : 'Показати більше'}
+                arrow
               >
-                {showDescription ? (
-                  <IoChevronUpOutline className={scss.icon} />
-                ) : (
-                  <RiPlayList2Fill className={scss.icon} />
-                )}
-              </button>
+                <button
+                  className={scss.expandButton}
+                  onClick={onToggleDescription}
+                >
+                  {showDescription ? (
+                    <IoChevronUpOutline className={scss.icon} />
+                  ) : (
+                    <RiPlayList2Fill className={scss.icon} />
+                  )}
+                </button>
+              </Tooltip>
             </div>
             <div>
               {exchangeRate !== null ? (

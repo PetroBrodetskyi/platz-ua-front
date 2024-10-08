@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from 'react-icons/md';
 import { RiMessage3Line, RiSendPlaneLine } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
+import Tooltip from '@mui/material/Tooltip';
 import CommentsModal from '../CommentsModal';
 import ShareModal from '../ShareModal';
 import scss from './TitleFavorite.module.scss';
@@ -48,25 +49,42 @@ const TitleFavorite = ({
         {name}
       </h3>
       <div className={scss.icons}>
-        <RiSendPlaneLine
-          className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-          onClick={toggleShareModal}
-        />
-        <RiMessage3Line
-          className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-          onClick={toggleCommentsModal}
-        />
-        {isFavorite ? (
-          <MdOutlineFavorite
-            className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem} ${scss.favorite}`}
-            onClick={handleFavoriteToggle}
-          />
-        ) : (
-          <MdOutlineFavoriteBorder
-            className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-            onClick={handleFavoriteToggle}
-          />
-        )}
+        <Tooltip title="Поділитися" arrow>
+          <div>
+            <RiSendPlaneLine
+              className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+              onClick={toggleShareModal}
+            />
+          </div>
+        </Tooltip>
+
+        <Tooltip title="Коментарі" arrow>
+          <div>
+            <RiMessage3Line
+              className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+              onClick={toggleCommentsModal}
+            />
+          </div>
+        </Tooltip>
+
+        <Tooltip
+          title={isFavorite ? 'Видалити з обраних' : 'Додати в обрані'}
+          arrow
+        >
+          <div>
+            {isFavorite ? (
+              <MdOutlineFavorite
+                className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem} ${scss.favorite}`}
+                onClick={handleFavoriteToggle}
+              />
+            ) : (
+              <MdOutlineFavoriteBorder
+                className={`${scss.icon} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+                onClick={handleFavoriteToggle}
+              />
+            )}
+          </div>
+        </Tooltip>
       </div>
       {isCommentsOpen && (
         <CommentsModal
