@@ -12,7 +12,11 @@ const Logo = () => {
       >
         <NavLink to="/" className={scss.logoLink}>
           <div className={scss.logoFlex}>
-            <img src="/logo.svg" alt="Logo" className={scss.logoImage} />
+            <img
+              src="/logo.svg"
+              alt="Логотип Platz UA"
+              className={scss.logoImage}
+            />
             <div className={scss.logoText}>
               <h1 className={scss.logo}>
                 <span>Platz</span>

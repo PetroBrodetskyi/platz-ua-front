@@ -2,6 +2,7 @@ import { AiOutlineLogout } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../redux/features/authSlice';
+import Tooltip from '@mui/material/Tooltip';
 import scss from './Logout.module.scss';
 
 const Logout = ({ onLogout }) => {
@@ -15,9 +16,11 @@ const Logout = ({ onLogout }) => {
   };
 
   return (
-    <button className={scss.logoutButton} onClick={handleLogout}>
-      <AiOutlineLogout className={scss.icon} />
-    </button>
+    <Tooltip title="Вихід" placement="right">
+      <button className={scss.logoutButton} onClick={handleLogout}>
+        <AiOutlineLogout className={scss.icon} />
+      </button>
+    </Tooltip>
   );
 };
 

@@ -11,7 +11,6 @@ import { fetchCurrentUser } from '../../redux/features/authSlice';
 import Catalog from '../Catalog';
 import scss from './Header.module.scss';
 
-// Функція для створення стилів Tooltip
 const createTooltipStyles = (marginTop) => ({
   [`&.${tooltipClasses.popper}[data-popper-placement*="bottom"] .${tooltipClasses.tooltip}`]:
     {
