@@ -145,6 +145,11 @@ const authSlice = createSlice({
       .addCase(updateUserDetails.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
+        const updatedOwners = JSON.parse(localStorage.getItem('owners')) || {};
+        if (updatedOwners[action.payload._id]) {
+          updatedOwners[action.payload._id] = action.payload;
+          localStorage.setItem('owners', JSON.stringify(updatedOwners));
+        }
       })
       .addCase(updateUserDetails.rejected, (state, action) => {
         state.loading = false;
