@@ -1,17 +1,19 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import sitemap from 'vite-plugin-sitemap'; // Імпорт плагіна
+import { sitemap } from 'vite-plugin-sitemap';
 
 export default defineConfig({
   plugins: [
     react(),
     sitemap({
-      output: 'public/sitemap.xml', // Шлях для збереження сайт-карти
-      hostname: 'https://platz-ua-front.vercel.app', // Ваше доменне ім'я
-      // Додаткові параметри можна налаштувати тут, наприклад:
-      changefreq: 'daily', // Як часто змінюються сторінки
-      priority: 0.8, // Пріоритет для сторінок
-      exclude: ['/404', '/login'] // Виключення сторінок
+      output: 'public/sitemap.xml',
+      hostname: 'https://platz-ua-front.vercel.app',
+      changefreq: 'daily',
+      priority: 0.8,
+      urls: [
+        { url: '/', changefreq: 'daily', priority: 1.0 },
+        { url: '/how-it-works', changefreq: 'monthly', priority: 0.7 }
+      ]
     })
   ],
   build: {
