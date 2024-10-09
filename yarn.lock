@@ -3142,6 +3142,11 @@ vite-plugin-sass@^0.1.0:
   resolved "https://registry.npmjs.org/vite-plugin-sass/-/vite-plugin-sass-0.1.0.tgz"
   integrity sha512-gLwvs3ozfDAOZCqs+PepkTd4078m8tfq50IlmTW/OphlWsW95uP7lQ5A3NezfUfTZDTCOA4nFlYnOWRpsKYOqw==
 
+vite-plugin-sitemap@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.npmjs.org/vite-plugin-sitemap/-/vite-plugin-sitemap-0.7.1.tgz"
+  integrity sha512-4NRTkiWytLuAmcikckrLcLl9iYA20+5v6l8XshcOrzxH1WR8H0O3S6sTQYfjMrE8su/LG6Y0cTodvOdcOIxaLw==
+
 "vite@^4.2.0 || ^5.0.0", vite@^5.4.8:
   version "5.4.8"
   resolved "https://registry.npmjs.org/vite/-/vite-5.4.8.tgz"
