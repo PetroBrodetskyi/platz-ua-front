@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import scss from './SplashScreen.module.scss';
+import scss from '../Logo/Logo.module.scss';
 
 const SplashScreen = ({ onFinish, message }) => {
   const [visible, setVisible] = useState(true);
@@ -16,18 +16,21 @@ const SplashScreen = ({ onFinish, message }) => {
   return (
     visible && (
       <div className={scss.splashScreen}>
-        <div className={scss.logoContainer}>
-          <h1 className={scss.logo}>
-            <span className={scss.logoLetterP}>P</span>
-            <span className={scss.logoLetterL}>l</span>
-            <span className={scss.logoLetterA}>a</span>
-            <span className={scss.logoLetterT}>t</span>
-            <span className={scss.logoLetterZ}>z</span>
-            <span className={scss.logoLetterU}>U</span>
-            <span className={scss.logoLetterA2}>A</span>
-          </h1>
-          <h2 className={scss.messageTitle}>{message.title}</h2>
-          <p className={scss.messageText}>{message.text}</p>
+        <div className={scss.logoSplash}>
+          <div className={scss.imgLogo}>
+            <img src="/logo.svg" alt="Logo" className={scss.logoImage} />
+            <div className={scss.logoText}>
+              <h1 className={scss.logo}>
+                <span>Platz</span>
+                <div className={scss.logoLetters}>
+                  <span className={scss.letterU}>U</span>
+                  <span className={scss.letterA}>A</span>
+                </div>
+              </h1>
+            </div>
+          </div>
+          <h2 className={scss.message}>{message.title}</h2>
+          <p className={scss.message}>{message.text}</p>
         </div>
       </div>
     )
