@@ -1,30 +1,30 @@
 import scss from './SidebarCartItem.module.scss';
 
-const SidebarCartItem = ({ item, onRemove, onProductClick }) => {
+const SidebarCartItem = ({ product, onRemove, onProductClick }) => {
   const handleBuyClick = () => {
-    onProductClick(item._id);
+    onProductClick(product._id);
   };
 
   return (
     <div className={scss.cartItem}>
       <img
-        src={item.image1}
-        alt={item.name}
+        src={product.image1}
+        alt={product.name}
         className={scss.productImage}
-        onClick={() => onProductClick(item._id)}
+        onClick={() => onProductClick(product._id)}
       />
       <div className={scss.productDetails}>
         <div>
           <div
-            onClick={() => onProductClick(item._id)}
+            onClick={() => onProductClick(product._id)}
             className={scss.productName}
           >
-            <h4 className={scss.title}>{item.name}</h4>
-            <p>€{item.price}</p>
+            <h4 className={scss.title}>{product.name}</h4>
+            <p>€{product.price}</p>
           </div>
           <div>
             <p>
-              {item.PLZ} {item.city}
+              {product.PLZ} {product.city}
             </p>
           </div>
         </div>
@@ -34,7 +34,7 @@ const SidebarCartItem = ({ item, onRemove, onProductClick }) => {
           </button>
           <button
             className={scss.removeButton}
-            onClick={() => onRemove(item._id)}
+            onClick={() => onRemove(product._id)}
           >
             Видалити
           </button>

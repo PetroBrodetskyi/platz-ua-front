@@ -67,7 +67,15 @@ const AppBar = () => {
             <Routes>
               <Route
                 path="/email-verified"
-                element={<SplashScreen onFinish={() => navigate('/login')} />}
+                element={
+                  <SplashScreen
+                    onFinish={() => navigate('/login')}
+                    message={{
+                      title: 'Ваш e-mail підтверджено',
+                      text: 'Виконується перенаправлення на сторінку авторизації...'
+                    }}
+                  />
+                }
               />
               <Route path="/" element={<Home />} />
               <Route path="/cart" element={<Cart />} />

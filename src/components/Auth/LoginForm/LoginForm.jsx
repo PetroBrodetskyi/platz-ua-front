@@ -6,8 +6,9 @@ import { HiOutlineEye } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../../redux/features/authSlice';
 import { addToCartBack } from '../../../redux/features/cartSlice';
-import css from './LoginForm.module.scss';
+import SplashScreen from '../../SplashScreen/SplashScreen';
 import SubmitButton from '../../SubmitButton/SubmitButton';
+import scss from './LoginForm.module.scss';
 
 const LoginForm = () => {
   const {
@@ -16,6 +17,8 @@ const LoginForm = () => {
     formState: { errors }
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
+  const [splashVisible, setSplashVisible] = useState(false);
+  const [splashMessage, setSplashMessage] = useState({ title: '', text: '' });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -26,6 +29,11 @@ const LoginForm = () => {
   };
 
   const onSubmit = async (data) => {
+    setSplashVisible(true);
+    setSplashMessage({
+      title: 'Виконується вхід',
+      text: 'Будь ласка, зачекайте...'
+    });
     try {
       const result = await dispatch(login(data)).unwrap();
       const userName = result?.user?.name || 'користувач';
@@ -40,13 +48,18 @@ const LoginForm = () => {
         localStorage.removeItem('cart');
       }
 
+      setSplashMessage({
+        title: 'Успішно увійшли',
+        text: 'Виконується перенаправлення на головну сторінку...'
+      });
+
       navigate('/');
     } catch (err) {
       console.error('Login failed:', err);
-      localStorage.setItem(
-        'notification',
-        'Не вдалося увійти. Перевірте ваші дані.'
-      );
+      setSplashMessage({
+        title: 'Помилка входу',
+        text: 'Не вдалося увійти. Перевірте ваші дані.'
+      });
     }
   };
 
@@ -59,74 +72,81 @@ const LoginForm = () => {
   }, [location]);
 
   return (
-    <section className={css.auth}>
-      <div className={css.form}>
-        <div>
-          <ul className={css.authNav}>
-            <li>
-              <NavLink className={css.classNavLink} to="/register">
-                Реєстрація
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className={css.classNavLink} to="/login">
-                Вхід
-              </NavLink>
-            </li>
-          </ul>
-        </div>
-        <form onSubmit={handleSubmit(onSubmit)} className={css.authForm}>
+    <section className={scss.auth}>
+      {splashVisible ? (
+        <SplashScreen
+          onFinish={() => setSplashVisible(false)}
+          message={splashMessage}
+        />
+      ) : (
+        <div className={scss.form}>
           <div>
-            <input
-              {...register('email', {
-                required: 'Email is required',
-                pattern: {
-                  value: /^\S+@\S+$/i,
-                  message: 'Invalid email address'
-                }
-              })}
-              type="text"
-              placeholder="Введіть ваш email"
-            />
-            {errors.email && <p>{errors.email.message}</p>}
+            <ul className={scss.authNav}>
+              <li>
+                <NavLink className={scss.classNavLink} to="/register">
+                  Реєстрація
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className={scss.classNavLink} to="/login">
+                  Вхід
+                </NavLink>
+              </li>
+            </ul>
           </div>
+          <form onSubmit={handleSubmit(onSubmit)} className={scss.authForm}>
+            <div>
+              <input
+                {...register('email', {
+                  required: 'Email is required',
+                  pattern: {
+                    value: /^\S+@\S+$/i,
+                    message: 'Invalid email address'
+                  }
+                })}
+                type="text"
+                placeholder="Введіть ваш email"
+              />
+              {errors.email && <p>{errors.email.message}</p>}
+            </div>
 
-          <div className={css.inputWrapper}>
-            <input
-              {...register('password', {
-                required: 'Password is required',
-                minLength: {
-                  value: 8,
-                  message: 'Password must be at least 8 characters'
-                }
-              })}
-              type={showPassword ? 'text' : 'password'}
-              placeholder="Введіть ваш пароль"
-            />
-            <button
-              type="button"
-              className={css.eye}
-              onClick={passwordVisibility}
-            >
-              {showPassword ? (
-                <HiOutlineEye color="grey" />
-              ) : (
-                <RiEyeCloseLine color="grey" />
-              )}
-            </button>
-            {errors.password && <p>{errors.password.message}</p>}
-          </div>
+            <div className={scss.inputWrapper}>
+              <input
+                {...register('password', {
+                  required: 'Password is required',
+                  minLength: {
+                    value: 8,
+                    message: 'Password must be at least 8 characters'
+                  }
+                })}
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Введіть ваш пароль"
+              />
+              <button
+                type="button"
+                className={scss.eye}
+                onClick={passwordVisibility}
+              >
+                {showPassword ? (
+                  <HiOutlineEye color="grey" />
+                ) : (
+                  <RiEyeCloseLine color="grey" />
+                )}
+              </button>
+              {errors.password && <p>{errors.password.message}</p>}
+            </div>
 
-          <div className={css.buttonWrapper}>
-            <SubmitButton
-              buttonText="Логін"
-              onSubmit={handleSubmit(onSubmit)}
-              disabled={loading}
-            />
-          </div>
-          {error && <p className={css.error}>{error}</p>}
-        </form>
-      </div>
+            <div className={scss.buttonWrapper}>
+              <SubmitButton
+                buttonText="Логін"
+                onSubmit={handleSubmit(onSubmit)}
+                disabled={loading}
+              />
+            </div>
+            {error && <p className={scss.error}>{error}</p>}
+          </form>
+        </div>
+      )}
     </section>
   );
 };
