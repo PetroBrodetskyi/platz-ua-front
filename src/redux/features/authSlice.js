@@ -59,30 +59,6 @@ export const updateUserDetails = createAsyncThunk(
   }
 );
 
-export const handleCartAfterLogin = createAsyncThunk(
-  'auth/handleCartAfterLogin',
-  async (_, { getState, dispatch }) => {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const { auth } = getState();
-
-    if (cart.length > 0 && auth.user) {
-      cart.forEach((product) => {
-        dispatch(addToCart(product));
-      });
-      localStorage.removeItem('cart');
-    }
-  }
-);
-
-const selectAuth = (state) => state.auth;
-
-export const selectUser = createSelector([selectAuth], (auth) => auth.user);
-
-export const selectLoading = createSelector(
-  [selectAuth],
-  (auth) => auth.loading
-);
-
 const initialState = {
   user: null,
   owner: null,
@@ -115,7 +91,6 @@ const authSlice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
         localStorage.setItem('token', action.payload.token);
-        dispatch(handleCartAfterLogin());
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
