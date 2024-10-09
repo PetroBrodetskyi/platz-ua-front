@@ -12,6 +12,7 @@ import LinearDeterminate from '../LinearDeterminate/LinearDeterminate';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import ScrollToTop from '../ScrollToTop/ScrollToTop';
 import SplashScreen from '../SplashScreen/SplashScreen';
+import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 import scss from './AppBar.module.scss';
 
 const Home = lazy(() => import('../../pages/Home/Home'));
@@ -97,6 +98,7 @@ const AppBar = () => {
                 path="/admin"
                 element={<PrivateRoute element={<AdminPage />} />}
               />
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Suspense>
         </main>
