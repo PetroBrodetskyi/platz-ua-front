@@ -3,6 +3,7 @@ import { IoChevronUpOutline, IoChevronDownSharp } from 'react-icons/io5';
 import SidebarFavorites from './SidebarFavorites/SidebarFavorites';
 import SidebarMyAds from './SidebarMyAds/SidebarMyAds';
 import SidebarCart from './SidebarCart/SidebarCart';
+import { useTheme } from '../../context/ThemeContext';
 import scss from './Sidebar.module.scss';
 
 const Sidebar = ({ handleRemoveFromCart }) => {
@@ -13,9 +14,10 @@ const Sidebar = ({ handleRemoveFromCart }) => {
   const toggleCart = () => setIsCartOpen((prev) => !prev);
   const toggleFavorites = () => setIsFavoritesOpen((prev) => !prev);
   const toggleMyAds = () => setIsMyAdsOpen((prev) => !prev);
+  const { isDarkMode } = useTheme();
 
   return (
-    <div className={scss.sidebar}>
+    <div className={`${scss.sidebar} ${isDarkMode ? scss.darkMode : ''}`}>
       <h3 className={scss.office}>Особистий кабінет</h3>
       <ul className={scss.cartSidebar}>
         <li>

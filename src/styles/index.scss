@@ -47,7 +47,11 @@ body {
   font-size: 14px;
   overflow-x: hidden;
   background-color: var(--light-bg);
-  // #25292e
+
+  &.darkMode {
+    background-color: var(--grey);
+    color: var(--white);
+  }
 }
 
 p,

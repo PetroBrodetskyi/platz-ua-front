@@ -2,7 +2,6 @@
 
 .cart {
   padding: 10px;
-  background-color: var(--light-bg);
 
   @include media-rules(tablet) {
     padding: 10px;

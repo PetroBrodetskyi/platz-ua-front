@@ -7,6 +7,11 @@
   &:hover {
     background-color: var(--light-grey);
   }
+
+  &.darkMode {
+    background-color: var(--grey);
+    color: var(--white);
+  }
 }
 
 .productImage {

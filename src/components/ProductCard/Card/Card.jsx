@@ -8,6 +8,7 @@ import CreateCondition from '../CreateCondition';
 import ProductDescription from '../ProductDescription';
 import TitleFavorite from '../TitleFavorite';
 import CartPrice from '../CartPrice';
+import { useTheme } from '../../../context/ThemeContext.jsx';
 import scss from './Card.module.scss';
 
 const Card = ({
@@ -37,9 +38,11 @@ const Card = ({
     city
   } = product;
 
+  const { isDarkMode } = useTheme();
+
   return (
     <li
-      className={`${scss.productItem} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
+      className={`${scss.productItem} ${viewMode === 'grid' ? scss.gridItem : scss.listItem} ${isDarkMode ? scss.darkMode : ''}`}
     >
       <div
         className={`${scss.product} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}

@@ -11,12 +11,15 @@ import {
 } from '../../redux/features/productsSlice';
 import UserProfile from '../../components/UserProfile/UserProfile';
 import scss from './UserProfilePage.module.scss';
+import { useTheme } from '../../context/ThemeContext.jsx';
 
 const UserProfilePage = () => {
   const { userId } = useParams();
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
   const user = useSelector((state) => state.auth.owner);
+
+  const { isDarkMode, toggleTheme } = useTheme();
 
   useEffect(() => {
     if (!userId) return;
@@ -37,10 +40,11 @@ const UserProfilePage = () => {
   const shouldShowUserProfile = currentUser && currentUser._id === userId;
 
   return (
-    <div className={scss.userPage}>
+    <div className={`${scss.userPage} ${isDarkMode ? 'darkMode' : ''}`}>
       {shouldShowUserProfile && (
         <UserProfile user={user} onUpdate={handleUpdate} />
       )}
+      <button onClick={toggleTheme}>Перемикання теми</button>
     </div>
   );
 };
