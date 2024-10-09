@@ -54,10 +54,16 @@ const cartSlice = createSlice({
     addToCart: (state, { payload }) => {
       if (!state.items.some((item) => item._id === payload._id)) {
         state.items.push(payload);
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.push(payload);
+        localStorage.setItem('cart', JSON.stringify(cart));
       }
     },
     removeFromCart: (state, { payload }) => {
       state.items = state.items.filter((item) => item._id !== payload);
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const updatedCart = cart.filter((item) => item._id !== payload);
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
     },
     setCartItems: (state, { payload }) => {
       state.items = payload;
@@ -96,7 +102,7 @@ const cartSlice = createSlice({
         if (isCartDifferent) {
           handleFulfilled(state, { payload });
         } else {
-          state.loading = false; // No change in cart
+          state.loading = false;
         }
       })
       .addCase(fetchProductsInCart.rejected, handleRejected);

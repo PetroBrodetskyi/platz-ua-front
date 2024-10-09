@@ -49,8 +49,8 @@ const Cart = () => {
     await dispatch(removeFromCartBack(productId));
 
     const updatedCartItems = await dispatch(fetchProductsInCart()).unwrap();
-
     localStorage.setItem('cart', JSON.stringify(updatedCartItems));
+    dispatch(setCartItems(updatedCartItems));
     setLoadingRemove(false);
   };
 
@@ -68,36 +68,29 @@ const Cart = () => {
     navigate('/login');
   };
 
-  const handleCancel = () => {
-    setShowConfirmation(false);
-  };
-
   return (
     <div className={scss.cart}>
-      <h2>Ваш кошик</h2>
-      {loadingRemove ? (
-        <Loader />
-      ) : validCartItems.length === 0 ? (
-        <p>Ваш кошик порожній.</p>
+      {loadingRemove && <Loader />}
+      <h1>Кошик</h1>
+      {validCartItems.length === 0 ? (
+        <p>Ваш кошик порожній</p>
       ) : (
-        <ul className={scss.cartList}>
-          {validCartItems.map((item) => (
-            <CartItem
-              key={item._id}
-              item={item}
-              onRemove={handleRemoveFromCart}
-              onProductClick={handleProductClick}
-              exchangeRate={exchangeRate}
-              onSubmitOrder={handleSubmitOrder}
-            />
-          ))}
-        </ul>
+        validCartItems.map((item) => (
+          <CartItem
+            key={item._id}
+            item={item}
+            onRemove={handleRemoveFromCart}
+            onProductClick={handleProductClick}
+            onOrderSubmit={handleSubmitOrder}
+            onShowConfirmation={() => setShowConfirmation(true)}
+          />
+        ))
       )}
       {showConfirmation && (
         <ConfirmationLogin
-          message="Зареєструйтеся або увійдіть, щоб відправити замовлення"
+          message="Ви повинні увійти, щоб продовжити"
           onConfirm={handleConfirm}
-          onCancel={handleCancel}
+          onClose={() => setShowConfirmation(false)}
         />
       )}
     </div>

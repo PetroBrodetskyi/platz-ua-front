@@ -5,6 +5,7 @@ import { RiEyeCloseLine } from 'react-icons/ri';
 import { HiOutlineEye } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../../redux/features/authSlice';
+import { addToCartBack } from '../../../redux/features/cartSlice';
 import css from './LoginForm.module.scss';
 import SubmitButton from '../../SubmitButton/SubmitButton';
 
@@ -29,6 +30,16 @@ const LoginForm = () => {
       const result = await dispatch(login(data)).unwrap();
       const userName = result?.user?.name || 'користувач';
       localStorage.setItem('notification', `Привіт, ${userName}`);
+
+      const cartFromLocalStorage =
+        JSON.parse(localStorage.getItem('cart')) || [];
+      if (cartFromLocalStorage.length) {
+        for (const product of cartFromLocalStorage) {
+          await dispatch(addToCartBack(product));
+        }
+        localStorage.removeItem('cart');
+      }
+
       navigate('/');
     } catch (err) {
       console.error('Login failed:', err);

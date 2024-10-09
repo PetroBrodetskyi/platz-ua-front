@@ -101,11 +101,17 @@ const ProductCard = ({ viewMode }) => {
     if (isInCart) {
       await dispatch(removeFromCartBack(product._id));
       dispatch(fetchProductsInCart());
-      setCartItems((prev) => prev.filter((item) => item._id !== product._id));
+      const updatedCartItems = cartItems.filter(
+        (item) => item._id !== product._id
+      );
+      localStorage.setItem('cart', JSON.stringify(updatedCartItems));
+      dispatch(setCartItems(updatedCartItems));
     } else {
       await dispatch(addToCartBack(product));
       dispatch(fetchProductsInCart());
-      setCartItems((prev) => [...prev, product]);
+      const updatedCartItems = [...cartItems, product];
+      localStorage.setItem('cart', JSON.stringify(updatedCartItems));
+      dispatch(setCartItems(updatedCartItems));
     }
     setNotification(
       `${product.name} ${isInCart ? 'видалено з кошика' : 'додано до кошика'}!`

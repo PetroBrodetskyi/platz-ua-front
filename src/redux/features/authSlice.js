@@ -45,54 +45,18 @@ export const fetchCurrentUser = createAsyncThunk(
 
 export const fetchUserById = createAsyncThunk(
   'auth/fetchUserById',
-  async (userId, { rejectWithValue }) => {
-    if (!userId) {
-      return rejectWithValue('User ID is required');
-    }
-
-    try {
-      const response = await axios.get(`${API_URL}/${userId}`);
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
+  async (userId) => {
+    const response = await axios.get(`${API_URL}/${userId}`);
+    return response.data;
   }
 );
 
 export const updateUserDetails = createAsyncThunk(
   'auth/updateUserDetails',
-  async (formData, { getState, rejectWithValue }) => {
-    const { auth } = getState();
-
-    if (!auth.token) {
-      return rejectWithValue('Сесія завершена, будь ласка, увійдіть знову');
-    }
-
-    try {
-      const response = await axios.patch(
-        `${API_URL}/${auth.user._id}`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${auth.token}`
-          }
-        }
-      );
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
+  async (userDetails) => {
+    const response = await axios.patch(`${API_URL}/update`, userDetails);
+    return response.data;
   }
-);
-
-const selectAuth = (state) => state.auth;
-
-export const selectUser = createSelector([selectAuth], (auth) => auth.user);
-
-export const selectLoading = createSelector(
-  [selectAuth],
-  (auth) => auth.loading
 );
 
 const initialState = {
