@@ -8,7 +8,7 @@ const SplashScreen = ({ onFinish, message }) => {
     const timer = setTimeout(() => {
       setVisible(false);
       onFinish();
-    }, 3000);
+    }, 3500);
 
     return () => clearTimeout(timer);
   }, [onFinish]);
