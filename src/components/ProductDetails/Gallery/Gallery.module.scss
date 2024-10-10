@@ -12,8 +12,6 @@
   }
 
   @include media-rules(desktop) {
-    padding: 20px;
-    background-color: var(--white);
     border-radius: 4px;
   }
 

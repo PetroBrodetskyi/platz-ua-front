@@ -8,6 +8,7 @@ import {
 } from '../../redux/features/commentsSlice';
 import Notification from '../Notification/Notification';
 import { TbGhost } from 'react-icons/tb';
+import { LuArrowUpCircle } from 'react-icons/lu';
 import { nanoid } from 'nanoid';
 import scss from './Comments.module.scss';
 import { formatDistanceToNow } from 'date-fns';
@@ -76,6 +77,7 @@ const Comments = ({ productId }) => {
 
   return (
     <div className={scss.comments}>
+      <h3>Коментарі</h3>
       {notification && <Notification message={notification} />}
       <div className={scss.commentList}>
         {loading ? (
@@ -107,9 +109,13 @@ const Comments = ({ productId }) => {
                     <TbGhost className={scss.icon} />
                   </div>
                 )}
-                <h4>{user ? user.name : 'Видалений акаунт'}</h4>
+                <h4 className={scss.name}>
+                  {user ? user.name : 'Видалений акаунт'}
+                  &nbsp;
+                  <span className={scss.text}>{text}</span>
+                </h4>
               </div>
-              <p className={scss.text}>{text}</p>
+
               <div className={scss.dateTime}>
                 {currentUser?._id === user?._id && (
                   <button
@@ -155,7 +161,7 @@ const Comments = ({ productId }) => {
               />
             </div>
             <button className={scss.add} onClick={handleAddComment}>
-              Додати коментар
+              <LuArrowUpCircle className={scss.icon} />
             </button>
           </div>
         ) : (

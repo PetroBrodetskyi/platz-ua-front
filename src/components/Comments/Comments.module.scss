@@ -3,23 +3,22 @@
 .comments {
   display: flex;
   flex-direction: column;
-  width: auto;
-  background-color: var(--white);
-
-  @include media-rules($tablet) {
-    width: auto;
-  }
-
-  @include media-rules($desktop) {
-    width: auto;
-  }
+  justify-content: space-between;
+  padding: 10px 0;
+  width: 560px;
 }
 
 .commentList {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 10px 0;
   flex: 1;
+  max-height: 340px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   .avatarName {
     display: flex;
@@ -27,10 +26,17 @@
   }
 }
 
+.name {
+  font-weight: 600;
+
+  .text {
+    font-weight: 400;
+  }
+}
+
 .userContainer {
   display: flex;
   gap: 8px;
-  align-items: center;
   cursor: pointer;
 }
 
@@ -38,16 +44,15 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 20px 4px;
 }
 
 .comment {
   border-bottom: 1px solid #ddd;
-  padding: 4px;
 
   .text {
     @include media-rules($desktop) {
       font-size: 16px;
+      font-weight: 400;
     }
   }
 }
@@ -91,23 +96,36 @@
 .commentForm {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
 
-  textarea {
-    width: 100%;
+  .textarea {
+    width: 468px;
     height: 80px;
-    margin-bottom: 10px;
+  }
+}
+
+.addContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 28px;
+
+  @media (min-width: $tablet) {
+    font-size: 30px;
   }
 
-  button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
+  @include media-rules(desktop) {
+    font-size: 34px;
+    transition: transform 0.3s ease;
 
     &:hover {
-      background-color: #0056b3;
+      transform: scale(1.2);
     }
   }
 }

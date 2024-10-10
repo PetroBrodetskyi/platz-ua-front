@@ -1,12 +1,13 @@
 @import 'src/styles/mixins';
 
-$padding-desktop: 80px 40px;
+$padding-desktop: 100px 40px;
 $padding-tablet: 0 20px;
 $padding-mobile: 20px;
 
 .product {
   display: flex;
   flex-direction: column;
+  gap: 20px;
 
   @include media-rules(tablet) {
     padding: $padding-tablet;
@@ -16,30 +17,53 @@ $padding-mobile: 20px;
     padding: $padding-desktop;
   }
 
+  .container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+
   .infoContainer {
+    height: 460px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    justify-content: space-between;
+  }
 
-    @include media-rules(tablet) {
-      flex-direction: row;
-      gap: 0;
-    }
+  .productInfo {
+    display: flex;
+    gap: 50px;
+    flex-direction: column;
+    width: 560px;
+  }
 
-    @include media-rules(desktop) {
-      flex-direction: row;
-      justify-content: center;
-      gap: 20px;
-    }
+  .gallery {
+    width: 500px;
+  }
 
-    .productInfo {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+  .detail {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 16px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 4px;
+    color: var(--white);
+
+    .icon {
+      font-size: 26px;
 
       @include media-rules(desktop) {
-        width: 600px;
+        font-size: 24px;
       }
     }
+  }
+
+  .icons {
+    display: flex;
+    align-items: сenter;
+    gap: 4px;
   }
 }

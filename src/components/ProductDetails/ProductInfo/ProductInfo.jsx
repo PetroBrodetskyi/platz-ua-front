@@ -1,27 +1,10 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { TbLocation } from 'react-icons/tb';
-import { SlLocationPin } from 'react-icons/sl';
-import { HiOutlineEye } from 'react-icons/hi';
-import { MdOutlineDateRange } from 'react-icons/md';
-import { FaRegFaceSmile, FaRegFaceMeh } from 'react-icons/fa6';
 import scss from './ProductInfo.module.scss';
 import CartPrice from '../../ProductCard/CartPrice/CartPrice';
-import ActionButton from '../ActionButton/ActionButton';
 import { fetchExchangeRate } from '../../../redux/features/productsSlice';
 
-const ProductInfo = ({
-  product,
-  isEditing,
-  updatedProduct,
-  setUpdatedProduct,
-  handleEditClick,
-  handleSaveClick,
-  currentUser,
-  handleAddToCart,
-  isInCart
-}) => {
-  const formattedDate = new Date(product.createdAt).toLocaleDateString();
+const ProductInfo = ({ product, handleAddToCart, isInCart }) => {
   const dispatch = useDispatch();
   const exchangeRate = useSelector((state) => state.products.exchangeRate);
 
@@ -31,124 +14,22 @@ const ProductInfo = ({
     }
   }, [dispatch, exchangeRate]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUpdatedProduct((prevState) => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-
-  const handleConditionChange = (e) => {
-    setUpdatedProduct((prevState) => ({
-      ...prevState,
-      condition: e.target.value
-    }));
-  };
-
   return (
     <div className={scss.details}>
       <div className={scss.info}>
         <div className={scss.namePrice}>
-          {isEditing ? (
-            <input
-              type="text"
-              name="name"
-              value={updatedProduct.name}
-              onChange={handleChange}
-              className={scss.inputField}
-            />
-          ) : (
-            <h2 className={scss.title}>{product.name}</h2>
-          )}
+          <h2 className={scss.title}>{product.name}</h2>
           <div className={scss.priceContainer}>
-            {isEditing ? (
-              <input
-                type="text"
-                name="price"
-                value={updatedProduct.price}
-                onChange={handleChange}
-                className={scss.inputField}
-              />
-            ) : (
-              <CartPrice
-                price={product.price}
-                exchangeRate={exchangeRate}
-                onAddToCart={handleAddToCart}
-                isInCart={isInCart}
-              />
-            )}
+            <CartPrice
+              price={product.price}
+              exchangeRate={exchangeRate}
+              onAddToCart={handleAddToCart}
+              isInCart={isInCart}
+            />
           </div>
         </div>
 
-        <p className={scss.description}>
-          {isEditing ? (
-            <textarea
-              name="description"
-              value={updatedProduct.description}
-              onChange={handleChange}
-              className={scss.descriptionField}
-            />
-          ) : (
-            product.description
-          )}
-        </p>
-        {currentUser?._id === product.owner && (
-          <div className={scss.edit}>
-            <ActionButton
-              isEditing={isEditing}
-              onClick={isEditing ? handleSaveClick : handleEditClick}
-            />
-          </div>
-        )}
-      </div>
-
-      <div className={scss.editContainer}>
-        <div className={scss.infoContainer}>
-          <p className={scss.detail}>
-            <TbLocation className={scss.icon} /> {product.PLZ}
-          </p>
-          <p className={scss.detail}>
-            <SlLocationPin className={scss.icon} /> {product.city}
-          </p>
-          <div className={scss.detail}>
-            {isEditing ? (
-              <div className={scss.conditionOptions}>
-                {['новий', 'вживаний'].map((condition) => (
-                  <label key={condition}>
-                    <input
-                      type="radio"
-                      name="condition"
-                      value={condition}
-                      checked={updatedProduct.condition === condition}
-                      onChange={handleConditionChange}
-                    />
-                    {condition}
-                  </label>
-                ))}
-              </div>
-            ) : (
-              <p className={scss.icons}>
-                {product.condition === 'новий' ? (
-                  <>
-                    <FaRegFaceSmile className={scss.icon} /> новий
-                  </>
-                ) : (
-                  <>
-                    <FaRegFaceMeh className={scss.icon} /> вживаний
-                  </>
-                )}
-              </p>
-            )}
-          </div>
-          <p className={scss.detail}>
-            <MdOutlineDateRange className={scss.icon} /> {formattedDate}
-          </p>
-          <p className={scss.detail}>
-            <HiOutlineEye className={scss.icon} />
-            {product.views !== undefined ? product.views : 'N/A'}
-          </p>
-        </div>
+        <p className={scss.description}>{product.description}</p>
       </div>
     </div>
   );

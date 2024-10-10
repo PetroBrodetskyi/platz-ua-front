@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
@@ -16,29 +16,25 @@ import {
   addToCartBack,
   removeFromCartBack
 } from '../../redux/features/cartSlice';
-
 import Notification from '../Notification/Notification';
 import Tags from './Tags/Tags';
-import axios from 'axios';
 import scss from './ProductDetails.module.scss';
 import Gallery from './Gallery/Gallery';
 import ProductInfo from './ProductInfo/ProductInfo';
 import UserInfo from './UserInfo/UserInfo';
 import Loader from '../Loader/Loader';
 import Comments from '../Comments/Comments';
+import { TbLocation } from 'react-icons/tb';
+import { GrLocation } from 'react-icons/gr';
+import { HiOutlineEye } from 'react-icons/hi';
+import { MdOutlineDateRange } from 'react-icons/md';
+import { FaRegFaceSmile, FaRegFaceMeh } from 'react-icons/fa6';
 
 const ProductDetails = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
 
   const [notification, setNotification] = useState('');
-  const [isEditing, setIsEditing] = useState(false);
-  const [updatedProduct, setUpdatedProduct] = useState({
-    name: '',
-    price: '',
-    description: '',
-    condition: ''
-  });
 
   const product = useSelector((state) => selectProductById(state, productId));
   const loading = useSelector(selectLoading);
@@ -52,71 +48,18 @@ const ProductDetails = () => {
     if (product?.owner) dispatch(fetchUserById(product.owner));
   }, [dispatch, product, productId]);
 
-  useEffect(() => {
-    if (product) {
-      setUpdatedProduct({
-        name: product.name || '',
-        price: product.price || '',
-        description: product.description || '',
-        condition: product.condition || ''
-      });
-    }
-  }, [product]);
-
-  const handleEditClick = useCallback(() => {
-    if (currentUser?._id === product?.owner) {
-      setIsEditing(true);
-    } else {
-      alert('Ви не маєте права редагувати це оголошення.');
-    }
-  }, [currentUser, product]);
-
-  const handleSaveClick = useCallback(async () => {
-    if (currentUser?._id !== product?.owner) {
-      alert('Ви не маєте права редагувати це оголошення.');
-      return;
-    }
-
-    try {
-      const { data } = await axios.patch(
-        `https://platz-ua-back.vercel.app/api/products/${product._id}`,
-        updatedProduct,
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-        }
-      );
-
-      setUpdatedProduct({
-        name: data.name || '',
-        price: data.price || '',
-        description: data.description || '',
-        condition: data.condition || ''
-      });
-
-      setIsEditing(false);
-      dispatch(fetchProductById(product._id));
-      setNotification('Продукт успішно оновлено!');
-    } catch (error) {
-      console.error(
-        'Error updating product:',
-        error?.response?.data || error.message
-      );
-      alert('Виникла помилка при оновленні продукту. Спробуйте ще раз.');
-    }
-  }, [currentUser, product, updatedProduct, dispatch]);
-
-  const handleAddToCart = useCallback(() => {
+  const handleAddToCart = () => {
     const isInCart = cartItems.some((item) => item._id === product._id);
     const productWithOwner = { ...product, owner };
 
     if (isInCart) {
-      dispatch(removeFromCartBack(product._id)); // Видалити з бекенду
+      dispatch(removeFromCartBack(product._id));
       setNotification(`${product.name} видалено з кошика!`);
     } else {
-      dispatch(addToCartBack(productWithOwner)); // Додати до бекенду
+      dispatch(addToCartBack(productWithOwner));
       setNotification(`${product.name} додано до кошика!`);
     }
-  }, [cartItems, dispatch, product, owner]);
+  };
 
   if (loading) return <Loader />;
   if (error) return <p>Помилка завантаження даних: {error}</p>;
@@ -127,34 +70,66 @@ const ProductDetails = () => {
   return (
     <div className={scss.product}>
       <UserInfo owner={owner} />
-      <div className={scss.infoContainer}>
+      <div className={scss.container}>
+        <div className={scss.infoContainer}>
+          <div>
+            <p className={scss.detail}>
+              <TbLocation className={scss.icon} /> {product.PLZ}
+            </p>
+          </div>
+          <div>
+            <p className={scss.detail}>
+              <GrLocation className={scss.icon} /> {product.city}
+            </p>
+          </div>
+          <div>
+            <p className={scss.detail}>
+              {product.condition === 'новий' ? (
+                <>
+                  <FaRegFaceSmile className={scss.icon} /> новий
+                </>
+              ) : (
+                <>
+                  <FaRegFaceMeh className={scss.icon} /> вживаний
+                </>
+              )}
+            </p>
+          </div>
+          <div>
+            <p className={scss.detail}>
+              <HiOutlineEye className={scss.icon} />{' '}
+              {product.views !== undefined ? product.views : 'N/A'}
+            </p>
+          </div>
+          <div>
+            <p className={scss.detail}>
+              <MdOutlineDateRange className={scss.icon} />{' '}
+              {new Date(product.createdAt).toLocaleDateString()}
+            </p>
+          </div>
+        </div>
+
         <div className={scss.gallery}>
           <Gallery images={product} />
         </div>
-        <div className={scss.productInfo}>
-          <ProductInfo
-            product={product}
-            isEditing={isEditing}
-            updatedProduct={updatedProduct}
-            setUpdatedProduct={setUpdatedProduct}
-            handleEditClick={handleEditClick}
-            handleSaveClick={handleSaveClick}
-            currentUser={currentUser}
-            handleAddToCart={handleAddToCart}
-            isInCart={isInCart}
-          />
-          <Tags product={product} />
+        <div>
+          <div className={scss.productInfo}>
+            <ProductInfo
+              product={product}
+              handleAddToCart={handleAddToCart}
+              isInCart={isInCart}
+            />
+          </div>
+          <Comments productId={productId} />
         </div>
-        {notification && (
-          <Notification
-            message={notification}
-            onClose={() => setNotification('')}
-          />
-        )}
       </div>
-      <div>
-        <Comments productId={productId} />
-      </div>
+
+      {notification && (
+        <Notification
+          message={notification}
+          onClose={() => setNotification('')}
+        />
+      )}
     </div>
   );
 };
