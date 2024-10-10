@@ -48,14 +48,14 @@
   @include media-rules(desktop) {
     font-size: 16px;
   }
+}
 
-  .text {
-    font-weight: 400;
-    font-size: 12px;
+.text {
+  font-weight: 400;
+  font-size: 12px;
 
-    @include media-rules(desktop) {
-      font-size: 16px;
-    }
+  @include media-rules(desktop) {
+    font-size: 16px;
   }
 }
 
@@ -111,7 +111,6 @@
 
 .dateTime {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
   gap: 8px;
   font-size: 12px;

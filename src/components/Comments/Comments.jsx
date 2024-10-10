@@ -109,12 +109,19 @@ const Comments = ({ productId }) => {
                     <TbGhost className={scss.icon} />
                   </div>
                 )}
-                <h4 className={scss.name}>
-                  {user ? user.name : 'Видалений акаунт'}
-                  &nbsp;
-                  <span className={scss.text}>{text}</span>
-                </h4>
+                <div className={scss.nameContainer}>
+                  <h4 className={scss.name}>
+                    {user ? user.name : 'Видалений акаунт'}
+                  </h4>
+                  <p className={scss.dateTime}>
+                    {formatDistanceToNow(new Date(createdAt), {
+                      addSuffix: true,
+                      locale: uk
+                    })}
+                  </p>
+                </div>
               </div>
+              <p className={scss.text}>{text}</p>
 
               <div className={scss.dateTime}>
                 {currentUser?._id === user?._id && (
@@ -125,12 +132,6 @@ const Comments = ({ productId }) => {
                     Видалити
                   </button>
                 )}
-                <p className={scss.dateTime}>
-                  {formatDistanceToNow(new Date(createdAt), {
-                    addSuffix: true,
-                    locale: uk
-                  })}
-                </p>
               </div>
             </div>
           ))
