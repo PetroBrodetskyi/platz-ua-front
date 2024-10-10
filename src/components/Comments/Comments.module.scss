@@ -5,23 +5,30 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 10px;
+  gap: 4px;
 
   @include media-rules(desktop) {
     width: 560px;
     padding: 10px 0;
+    gap: 10px;
   }
+}
+
+.title {
+  margin: 0;
 }
 
 .commentList {
   display: flex;
   flex-direction: column;
-  gap: 10px 0;
+  gap: 4px;
   flex: 1;
 
   overflow-y: auto;
 
   @include media-rules(desktop) {
     max-height: 340px;
+    gap: 10px;
   }
 
   &::-webkit-scrollbar {
@@ -65,7 +72,13 @@
 }
 
 .comment {
-  border-bottom: 1px solid #ddd;
+  border: 1px solid #ddd;
+  padding: 4px;
+  border-radius: 4px;
+
+  @include media-rules(desktop) {
+    padding: 10px;
+  }
 }
 
 .avatar {
@@ -124,7 +137,12 @@
 .addContainer {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0;
+  padding: 4px;
+  border: 1px solid #ddd;
+
+  @include media-rules(desktop) {
+    padding: 10px;
+  }
 }
 
 .icon {

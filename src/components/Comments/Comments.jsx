@@ -77,7 +77,7 @@ const Comments = ({ productId }) => {
 
   return (
     <div className={scss.comments}>
-      <h3>Коментарі</h3>
+      <h3 className={scss.title}>Коментарі</h3>
       {notification && <Notification message={notification} />}
       <div className={scss.commentList}>
         {loading ? (
