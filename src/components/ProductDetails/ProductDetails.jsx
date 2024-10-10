@@ -17,9 +17,9 @@ import {
   removeFromCartBack
 } from '../../redux/features/cartSlice';
 import Notification from '../Notification/Notification';
-import Tags from './Tags/Tags';
 import scss from './ProductDetails.module.scss';
 import Gallery from './Gallery/Gallery';
+import SubmitButton from '../SubmitButton';
 import ProductInfo from './ProductInfo/ProductInfo';
 import UserInfo from './UserInfo/UserInfo';
 import Loader from '../Loader/Loader';
@@ -112,7 +112,7 @@ const ProductDetails = () => {
         <div className={scss.gallery}>
           <Gallery images={product} />
         </div>
-        <div>
+        <div className={scss.infoFlex}>
           <div className={scss.productInfo}>
             <ProductInfo
               product={product}
@@ -120,6 +120,10 @@ const ProductDetails = () => {
               isInCart={isInCart}
             />
           </div>
+          <SubmitButton
+            buttonText={isInCart ? 'У кошику' : 'У кошик'}
+            onClick={handleAddToCart}
+          />
           <Comments productId={productId} />
         </div>
       </div>

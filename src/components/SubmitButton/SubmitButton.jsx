@@ -7,6 +7,8 @@ const SubmitButton = ({ buttonText, onClick }) => {
     case 'Реєстрація':
     case 'Логін':
     case 'Розмістити':
+    case 'У кошик':
+    case 'У кошику':
       return (
         <button className={scss.button} type="submit">
           {buttonText}

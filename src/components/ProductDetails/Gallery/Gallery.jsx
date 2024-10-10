@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { AiOutlineClose, AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
+import { GrZoomOut } from 'react-icons/gr';
+import { GrZoomIn } from 'react-icons/gr';
 import { useSwipeable } from 'react-swipeable';
 import scss from './Gallery.module.scss';
 
@@ -13,7 +15,7 @@ const Gallery = ({ images }) => {
 
   const [selectedImage, setSelectedImage] = useState(imageList[0]);
   const [isZoomed, setIsZoomed] = useState(false);
-  const [zoomLevel, setZoomLevel] = useState(0);
+  const [zoomLevel, setZoomLevel] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -29,36 +31,31 @@ const Gallery = ({ images }) => {
   };
 
   const prevImage = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? imageList.length - 1 : prevIndex - 1
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + imageList.length) % imageList.length
     );
   };
 
   const toggleZoom = () => {
     setIsZoomed(!isZoomed);
     if (!isZoomed) {
-      setZoomLevel(0);
+      setZoomLevel(1); // reset zoom level on open
     }
   };
 
   const increaseZoom = (e) => {
     e.stopPropagation();
-    if (zoomLevel < 2) {
-      setZoomLevel((prevLevel) => prevLevel + 1);
-    }
+    setZoomLevel((prevLevel) => Math.min(prevLevel + 0.5, 2)); // max zoom level of 2
   };
 
   const decreaseZoom = (e) => {
     e.stopPropagation();
-    if (zoomLevel > 0) {
-      setZoomLevel((prevLevel) => prevLevel - 1);
-    }
+    setZoomLevel((prevLevel) => Math.max(prevLevel - 0.5, 1)); // min zoom level of 1
   };
 
   const handleKeyDown = (event) => {
     if (event.key === 'Escape' && isZoomed) {
-      setZoomLevel(0);
-      setIsZoomed(false);
+      toggleZoom();
     }
     if (event.key === 'ArrowRight') {
       nextImage();
@@ -135,23 +132,14 @@ const Gallery = ({ images }) => {
           <img
             src={selectedImage}
             alt="Zoomed Product"
-            className={`${scss.zoomedImage} ${zoomLevel === 2 ? scss.zoomedImageFull : ''}`}
+            className={scss.zoomedImage}
+            style={{ transform: `scale(${zoomLevel})` }}
             onClick={(e) => e.stopPropagation()}
           />
           <div className={scss.controls}>
+            <GrZoomIn className={scss.zoomInIcon} onClick={increaseZoom} />
+            <GrZoomOut className={scss.zoomOutIcon} onClick={decreaseZoom} />
             <AiOutlineClose className={scss.closeIcon} onClick={toggleZoom} />
-            {zoomLevel < 2 && (
-              <AiOutlinePlus
-                className={scss.zoomInIcon}
-                onClick={increaseZoom}
-              />
-            )}
-            {zoomLevel > 0 && (
-              <AiOutlineMinus
-                className={scss.zoomOutIcon}
-                onClick={decreaseZoom}
-              />
-            )}
           </div>
         </div>
       )}

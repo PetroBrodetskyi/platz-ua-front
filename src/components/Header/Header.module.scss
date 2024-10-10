@@ -21,6 +21,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 8px;
     flex-direction: column;
     width: 100%;
 
@@ -50,7 +51,6 @@
       display: flex;
       gap: 10px;
       justify-content: flex-end;
-      padding: 4px;
 
       @include media-rules(tablet) {
         align-items: center;
