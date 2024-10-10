@@ -125,7 +125,7 @@ const Comments = ({ productId }) => {
                     Видалити
                   </button>
                 )}
-                <p>
+                <p className={scss.dateTime}>
                   {formatDistanceToNow(new Date(createdAt), {
                     addSuffix: true,
                     locale: uk
