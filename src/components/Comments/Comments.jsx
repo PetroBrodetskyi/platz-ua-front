@@ -4,7 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import {
   fetchComments,
   addComment,
-  deleteComment
+  deleteComment,
+  addReply,
+  deleteReply
 } from '../../redux/features/commentsSlice';
 import Notification from '../Notification/Notification';
 import { TbGhost } from 'react-icons/tb';
@@ -28,6 +30,8 @@ const Comments = ({ productId }) => {
     [];
 
   const [newComment, setNewComment] = useState('');
+  const [replyText, setReplyText] = useState('');
+  const [replyTo, setReplyTo] = useState(null);
   const [notification, setNotification] = useState('');
 
   useEffect(() => {
@@ -62,6 +66,46 @@ const Comments = ({ productId }) => {
     [dispatch, productId]
   );
 
+  const handleAddReply = useCallback(
+    async (commentId) => {
+      if (replyText.trim()) {
+        const resultAction = await dispatch(
+          addReply({
+            productId,
+            commentId,
+            reply: replyText,
+            user: currentUser
+          })
+        );
+
+        if (addReply.fulfilled.match(resultAction)) {
+          dispatch(fetchComments(productId));
+          setNotification('Ваша відповідь додана');
+          setReplyText('');
+          setReplyTo(null);
+        } else {
+          setNotification('Помилка додавання відповіді');
+        }
+      }
+    },
+    [replyText, dispatch, productId, currentUser]
+  );
+
+  const handleDeleteReply = useCallback(
+    async (commentId, replyId) => {
+      const resultAction = await dispatch(
+        deleteReply({ productId, commentId, replyId })
+      );
+
+      setNotification(
+        deleteReply.fulfilled.match(resultAction)
+          ? 'Відповідь видалено'
+          : 'Помилка видалення відповіді'
+      );
+    },
+    [dispatch, productId]
+  );
+
   const handleUserClick = useCallback(
     (userId) => {
       navigate(`/user/${userId}`);
@@ -91,7 +135,7 @@ const Comments = ({ productId }) => {
             </div>
           ))
         ) : commentsForProduct.length ? (
-          commentsForProduct.map(({ _id, user, text, createdAt }) => (
+          commentsForProduct.map(({ _id, user, text, createdAt, replies }) => (
             <div key={_id || nanoid()} className={scss.comment}>
               <div
                 className={scss.userContainer}
@@ -132,7 +176,55 @@ const Comments = ({ productId }) => {
                     Видалити
                   </button>
                 )}
+                <button
+                  className={scss.replyButton}
+                  onClick={() => setReplyTo(_id)}
+                >
+                  Відповісти
+                </button>
               </div>
+
+              {/* {replies?.map((reply) => (
+                <div key={reply._id || nanoid()} className={scss.reply}>
+                  <p className={scss.replyText}>
+                    <strong>{reply.user.name}: </strong>
+                    {reply.text}
+                  </p>
+                </div>
+              ))} */}
+
+              {replyTo === _id && (
+                <div className={scss.replyForm}>
+                  <textarea
+                    value={replyText}
+                    onChange={(e) => setReplyText(e.target.value)}
+                    placeholder="Написати відповідь..."
+                    className={scss.textarea}
+                  />
+                  <button
+                    className={scss.addReplyButton}
+                    onClick={() => handleAddReply(_id)}
+                  >
+                    Відправити
+                  </button>
+                </div>
+              )}
+              {replies?.map((reply) => (
+                <div key={reply._id || nanoid()} className={scss.reply}>
+                  <p className={scss.replyText}>
+                    <strong>{reply.user.name}: </strong>
+                    {reply.text}
+                  </p>
+                  {currentUser?._id === reply.user._id && (
+                    <button
+                      className={scss.deleteReplyButton}
+                      onClick={() => handleDeleteReply(_id, reply._id)}
+                    >
+                      Видалити відповідь
+                    </button>
+                  )}
+                </div>
+              ))}
             </div>
           ))
         ) : (

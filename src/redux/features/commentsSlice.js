@@ -48,6 +48,37 @@ export const deleteComment = createAsyncThunk(
   }
 );
 
+export const addReply = createAsyncThunk(
+  'comments/addReply',
+  async ({ productId, commentId, reply, user }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.patch(
+        `/products/${productId}/comments/${commentId}/replies`,
+        { text: reply, user },
+        getAuthHeaders()
+      );
+      return { productId, commentId, reply: { ...data.reply, user } };
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const deleteReply = createAsyncThunk(
+  'comments/deleteReply',
+  async ({ productId, commentId, replyId }, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(
+        `/products/${productId}/comments/${commentId}/replies/${replyId}`,
+        getAuthHeaders()
+      );
+      return { productId, commentId, replyId };
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const commentsSlice = createSlice({
   name: 'comments',
   initialState: {
@@ -114,7 +145,28 @@ const commentsSlice = createSlice({
         state.error = payload;
       })
       .addCase(addComment.fulfilled, handleAddCommentFulfilled)
-      .addCase(deleteComment.fulfilled, handleDeleteCommentFulfilled);
+      .addCase(deleteComment.fulfilled, handleDeleteCommentFulfilled)
+      .addCase(addReply.fulfilled, (state, { payload }) => {
+        const productComments = state.comments.find(
+          (c) => c.productId === payload.productId
+        );
+        const comment = productComments.comments.find(
+          (c) => c._id === payload.commentId
+        );
+        comment.replies.push(payload.reply);
+      })
+      .addCase(deleteReply.fulfilled, (state, action) => {
+        const { productId, commentId, replyId } = action.payload;
+        const productComments = state.comments.find(
+          (comment) => comment.productId === productId
+        );
+        const comment = productComments.comments.find(
+          (c) => c._id === commentId
+        );
+        comment.replies = comment.replies.filter(
+          (reply) => reply._id !== replyId
+        );
+      });
   }
 });
 
