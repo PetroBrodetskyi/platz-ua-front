@@ -6,8 +6,10 @@ import {
   addComment,
   deleteComment,
   addReply,
-  deleteReply
-} from '../../redux/features/commentsSlice';
+  deleteReply,
+  editComment,
+  editReply
+} from '../../redux/features/commentsSlice'; // Додано editComment та editReply
 import Notification from '../Notification/Notification';
 import { TbGhost } from 'react-icons/tb';
 import { LuArrowUpCircle } from 'react-icons/lu';
@@ -32,6 +34,9 @@ const Comments = ({ productId }) => {
   const [newComment, setNewComment] = useState('');
   const [replyText, setReplyText] = useState('');
   const [replyTo, setReplyTo] = useState(null);
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editingReplyId, setEditingReplyId] = useState(null);
+  const [editingText, setEditingText] = useState('');
   const [notification, setNotification] = useState('');
 
   useEffect(() => {
@@ -64,6 +69,25 @@ const Comments = ({ productId }) => {
       );
     },
     [dispatch, productId]
+  );
+
+  const handleEditComment = useCallback(
+    async (commentId) => {
+      if (editingText.trim()) {
+        const resultAction = await dispatch(
+          editComment({ productId, commentId, text: editingText })
+        );
+        if (editComment.fulfilled.match(resultAction)) {
+          dispatch(fetchComments(productId)); // Оновити коментарі
+          setNotification('Коментар оновлено');
+          setEditingCommentId(null);
+          setEditingText('');
+        } else {
+          setNotification('Помилка редагування коментаря');
+        }
+      }
+    },
+    [editingText, dispatch, productId]
   );
 
   const handleAddReply = useCallback(
@@ -104,6 +128,25 @@ const Comments = ({ productId }) => {
       );
     },
     [dispatch, productId]
+  );
+
+  const handleEditReply = useCallback(
+    async (commentId, replyId) => {
+      if (editingText.trim()) {
+        const resultAction = await dispatch(
+          editReply({ productId, commentId, replyId, text: editingText })
+        );
+        if (editReply.fulfilled.match(resultAction)) {
+          dispatch(fetchComments(productId)); // Оновити коментарі
+          setNotification('Відповідь оновлено');
+          setEditingReplyId(null);
+          setEditingText('');
+        } else {
+          setNotification('Помилка редагування відповіді');
+        }
+      }
+    },
+    [editingText, dispatch, productId]
   );
 
   const handleUserClick = useCallback(
@@ -165,33 +208,63 @@ const Comments = ({ productId }) => {
                   </p>
                 </div>
               </div>
-              <p className={scss.text}>{text}</p>
 
-              <div className={scss.dateTime}>
-                {currentUser?._id === user?._id && (
+              {editingCommentId === _id ? (
+                <div className={scss.editForm}>
+                  <textarea
+                    value={editingText}
+                    onChange={(e) => setEditingText(e.target.value)}
+                    placeholder="Редагувати коментар..."
+                    className={scss.textarea}
+                  />
                   <button
-                    className={scss.deleteButton}
-                    onClick={() => handleDeleteComment(_id)}
+                    className={scss.addReplyButton}
+                    onClick={() => handleEditComment(_id)}
                   >
-                    Видалити
+                    Зберегти
                   </button>
-                )}
-                <button
-                  className={scss.replyButton}
-                  onClick={() => setReplyTo(_id)}
-                >
-                  Відповісти
-                </button>
-              </div>
-
-              {/* {replies?.map((reply) => (
-                <div key={reply._id || nanoid()} className={scss.reply}>
-                  <p className={scss.replyText}>
-                    <strong>{reply.user.name}: </strong>
-                    {reply.text}
-                  </p>
+                  <button
+                    className={scss.cancelButton}
+                    onClick={() => {
+                      setEditingCommentId(null);
+                      setEditingText('');
+                    }}
+                  >
+                    Скасувати
+                  </button>
                 </div>
-              ))} */}
+              ) : (
+                <>
+                  <p className={scss.text}>{text}</p>
+                  <div className={scss.dateTime}>
+                    {currentUser?._id === user?._id && (
+                      <>
+                        <button
+                          className={scss.editButton}
+                          onClick={() => {
+                            setEditingCommentId(_id);
+                            setEditingText(text);
+                          }}
+                        >
+                          Редагувати
+                        </button>
+                        <button
+                          className={scss.deleteButton}
+                          onClick={() => handleDeleteComment(_id)}
+                        >
+                          Видалити
+                        </button>
+                      </>
+                    )}
+                    <button
+                      className={scss.replyButton}
+                      onClick={() => setReplyTo(_id)}
+                    >
+                      Відповісти
+                    </button>
+                  </div>
+                </>
+              )}
 
               {replyTo === _id && (
                 <div className={scss.replyForm}>
@@ -207,63 +280,134 @@ const Comments = ({ productId }) => {
                   >
                     Відправити
                   </button>
+                  <button
+                    className={scss.cancelButton}
+                    onClick={() => setReplyTo(null)}
+                  >
+                    Скасувати
+                  </button>
                 </div>
               )}
-              {replies?.map((reply) => (
-                <div key={reply._id || nanoid()} className={scss.reply}>
-                  <p className={scss.replyText}>
-                    <strong>{reply.user.name}: </strong>
-                    {reply.text}
-                  </p>
-                  {currentUser?._id === reply.user._id && (
-                    <button
-                      className={scss.deleteReplyButton}
-                      onClick={() => handleDeleteReply(_id, reply._id)}
+
+              {replies?.map(
+                ({
+                  _id: replyId,
+                  user: replyUser,
+                  text: replyText,
+                  createdAt: replyCreatedAt
+                }) => (
+                  <div key={replyId} className={scss.reply}>
+                    <div
+                      className={scss.userContainer}
+                      onClick={() =>
+                        replyUser && handleUserClick(replyUser._id)
+                      }
+                      style={{ cursor: replyUser ? 'pointer' : 'default' }}
                     >
-                      Видалити відповідь
-                    </button>
-                  )}
-                </div>
-              ))}
+                      {replyUser?.avatarURL ? (
+                        <img
+                          src={replyUser.avatarURL}
+                          alt={replyUser.name}
+                          className={scss.avatar}
+                        />
+                      ) : (
+                        <div className={scss.iconContainer}>
+                          <TbGhost className={scss.icon} />
+                        </div>
+                      )}
+                      <div className={scss.nameContainer}>
+                        <h4 className={scss.name}>
+                          {replyUser ? replyUser.name : 'Видалений акаунт'}
+                        </h4>
+                        <p className={scss.dateTime}>
+                          {formatDistanceToNow(new Date(replyCreatedAt), {
+                            addSuffix: true,
+                            locale: uk
+                          })}
+                        </p>
+                      </div>
+                    </div>
+
+                    {editingReplyId === replyId ? (
+                      <div className={scss.editForm}>
+                        <textarea
+                          value={editingText}
+                          onChange={(e) => setEditingText(e.target.value)}
+                          placeholder="Редагувати відповідь..."
+                          className={scss.textarea}
+                        />
+                        <button
+                          className={scss.addReplyButton}
+                          onClick={() => handleEditReply(_id, replyId)}
+                        >
+                          Зберегти
+                        </button>
+                        <button
+                          className={scss.cancelButton}
+                          onClick={() => {
+                            setEditingReplyId(null);
+                            setEditingText('');
+                          }}
+                        >
+                          Скасувати
+                        </button>
+                      </div>
+                    ) : (
+                      <>
+                        <p className={scss.replyText}>{replyText}</p>
+                        <div className={scss.dateTime}>
+                          {currentUser?._id === replyUser?._id && (
+                            <>
+                              <button
+                                className={scss.editButton}
+                                onClick={() => {
+                                  setEditingReplyId(replyId);
+                                  setEditingText(replyText);
+                                }}
+                              >
+                                Редагувати
+                              </button>
+                              <button
+                                className={scss.deleteButton}
+                                onClick={() => handleDeleteReply(_id, replyId)}
+                              >
+                                Видалити
+                              </button>
+                            </>
+                          )}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                )
+              )}
             </div>
           ))
         ) : (
-          <p>Ви можете написати перший коментар</p>
+          <p>Коментарі відсутні</p>
         )}
       </div>
-      <div className={scss.commentForm}>
-        {currentUser ? (
-          <div className={scss.addContainer}>
-            <div className={scss.addComment}>
-              {currentUser.avatarURL ? (
-                <img
-                  src={currentUser.avatarURL}
-                  alt={currentUser.name}
-                  className={scss.avatar}
-                />
-              ) : (
-                <div className={scss.iconContainer}>
-                  <TbGhost className={scss.icon} />
-                </div>
-              )}
-              <textarea
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                placeholder="Додати коментар..."
-                className={scss.textarea}
-              />
-            </div>
-            <button className={scss.add} onClick={handleAddComment}>
-              <LuArrowUpCircle className={scss.icon} />
-            </button>
-          </div>
-        ) : (
-          <div className={scss.loginPrompt}>
-            <p>Увійдіть, щоб відправити повідомлення.</p>
-            <button onClick={handleLoginClick}>Увійти</button>
-          </div>
-        )}
-      </div>
+
+      {currentUser ? (
+        <div className={scss.addComment}>
+          <textarea
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="Написати коментар..."
+            className={scss.textarea}
+          />
+          <button className={scss.addCommentButton} onClick={handleAddComment}>
+            Відправити
+          </button>
+        </div>
+      ) : (
+        <div className={scss.loginPrompt}>
+          <p>
+            Щоб додати коментар,{' '}
+            <span onClick={handleLoginClick}>увійдіть</span>.
+          </p>
+        </div>
+      )}
     </div>
   );
 };

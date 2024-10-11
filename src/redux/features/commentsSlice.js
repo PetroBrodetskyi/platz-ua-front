@@ -79,6 +79,38 @@ export const deleteReply = createAsyncThunk(
   }
 );
 
+export const editComment = createAsyncThunk(
+  'comments/editComment',
+  async ({ productId, commentId, text }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.patch(
+        `/products/${productId}/comments/${commentId}`,
+        { text },
+        getAuthHeaders()
+      );
+      return { productId, commentId, text: data.text };
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const editReply = createAsyncThunk(
+  'comments/editReply',
+  async ({ productId, commentId, replyId, text }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.patch(
+        `/products/${productId}/comments/${commentId}/replies/${replyId}`,
+        { text },
+        getAuthHeaders()
+      );
+      return { productId, commentId, replyId, text: data.text };
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const commentsSlice = createSlice({
   name: 'comments',
   initialState: {
@@ -166,6 +198,21 @@ const commentsSlice = createSlice({
         comment.replies = comment.replies.filter(
           (reply) => reply._id !== replyId
         );
+      })
+      .addCase(editComment.fulfilled, (state, action) => {
+        const comment = state.comments
+          .find((c) => c.productId === action.payload.productId)
+          .comments.find((c) => c._id === action.payload.commentId);
+        comment.text = action.payload.text;
+      })
+      .addCase(editReply.fulfilled, (state, action) => {
+        const comment = state.comments
+          .find((c) => c.productId === action.payload.productId)
+          .comments.find((c) => c._id === action.payload.commentId);
+        const reply = comment.replies.find(
+          (r) => r._id === action.payload.replyId
+        );
+        reply.text = action.payload.text;
       });
   }
 });
