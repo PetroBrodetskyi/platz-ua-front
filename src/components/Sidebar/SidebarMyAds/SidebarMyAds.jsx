@@ -4,6 +4,7 @@ import SidebarMyAdItem from './SidebarMyAdItem/SidebarMyAdItem';
 import { Confirmation } from '../../Confirmation/Confirmation';
 import Notification from '../../Notification/Notification';
 import { TransitionGroup } from 'react-transition-group';
+import { useTheme } from '../../../../src/context/ThemeContext';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Collapse } from '@mui/material';
@@ -59,8 +60,10 @@ const SidebarMyAds = () => {
     setShowConfirmation(false);
   }, []);
 
+  const { isDarkMode } = useTheme();
+
   return (
-    <div className={scss.sidebarMyAds}>
+    <div className={`${scss.sidebarMyAds} ${isDarkMode ? scss.darkMode : ''}`}>
       {userProducts.length === 0 ? (
         <p>У вас немає власних оголошень</p>
       ) : (

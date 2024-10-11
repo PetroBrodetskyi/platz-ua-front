@@ -15,6 +15,7 @@ import { nanoid } from 'nanoid';
 import { formatDistanceToNow } from 'date-fns';
 import { uk } from 'date-fns/locale';
 import { Skeleton } from '@mui/material';
+import { useTheme } from '../../../context/ThemeContext';
 import scss from './CommentsModal.module.scss';
 
 const CommentsModal = ({ show, onToggle, productId }) => {
@@ -31,6 +32,7 @@ const CommentsModal = ({ show, onToggle, productId }) => {
 
   const [newComment, setNewComment] = useState('');
   const [notification, setNotification] = useState('');
+  const { isDarkMode } = useTheme();
 
   useEffect(() => {
     dispatch(fetchComments(productId));
@@ -94,7 +96,7 @@ const CommentsModal = ({ show, onToggle, productId }) => {
       isOpen={show}
       onRequestClose={onToggle}
       overlayClassName={scss.modalOverlay}
-      className={scss.commentsModal}
+      className={`${scss.commentsModal} ${isDarkMode ? scss.darkMode : ''}`}
       contentLabel="Коментарі"
       shouldCloseOnOverlayClick={true}
     >
@@ -118,7 +120,10 @@ const CommentsModal = ({ show, onToggle, productId }) => {
             ))
           ) : commentsForProduct.length ? (
             commentsForProduct.map(({ _id, user, text, createdAt }) => (
-              <div key={_id || nanoid()} className={scss.comment}>
+              <div
+                key={_id || nanoid()}
+                className={`${scss.comment} ${isDarkMode ? scss.darkMode : ''}`}
+              >
                 <div
                   className={scss.userContainer}
                   onClick={() => user && handleUserClick(user._id)}

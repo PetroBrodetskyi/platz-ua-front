@@ -3,6 +3,7 @@ import { TbLocation } from 'react-icons/tb';
 import { FiX } from 'react-icons/fi';
 import { SlLocationPin } from 'react-icons/sl';
 import { useEffect } from 'react';
+import { useTheme } from '../../../context/ThemeContext';
 import scss from './ProductDescription.module.scss';
 
 Modal.setAppElement('#root');
@@ -33,16 +34,18 @@ const ProductDescription = ({
     }
   }, [show]);
 
+  const { isDarkMode } = useTheme();
+
   return (
     <Modal
       isOpen={show}
       onRequestClose={onToggle}
       overlayClassName={scss.modalOverlay}
-      className={scss.productDescription}
+      className={`${scss.productDescription} ${isDarkMode ? scss.darkMode : ''}`}
       contentLabel="Product Description"
       shouldCloseOnOverlayClick={true}
     >
-      <div className={scss.container}>
+      <div className={`${scss.container} ${isDarkMode ? scss.darkMode : ''}`}>
         <div className={scss.titleContainer}>
           <h3 className={scss.title}>{name}</h3>
           <button onClick={onToggle}>

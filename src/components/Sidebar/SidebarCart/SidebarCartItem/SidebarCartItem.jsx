@@ -1,3 +1,4 @@
+import { useTheme } from '../../../../context/ThemeContext';
 import scss from './SidebarCartItem.module.scss';
 
 const SidebarCartItem = ({ product, onRemove, onProductClick }) => {
@@ -5,8 +6,10 @@ const SidebarCartItem = ({ product, onRemove, onProductClick }) => {
     onProductClick(product._id);
   };
 
+  const { isDarkMode } = useTheme();
+
   return (
-    <div className={scss.cartItem}>
+    <div className={`${scss.cartItem} ${isDarkMode ? scss.darkMode : ''}`}>
       <img
         src={product.image1}
         alt={product.name}

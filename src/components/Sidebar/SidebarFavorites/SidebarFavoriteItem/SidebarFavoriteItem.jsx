@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '../../../../context/ThemeContext';
 import scss from './SidebarFavoriteItem.module.scss';
 
 const SidebarFavoriteItem = ({ product, onRemove }) => {
@@ -9,8 +10,10 @@ const SidebarFavoriteItem = ({ product, onRemove }) => {
     navigate(`/product/${product._id}`);
   };
 
+  const { isDarkMode } = useTheme();
+
   return (
-    <li className={scss.favoriteItem}>
+    <li className={`${scss.favoriteItem} ${isDarkMode ? scss.darkMode : ''}`}>
       <img
         src={product.image1}
         alt={product.name}

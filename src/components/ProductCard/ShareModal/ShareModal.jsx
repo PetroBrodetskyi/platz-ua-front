@@ -1,9 +1,10 @@
 import Modal from 'react-modal';
 import { FiX } from 'react-icons/fi';
 import { Helmet } from 'react-helmet';
-import scss from './ShareModal.module.scss';
 import ShareButton from '../ShareButton';
+import { useTheme } from '../../../context/ThemeContext';
 import { useEffect } from 'react';
+import scss from './ShareModal.module.scss';
 
 Modal.setAppElement('#root');
 
@@ -77,6 +78,8 @@ const ShareModal = ({
     return () => document.body.classList.remove(scss.noScroll);
   }, [show]);
 
+  const { isDarkMode } = useTheme();
+
   return (
     <>
       <Helmet>
@@ -102,11 +105,11 @@ const ShareModal = ({
         isOpen={show}
         onRequestClose={onToggle}
         overlayClassName={scss.modalOverlay}
-        className={scss.shareModal}
+        className={`${scss.shareModal} ${isDarkMode ? scss.darkMode : ''}`}
         contentLabel="Поділитися"
         shouldCloseOnOverlayClick={true}
       >
-        <div className={scss.container}>
+        <div className={`${scss.container} ${isDarkMode ? scss.darkMode : ''}`}>
           <div className={scss.header}>
             <h2>{name}</h2>
             <button onClick={onToggle}>

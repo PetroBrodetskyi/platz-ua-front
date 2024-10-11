@@ -4,6 +4,7 @@ import { toggleFavorite } from '../../../redux/features/favoritesSlice';
 import { TransitionGroup } from 'react-transition-group';
 import { useSelector, useDispatch } from 'react-redux';
 import { Collapse } from '@mui/material';
+import { useTheme } from '../../../../src/context/ThemeContext';
 import scss from './SidebarFavorites.module.scss';
 
 const SidebarFavorites = () => {
@@ -24,8 +25,12 @@ const SidebarFavorites = () => {
     dispatch(toggleFavorite(productId));
   };
 
+  const { isDarkMode } = useTheme();
+
   return (
-    <div className={scss.sidebarFavorites}>
+    <div
+      className={`${scss.sidebarFavorites} ${isDarkMode ? scss.darkMode : ''}`}
+    >
       {favoriteProducts.length === 0 ? (
         <p>У вас немає обраних товарів</p>
       ) : (

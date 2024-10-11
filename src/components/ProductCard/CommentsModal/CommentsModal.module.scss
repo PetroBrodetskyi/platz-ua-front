@@ -27,6 +27,11 @@
   @include media-rules(desktop) {
     border-radius: 8px;
   }
+
+  &.darkMode {
+    background-color: var(--grey);
+    color: var(--white);
+  }
 }
 
 .container {
@@ -85,6 +90,10 @@
 .comment {
   border-bottom: 1px solid var(--grey);
   padding: 4px;
+
+  &.darkMode {
+    border-bottom: 1px solid var(--white);
+  }
 
   .text {
     @include media-rules($desktop) {

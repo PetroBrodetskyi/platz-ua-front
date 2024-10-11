@@ -11,6 +11,7 @@ import {
 import SidebarCartItem from './SidebarCartItem/SidebarCartItem';
 import { Collapse } from '@mui/material';
 import { TransitionGroup } from 'react-transition-group';
+import { useTheme } from '../../../../src/context/ThemeContext';
 import scss from './SidebarCart.module.scss';
 
 const SidebarCart = () => {
@@ -36,8 +37,10 @@ const SidebarCart = () => {
     navigate('/cart');
   };
 
+  const { isDarkMode } = useTheme();
+
   return (
-    <div className={scss.sidebarCart}>
+    <div className={`${scss.sidebarCart} ${isDarkMode ? scss.darkMode : ''}`}>
       {cartItems.length === 0 ? (
         <p>Ваш кошик порожній</p>
       ) : (

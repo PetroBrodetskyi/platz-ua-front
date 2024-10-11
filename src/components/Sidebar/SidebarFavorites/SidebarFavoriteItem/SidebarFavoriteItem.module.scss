@@ -4,10 +4,14 @@
   display: flex;
   align-items: center;
   background-color: var(--white);
-  border-bottom: 1px solid #ddd;
 
   &:hover {
     background-color: var(--light-grey);
+  }
+
+  &.darkMode {
+    background-color: var(--grey);
+    color: var(--white);
   }
 }
 
