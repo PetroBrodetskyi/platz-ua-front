@@ -12,6 +12,11 @@ $gap-mobile: 4px;
   min-width: 98vw;
   min-height: 90vh;
 
+  &.darkMode {
+    background-color: var(--grafite);
+    color: var(--white);
+  }
+
   .container {
     display: flex;
     flex-direction: column;
@@ -29,6 +34,11 @@ $gap-mobile: 4px;
       display: flex;
       flex-wrap: wrap;
       gap: $gap-mobile;
+
+      &.darkMode {
+        background-color: var(--grafite);
+        color: var(--white);
+      }
 
       @include media-rules(tablet) {
         width: 25%;
@@ -55,6 +65,11 @@ $gap-mobile: 4px;
       border-radius: 4px;
       cursor: pointer;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      &.darkMode {
+        background-color: var(--grafite);
+        color: var(--white);
+      }
 
       @include transition(background-color);
 
@@ -94,6 +109,11 @@ $gap-mobile: 4px;
       border-radius: 4px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       @include transition(background-color);
+
+      &.darkMode {
+        background-color: var(--grey);
+        color: var(--white);
+      }
 
       @include media-rules(desktop) {
         padding: 10px;
@@ -136,25 +156,6 @@ $gap-mobile: 4px;
 
         @include media-rules(tablet) {
           gap: $gap-tablet;
-        }
-      }
-
-      .subcategoryButton {
-        padding: 8px;
-        cursor: pointer;
-        font-size: 14px;
-        border-radius: 4px;
-        background-color: var(--white);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-        &:hover {
-          background-color: var(--dark-violet);
-          color: var(--white);
-        }
-
-        &.active {
-          background-color: var(--yellow);
-          color: var(--white);
         }
       }
     }

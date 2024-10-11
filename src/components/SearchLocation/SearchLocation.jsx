@@ -4,13 +4,14 @@ import { ButtonBase } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useDispatch } from 'react-redux';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
-import scss from './SearchLocation.module.scss';
+import { useTheme } from '../../context/ThemeContext';
 import {
   setLocation,
   fetchProducts,
   fetchProductsByLocation,
   clearProducts
 } from '../../redux/features/productsSlice';
+import scss from './SearchLocation.module.scss';
 
 const SearchLocation = () => {
   const [plzQuery, setPlzQuery] = useState('');
@@ -19,6 +20,7 @@ const SearchLocation = () => {
   const [showResults, setShowResults] = useState(false);
   const [locationData, setLocationData] = useState([]);
   const dispatch = useDispatch();
+  const { isDarkMode } = useTheme();
 
   useEffect(() => {
     const loadLocationData = async () => {
@@ -105,7 +107,7 @@ const SearchLocation = () => {
               placeholder="PLZ"
               value={plzQuery}
               onChange={handleChange(setPlzQuery)}
-              className={scss.inputPlz}
+              className={`${scss.inputPlz} ${isDarkMode ? scss.darkMode : ''}`}
             />
             {plzQuery && (
               <button className={scss.clearButton} onClick={handleClearAll}>
@@ -120,7 +122,7 @@ const SearchLocation = () => {
               placeholder="Місто"
               value={cityQuery}
               onChange={handleChange(setCityQuery)}
-              className={scss.inputCity}
+              className={`${scss.inputCity} ${isDarkMode ? scss.darkMode : ''}`}
             />
             {cityQuery && (
               <button className={scss.clearButton} onClick={handleClearAll}>
@@ -155,12 +157,14 @@ const SearchLocation = () => {
       </div>
 
       {showResults && searchResults.length > 0 && (
-        <div className={scss.searchResults}>
+        <div
+          className={`${scss.searchResults} ${isDarkMode ? scss.darkMode : ''}`}
+        >
           {searchResults.map((result) => (
             <div
               key={`${result.plz}-${result.city}`}
               onClick={() => handleResultClick(result)}
-              className={scss.resultItem}
+              className={`${scss.resultItem} ${isDarkMode ? scss.darkMode : ''}`}
             >
               {result.city} ({result.plz})
             </div>

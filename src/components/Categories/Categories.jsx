@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
-import scss from './Categories.module.scss';
+import { useTheme } from '../../context/ThemeContext';
 import data from './products.json';
 import { getCategoryIcon, getSubcategoryIcon } from './icons.jsx';
+import scss from './Categories.module.scss';
 
 const Categories = ({ onSubcategoriesChange }) => {
   const [selectedCategory, setSelectedCategory] = useState(
     data.products[0].name
   );
   const [selectedSubcategories, setSelectedSubcategories] = useState([]);
+  const { isDarkMode } = useTheme();
 
   useEffect(() => {
     if (onSubcategoriesChange) {
@@ -17,7 +19,7 @@ const Categories = ({ onSubcategoriesChange }) => {
 
   const handleCategoryHover = (category) => {
     setSelectedCategory(category);
-    setSelectedSubcategories([]); // Очищаємо підкатегорії при зміні категорії
+    setSelectedSubcategories([]);
   };
 
   const handleSubcategoryClick = (subcategory) => {
@@ -33,15 +35,15 @@ const Categories = ({ onSubcategoriesChange }) => {
   );
 
   return (
-    <div className={scss.categories}>
+    <div className={`${scss.categories} ${isDarkMode ? scss.darkMode : ''}`}>
       <h4>Розділи та категорії</h4>
       <div className={scss.container}>
         <div className={scss.categoryButtons}>
           {sortedProducts.map((product, index) => (
             <button
               key={index}
-              className={`${scss.categoryButton} ${selectedCategory === product.name ? scss.active : ''}`}
-              onMouseEnter={() => handleCategoryHover(product.name)} // Заміна onClick на onMouseEnter
+              className={`${scss.categoryButton} ${isDarkMode ? scss.darkMode : ''} ${selectedCategory === product.name ? scss.active : ''}`}
+              onMouseEnter={() => handleCategoryHover(product.name)}
             >
               {getCategoryIcon(product.name)}
               {product.name}
@@ -57,7 +59,7 @@ const Categories = ({ onSubcategoriesChange }) => {
               .map((subcategory, index) => (
                 <button
                   key={index}
-                  className={`${scss.subcategoryButton} ${selectedSubcategories.includes(subcategory) ? scss.active : ''}`}
+                  className={`${scss.subcategoryButton} ${isDarkMode ? scss.darkMode : ''} ${selectedSubcategories.includes(subcategory) ? scss.active : ''}`}
                   onClick={() => handleSubcategoryClick(subcategory)}
                 >
                   {getSubcategoryIcon(subcategory)}
