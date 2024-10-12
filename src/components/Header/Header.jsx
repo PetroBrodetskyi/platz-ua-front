@@ -68,7 +68,7 @@ const Header = ({ onClick }) => {
               className={scss.iconUserMobile}
               onClick={onClick}
             >
-              {renderUserInfo()}
+              {user && user.verify && renderUserInfo()}
             </button>
           </NavLink>
         </div>
@@ -87,10 +87,10 @@ const Header = ({ onClick }) => {
               className={scss.iconUserDesktop}
               onClick={onClick}
             >
-              {renderUserInfo()}
+              {user && user.verify && renderUserInfo()}
             </button>
           </NavLink>
-          {!user && (
+          {!user || !user.verify ? (
             <Tooltip
               title="Увійти"
               slotProps={{
@@ -99,14 +99,12 @@ const Header = ({ onClick }) => {
             >
               <NavLink to="/login">
                 <button type="button" className={scss.icon} onClick={onClick}>
-                  <div className={scss.navigateItem}>
-                    <RiLoginCircleLine />
-                    <span className={scss.userOptions}></span>
-                  </div>
+                  <RiLoginCircleLine />
+                  <span className={scss.userOptions}></span>
                 </button>
               </NavLink>
             </Tooltip>
-          )}
+          ) : null}
           <Tooltip
             title="Кошик"
             slotProps={{

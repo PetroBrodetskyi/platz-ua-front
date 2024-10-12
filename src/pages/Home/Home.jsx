@@ -36,7 +36,16 @@ const Home = () => {
       )}
       <ProductList />
       <CreateAdButton />
-      {user && <Logout onLogout={handleLogout} />}
+      {user ? (
+        user.verify ? (
+          <Logout onLogout={handleLogout} />
+        ) : (
+          <p>
+            Будь ласка, підтвердіть свою електронну пошту, щоб отримати доступ
+            до всіх функцій.
+          </p>
+        )
+      ) : null}
     </div>
   );
 };
