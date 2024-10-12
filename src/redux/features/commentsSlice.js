@@ -25,7 +25,7 @@ export const addComment = createAsyncThunk(
         getAuthHeaders()
       );
       const newComment = data.comments[data.comments.length - 1];
-      return { productId, comment: { ...newComment, user } };
+      return { productId, comment: newComment };
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -57,7 +57,7 @@ export const addReply = createAsyncThunk(
         { text: reply, user },
         getAuthHeaders()
       );
-      return { productId, commentId, reply: { ...data.reply, user } };
+      return { productId, commentId, reply: data };
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -68,7 +68,7 @@ export const deleteReply = createAsyncThunk(
   'comments/deleteReply',
   async ({ productId, commentId, replyId }, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(
+      await axios.delete(
         `/products/${productId}/comments/${commentId}/replies/${replyId}`,
         getAuthHeaders()
       );

@@ -9,7 +9,7 @@ import {
   deleteReply,
   editComment,
   editReply
-} from '../../redux/features/commentsSlice'; // Додано editComment та editReply
+} from '../../redux/features/commentsSlice';
 import Notification from '../Notification/Notification';
 import { TbGhost } from 'react-icons/tb';
 import { LuArrowUpCircle } from 'react-icons/lu';
@@ -78,7 +78,7 @@ const Comments = ({ productId }) => {
           editComment({ productId, commentId, text: editingText })
         );
         if (editComment.fulfilled.match(resultAction)) {
-          dispatch(fetchComments(productId)); // Оновити коментарі
+          dispatch(fetchComments(productId));
           setNotification('Коментар оновлено');
           setEditingCommentId(null);
           setEditingText('');
@@ -137,7 +137,7 @@ const Comments = ({ productId }) => {
           editReply({ productId, commentId, replyId, text: editingText })
         );
         if (editReply.fulfilled.match(resultAction)) {
-          dispatch(fetchComments(productId)); // Оновити коментарі
+          dispatch(fetchComments(productId));
           setNotification('Відповідь оновлено');
           setEditingReplyId(null);
           setEditingText('');
@@ -197,9 +197,7 @@ const Comments = ({ productId }) => {
                   </div>
                 )}
                 <div className={scss.nameContainer}>
-                  <h4 className={scss.name}>
-                    {user ? user.name : 'Видалений акаунт'}
-                  </h4>
+                  <h4>{user ? user.name : 'Видалений акаунт'}</h4>
                   <p className={scss.dateTime}>
                     {formatDistanceToNow(new Date(createdAt), {
                       addSuffix: true,
@@ -289,123 +287,138 @@ const Comments = ({ productId }) => {
                 </div>
               )}
 
-              {replies?.map(
-                ({
-                  _id: replyId,
-                  user: replyUser,
-                  text: replyText,
-                  createdAt: replyCreatedAt
-                }) => (
-                  <div key={replyId} className={scss.reply}>
-                    <div
-                      className={scss.userContainer}
-                      onClick={() =>
-                        replyUser && handleUserClick(replyUser._id)
-                      }
-                      style={{ cursor: replyUser ? 'pointer' : 'default' }}
-                    >
-                      {replyUser?.avatarURL ? (
-                        <img
-                          src={replyUser.avatarURL}
-                          alt={replyUser.name}
-                          className={scss.avatar}
-                        />
-                      ) : (
-                        <div className={scss.iconContainer}>
-                          <TbGhost className={scss.icon} />
-                        </div>
-                      )}
-                      <div className={scss.nameContainer}>
-                        <h4 className={scss.name}>
-                          {replyUser ? replyUser.name : 'Видалений акаунт'}
-                        </h4>
-                        <p className={scss.dateTime}>
-                          {formatDistanceToNow(new Date(replyCreatedAt), {
-                            addSuffix: true,
-                            locale: uk
-                          })}
-                        </p>
-                      </div>
-                    </div>
-
-                    {editingReplyId === replyId ? (
-                      <div className={scss.editForm}>
-                        <textarea
-                          value={editingText}
-                          onChange={(e) => setEditingText(e.target.value)}
-                          placeholder="Редагувати відповідь..."
-                          className={scss.textarea}
-                        />
-                        <button
-                          className={scss.addReplyButton}
-                          onClick={() => handleEditReply(_id, replyId)}
+              {replies.length > 0 && (
+                <div className={scss.replies}>
+                  {replies.map(
+                    ({
+                      _id: replyId,
+                      user: replyUser,
+                      text: replyText,
+                      createdAt: replyCreatedAt
+                    }) => (
+                      <div key={replyId || nanoid()} className={scss.reply}>
+                        <div
+                          className={scss.userContainer}
+                          onClick={() =>
+                            replyUser && handleUserClick(replyUser._id)
+                          }
+                          style={{ cursor: replyUser ? 'pointer' : 'default' }}
                         >
-                          Зберегти
-                        </button>
-                        <button
-                          className={scss.cancelButton}
-                          onClick={() => {
-                            setEditingReplyId(null);
-                            setEditingText('');
-                          }}
-                        >
-                          Скасувати
-                        </button>
-                      </div>
-                    ) : (
-                      <>
-                        <p className={scss.replyText}>{replyText}</p>
-                        <div className={scss.dateTime}>
-                          {currentUser?._id === replyUser?._id && (
-                            <>
-                              <button
-                                className={scss.editButton}
-                                onClick={() => {
-                                  setEditingReplyId(replyId);
-                                  setEditingText(replyText);
-                                }}
-                              >
-                                Редагувати
-                              </button>
-                              <button
-                                className={scss.deleteButton}
-                                onClick={() => handleDeleteReply(_id, replyId)}
-                              >
-                                Видалити
-                              </button>
-                            </>
+                          {replyUser?.avatarURL ? (
+                            <img
+                              src={replyUser.avatarURL}
+                              alt={replyUser.name}
+                              className={scss.avatar}
+                            />
+                          ) : (
+                            <div className={scss.iconContainer}>
+                              <TbGhost className={scss.icon} />
+                            </div>
                           )}
+                          <div className={scss.nameContainer}>
+                            <h4 className={scss.name}>
+                              {replyUser ? replyUser.name : 'Видалений акаунт'}
+                            </h4>
+                            <p className={scss.dateTime}>
+                              {formatDistanceToNow(new Date(replyCreatedAt), {
+                                addSuffix: true,
+                                locale: uk
+                              })}
+                            </p>
+                          </div>
                         </div>
-                      </>
-                    )}
-                  </div>
-                )
+
+                        {editingReplyId === replyId ? (
+                          <div className={scss.editForm}>
+                            <textarea
+                              value={editingText}
+                              onChange={(e) => setEditingText(e.target.value)}
+                              placeholder="Редагувати відповідь..."
+                              className={scss.textarea}
+                            />
+                            <button
+                              className={scss.addReplyButton}
+                              onClick={() => handleEditReply(_id, replyId)}
+                            >
+                              Зберегти
+                            </button>
+                            <button
+                              className={scss.cancelButton}
+                              onClick={() => {
+                                setEditingReplyId(null);
+                                setEditingText('');
+                              }}
+                            >
+                              Скасувати
+                            </button>
+                          </div>
+                        ) : (
+                          <>
+                            <p className={scss.text}>{replyText}</p>
+                            <div className={scss.dateTime}>
+                              {currentUser?._id === replyUser?._id && (
+                                <>
+                                  <button
+                                    className={scss.editButton}
+                                    onClick={() => {
+                                      setEditingReplyId(replyId);
+                                      setEditingText(replyText);
+                                    }}
+                                  >
+                                    Редагувати
+                                  </button>
+                                  <button
+                                    className={scss.deleteButton}
+                                    onClick={() =>
+                                      handleDeleteReply(_id, replyId)
+                                    }
+                                  >
+                                    Видалити
+                                  </button>
+                                </>
+                              )}
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    )
+                  )}
+                </div>
               )}
             </div>
           ))
         ) : (
-          <p>Коментарі відсутні</p>
+          <p>Немає коментарів.</p>
         )}
       </div>
 
       {currentUser ? (
         <div className={scss.addComment}>
+          {currentUser.avatarURL ? (
+            <img
+              src={currentUser.avatarURL}
+              alt={currentUser.name}
+              className={scss.avatar}
+            />
+          ) : (
+            <div className={scss.iconContainer}>
+              <TbGhost className={scss.icon} />
+            </div>
+          )}
           <textarea
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
-            placeholder="Написати коментар..."
+            placeholder="Додати коментар..."
             className={scss.textarea}
           />
-          <button className={scss.addCommentButton} onClick={handleAddComment}>
-            Відправити
+          <button className={scss.add} onClick={handleAddComment}>
+            <LuArrowUpCircle className={scss.icon} />
           </button>
         </div>
       ) : (
         <div className={scss.loginPrompt}>
-          <p>
-            Щоб додати коментар,{' '}
-            <span onClick={handleLoginClick}>увійдіть</span>.
-          </p>
+          <p>Увійдіть, щоб додати коментарі</p>
+          <button onClick={handleLoginClick}>Увійти</button>
         </div>
       )}
     </div>
