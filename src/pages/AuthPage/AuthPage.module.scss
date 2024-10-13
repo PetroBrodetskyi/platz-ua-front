@@ -1,0 +1,9 @@
+@import 'src/styles/mixins';
+
+.authPage {
+  padding: 40px 0;
+
+  @include media-rules(tablet) {
+    padding: 80px 0;
+  }
+}

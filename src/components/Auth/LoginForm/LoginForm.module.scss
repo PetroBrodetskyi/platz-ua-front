@@ -1,31 +1,31 @@
 @import 'src/styles/mixins';
 
-$auth-form-width-desktop: 360px;
-$auth-form-width-tablet: 300px;
-$auth-form-width-mobile: 100%;
-
 .auth {
   display: flex;
-  padding: 40px;
-  align-items: center;
-  height: 100vh;
+  padding: 10px;
   background-color: var(--light-bg);
+
+  @include media-rules(tablet) {
+    padding: 20px;
+  }
+
+  @include media-rules(tablet) {
+    padding: 40px;
+  }
 }
 
 .form {
   background-color: var(--grafite);
   padding: 24px;
-  width: $auth-form-width-mobile;
+  border-radius: 4px;
+  width: 100%;
 
-  @media (min-width: 481px) {
-    width: $auth-form-width-tablet;
-    border-radius: 8px;
-    padding: 32px;
+  @include media-rules(tablet) {
+    width: 300px;
   }
 
-  @media (min-width: 769px) {
-    width: $auth-form-width-desktop;
-    border-radius: 8px;
+  @include media-rules(desktop) {
+    width: 360px;
   }
 }
 

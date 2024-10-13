@@ -7,7 +7,6 @@ import scss from './AuthPage.module.scss';
 
 const AuthPage = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
 
   useEffect(() => {
@@ -16,32 +15,8 @@ const AuthPage = () => {
     setIsLogin(type !== 'register');
   }, [location]);
 
-  const handleToggleForm = (formType) => {
-    navigate(`/auth?type=${formType}`);
-  };
-
   return (
     <div className={scss.authPage}>
-      <div className={scss.authNav}>
-        <ul>
-          <li>
-            <button
-              className={scss.classNavLink}
-              onClick={() => handleToggleForm('register')}
-            >
-              Реєстрація
-            </button>
-          </li>
-          <li>
-            <button
-              className={scss.classNavLink}
-              onClick={() => handleToggleForm('login')}
-            >
-              Вхід
-            </button>
-          </li>
-        </ul>
-      </div>
       <div className={scss.formWrapper}>
         {isLogin ? <LoginForm /> : <RegisterForm />}
       </div>

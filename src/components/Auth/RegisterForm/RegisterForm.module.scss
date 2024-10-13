@@ -2,15 +2,21 @@
 
 .auth {
   display: flex;
-  align-items: center;
-  padding: 40px;
-  height: 100vh;
+  padding: 10px;
   background-color: var(--light-bg);
+
+  @include media-rules(tablet) {
+    padding: 20px;
+  }
+
+  @include media-rules(tablet) {
+    padding: 40px;
+  }
 }
 
 .form {
   padding: 24px;
-  border-radius: 8px;
+  border-radius: 4px;
   width: 100%;
   background-color: var(--grafite);
   animation: fadeIn 0.3s ease-in;
