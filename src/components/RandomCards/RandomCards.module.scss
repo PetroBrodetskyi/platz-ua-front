@@ -1,19 +1,8 @@
 @import 'src/styles/mixins';
 
-.container {
-  padding: 4px;
-
-  @include media-rules(tablet) {
-    padding: 20px;
-  }
-
-  @include media-rules(desktop) {
-    padding: 20px;
-  }
-}
-
 .list {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   gap: 8px;
   padding: 0;

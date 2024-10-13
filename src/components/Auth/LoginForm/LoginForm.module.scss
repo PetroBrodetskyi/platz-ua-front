@@ -2,16 +2,7 @@
 
 .auth {
   display: flex;
-  padding: 10px;
   background-color: var(--light-bg);
-
-  @include media-rules(tablet) {
-    padding: 20px;
-  }
-
-  @include media-rules(tablet) {
-    padding: 40px;
-  }
 }
 
 .form {
@@ -33,6 +24,11 @@
   display: flex;
   justify-content: center;
   margin-bottom: 16px;
+
+  li {
+    list-style: none;
+    margin: 0 8px;
+  }
 
   .classNavLink {
     text-decoration: none;

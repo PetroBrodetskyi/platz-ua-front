@@ -97,7 +97,6 @@ const RandomCards = () => {
 
   return (
     <div className={scss.container}>
-      <h3>Вас можуть зацікавити</h3>
       <ul className={scss.list}>
         {randomProducts.map((product) => {
           const isInCart = cartItems.some((item) => item._id === product._id);
