@@ -18,9 +18,11 @@ const AuthPage = () => {
 
   return (
     <div className={scss.authPage}>
-      <div className={scss.formWrapper}>
-        {isLogin ? <LoginForm /> : <RegisterForm />}
-        <LoginGoogle />
+      <div className={scss.formContainer}>
+        <div className={scss.formWrapper}>
+          {isLogin ? <LoginForm /> : <RegisterForm />}
+          <LoginGoogle />
+        </div>
       </div>
       <RandomCards />
     </div>

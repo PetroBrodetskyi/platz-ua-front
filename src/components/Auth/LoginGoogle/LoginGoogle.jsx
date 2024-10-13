@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { GoogleLogin } from '@react-oauth/google';
-import * as jwt_decode from 'jwt-decode'; // Для декодування токену
+import * as jwt_decode from 'jwt-decode';
+import scss from './LoginGoogle.module.scss';
 
 const LoginGoogle = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const LoginGoogle = () => {
   return (
     <div>
       <form>{/* Інші поля форми */}</form>
-      <div className="googleLogin">
+      <div className={scss.googleLogin}>
         <GoogleLogin
           onSuccess={handleGoogleSuccess}
           onError={handleGoogleFailure}
