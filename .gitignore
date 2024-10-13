@@ -13,8 +13,10 @@ dist-ssr
 *.local
 test.js
 
+
 # Editor directories and files
 .vscode/*
+.env
 !.vscode/extensions.json
 .idea
 .DS_Store
