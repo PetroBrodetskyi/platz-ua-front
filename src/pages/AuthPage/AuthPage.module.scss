@@ -2,20 +2,32 @@
 
 .authPage {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 40px;
   padding: 40px 0;
 
-  @include media-rules(tablet) {
+  @include media-rules(desktop) {
     padding: 140px 40px;
+    flex-direction: row;
+    align-items: start;
   }
 }
 
 .formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
   background-color: var(--white);
   padding: 20px;
   border-radius: 4px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  margin: 0 auto;
+  width: 100%;
+
+  @include media-rules(desktop) {
+    width: 60%;
+    min-height: 840px;
+  }
 }
 
 .formWrapper {
@@ -36,4 +48,9 @@
   align-items: center;
   gap: 20px;
   justify-content: center;
+}
+
+.registerText {
+  text-align: center;
+  font-weight: 600;
 }

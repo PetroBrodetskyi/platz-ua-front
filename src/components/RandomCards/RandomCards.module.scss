@@ -2,11 +2,9 @@
 
 .list {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
   gap: 8px;
-  padding: 0;
-  list-style: none;
 
   @include media-rules(tablet) {
     gap: 8px;
@@ -14,6 +12,7 @@
 
   @include media-rules(desktop) {
     gap: 8px;
+    flex-direction: column;
   }
 }
 

@@ -91,7 +91,7 @@ const RandomCards = () => {
   useEffect(() => {
     if (products.length > 0 && randomProducts.length === 0) {
       const shuffled = [...products].sort(() => 0.5 - Math.random());
-      setRandomProducts(shuffled.slice(0, 4));
+      setRandomProducts(shuffled.slice(0, 2));
     }
   }, [products, randomProducts]);
 

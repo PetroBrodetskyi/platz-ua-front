@@ -2,7 +2,7 @@
   --PhoneInputCountryFlag-height: 2rem;
   --PhoneInputCountryFlag-borderColor: #ffffff4d;
   --PhoneInputCountryFlag-borderColor--focus: #000;
-  --PhoneInputCountrySelectArrow-color: #fff;
+  --PhoneInputCountrySelectArrow-color: #000;
 }
 
 .PhoneInputCountrySelect {

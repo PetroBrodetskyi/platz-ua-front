@@ -6,19 +6,10 @@
 }
 
 .form {
-  padding: 24px;
   border-radius: 4px;
   width: 100%;
-  background-color: var(--grafite);
+  background-color: var(--white);
   animation: fadeIn 0.3s ease-in;
-
-  @include media-rules(tablet) {
-    width: 300px;
-  }
-
-  @include media-rules(desktop) {
-    width: 360px;
-  }
 }
 
 @keyframes fadeIn {
@@ -42,7 +33,7 @@
     padding-bottom: 4px;
     border-bottom: 2px solid transparent;
     transition: border-color 0.3s;
-    color: var(--white);
+    color: var(--black);
 
     &.active {
       border-color: var(--gold);
@@ -62,11 +53,18 @@
 
   input {
     width: 100%;
-    padding: 10px;
+    padding: 14px 20px;
     background-color: inherit;
+    font-size: 14px;
     border-radius: 4px;
-    transition: border-color 0.3s;
+    background-color: var(--grafite);
+    // transition: border-color 0.3s;
+    border: none;
     color: var(--white);
+
+    &::placeholder {
+      color: var(--white);
+    }
 
     &:focus {
       border-color: gold;
