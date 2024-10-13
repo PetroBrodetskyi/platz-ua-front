@@ -157,7 +157,7 @@ const Comments = ({ productId }) => {
   );
 
   const handleLoginClick = useCallback(() => {
-    navigate('/login');
+    navigate('/auth');
   }, [navigate]);
 
   if (error) return <p>Помилка завантаження коментарів: {error}</p>;
