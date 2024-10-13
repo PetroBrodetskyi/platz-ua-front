@@ -1,14 +1,12 @@
 .PhoneInput {
   --PhoneInputCountryFlag-height: 2rem;
-  --PhoneInputCountryFlag-borderColor: #000;
+  --PhoneInputCountryFlag-borderColor: #ffffff4d;
   --PhoneInputCountryFlag-borderColor--focus: #000;
-  --PhoneInputCountrySelectArrow-color: #000;
+  --PhoneInputCountrySelectArrow-color: #fff;
 }
 
-.invalid {
-  border-color: red;
-}
-
-.valid {
-  border-color: gold;
+.PhoneInputCountrySelect {
+  background: #25292ef5;
+  color: #fff;
+  padding: 10px;
 }

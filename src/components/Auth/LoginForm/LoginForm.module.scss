@@ -13,7 +13,7 @@ $auth-form-width-mobile: 100%;
 }
 
 .form {
-  background-color: var(--white);
+  background-color: var(--grafite);
   padding: 24px;
   width: $auth-form-width-mobile;
 
@@ -45,6 +45,7 @@ $auth-form-width-mobile: 100%;
     padding-bottom: 4px;
     border-bottom: 2px solid transparent;
     transition: border-color 0.3s;
+    color: var(--white);
 
     &.active {
       border-color: gold;
@@ -59,8 +60,18 @@ $auth-form-width-mobile: 100%;
 .authForm {
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: 20px;
   width: 100%;
+  animation: fadeIn 0.3s ease-in;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 
   input {
     width: 100%;
@@ -68,6 +79,7 @@ $auth-form-width-mobile: 100%;
     background-color: inherit;
     border-radius: 4px;
     transition: border-color 0.3s;
+    color: var(--white);
 
     &:focus {
       border-color: gold;
@@ -75,18 +87,8 @@ $auth-form-width-mobile: 100%;
     }
   }
 
-  p {
-    color: #d9534f;
-    font-size: 14px;
-    margin-top: 4px;
-  }
-
   .inputWrapper {
     position: relative;
-
-    input {
-      padding-right: 40px;
-    }
 
     .eye {
       position: absolute;
@@ -96,6 +98,7 @@ $auth-form-width-mobile: 100%;
       background: none;
       border: none;
       cursor: pointer;
+      font-size: 20px;
     }
   }
 
@@ -103,4 +106,10 @@ $auth-form-width-mobile: 100%;
     display: flex;
     justify-content: center;
   }
+}
+
+.error {
+  position: absolute;
+  color: var(--red);
+  font-size: 12px;
 }

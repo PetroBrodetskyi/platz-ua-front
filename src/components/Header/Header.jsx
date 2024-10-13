@@ -40,7 +40,7 @@ const Header = ({ onClick }) => {
   }, [favorites]);
 
   const getUserProfileUrl = () =>
-    user ? `/user-profile/${user._id}` : '/login';
+    user ? `/user-profile/${user._id}` : '/auth';
 
   const renderUserInfo = () =>
     user && (
@@ -97,7 +97,7 @@ const Header = ({ onClick }) => {
                 popper: { sx: createTooltipStyles(32) }
               }}
             >
-              <NavLink to="/login">
+              <NavLink to="/auth">
                 <button type="button" className={scss.icon} onClick={onClick}>
                   <RiLoginCircleLine />
                   <span className={scss.userOptions}></span>

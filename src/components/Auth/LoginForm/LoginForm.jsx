@@ -83,12 +83,12 @@ const LoginForm = () => {
           <div>
             <ul className={scss.authNav}>
               <li>
-                <NavLink className={scss.classNavLink} to="/register">
+                <NavLink className={scss.classNavLink} to="/auth?type=register">
                   Реєстрація
                 </NavLink>
               </li>
               <li>
-                <NavLink className={scss.classNavLink} to="/login">
+                <NavLink className={scss.classNavLink} to="/auth?type=login">
                   Вхід
                 </NavLink>
               </li>
@@ -107,7 +107,9 @@ const LoginForm = () => {
                 type="text"
                 placeholder="Введіть ваш email"
               />
-              {errors.email && <p>{errors.email.message}</p>}
+              {errors.email && (
+                <p className={scss.error}>{errors.email.message}</p>
+              )}
             </div>
 
             <div className={scss.inputWrapper}>
@@ -133,7 +135,9 @@ const LoginForm = () => {
                   <RiEyeCloseLine color="grey" />
                 )}
               </button>
-              {errors.password && <p>{errors.password.message}</p>}
+              {errors.password && (
+                <p className={scss.error}>{errors.password.message}</p>
+              )}
             </div>
 
             <div className={scss.buttonWrapper}>

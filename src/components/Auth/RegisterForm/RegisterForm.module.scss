@@ -1,9 +1,5 @@
 @import 'src/styles/mixins';
 
-$auth-form-width-desktop: 360px;
-$auth-form-width-tablet: 300px;
-$auth-form-width-mobile: 100%;
-
 .auth {
   display: flex;
   align-items: center;
@@ -13,30 +9,35 @@ $auth-form-width-mobile: 100%;
 }
 
 .form {
-  padding: 32px;
+  padding: 24px;
   border-radius: 8px;
-  width: $auth-form-width-desktop;
-  background-color: var(--white);
+  width: 100%;
+  background-color: var(--grafite);
+  animation: fadeIn 0.3s ease-in;
 
-  @media (max-width: 768px) {
-    width: $auth-form-width-tablet;
+  @include media-rules(tablet) {
+    width: 300px;
   }
 
-  @media (max-width: 480px) {
-    width: $auth-form-width-mobile;
-    padding: 24px;
+  @include media-rules(desktop) {
+    width: 360px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
 .authNav {
   display: flex;
+  gap: 20px;
   justify-content: center;
   margin-bottom: 16px;
-
-  li {
-    list-style: none;
-    margin: 0 8px;
-  }
 
   .classNavLink {
     text-decoration: none;
@@ -44,13 +45,14 @@ $auth-form-width-mobile: 100%;
     padding-bottom: 4px;
     border-bottom: 2px solid transparent;
     transition: border-color 0.3s;
+    color: var(--white);
 
     &.active {
-      border-color: #007bff;
+      border-color: var(--gold);
     }
 
     &:hover {
-      border-color: #0056b3;
+      border-color: var(--gold);
     }
   }
 }
@@ -58,7 +60,7 @@ $auth-form-width-mobile: 100%;
 .authForm {
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: 20px;
   width: 100%;
 
   input {
@@ -67,18 +69,16 @@ $auth-form-width-mobile: 100%;
     background-color: inherit;
     border-radius: 4px;
     transition: border-color 0.3s;
+    color: var(--white);
 
     &:focus {
+      border-color: gold;
       outline: none;
     }
   }
 
   .inputWrapper {
     position: relative;
-
-    input {
-      padding-right: 40px;
-    }
 
     .eye {
       position: absolute;
@@ -88,6 +88,7 @@ $auth-form-width-mobile: 100%;
       background: none;
       border: none;
       cursor: pointer;
+      font-size: 20px;
     }
   }
 
@@ -95,4 +96,10 @@ $auth-form-width-mobile: 100%;
     display: flex;
     justify-content: center;
   }
+}
+
+.error {
+  position: absolute;
+  color: var(--red);
+  font-size: 12px;
 }

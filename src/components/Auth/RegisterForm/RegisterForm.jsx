@@ -11,7 +11,7 @@ import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import '../RegisterForm/register.css';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
-import SplashScreen from '../../SplashScreen/SplashScreen'; // Додати компонент SplashScreen
+import SplashScreen from '../../SplashScreen/SplashScreen';
 
 const RegisterForm = () => {
   const {
@@ -25,7 +25,7 @@ const RegisterForm = () => {
   const [phone, setPhone] = useState('');
   const [phoneValid, setPhoneValid] = useState(true);
   const [phoneTouched, setPhoneTouched] = useState(false);
-  const [showSplash, setShowSplash] = useState(false); // Стан для контролю SplashScreen
+  const [showSplash, setShowSplash] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, error } = useSelector((state) => state.auth);
@@ -33,12 +33,10 @@ const RegisterForm = () => {
   const passwordVisibility = () => setShowPassword(!showPassword);
 
   const onSubmit = async (data) => {
-    if (!phoneValid) {
-      return;
-    }
+    if (!phoneValid) return;
     try {
       await dispatch(registerUser(data)).unwrap();
-      setShowSplash(true); // Показуємо SplashScreen після успішної реєстрації
+      setShowSplash(true);
     } catch (err) {
       console.error('Error:', err);
     }
@@ -55,9 +53,7 @@ const RegisterForm = () => {
   }, [phone]);
 
   const validatePhoneNumber = (value) => {
-    if (typeof value !== 'string' || !value.trim()) {
-      return false;
-    }
+    if (typeof value !== 'string' || !value.trim()) return false;
     const phoneNumber = parsePhoneNumberFromString(value, 'UA');
     return phoneNumber && phoneNumber.isValid();
   };
@@ -69,7 +65,7 @@ const RegisterForm = () => {
           title: 'Реєстрація успішна!',
           text: 'Підтвердіть ваш email. Йде перенаправлення на головну сторінку...'
         }}
-        onFinish={() => navigate('/')} // Перенаправляємо після завершення
+        onFinish={() => navigate('/')}
       />
     );
   }
@@ -80,12 +76,12 @@ const RegisterForm = () => {
         <div>
           <ul className={scss.authNav}>
             <li>
-              <NavLink className={scss.classNavLink} to="/register">
+              <NavLink className={scss.classNavLink} to="/auth?type=register">
                 Реєстрація
               </NavLink>
             </li>
             <li>
-              <NavLink className={scss.classNavLink} to="/login">
+              <NavLink className={scss.classNavLink} to="/auth?type=login">
                 Вхід
               </NavLink>
             </li>
@@ -98,7 +94,9 @@ const RegisterForm = () => {
               type="text"
               placeholder="Введіть ваше ім'я"
             />
-            {errors.firstName && <p>{errors.firstName.message}</p>}
+            {errors.firstName && (
+              <p className={scss.error}>{errors.firstName.message}</p>
+            )}
           </div>
 
           <div>
@@ -107,7 +105,9 @@ const RegisterForm = () => {
               type="text"
               placeholder="Введіть ваше прізвище"
             />
-            {errors.lastName && <p>{errors.lastName.message}</p>}
+            {errors.lastName && (
+              <p className={scss.error}>{errors.lastName.message}</p>
+            )}
           </div>
 
           <div className={scss.phoneInputContainer}>
@@ -117,11 +117,10 @@ const RegisterForm = () => {
               onChange={handlePhoneChange}
               defaultCountry="DE"
               international
-              class={phoneValid ? 'valid' : 'invalid'}
               onBlur={() => setPhoneTouched(true)}
             />
-            {!phoneValid && phoneTouched && errors.phone && (
-              <p>{errors.phone.message}</p>
+            {!phoneValid && phoneTouched && (
+              <p className={scss.error}>Невірний номер телефону</p>
             )}
           </div>
 
@@ -137,7 +136,9 @@ const RegisterForm = () => {
               type="text"
               placeholder="Введіть ваш email"
             />
-            {errors.email && <p>{errors.email.message}</p>}
+            {errors.email && (
+              <p className={scss.error}>{errors.email.message}</p>
+            )}
           </div>
 
           <div className={scss.inputWrapper}>
@@ -152,6 +153,23 @@ const RegisterForm = () => {
               type={showPassword ? 'text' : 'password'}
               placeholder="Введіть ваш пароль"
             />
+            <button
+              type="button"
+              className={scss.eye}
+              onClick={passwordVisibility}
+            >
+              {showPassword ? (
+                <HiOutlineEye color="grey" />
+              ) : (
+                <RiEyeCloseLine color="grey" />
+              )}
+            </button>
+            {errors.password && (
+              <p className={scss.error}>{errors.password.message}</p>
+            )}
+          </div>
+
+          <div className={scss.inputWrapper}>
             <input
               {...register('confirmPassword', {
                 required: "Підтвердження паролю є обов'язковим",
@@ -172,8 +190,9 @@ const RegisterForm = () => {
                 <RiEyeCloseLine color="grey" />
               )}
             </button>
-            {errors.password && <p>{errors.password.message}</p>}
-            {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
+            {errors.confirmPassword && (
+              <p className={scss.error}>{errors.confirmPassword.message}</p>
+            )}
           </div>
 
           <div className={scss.buttonWrapper}>

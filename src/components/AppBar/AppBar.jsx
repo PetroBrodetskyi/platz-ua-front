@@ -17,10 +17,7 @@ import scss from './AppBar.module.scss';
 
 const Home = lazy(() => import('../../pages/Home/Home'));
 const Cart = lazy(() => import('../Cart/Cart'));
-const LoginPage = lazy(() => import('../../pages/LoginPage/LoginPage'));
-const RegisterPage = lazy(
-  () => import('../../pages/RegisterPage/RegisterPage')
-);
+const AuthPage = lazy(() => import('../../pages/AuthPage/AuthPage'));
 const AddProductPage = lazy(
   () => import('../../pages/AddProductPage/AddProductPage')
 );
@@ -70,7 +67,7 @@ const AppBar = () => {
                 path="/email-verified"
                 element={
                   <SplashScreen
-                    onFinish={() => navigate('/login')}
+                    onFinish={() => navigate('/auth')}
                     message={{
                       title: 'Ваш e-mail підтверджено',
                       text: 'Виконується перенаправлення на сторінку авторизації...'
@@ -80,8 +77,7 @@ const AppBar = () => {
               />
               <Route path="/" element={<Home />} />
               <Route path="/cart" element={<Cart />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/auth" element={<AuthPage />} />
               <Route path="/create" element={<AddProductPage />} />
               <Route path="/favorites" element={<FavoritesPage />} />
               <Route

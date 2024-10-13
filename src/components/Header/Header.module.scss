@@ -62,19 +62,6 @@
         width: 240px;
       }
 
-      .loginButton,
-      .userButton {
-        background: none;
-        border: none;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-
-        &:hover {
-          color: #0057b7;
-        }
-      }
-
       .icon {
         display: flex;
         justify-content: center;
