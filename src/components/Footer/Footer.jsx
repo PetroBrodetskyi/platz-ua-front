@@ -30,17 +30,25 @@ const Footer = () => {
         <div className={scss.title}>
           <p>&copy; {new Date().getFullYear()} PlatzUA</p>
         </div>
-        <div className={scss.linksContainer}>
-          <div>
-            <button className={scss.linkButton} onClick={navigateToHowItWorks}>
-              Покупцям та продавцям
-            </button>
-          </div>
-          <div>
-            <button className={scss.linkButton} onClick={navigatePrivacyPolicy}>
-              Політика конфіденційності
-            </button>
-          </div>
+        <div>
+          <ul className={scss.linksList}>
+            <li>
+              <button
+                className={scss.linkButton}
+                onClick={navigateToHowItWorks}
+              >
+                Покупцям та продавцям
+              </button>
+            </li>
+            <li>
+              <button
+                className={scss.linkButton}
+                onClick={navigatePrivacyPolicy}
+              >
+                Політика конфіденційності
+              </button>
+            </li>
+          </ul>
         </div>
         <div className={scss.adminButton}>
           {!loading && user && user.subscription === 'admin' && (

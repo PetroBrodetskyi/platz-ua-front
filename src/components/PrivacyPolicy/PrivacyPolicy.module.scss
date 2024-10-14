@@ -4,7 +4,41 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 120px 40px;
+
+  padding: 20px 10px;
+
+  @media (min-width: $tablet) {
+    padding: 20px 10px;
+    font-size: 14px;
+  }
+
+  @include media-rules(desktop) {
+    padding: 120px 40px;
+    font-size: 16px;
+  }
+
+  .text {
+    font-size: 12px;
+    animation: fadeIn 0.5s ease-in;
+
+    @media (min-width: $tablet) {
+      font-size: 14px;
+    }
+
+    @include media-rules(desktop) {
+      font-size: 16px;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .mailTo {
