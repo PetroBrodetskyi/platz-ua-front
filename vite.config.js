@@ -7,7 +7,7 @@ export default defineConfig({
     react(),
     sitemap({
       output: 'public/sitemap.xml',
-      hostname: 'https://platz-ua-front.vercel.app',
+      hostname: 'https://platzua.com',
       changefreq: 'daily',
       priority: 0.8,
       urls: [
