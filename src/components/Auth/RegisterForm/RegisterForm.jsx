@@ -5,13 +5,12 @@ import { RiEyeCloseLine } from 'react-icons/ri';
 import { HiOutlineEye } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
 import { register as registerUser } from '../../../redux/features/authSlice.js';
-import scss from './RegisterForm.module.scss';
 import SubmitButton from '../../SubmitButton/SubmitButton';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
-import '../RegisterForm/register.css';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import SplashScreen from '../../SplashScreen/SplashScreen';
+import scss from './RegisterForm.module.scss';
 
 const RegisterForm = () => {
   const {
@@ -26,6 +25,8 @@ const RegisterForm = () => {
   const [phoneValid, setPhoneValid] = useState(true);
   const [phoneTouched, setPhoneTouched] = useState(false);
   const [showSplash, setShowSplash] = useState(false);
+  const [isAgreed, setIsAgreed] = useState(false);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, error } = useSelector((state) => state.auth);
@@ -33,7 +34,8 @@ const RegisterForm = () => {
   const passwordVisibility = () => setShowPassword(!showPassword);
 
   const onSubmit = async (data) => {
-    if (!phoneValid) return;
+    setIsFormSubmitted(true);
+    if (!phoneValid || !isAgreed) return;
     try {
       await dispatch(registerUser(data)).unwrap();
       setShowSplash(true);
@@ -198,9 +200,28 @@ const RegisterForm = () => {
           <div className={scss.buttonWrapper}>
             <SubmitButton
               buttonText="Реєстрація"
-              onSubmit={handleSubmit(onSubmit)}
-              disabled={loading}
+              onSubmit={onSubmit}
+              disabled={loading || !isAgreed}
             />
+          </div>
+          <div className={scss.checkboxContainer}>
+            <label htmlFor="privacyPolicy" className={scss.checkboxLabel}>
+              <input
+                type="checkbox"
+                id="privacyPolicy"
+                checked={isAgreed}
+                onChange={() => setIsAgreed(!isAgreed)}
+                className={
+                  isFormSubmitted && !isAgreed
+                    ? scss.errorCheckbox
+                    : scss.checkbox
+                }
+              />
+              Я погоджуюсь з
+              <a href="/privacy-policy" className={scss.privacyLink}>
+                <span> політикою конфіденційності</span>
+              </a>
+            </label>
           </div>
           {error && <p className={scss.error}>{error}</p>}
         </form>

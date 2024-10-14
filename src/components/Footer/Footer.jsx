@@ -16,8 +16,12 @@ const Footer = () => {
     }
   }, [dispatch, token]);
 
-  const handleNavigateToHowItWorks = () => {
+  const navigateToHowItWorks = () => {
     navigate('/how-it-works');
+  };
+
+  const navigatePrivacyPolicy = () => {
+    navigate('/privacy-policy');
   };
 
   return (
@@ -27,12 +31,16 @@ const Footer = () => {
           <p>&copy; {new Date().getFullYear()} PlatzUA</p>
         </div>
         <div className={scss.linksContainer}>
-          <button
-            className={scss.linkButton}
-            onClick={handleNavigateToHowItWorks}
-          >
-            Покупцям та продавцям
-          </button>
+          <div>
+            <button className={scss.linkButton} onClick={navigateToHowItWorks}>
+              Покупцям та продавцям
+            </button>
+          </div>
+          <div>
+            <button className={scss.linkButton} onClick={navigatePrivacyPolicy}>
+              Політика конфіденційності
+            </button>
+          </div>
         </div>
         <div className={scss.adminButton}>
           {!loading && user && user.subscription === 'admin' && (

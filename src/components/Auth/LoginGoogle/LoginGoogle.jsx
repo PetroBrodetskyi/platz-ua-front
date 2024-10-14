@@ -12,11 +12,9 @@ const LoginGoogle = () => {
     const token = response.credential;
     const decoded = jwt_decode(token);
 
-    // Ви можете відправити цей токен на сервер або зберегти користувача в локальному стані
     console.log('Google Token:', token);
     console.log('Google User Data:', decoded);
 
-    // Можна також тут ініціювати login через Redux або іншу логіку авторизації
     dispatch(login({ googleToken: token }));
     navigate('/');
   };
@@ -27,7 +25,6 @@ const LoginGoogle = () => {
 
   return (
     <div>
-      <form>{/* Інші поля форми */}</form>
       <div className={scss.googleLogin}>
         <GoogleLogin
           onSuccess={handleGoogleSuccess}

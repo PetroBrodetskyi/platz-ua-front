@@ -36,6 +36,9 @@ const HowItWorksPage = lazy(
 const UserProfilePage = lazy(
   () => import('../../pages/UserProfilePage/UserProfilePage')
 );
+const PrivacyPolicyPage = lazy(
+  () => import('../../pages/PrivacyPolicyPage/PrivacyPolicyPage')
+);
 const AdminPage = lazy(() => import('../../pages/AdminPage/AdminPage'));
 
 const AppBar = () => {
@@ -90,6 +93,7 @@ const AppBar = () => {
                 element={<UserProfilePage />}
               />
               <Route path="/how-it-works" element={<HowItWorksPage />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
               <Route
                 path="/admin"
                 element={<PrivateRoute element={<AdminPage />} />}
