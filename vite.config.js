@@ -12,9 +12,9 @@ export default defineConfig({
       priority: 0.8,
       urls: [
         { url: '/', changefreq: 'daily', priority: 1.0 },
-        { url: '/auth', changefreq: 'monthly', priority: 0.7 },
         { url: '/how-it-works', changefreq: 'monthly', priority: 0.7 },
-        { url: '/privacy-policy', changefreq: 'monthly', priority: 0.7 }
+        { url: '/privacy-policy', changefreq: 'monthly', priority: 0.7 },
+        { url: '/create', changefreq: 'monthly', priority: 0.7 }
       ]
     })
   ],
