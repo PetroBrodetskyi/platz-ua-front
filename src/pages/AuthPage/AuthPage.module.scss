@@ -45,3 +45,9 @@
   text-align: center;
   font-weight: 600;
 }
+
+.cards {
+  @include media-rules(desktop) {
+    width: 30%;
+  }
+}

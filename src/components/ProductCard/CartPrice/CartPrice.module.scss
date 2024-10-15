@@ -30,12 +30,13 @@
 
     @include media-rules(desktop) {
       font-size: 16px;
+      font-weight: 600;
     }
   }
 
   .productPrice {
     color: var(--red);
-    font-weight: bold;
+    font-weight: 600;
     font-size: 18px;
 
     @include media-rules(tablet) {

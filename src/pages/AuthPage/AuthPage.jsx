@@ -18,7 +18,9 @@ const AuthPage = () => {
 
   return (
     <div className={scss.authPage}>
-      <RandomCards />
+      <div className={scss.cards}>
+        <RandomCards />
+      </div>
       <div className={scss.formContainer}>
         <h4>Увійдіть за допомогою електронної пошти або через Google</h4>
         <div className={scss.formWrapper}>
@@ -56,8 +58,9 @@ const AuthPage = () => {
           зв'язавшись з нами за вказаними контактними даними.
         </p>
       </div>
-
-      <RandomCards />
+      <div className={scss.cards}>
+        <RandomCards />
+      </div>
     </div>
   );
 };

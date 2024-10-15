@@ -48,13 +48,14 @@
     }
 
     .userMenu {
+      padding: 10px;
       display: flex;
       gap: 10px;
       justify-content: flex-end;
 
       @include media-rules(tablet) {
-        align-items: center;
         gap: 8px;
+        padding: 0;
       }
 
       @include media-rules(desktop) {

@@ -10,7 +10,7 @@ import {
   editComment,
   editReply
 } from '../../redux/features/commentsSlice';
-import Notification from '../Notification/Notification';
+import Notification from '../Notification';
 import { TbGhost } from 'react-icons/tb';
 import { LuArrowUpCircle } from 'react-icons/lu';
 import { nanoid } from 'nanoid';
@@ -179,7 +179,7 @@ const Comments = ({ productId }) => {
           ))
         ) : commentsForProduct.length ? (
           commentsForProduct.map(({ _id, user, text, createdAt, replies }) => (
-            <div key={_id || nanoid()} className={scss.comment}>
+            <div key={_id || nanoid()} className={scss.firstComment}>
               <div
                 className={scss.userContainer}
                 onClick={() => user && handleUserClick(user._id)}
@@ -198,7 +198,7 @@ const Comments = ({ productId }) => {
                 )}
                 <div className={scss.nameContainer}>
                   <h4>{user ? user.name : 'Видалений акаунт'}</h4>
-                  <p className={scss.dateTime}>
+                  <p className={scss.date}>
                     {formatDistanceToNow(new Date(createdAt), {
                       addSuffix: true,
                       locale: uk
@@ -215,14 +215,15 @@ const Comments = ({ productId }) => {
                     placeholder="Редагувати коментар..."
                     className={scss.textarea}
                   />
+
                   <button
-                    className={scss.addReplyButton}
+                    className={scss.button}
                     onClick={() => handleEditComment(_id)}
                   >
                     Зберегти
                   </button>
                   <button
-                    className={scss.cancelButton}
+                    className={scss.button}
                     onClick={() => {
                       setEditingCommentId(null);
                       setEditingText('');
@@ -238,7 +239,7 @@ const Comments = ({ productId }) => {
                     {currentUser?._id === user?._id && (
                       <>
                         <button
-                          className={scss.editButton}
+                          className={scss.button}
                           onClick={() => {
                             setEditingCommentId(_id);
                             setEditingText(text);
@@ -247,7 +248,7 @@ const Comments = ({ productId }) => {
                           Редагувати
                         </button>
                         <button
-                          className={scss.deleteButton}
+                          className={scss.button}
                           onClick={() => handleDeleteComment(_id)}
                         >
                           Видалити
@@ -255,7 +256,7 @@ const Comments = ({ productId }) => {
                       </>
                     )}
                     <button
-                      className={scss.replyButton}
+                      className={scss.button}
                       onClick={() => setReplyTo(_id)}
                     >
                       Відповісти
@@ -273,13 +274,13 @@ const Comments = ({ productId }) => {
                     className={scss.textarea}
                   />
                   <button
-                    className={scss.addReplyButton}
+                    className={scss.button}
                     onClick={() => handleAddReply(_id)}
                   >
                     Відправити
                   </button>
                   <button
-                    className={scss.cancelButton}
+                    className={scss.button}
                     onClick={() => setReplyTo(null)}
                   >
                     Скасувати
@@ -298,7 +299,7 @@ const Comments = ({ productId }) => {
                     }) => (
                       <div key={replyId || nanoid()} className={scss.reply}>
                         <div
-                          className={scss.userContainer}
+                          className={scss.replieContainer}
                           onClick={() =>
                             replyUser && handleUserClick(replyUser._id)
                           }
@@ -319,7 +320,7 @@ const Comments = ({ productId }) => {
                             <h4 className={scss.name}>
                               {replyUser ? replyUser.name : 'Видалений акаунт'}
                             </h4>
-                            <p className={scss.dateTime}>
+                            <p className={scss.date}>
                               {formatDistanceToNow(new Date(replyCreatedAt), {
                                 addSuffix: true,
                                 locale: uk
@@ -337,13 +338,13 @@ const Comments = ({ productId }) => {
                               className={scss.textarea}
                             />
                             <button
-                              className={scss.addReplyButton}
+                              className={scss.button}
                               onClick={() => handleEditReply(_id, replyId)}
                             >
                               Зберегти
                             </button>
                             <button
-                              className={scss.cancelButton}
+                              className={scss.button}
                               onClick={() => {
                                 setEditingReplyId(null);
                                 setEditingText('');
@@ -353,13 +354,13 @@ const Comments = ({ productId }) => {
                             </button>
                           </div>
                         ) : (
-                          <>
-                            <p className={scss.text}>{replyText}</p>
-                            <div className={scss.dateTime}>
+                          <div className={scss.replyText}>
+                            <p>{replyText}</p>
+                            <div className={scss.date}>
                               {currentUser?._id === replyUser?._id && (
                                 <>
                                   <button
-                                    className={scss.editButton}
+                                    className={scss.button}
                                     onClick={() => {
                                       setEditingReplyId(replyId);
                                       setEditingText(replyText);
@@ -368,7 +369,7 @@ const Comments = ({ productId }) => {
                                     Редагувати
                                   </button>
                                   <button
-                                    className={scss.deleteButton}
+                                    className={scss.button}
                                     onClick={() =>
                                       handleDeleteReply(_id, replyId)
                                     }
@@ -378,7 +379,7 @@ const Comments = ({ productId }) => {
                                 </>
                               )}
                             </div>
-                          </>
+                          </div>
                         )}
                       </div>
                     )

@@ -40,7 +40,6 @@ const ProductDetails = () => {
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
   const owner = useSelector(selectOwner);
-  const currentUser = useSelector(selectCurrentUser);
   const cartItems = useSelector((state) => state.cart.items);
 
   useEffect(() => {
@@ -108,7 +107,6 @@ const ProductDetails = () => {
             </p>
           </div>
         </div>
-
         <div className={scss.gallery}>
           <Gallery images={product} />
         </div>
@@ -122,10 +120,12 @@ const ProductDetails = () => {
           </div>
           <SubmitButton
             buttonText={isInCart ? 'У кошику' : 'У кошик'}
-            onClick={handleAddToCart}
+            handleAddToCart={handleAddToCart}
           />
-          <Comments productId={productId} />
         </div>
+      </div>
+      <div className={scss.comments}>
+        <Comments productId={productId} />
       </div>
 
       {notification && (

@@ -8,9 +8,9 @@
   gap: 4px;
 
   @include media-rules(desktop) {
-    width: 560px;
+    width: 680px;
     padding: 10px 0;
-    gap: 10px;
+    gap: 20px;
   }
 }
 
@@ -27,8 +27,8 @@
   overflow-y: auto;
 
   @include media-rules(desktop) {
-    max-height: 340px;
-    gap: 10px;
+    max-height: 1000px;
+    gap: 20px;
   }
 
   &::-webkit-scrollbar {
@@ -56,7 +56,29 @@
 
   @include media-rules(desktop) {
     font-size: 16px;
+    padding-left: 20px;
   }
+}
+
+.replyText {
+  font-weight: 400;
+  font-size: 12px;
+
+  @include media-rules(desktop) {
+    font-size: 16px;
+    padding-left: 60px;
+  }
+}
+
+.reply {
+  padding: 20px 0;
+  border: 1px solid #ddd;
+}
+
+.button {
+  padding: 0 8px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
 }
 
 .userContainer {
@@ -65,27 +87,52 @@
   cursor: pointer;
 }
 
+.replieContainer {
+  display: flex;
+  gap: 8px;
+  padding-left: 48px;
+}
+
 .addComment {
   display: flex;
   align-items: center;
   gap: 10px;
+  padding-left: 20px;
 }
 
-.comment {
+.editForm {
+  padding-left: 48px;
+}
+
+.firstComment {
+  display: flex;
+  flex-direction: column;
   border: 1px solid #ddd;
-  padding: 4px;
+  background-color: var(--grafite);
   border-radius: 4px;
 
   @include media-rules(desktop) {
-    padding: 10px;
+    padding: 20px;
+  }
+}
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  @include media-rules(desktop) {
+    padding: 20px;
+    gap: 10px;
   }
 }
 
 .avatar {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: 2px solid var(--dark-bg);
+  box-shadow: 0 6px 20px rgba(177, 177, 177, 0.786);
 }
 
 .iconContainer {
@@ -106,7 +153,7 @@
   width: 100%;
   resize: none;
   font-family: var(--font-family);
-  padding: 10px;
+  padding: 8px;
 }
 
 .dateTime {
@@ -117,6 +164,8 @@
 
   @include media-rules(desktop) {
     font-size: 14px;
+    padding-left: 20px;
+    padding-bottom: 10px;
   }
 }
 

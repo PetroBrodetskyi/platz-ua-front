@@ -73,7 +73,7 @@ const RandomCards = () => {
     } else {
       const productWithOwner = {
         ...product,
-        owner: owners[product.owner]
+        owner: owners[product.owner] || {}
       };
       dispatch(addToCart(productWithOwner));
       setNotification(`${product.name} додано до кошика!`);
@@ -81,17 +81,16 @@ const RandomCards = () => {
   };
 
   useEffect(() => {
-    products.forEach((product) => {
-      if (product.owner) {
-        fetchOwner(product.owner);
-      }
-    });
+    const uniqueOwners = [...new Set(products.map((product) => product.owner))];
+    uniqueOwners.forEach((ownerId) => fetchOwner(ownerId));
   }, [products, fetchOwner]);
 
   useEffect(() => {
     if (products.length > 0 && randomProducts.length === 0) {
-      const shuffled = [...products].sort(() => 0.5 - Math.random());
-      setRandomProducts(shuffled.slice(0, 2));
+      const shuffled = [...products]
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 2);
+      setRandomProducts(shuffled);
     }
   }, [products, randomProducts]);
 
@@ -100,7 +99,7 @@ const RandomCards = () => {
       <ul className={scss.list}>
         {randomProducts.map((product) => {
           const isInCart = cartItems.some((item) => item._id === product._id);
-          const owner = owners[product.owner];
+          const owner = owners[product.owner] || {};
 
           return (
             <li
@@ -110,7 +109,7 @@ const RandomCards = () => {
               <div className={scss.product}>
                 <div className={scss.productImage}>
                   <div className={scss.ownerViews}>
-                    {owner ? (
+                    {owner.name ? (
                       <div
                         className={scss.ownerContainer}
                         onClick={() => handleOwnerClick(owner._id)}
