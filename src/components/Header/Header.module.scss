@@ -50,6 +50,7 @@
     .userMenu {
       padding: 10px;
       display: flex;
+      align-items: center;
       gap: 10px;
       justify-content: flex-end;
 
@@ -119,7 +120,6 @@
     .navigateItem {
       display: flex;
       align-items: center;
-      gap: 4px;
 
       @include media-rules(tablet) {
         flex-direction: column;

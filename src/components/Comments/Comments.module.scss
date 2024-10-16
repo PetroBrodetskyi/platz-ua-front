@@ -21,6 +21,7 @@
 .commentList {
   display: flex;
   flex-direction: column;
+
   gap: 4px;
   flex: 1;
 
@@ -53,6 +54,9 @@
 .text {
   font-weight: 400;
   font-size: 12px;
+  padding: 10px;
+  background-color: var(--light-bg);
+  border-radius: 8px;
 
   @include media-rules(desktop) {
     font-size: 16px;
@@ -61,8 +65,14 @@
 }
 
 .replyText {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 70%;
   font-weight: 400;
   font-size: 12px;
+  background-color: var(--light-bg);
+  border-radius: 8px;
 
   @include media-rules(desktop) {
     font-size: 16px;
@@ -72,7 +82,6 @@
 
 .reply {
   padding: 20px 0;
-  border: 1px solid #ddd;
 }
 
 .button {
@@ -108,7 +117,8 @@
   display: flex;
   flex-direction: column;
   border: 1px solid #ddd;
-  background-color: var(--grafite);
+  background-color: var(--white);
+
   border-radius: 4px;
 
   @include media-rules(desktop) {
