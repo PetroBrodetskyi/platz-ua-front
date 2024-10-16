@@ -34,7 +34,7 @@ const Footer = () => {
         </div>
         <div>
           <ul className={scss.linksList}>
-            <li>
+            <li className={scss.link}>
               <button
                 className={scss.linkButton}
                 onClick={() => handleNavigation('/how-it-works')}
@@ -42,7 +42,7 @@ const Footer = () => {
                 Покупцям та продавцям
               </button>
             </li>
-            <li>
+            <li className={scss.link}>
               <button
                 className={scss.linkButton}
                 onClick={() => handleNavigation('/terms-of-service')}
@@ -50,7 +50,7 @@ const Footer = () => {
                 Умови використання
               </button>
             </li>
-            <li>
+            <li className={scss.link}>
               <button
                 className={scss.linkButton}
                 onClick={() => handleNavigation('/privacy-policy')}
