@@ -2,4 +2,4 @@ User-agent: *
 Disallow: /admin/
 Disallow: /private/
 
-Sitemap: https://www.platzua.com/sitemap.xml
+Sitemap: https://platzua.com/sitemap.xml
