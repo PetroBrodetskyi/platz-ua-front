@@ -20,10 +20,12 @@ import Reply from './Reply';
 const Comments = ({ productId }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const allComments = useSelector((state) => state.comments.comments);
+  const {
+    comments: allComments,
+    loading,
+    error
+  } = useSelector((state) => state.comments);
   const currentUser = useSelector((state) => state.auth.user);
-  const loading = useSelector((state) => state.comments.loading);
-  const error = useSelector((state) => state.comments.error);
 
   const commentsForProduct =
     allComments.find((comment) => comment.productId === productId)?.comments ||
@@ -39,63 +41,53 @@ const Comments = ({ productId }) => {
     dispatch(fetchComments(productId));
   }, [dispatch, productId]);
 
-  const handleAddComment = useCallback(async () => {
-    if (newComment.trim()) {
-      const resultAction = await dispatch(
-        addComment({ productId, comment: newComment, user: currentUser })
-      );
+  const handleAction = useCallback(
+    async (action, args, successMessage, errorMessage) => {
+      const resultAction = await dispatch(action(args));
       setNotification(
-        addComment.fulfilled.match(resultAction)
-          ? 'Ваш коментар додано'
-          : 'Помилка додавання коментаря'
+        resultAction?.type.endsWith('fulfilled') ? successMessage : errorMessage
       );
-      setNewComment('');
-    }
-  }, [newComment, dispatch, productId, currentUser]);
-
-  const handleDeleteComment = useCallback(
-    async (commentId) => {
-      const resultAction = await dispatch(
-        deleteComment({ productId, commentId })
-      );
-      setNotification(
-        deleteComment.fulfilled.match(resultAction)
-          ? 'Коментар видалено'
-          : 'Помилка видалення коментаря'
-      );
+      if (resultAction?.type.endsWith('fulfilled'))
+        dispatch(fetchComments(productId));
     },
     [dispatch, productId]
   );
 
-  const handleEditComment = useCallback(
-    async (commentId) => {
-      if (editingText.trim()) {
-        const resultAction = await dispatch(
-          editComment({ productId, commentId, text: editingText })
-        );
-        if (editComment.fulfilled.match(resultAction)) {
-          dispatch(fetchComments(productId));
-          setNotification('Коментар оновлено');
-          setEditingCommentId(null);
-          setEditingText('');
-        } else {
-          setNotification('Помилка редагування коментаря');
-        }
-      }
-    },
-    [editingText, dispatch, productId]
-  );
+  const handleAddComment = () => {
+    if (newComment.trim()) {
+      handleAction(
+        addComment,
+        { productId, comment: newComment, user: currentUser },
+        'Ваш коментар додано',
+        'Помилка додавання коментаря'
+      );
+      setNewComment('');
+    }
+  };
 
-  const handleUserClick = useCallback(
-    (userId) => {
-      navigate(`/user/${userId}`);
-    },
-    [navigate]
-  );
+  const handleDeleteComment = (commentId) =>
+    handleAction(
+      deleteComment,
+      { productId, commentId },
+      'Коментар видалено',
+      'Помилка видалення коментаря'
+    );
 
-  const handleLoginClick = useCallback(() => {
-    navigate('/auth');
-  }, [navigate]);
+  const handleEditComment = (commentId) => {
+    if (editingText.trim()) {
+      handleAction(
+        editComment,
+        { productId, commentId, text: editingText },
+        'Коментар оновлено',
+        'Помилка редагування коментаря'
+      );
+      setEditingCommentId(null);
+      setEditingText('');
+    }
+  };
+
+  const handleUserClick = (userId) => navigate(`/user/${userId}`);
+  const handleLoginClick = () => navigate('/auth');
 
   if (error) return <p>Помилка завантаження коментарів: {error}</p>;
 
@@ -107,10 +99,8 @@ const Comments = ({ productId }) => {
         {loading ? (
           Array.from({ length: 7 }, (_, index) => (
             <div key={index} className={scss.skeleton}>
-              <div className={scss.avatarName}>
-                <Skeleton variant="circular" width={40} height={40} />
-                <Skeleton variant="text" width="40%" />
-              </div>
+              <Skeleton variant="circular" width={40} height={40} />
+              <Skeleton variant="text" width="40%" />
               <Skeleton variant="text" width="80%" />
             </div>
           ))

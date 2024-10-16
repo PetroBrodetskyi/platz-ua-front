@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FaUserShield } from 'react-icons/fa';
@@ -8,20 +8,22 @@ import scss from './Footer.module.scss';
 const Footer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, token, loading } = useSelector((state) => state.auth);
+  const { user, token } = useSelector((state) => state.auth);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (token) {
-      dispatch(fetchCurrentUser());
-    }
+    const fetchUser = async () => {
+      if (token) {
+        await dispatch(fetchCurrentUser()).unwrap();
+      }
+      setIsLoading(false);
+    };
+
+    fetchUser();
   }, [dispatch, token]);
 
-  const navigateToHowItWorks = () => {
-    navigate('/how-it-works');
-  };
-
-  const navigatePrivacyPolicy = () => {
-    navigate('/privacy-policy');
+  const handleNavigation = (path) => {
+    navigate(path);
   };
 
   return (
@@ -35,7 +37,7 @@ const Footer = () => {
             <li>
               <button
                 className={scss.linkButton}
-                onClick={navigateToHowItWorks}
+                onClick={() => handleNavigation('/how-it-works')}
               >
                 Покупцям та продавцям
               </button>
@@ -43,7 +45,15 @@ const Footer = () => {
             <li>
               <button
                 className={scss.linkButton}
-                onClick={navigatePrivacyPolicy}
+                onClick={() => handleNavigation('/terms-of-service')}
+              >
+                Умови використання
+              </button>
+            </li>
+            <li>
+              <button
+                className={scss.linkButton}
+                onClick={() => handleNavigation('/privacy-policy')}
               >
                 Політика конфіденційності
               </button>
@@ -51,8 +61,8 @@ const Footer = () => {
           </ul>
         </div>
         <div className={scss.adminButton}>
-          {!loading && user && user.subscription === 'admin' && (
-            <button onClick={() => navigate('/admin')}>
+          {!isLoading && user && user.subscription === 'admin' && (
+            <button onClick={() => handleNavigation('/admin')}>
               <FaUserShield className={scss.icon} />
             </button>
           )}

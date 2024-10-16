@@ -3,10 +3,10 @@ import { useDispatch } from 'react-redux';
 import {
   addReply,
   deleteReply,
-  editReply
+  editReply,
+  fetchComments
 } from '../../../redux/features/commentsSlice';
 import { TbGhost } from 'react-icons/tb';
-import { nanoid } from 'nanoid';
 import { formatDistanceToNow } from 'date-fns';
 import { uk } from 'date-fns/locale';
 import scss from '../Comments.module.scss';
@@ -23,21 +23,25 @@ const Reply = ({
 }) => {
   const dispatch = useDispatch();
   const [replyText, setReplyText] = useState('');
-  const [editingReplyId, setEditingReplyId] = useState(null);
-  const [editingText, setEditingText] = useState('');
+  const [editing, setEditing] = useState({ id: null, text: '' });
 
   const handleAddReply = useCallback(async () => {
     if (replyText.trim()) {
       const resultAction = await dispatch(
         addReply({ productId, commentId, reply: replyText, user: currentUser })
       );
+
       onSetNotification(
         addReply.fulfilled.match(resultAction)
           ? 'Ваша відповідь додана'
           : 'Помилка додавання відповіді'
       );
+
+      if (addReply.fulfilled.match(resultAction)) {
+        dispatch(fetchComments(productId));
+        setReplyTo(null);
+      }
       setReplyText('');
-      setReplyTo(null);
     }
   }, [
     replyText,
@@ -54,6 +58,7 @@ const Reply = ({
       const resultAction = await dispatch(
         deleteReply({ productId, commentId, replyId })
       );
+
       onSetNotification(
         deleteReply.fulfilled.match(resultAction)
           ? 'Відповідь видалена'
@@ -65,37 +70,31 @@ const Reply = ({
 
   const handleEditReply = useCallback(
     async (replyId) => {
-      if (editingText.trim()) {
+      if (editing.text.trim()) {
         const resultAction = await dispatch(
-          editReply({ productId, commentId, replyId, text: editingText })
+          editReply({ productId, commentId, replyId, text: editing.text })
         );
+
         if (editReply.fulfilled.match(resultAction)) {
           onSetNotification('Відповідь оновлено');
-          setEditingReplyId(null);
-          setEditingText('');
+          setEditing({ id: null, text: '' });
         } else {
           onSetNotification('Помилка редагування відповіді');
         }
       }
     },
-    [editingText, dispatch, productId, commentId, onSetNotification]
+    [editing.text, dispatch, productId, commentId, onSetNotification]
   );
 
   return (
     <div className={scss.replyContainer}>
       {replyTo === commentId && (
         <div className={scss.replyInput}>
-          {currentUser.avatarURL ? (
-            <img
-              src={currentUser.avatarURL}
-              alt={currentUser.name}
-              className={scss.avatar}
-            />
-          ) : (
-            <div className={scss.iconContainer}>
-              <TbGhost className={scss.icon} />
-            </div>
-          )}
+          <img
+            src={currentUser.avatarURL || <TbGhost className={scss.icon} />}
+            alt={currentUser.name || 'Анонім'}
+            className={scss.avatar}
+          />
           <textarea
             value={replyText}
             onChange={(e) => setReplyText(e.target.value)}
@@ -108,26 +107,20 @@ const Reply = ({
         </div>
       )}
 
-      {replies && replies.length > 0 && (
+      {replies.length > 0 && (
         <div className={scss.replyList}>
           {replies.map(({ _id, user, text, createdAt }) => (
-            <div key={_id || nanoid()} className={scss.reply}>
+            <div key={_id} className={scss.reply}>
               <div
                 className={scss.userContainer}
                 onClick={() => user && onUserClick(user._id)}
                 style={{ cursor: user ? 'pointer' : 'default' }}
               >
-                {user?.avatarURL ? (
-                  <img
-                    src={user.avatarURL}
-                    alt={user.name}
-                    className={scss.avatar}
-                  />
-                ) : (
-                  <div className={scss.iconContainer}>
-                    <TbGhost className={scss.icon} />
-                  </div>
-                )}
+                <img
+                  src={user?.avatarURL || <TbGhost className={scss.icon} />}
+                  alt={user?.name || 'Анонім'}
+                  className={scss.avatar}
+                />
                 <div className={scss.nameContainer}>
                   <h4>{user ? user.name : 'Видалений акаунт'}</h4>
                   <p className={scss.date}>
@@ -138,11 +131,13 @@ const Reply = ({
                   </p>
                 </div>
               </div>
-              {editingReplyId === _id ? (
+              {editing.id === _id ? (
                 <div className={scss.editForm}>
                   <textarea
-                    value={editingText}
-                    onChange={(e) => setEditingText(e.target.value)}
+                    value={editing.text}
+                    onChange={(e) =>
+                      setEditing({ id: _id, text: e.target.value })
+                    }
                     placeholder="Редагувати відповідь..."
                     className={scss.textarea}
                   />
@@ -154,10 +149,7 @@ const Reply = ({
                   </button>
                   <button
                     className={scss.button}
-                    onClick={() => {
-                      setEditingReplyId(null);
-                      setEditingText('');
-                    }}
+                    onClick={() => setEditing({ id: null, text: '' })}
                   >
                     Скасувати
                   </button>
@@ -169,10 +161,7 @@ const Reply = ({
                     <div className={scss.actions}>
                       <button
                         className={scss.button}
-                        onClick={() => {
-                          setEditingReplyId(_id);
-                          setEditingText(text);
-                        }}
+                        onClick={() => setEditing({ id: _id, text })}
                       >
                         Редагувати
                       </button>
