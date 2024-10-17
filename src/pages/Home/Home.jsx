@@ -68,19 +68,19 @@ const Home = () => {
         open={isPopupVisible}
         onClose={handleClosePopup}
         className={scss.popup}
-        fullWidth // Додаємо повну ширину для кращого вигляду
-        maxWidth="sm" // Встановлюємо максимальну ширину
       >
-        <DialogTitle className={scss.logoTitle}>
-          <img src={logo} alt="Логотип" className={scss.logo} />
-          <h4 className={scss.title}>Вітаємо на сайті PlatzUA!</h4>
-        </DialogTitle>
-        <DialogContent className={scss.text}>
-          <b>Сайт ще перебуває у розробці, але ми активно працюємо</b>, щоб
-          якнайшвидше запустити його. Наша мета — створити платформу{' '}
-          <b>для українців у Німеччині</b>, яка стане корисним і надійним
-          ресурсом. Вона надасть можливість зручно купувати, продавати,
-          знаходити друзів, спілкуватися та отримувати підтримку.
+        <DialogContent className={scss.content}>
+          <div className={scss.logoTitle}>
+            <img src={logo} alt="Логотип" className={scss.logo} />
+            <h4 className={scss.title}>Вітаємо на сайті PlatzUA!</h4>
+          </div>
+          <div>
+            <b>Сайт ще перебуває у розробці, але ми активно працюємо</b>, щоб
+            якнайшвидше запустити його. Наша мета — створити платформу{' '}
+            <b>для українців у Німеччині</b>, яка стане корисним і надійним
+            ресурсом. Вона надасть можливість зручно купувати, продавати,
+            знаходити друзів, спілкуватися та отримувати підтримку.
+          </div>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClosePopup} color="primary">
