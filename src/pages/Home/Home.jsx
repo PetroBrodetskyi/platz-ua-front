@@ -11,7 +11,7 @@ import {
   DialogActions,
   Button
 } from '@mui/material';
-import logo from '/public/logo.svg';
+import logo from '/logo.svg';
 import scss from './Home.module.scss';
 
 const Home = () => {
