@@ -1,6 +1,9 @@
 {
   "rewrites": [
-    { "source": "/sitemap.xml", "destination": "/api/sitemap.xml" },
+    {
+      "source": "/sitemap.xml",
+      "destination": "https://platz-ua-back.vercel.app/sitemap.xml"
+    },
     { "source": "/(.*)", "destination": "/" }
   ]
 }
