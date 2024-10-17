@@ -39,7 +39,17 @@ const Home = () => {
 
   const handleClosePopup = () => {
     setIsPopupVisible(false);
+    document.body.style.overflow = 'auto';
   };
+
+  useEffect(() => {
+    if (isPopupVisible) {
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isPopupVisible]);
 
   const handleLogout = () => {
     setNotification('Заходьте ще!');
