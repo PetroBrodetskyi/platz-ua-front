@@ -9,6 +9,7 @@ const AdminDashboard = () => {
   const [filter, setFilter] = useState('pending');
   const [owners, setOwners] = useState({});
   const [loadingOwners, setLoadingOwners] = useState({});
+  const [totalProducts, setTotalProducts] = useState(0); // Додано для зберігання загальної кількості оголошень
 
   // Функція для отримання даних про власника
   const fetchOwner = async (ownerId) => {
@@ -51,10 +52,14 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        // Додаємо параметр all до запиту
         const response = await axios.get(
-          'https://platz-ua-back.vercel.app/api/products/public/'
+          'https://platz-ua-back.vercel.app/api/products/public/?all=true'
         );
         setProducts(response.data);
+
+        // Встановлюємо загальну кількість продуктів
+        setTotalProducts(response.data.length);
 
         // Отримання даних про власників для всіх продуктів
         const uniqueOwnerIds = [
@@ -87,6 +92,7 @@ const AdminDashboard = () => {
     <div className={scss.container}>
       <h1>Привіт, Адмін!</h1>
       <h2>Список оголошень:</h2>
+      <p>Загальна кількість оголошень: {totalProducts}</p>
 
       <div className={scss.filterButtons}>
         <button onClick={() => setFilter('pending')}>На модерацію</button>
