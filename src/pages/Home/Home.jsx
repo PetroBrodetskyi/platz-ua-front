@@ -35,11 +35,16 @@ const Home = () => {
 
   const handleCloseNotification = () => {
     setNotification('');
+    document.body.style.overflow = 'auto';
   };
 
   const handleClosePopup = () => {
     setIsPopupVisible(false);
     document.body.style.overflow = 'auto';
+  };
+
+  const handleLogout = () => {
+    setNotification('Заходьте ще!');
   };
 
   useEffect(() => {
@@ -50,10 +55,6 @@ const Home = () => {
       document.body.style.overflow = 'auto';
     };
   }, [isPopupVisible]);
-
-  const handleLogout = () => {
-    setNotification('Заходьте ще!');
-  };
 
   return (
     <div className={scss.home}>
@@ -68,12 +69,21 @@ const Home = () => {
         open={isPopupVisible}
         onClose={handleClosePopup}
         className={scss.popup}
+        PaperProps={{
+          style: {
+            maxWidth: '90%',
+            margin: 'auto',
+            overflow: 'hidden'
+          }
+        }}
       >
-        <DialogContent className={scss.content}>
+        <DialogTitle className={scss.title}>
           <div className={scss.logoTitle}>
             <img src={logo} alt="Логотип" className={scss.logo} />
-            <h4 className={scss.title}>Вітаємо на сайті PlatzUA!</h4>
+            Вітаємо на сайті PlatzUA!
           </div>
+        </DialogTitle>
+        <DialogContent className={scss.content}>
           <div>
             <b>Сайт ще перебуває у розробці, але ми активно працюємо</b>, щоб
             якнайшвидше запустити його. Наша мета — створити платформу{' '}
