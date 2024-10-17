@@ -3,43 +3,37 @@ import { useSelector } from 'react-redux';
 import ProductList from '../../components/ProductList/ProductList';
 import CreateAdButton from '../../components/CreateAdButton/CreateAdButton';
 import Logout from '../../components/Logout/Logout';
-import Notification from '../../components/Notification/Notification';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 import scss from './Home.module.scss';
 
 const Home = () => {
-  const [notification, setNotification] = useState('');
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    const notificationMessage = localStorage.getItem('notification');
-    if (notificationMessage) {
-      setNotification(notificationMessage);
-      localStorage.removeItem('notification');
+    const isNotificationShown = sessionStorage.getItem('notificationShown');
+
+    if (!isNotificationShown) {
+      setOpenSnackbar(true);
+      sessionStorage.setItem('notificationShown', 'true');
     }
-  }, [user]);
+  }, []);
 
-  const handleCloseNotification = () => {
-    setNotification('');
-  };
-
-  const handleLogout = () => {
-    setNotification('Заходьте ще!');
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSnackbar(false);
   };
 
   return (
     <div className={scss.home}>
-      {notification && (
-        <Notification
-          message={notification}
-          onClose={handleCloseNotification}
-        />
-      )}
-
       <ProductList />
       <CreateAdButton />
       {user ? (
         user.verify ? (
-          <Logout onLogout={handleLogout} />
+          <Logout />
         ) : (
           <p>
             Будь ласка, підтвердіть свою електронну пошту, щоб отримати доступ
@@ -47,6 +41,24 @@ const Home = () => {
           </p>
         )
       ) : null}
+
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={30000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="info"
+          sx={{ width: '100%' }}
+        >
+          Сайт ще перебуває у розробці, але ми активно працюємо, щоб якнайшвидше
+          запустити його. Наша мета — створити платформу для українців у
+          Німеччині, яка стане корисним і надійним ресурсом. Вона надасть
+          можливість зручно купувати, продавати, знаходити друзів, спілкуватися
+          та отримувати підтримку
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
