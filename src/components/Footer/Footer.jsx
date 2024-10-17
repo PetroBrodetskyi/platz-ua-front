@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { fetchCurrentUser } from '../../redux/features/authSlice';
 import scss from './Footer.module.scss';
 
 const Footer = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user, token } = useSelector((state) => state.auth);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -18,6 +20,10 @@ const Footer = () => {
 
     fetchUser();
   }, [dispatch, token]);
+
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
 
   return (
     <footer className={scss.footer}>
