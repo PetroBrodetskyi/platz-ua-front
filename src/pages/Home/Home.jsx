@@ -54,7 +54,13 @@ const Home = () => {
         />
       )}
 
-      <Dialog open={isPopupVisible} onClose={handleClosePopup}>
+      <Dialog
+        open={isPopupVisible}
+        onClose={handleClosePopup}
+        className={scss.popup}
+        fullWidth // Додаємо повну ширину для кращого вигляду
+        maxWidth="sm" // Встановлюємо максимальну ширину
+      >
         <DialogTitle className={scss.logoTitle}>
           <img src={logo} alt="Логотип" className={scss.logo} />
           <h4 className={scss.title}>Вітаємо на сайті PlatzUA!</h4>
