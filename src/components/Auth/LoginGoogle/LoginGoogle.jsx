@@ -15,12 +15,15 @@ const LoginGoogle = () => {
     const { name, email, picture } = decoded;
 
     try {
-      const res = await axios.post('https://platz-ua-back/api/auth/google', {
-        name,
-        email,
-        avatarURL: picture,
-        token
-      });
+      const res = await axios.post(
+        'https://platz-ua-back/api/users/google-auth',
+        {
+          name,
+          email,
+          avatarURL: picture,
+          token
+        }
+      );
       dispatch(login({ user: res.data.user, token: res.data.token }));
       navigate('/');
     } catch (error) {
