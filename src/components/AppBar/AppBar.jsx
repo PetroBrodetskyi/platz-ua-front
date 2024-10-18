@@ -45,37 +45,6 @@ const TermsOfServicePage = lazy(
 );
 const AdminPage = lazy(() => import('../../pages/AdminPage/AdminPage'));
 
-const routes = [
-  { path: '/', element: <Home /> },
-  { path: '/cart', element: <Cart /> },
-  { path: '/auth', element: <AuthPage /> },
-  { path: '/create', element: <AddProductPage /> },
-  { path: '/favorites', element: <FavoritesPage /> },
-  { path: '/product/:productId', element: <ProductDetailPage /> },
-  { path: '/user/:userId', element: <UserProductsPage /> },
-  { path: '/user-profile/:userId', element: <UserProfilePage /> },
-  { path: '/how-it-works', element: <HowItWorksPage /> },
-  { path: '/terms-of-service', element: <TermsOfServicePage /> },
-  { path: '/privacy-policy', element: <PrivacyPolicyPage /> },
-  {
-    path: '/admin',
-    element: <PrivateRoute element={<AdminPage />} />
-  },
-  {
-    path: '/email-verified',
-    element: (
-      <SplashScreen
-        onFinish={() => navigate('/auth')}
-        message={{
-          title: 'Ваш e-mail підтверджено',
-          text: 'Виконується перенаправлення на сторінку авторизації...'
-        }}
-      />
-    )
-  },
-  { path: '*', element: <NotFoundPage /> }
-];
-
 const AppBar = () => {
   const [loading, setLoading] = useState(false);
   const navigationType = useNavigationType();
@@ -91,6 +60,37 @@ const AppBar = () => {
   }, [navigationType, location]);
 
   const loadingContent = useMemo(() => <Loader />, [loading]);
+
+  const routes = [
+    { path: '/', element: <Home /> },
+    { path: '/cart', element: <Cart /> },
+    { path: '/auth', element: <AuthPage /> },
+    { path: '/create', element: <AddProductPage /> },
+    { path: '/favorites', element: <FavoritesPage /> },
+    { path: '/product/:productId', element: <ProductDetailPage /> },
+    { path: '/user/:userId', element: <UserProductsPage /> },
+    { path: '/user-profile/:userId', element: <UserProfilePage /> },
+    { path: '/how-it-works', element: <HowItWorksPage /> },
+    { path: '/terms-of-service', element: <TermsOfServicePage /> },
+    { path: '/privacy-policy', element: <PrivacyPolicyPage /> },
+    {
+      path: '/admin',
+      element: <PrivateRoute element={<AdminPage />} />
+    },
+    {
+      path: '/email-verified',
+      element: (
+        <SplashScreen
+          onFinish={() => navigate('/auth')}
+          message={{
+            title: 'Ваш e-mail підтверджено',
+            text: 'Виконується перенаправлення на сторінку авторизації...'
+          }}
+        />
+      )
+    },
+    { path: '*', element: <NotFoundPage /> }
+  ];
 
   return (
     <div className={scss.wrapper}>
