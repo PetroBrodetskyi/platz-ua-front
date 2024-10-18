@@ -1,31 +1,37 @@
 @import 'src/styles/mixins';
 
-$padding-desktop: 100px 40px;
+$padding-desktop: 120px 40px;
 $padding-tablet: 20px;
 $padding-mobile: 10px;
 
 .container {
-  padding: $padding-desktop;
+  padding: $padding-mobile;
+
+  @include media-rules(desktop) {
+    padding: $padding-desktop;
+  }
 }
 
 .userProfile {
-  max-width: 400px;
-  border-radius: 4px;
-  padding: 20px;
-  background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  @include media-rules(desktop) {
+    flex-direction: row;
+  }
 }
 
 .avatarContainer {
   position: relative;
   display: inline-block;
-  margin-bottom: 20px;
 }
 
 .avatar {
   border-radius: 50%;
   cursor: pointer;
-  width: 120px;
-  height: 120px;
+  width: 180px;
+  height: 180px;
   object-fit: cover;
 }
 
@@ -33,21 +39,52 @@ $padding-mobile: 10px;
   display: none;
 }
 
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  @include media-rules(desktop) {
+    flex-direction: row;
+  }
+}
+
+.personalInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .formGroup {
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
 
   label {
-    margin-bottom: 5px;
-    font-weight: bold;
+    font-weight: 600;
     display: block;
   }
 
   input {
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
+    padding: 14px 20px;
+    background-color: inherit;
+    font-size: 14px;
     border-radius: 4px;
-    width: 100%;
+    background-color: var(--grafite);
+    border: none;
+    color: var(--white);
+
+    @include media-rules(desktop) {
+      width: 240px;
+    }
+
+    &::placeholder {
+      color: var(--white);
+    }
+
+    &:focus {
+      border-color: gold;
+      outline: none;
+    }
   }
 }
 
