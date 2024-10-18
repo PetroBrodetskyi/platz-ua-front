@@ -18,9 +18,9 @@ const AuthPage = () => {
 
   return (
     <div className={scss.authPage}>
-      <div className={scss.cards}>
-        <RandomCards />
-      </div>
+      {/* <div className={scss.cards}>
+          <RandomCards />
+        </div> */}
       <div className={scss.formContainer}>
         <h4>Увійдіть за допомогою електронної пошти або через Google</h4>
         <div className={scss.formWrapper}>
