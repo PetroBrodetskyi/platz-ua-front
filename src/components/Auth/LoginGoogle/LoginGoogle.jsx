@@ -16,7 +16,7 @@ const LoginGoogle = () => {
 
     try {
       const res = await axios.post(
-        'https://platz-ua-back/api/users/google-auth',
+        'https://platz-ua-back.vercel.app/api/users/google-auth',
         {
           name,
           email,
