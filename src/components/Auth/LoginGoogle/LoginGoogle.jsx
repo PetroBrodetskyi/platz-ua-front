@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
+import * as jwt_decode from 'jwt-decode';
 import scss from './LoginGoogle.module.scss';
 
 const LoginGoogle = () => {
