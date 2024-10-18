@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { GoogleLogin } from '@react-oauth/google';
 import { googleLogin } from '../../../redux/features/authSlice';
-import { jwtDecode } from 'jwt-decode';
 import scss from './LoginGoogle.module.scss';
 
 const LoginGoogle = () => {
@@ -11,13 +10,8 @@ const LoginGoogle = () => {
 
   const handleGoogleSuccess = async (response) => {
     const token = response.credential;
-    const decoded = jwtDecode(token);
-    const { name, email, picture } = decoded;
-
     try {
-      const res = await dispatch(
-        googleLogin({ name, email, avatarURL: picture, token })
-      ).unwrap();
+      const res = await dispatch(googleLogin({ token })).unwrap();
       navigate('/');
     } catch (error) {
       console.error('Error during Google login:', error);
