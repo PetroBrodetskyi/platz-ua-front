@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { GoogleLogin } from '@react-oauth/google';
 import { googleLogin } from '../../../redux/features/authSlice';
+import jwt_decode from 'jwt-decode';
 import scss from './LoginGoogle.module.scss';
 
 const LoginGoogle = () => {
