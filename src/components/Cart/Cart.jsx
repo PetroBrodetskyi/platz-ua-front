@@ -65,7 +65,7 @@ const Cart = () => {
 
   const handleConfirm = () => {
     setShowConfirmation(false);
-    navigate('/login');
+    navigate('/auth');
   };
 
   return (
