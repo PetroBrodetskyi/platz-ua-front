@@ -4,6 +4,14 @@ import { createSelector } from 'reselect';
 
 const API_URL = 'https://platz-ua-back.vercel.app/api/users';
 
+export const googleLogin = createAsyncThunk(
+  'auth/googleLogin',
+  async (data) => {
+    const response = await axios.post(`${API_URL}/google-auth`, data);
+    return response.data;
+  }
+);
+
 export const login = createAsyncThunk('auth/login', async (credentials) => {
   const response = await axios.post(`${API_URL}/login`, credentials);
   return response.data;
@@ -82,6 +90,20 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(googleLogin.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(googleLogin.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        localStorage.setItem('token', action.payload.token);
+      })
+      .addCase(googleLogin.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
       .addCase(login.pending, (state) => {
         state.loading = true;
         state.error = null;

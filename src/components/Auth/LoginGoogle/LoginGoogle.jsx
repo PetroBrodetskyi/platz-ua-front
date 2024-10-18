@@ -1,8 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { GoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
-import * as jwt_decode from 'jwt-decode';
+import { googleLogin } from '../../redux/authSlice';
 import scss from './LoginGoogle.module.scss';
 
 const LoginGoogle = () => {
@@ -15,16 +14,9 @@ const LoginGoogle = () => {
     const { name, email, picture } = decoded;
 
     try {
-      const res = await axios.post(
-        'https://platz-ua-back.vercel.app/api/users/google-auth',
-        {
-          name,
-          email,
-          avatarURL: picture,
-          token
-        }
-      );
-      dispatch(login({ user: res.data.user, token: res.data.token }));
+      const res = await dispatch(
+        googleLogin({ name, email, avatarURL: picture, token })
+      ).unwrap();
       navigate('/');
     } catch (error) {
       console.error('Error during Google login:', error);
