@@ -21,6 +21,7 @@ const UserProfile = ({ user }) => {
     instagram: '',
     linkedin: '',
     telegram: '',
+    site: '', // Додано поле сайту
     about: '',
     oldPassword: '',
     newPassword: '',
@@ -36,6 +37,8 @@ const UserProfile = ({ user }) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const token = useSelector((state) => state.auth.token);
 
+  const isPasswordNull = user?.password === null;
+
   useEffect(() => {
     if (user) {
       setFormData({
@@ -49,6 +52,7 @@ const UserProfile = ({ user }) => {
         instagram: user.instagram || '',
         linkedin: user.linkedin || '',
         telegram: user.telegram || '',
+        site: user.site || '', // Задати значення поля сайту
         about: user.about || '',
         oldPassword: '',
         newPassword: '',
@@ -60,7 +64,8 @@ const UserProfile = ({ user }) => {
   }, [user]);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleFileChange = (e) => {
@@ -68,7 +73,7 @@ const UserProfile = ({ user }) => {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setPreview(imageUrl);
-      setFormData({ ...formData, avatar: file });
+      setFormData((prev) => ({ ...prev, avatar: file }));
     }
   };
 
@@ -77,20 +82,15 @@ const UserProfile = ({ user }) => {
     setIsSubmitting(true);
 
     const formDataToSend = new FormData();
-    formDataToSend.append('name', formData.name);
-    formDataToSend.append('phone', formData.phone);
-    formDataToSend.append('email', formData.email);
-    if (formData.avatar) {
-      formDataToSend.append('avatar', formData.avatar);
-    }
-    formDataToSend.append('plz', formData.plz);
-    formDataToSend.append('city', formData.city);
-    formDataToSend.append('facebook', formData.facebook);
-    formDataToSend.append('instagram', formData.instagram);
-    formDataToSend.append('linkedin', formData.linkedin);
-    formDataToSend.append('telegram', formData.telegram);
-    formDataToSend.append('about', formData.about);
 
+    // Додайте лише заповнені поля
+    Object.entries(formData).forEach(([key, value]) => {
+      if (value) {
+        formDataToSend.append(key, value);
+      }
+    });
+
+    // Якщо пароль новий, то додайте старий і новий пароль
     if (
       formData.newPassword &&
       formData.newPassword === formData.confirmPassword
@@ -129,15 +129,15 @@ const UserProfile = ({ user }) => {
   };
 
   const toggleShowOldPassword = () => {
-    setShowOldPassword(!showOldPassword);
+    setShowOldPassword((prev) => !prev);
   };
 
   const toggleShowNewPassword = () => {
-    setShowNewPassword(!showNewPassword);
+    setShowNewPassword((prev) => !prev);
   };
 
   const toggleShowConfirmPassword = () => {
-    setShowConfirmPassword(!showConfirmPassword);
+    setShowConfirmPassword((prev) => !prev);
   };
 
   useEffect(() => {
@@ -158,7 +158,7 @@ const UserProfile = ({ user }) => {
     <div className={scss.container}>
       <div className={scss.userProfile}>
         <div>
-          <h3>Ваші данні</h3>
+          <h3>Ваші дані</h3>
           {notification && (
             <Notification
               message={notification}
@@ -221,6 +221,7 @@ const UserProfile = ({ user }) => {
                   onChange={handleChange}
                 />
               </div>
+
               <div className={scss.formGroup}>
                 <label htmlFor="oldPassword">Старий пароль:</label>
                 <div className={scss.inputWrapper}>
@@ -231,6 +232,7 @@ const UserProfile = ({ user }) => {
                     placeholder="Введіть поточний пароль"
                     value={formData.oldPassword}
                     onChange={handleChange}
+                    disabled={isPasswordNull}
                   />
                   <button
                     type="button"
@@ -255,6 +257,7 @@ const UserProfile = ({ user }) => {
                     placeholder="Введіть новий пароль"
                     value={formData.newPassword}
                     onChange={handleChange}
+                    disabled={isPasswordNull}
                   />
                   <button
                     type="button"
@@ -278,9 +281,10 @@ const UserProfile = ({ user }) => {
                     type={showConfirmPassword ? 'text' : 'password'}
                     id="confirmPassword"
                     name="confirmPassword"
-                    placeholder="Підтвердіть новий пароль"
+                    placeholder="Підтвердження нового пароля"
                     value={formData.confirmPassword}
                     onChange={handleChange}
+                    disabled={isPasswordNull}
                   />
                   <button
                     type="button"
@@ -296,10 +300,16 @@ const UserProfile = ({ user }) => {
                 </div>
               </div>
             </div>
+
             <AdditionalInfo formData={formData} handleChange={handleChange} />
           </div>
-          <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? 'Зберігається...' : 'Зберегти зміни'}
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className={scss.submitButton}
+          >
+            {isSubmitting ? 'Збереження...' : 'Зберегти'}
           </button>
         </form>
       </div>
