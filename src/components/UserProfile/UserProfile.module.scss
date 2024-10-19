@@ -116,3 +116,18 @@ button[type='submit'] {
   padding: 5px;
   z-index: 10;
 }
+
+.inputWrapper {
+  position: relative;
+
+  .eye {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+  }
+}
