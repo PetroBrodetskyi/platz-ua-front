@@ -32,7 +32,9 @@ const UserProfile = ({ user }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [notification, setNotification] = useState(null);
   const [hasPassword, setHasPassword] = useState(true);
+  const [charCount, setCharCount] = useState(0);
   const token = useSelector((state) => state.auth.token);
+  const maxChars = 150;
 
   useEffect(() => {
     if (user) {
@@ -56,12 +58,17 @@ const UserProfile = ({ user }) => {
       setPreview(user.avatarURL || null);
       setHasPassword(user.hasPassword);
       setLoading(false);
+      setCharCount(user.about ? user.about.length : 0);
     }
   }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (name === 'about') {
+      setCharCount(value.length);
+    }
   };
 
   const handleFileChange = (e) => {
@@ -120,50 +127,72 @@ const UserProfile = ({ user }) => {
   return (
     <div className={scss.container}>
       <div className={scss.userProfile}>
-        <h3>Ваші дані</h3>
-        {notification && (
-          <Notification
-            message={notification}
-            onClose={handleCloseNotification}
-          />
-        )}
-        <div className={scss.avatarContainer}>
-          <div className={scss.avatarInput}>
-            <img
-              src={preview}
-              alt={formData.name}
-              className={scss.avatar}
+        <div>
+          <h3>Ваші дані</h3>
+          <div className={scss.avatarContainer}>
+            <div>
+              <img
+                src={preview}
+                alt={formData.name}
+                className={scss.avatar}
+                onClick={handleAvatarClick}
+              />
+              <input
+                id="avatarInput"
+                type="file"
+                onChange={handleFileChange}
+                className={scss.fileInput}
+                accept="image/*"
+              />
+            </div>
+            <AiOutlinePlus
+              className={scss.plusIcon}
               onClick={handleAvatarClick}
             />
-            <input
-              id="avatarInput"
-              type="file"
-              onChange={handleFileChange}
-              className={scss.fileInput}
-              accept="image/*"
-            />
           </div>
-          <AiOutlinePlus
-            className={scss.plusIcon}
-            onClick={handleAvatarClick}
-          />
+          <div className={scss.formGroup}>
+            <label htmlFor="about">Про мене:</label>
+            <textarea
+              id="about"
+              name="about"
+              value={formData.about}
+              onChange={handleChange}
+              placeholder="Напишіть кілька слів про себе"
+              className={scss.about}
+              maxLength={maxChars}
+            />
+            <p className={scss.chars}>
+              Доступно символів: {maxChars - charCount}
+            </p>
+          </div>
         </div>
-        <form onSubmit={handleSubmit}>
-          <UserInfo
-            formData={formData}
-            handleChange={handleChange}
-            hasPassword={hasPassword}
-          />
-          <AdditionalInfo formData={formData} handleChange={handleChange} />
-          <button
-            type="submit"
-            className={scss.submitBtn}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Збереження...' : 'Зберегти зміни'}
-          </button>
-        </form>
+        <div>
+          <form onSubmit={handleSubmit}>
+            <div className={scss.infoFlex}>
+              <UserInfo
+                formData={formData}
+                handleChange={handleChange}
+                hasPassword={hasPassword}
+              />
+
+              <AdditionalInfo formData={formData} handleChange={handleChange} />
+            </div>
+            <button
+              type="submit"
+              className={scss.submitBtn}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Збереження...' : 'Зберегти зміни'}
+            </button>
+          </form>
+        </div>
       </div>
+      {notification && (
+        <Notification
+          message={notification}
+          onClose={handleCloseNotification}
+        />
+      )}
     </div>
   );
 };

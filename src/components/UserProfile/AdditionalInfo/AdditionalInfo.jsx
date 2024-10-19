@@ -71,11 +71,13 @@ const AdditionalInfo = ({ formData, handleChange }) => {
         />
       </div>
       <div className={scss.formGroup}>
-        <label htmlFor="about">Про мене:</label>
-        <textarea
-          id="about"
-          name="about"
-          value={formData.about}
+        <label htmlFor="site">Сайт:</label>
+        <input
+          type="text"
+          id="site"
+          name="site"
+          placeholder="Посилання на ваш сайт"
+          value={formData.site}
           onChange={handleChange}
         />
       </div>

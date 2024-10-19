@@ -25,7 +25,7 @@
     color: var(--white);
 
     @include media-rules(desktop) {
-      width: 240px;
+      width: 260px;
     }
 
     &::placeholder {
