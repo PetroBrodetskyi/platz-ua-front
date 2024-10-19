@@ -19,6 +19,7 @@
 .formGroup {
   display: flex;
   flex-direction: column;
+  gap: 4px;
 
   label {
     font-weight: 600;
@@ -39,9 +40,9 @@
       width: 260px;
     }
 
-    &::placeholder {
-      color: var(--white);
-    }
+    // &::placeholder {
+    //   color: var(--white);
+    // }
 
     &:focus {
       border-color: gold;

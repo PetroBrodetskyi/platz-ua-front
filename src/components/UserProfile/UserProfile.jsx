@@ -179,7 +179,7 @@ const UserProfile = ({ user }) => {
             </div>
             <button
               type="submit"
-              className={scss.submitBtn}
+              className={scss.button}
               disabled={isSubmitting}
             >
               {isSubmitting ? 'Збереження...' : 'Зберегти зміни'}
