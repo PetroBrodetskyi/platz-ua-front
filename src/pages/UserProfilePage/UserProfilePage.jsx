@@ -34,7 +34,10 @@ const UserProfilePage = () => {
   }, [dispatch, userId, currentUser]);
 
   const handleUpdate = (formData) => {
-    dispatch(updateUserDetails(formData));
+    const cleanedData = Object.fromEntries(
+      Object.entries(formData).filter(([_, value]) => value !== '')
+    );
+    dispatch(updateUserDetails(cleanedData));
   };
 
   const shouldShowUserProfile = currentUser && currentUser._id === userId;
