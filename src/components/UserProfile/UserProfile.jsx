@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import axios from 'axios';
-import { RiEyeCloseLine } from 'react-icons/ri';
-import { HiOutlineEye } from 'react-icons/hi';
-import scss from './UserProfile.module.scss';
 import Loader from '../Loader';
 import Notification from '../Notification';
 import { useSelector } from 'react-redux';
 import AdditionalInfo from './AdditionalInfo';
+import UserInfo from './UserInfo';
+import scss from './UserProfile.module.scss';
 
 const UserProfile = ({ user }) => {
   const [formData, setFormData] = useState({
@@ -32,9 +31,6 @@ const UserProfile = ({ user }) => {
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [notification, setNotification] = useState(null);
-  const [showpassword, setShowpassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [hasPassword, setHasPassword] = useState(true);
   const token = useSelector((state) => state.auth.token);
 
@@ -89,14 +85,6 @@ const UserProfile = ({ user }) => {
       }
     });
 
-    if (
-      formData.newPassword &&
-      formData.newPassword === formData.confirmPassword
-    ) {
-      formDataToSend.append('password', formData.password);
-      formDataToSend.append('newPassword', formData.newPassword);
-    }
-
     try {
       const response = await axios.patch(
         'https://platz-ua-back.vercel.app/api/users/current',
@@ -112,11 +100,6 @@ const UserProfile = ({ user }) => {
       setNotification('Дані успішно збережено!');
     } catch (error) {
       console.error('Error updating profile:', error);
-      if (error.response) {
-        console.error('Response data:', error.response.data);
-        console.error('Response status:', error.response.status);
-        console.error('Response headers:', error.response.headers);
-      }
     } finally {
       setIsSubmitting(false);
     }
@@ -125,24 +108,6 @@ const UserProfile = ({ user }) => {
   const handleAvatarClick = () => {
     document.getElementById('avatarInput').click();
   };
-
-  const toggleShowpassword = () => {
-    setShowpassword((prev) => !prev);
-  };
-
-  const toggleShowNewPassword = () => {
-    setShowNewPassword((prev) => !prev);
-  };
-
-  const toggleShowConfirmPassword = () => {
-    setShowConfirmPassword((prev) => !prev);
-  };
-
-  useEffect(() => {
-    return () => {
-      if (preview) URL.revokeObjectURL(preview);
-    };
-  }, [preview]);
 
   const handleCloseNotification = () => {
     setNotification(null);
@@ -155,157 +120,41 @@ const UserProfile = ({ user }) => {
   return (
     <div className={scss.container}>
       <div className={scss.userProfile}>
-        <div>
-          <h3>Ваші дані</h3>
-          {notification && (
-            <Notification
-              message={notification}
-              onClose={handleCloseNotification}
-            />
-          )}
-          <div className={scss.avatarContainer}>
-            <div className={scss.avatarInput}>
-              <img
-                src={preview}
-                alt={formData.name}
-                className={scss.avatar}
-                onClick={handleAvatarClick}
-              />
-              <input
-                id="avatarInput"
-                type="file"
-                onChange={handleFileChange}
-                className={scss.fileInput}
-                accept="image/*"
-              />
-            </div>
-            <AiOutlinePlus
-              className={scss.plusIcon}
+        <h3>Ваші дані</h3>
+        {notification && (
+          <Notification
+            message={notification}
+            onClose={handleCloseNotification}
+          />
+        )}
+        <div className={scss.avatarContainer}>
+          <div className={scss.avatarInput}>
+            <img
+              src={preview}
+              alt={formData.name}
+              className={scss.avatar}
               onClick={handleAvatarClick}
             />
+            <input
+              id="avatarInput"
+              type="file"
+              onChange={handleFileChange}
+              className={scss.fileInput}
+              accept="image/*"
+            />
           </div>
+          <AiOutlinePlus
+            className={scss.plusIcon}
+            onClick={handleAvatarClick}
+          />
         </div>
         <form onSubmit={handleSubmit}>
-          <div className={scss.group}>
-            <div className={scss.personalInfo}>
-              <div className={scss.formGroup}>
-                <label htmlFor="name">Ім'я:</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  disabled={!hasPassword}
-                />
-              </div>
-              <div className={scss.formGroup}>
-                <label htmlFor="phone">Телефон:</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  placeholder="Номер телефону"
-                  value={formData.phone}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className={scss.formGroup}>
-                <label htmlFor="email">Email:</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  disabled={!hasPassword}
-                />
-              </div>
-
-              <div className={scss.formGroup}>
-                <label htmlFor="password">Старий пароль:</label>
-                <div className={scss.inputWrapper}>
-                  <input
-                    type={showpassword ? 'text' : 'password'}
-                    id="password"
-                    name="password"
-                    placeholder="Введіть поточний пароль"
-                    value={formData.password}
-                    onChange={handleChange}
-                    disabled={!hasPassword}
-                  />
-                  <button
-                    type="button"
-                    className={scss.eye}
-                    onClick={toggleShowpassword}
-                  >
-                    {showpassword ? (
-                      <HiOutlineEye color="grey" />
-                    ) : (
-                      <RiEyeCloseLine color="grey" />
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              <div className={scss.formGroup}>
-                <label htmlFor="newPassword">Новий пароль:</label>
-                <div className={scss.inputWrapper}>
-                  <input
-                    type={showNewPassword ? 'text' : 'password'}
-                    id="newPassword"
-                    name="newPassword"
-                    placeholder="Введіть новий пароль"
-                    value={formData.newPassword}
-                    onChange={handleChange}
-                    disabled={!hasPassword}
-                  />
-                  <button
-                    type="button"
-                    className={scss.eye}
-                    onClick={toggleShowNewPassword}
-                  >
-                    {showNewPassword ? (
-                      <HiOutlineEye color="grey" />
-                    ) : (
-                      <RiEyeCloseLine color="grey" />
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              <div className={scss.formGroup}>
-                <label htmlFor="confirmPassword">
-                  Підтвердити новий пароль:
-                </label>
-                <div className={scss.inputWrapper}>
-                  <input
-                    type={showConfirmPassword ? 'text' : 'password'}
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    placeholder="Підтвердження нового пароля"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    disabled={!hasPassword}
-                  />
-                  <button
-                    type="button"
-                    className={scss.eye}
-                    onClick={toggleShowConfirmPassword}
-                  >
-                    {showConfirmPassword ? (
-                      <HiOutlineEye color="grey" />
-                    ) : (
-                      <RiEyeCloseLine color="grey" />
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              <AdditionalInfo formData={formData} handleChange={handleChange} />
-            </div>
-          </div>
-
+          <UserInfo
+            formData={formData}
+            handleChange={handleChange}
+            hasPassword={hasPassword}
+          />
+          <AdditionalInfo formData={formData} handleChange={handleChange} />
           <button
             type="submit"
             className={scss.submitBtn}

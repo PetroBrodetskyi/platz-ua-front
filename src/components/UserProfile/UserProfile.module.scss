@@ -39,55 +39,6 @@ $padding-mobile: 10px;
   display: none;
 }
 
-.group {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-
-  @include media-rules(desktop) {
-    flex-direction: row;
-  }
-}
-
-.personalInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.formGroup {
-  display: flex;
-  flex-direction: column;
-
-  label {
-    font-weight: 600;
-    display: block;
-  }
-
-  input {
-    padding: 14px 20px;
-    background-color: inherit;
-    font-size: 14px;
-    border-radius: 4px;
-    background-color: var(--grafite);
-    border: none;
-    color: var(--white);
-
-    @include media-rules(desktop) {
-      width: 240px;
-    }
-
-    &::placeholder {
-      color: var(--white);
-    }
-
-    &:focus {
-      border-color: gold;
-      outline: none;
-    }
-  }
-}
-
 button[type='submit'] {
   margin-top: 10px;
   padding: 10px 20px;
@@ -115,19 +66,4 @@ button[type='submit'] {
   cursor: pointer;
   padding: 5px;
   z-index: 10;
-}
-
-.inputWrapper {
-  position: relative;
-
-  .eye {
-    position: absolute;
-    top: 50%;
-    right: 12px;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 20px;
-  }
 }
