@@ -32,6 +32,11 @@ const UserProfilePage = () => {
 
     dispatch(fetchUserById(userId));
   }, [dispatch, userId, currentUser]);
+  useEffect(() => {
+    if (user) {
+      console.log('User data:', user);
+    }
+  }, [user]);
 
   const handleUpdate = (formData) => {
     const cleanedData = Object.fromEntries(

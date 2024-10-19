@@ -21,9 +21,9 @@ const UserProfile = ({ user }) => {
     instagram: '',
     linkedin: '',
     telegram: '',
-    site: '', // Додано поле сайту
+    site: '',
     about: '',
-    oldPassword: '',
+    password: '',
     newPassword: '',
     confirmPassword: ''
   });
@@ -32,12 +32,11 @@ const UserProfile = ({ user }) => {
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [notification, setNotification] = useState(null);
-  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showpassword, setShowpassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [hasPassword, setHasPassword] = useState(true);
   const token = useSelector((state) => state.auth.token);
-
-  const isPasswordNull = user?.password === null;
 
   useEffect(() => {
     if (user) {
@@ -52,13 +51,14 @@ const UserProfile = ({ user }) => {
         instagram: user.instagram || '',
         linkedin: user.linkedin || '',
         telegram: user.telegram || '',
-        site: user.site || '', // Задати значення поля сайту
+        site: user.site || '',
         about: user.about || '',
-        oldPassword: '',
+        password: '',
         newPassword: '',
         confirmPassword: ''
       });
       setPreview(user.avatarURL || null);
+      setHasPassword(user.hasPassword);
       setLoading(false);
     }
   }, [user]);
@@ -83,19 +83,17 @@ const UserProfile = ({ user }) => {
 
     const formDataToSend = new FormData();
 
-    // Додайте лише заповнені поля
     Object.entries(formData).forEach(([key, value]) => {
       if (value) {
         formDataToSend.append(key, value);
       }
     });
 
-    // Якщо пароль новий, то додайте старий і новий пароль
     if (
       formData.newPassword &&
       formData.newPassword === formData.confirmPassword
     ) {
-      formDataToSend.append('oldPassword', formData.oldPassword);
+      formDataToSend.append('password', formData.password);
       formDataToSend.append('newPassword', formData.newPassword);
     }
 
@@ -128,8 +126,8 @@ const UserProfile = ({ user }) => {
     document.getElementById('avatarInput').click();
   };
 
-  const toggleShowOldPassword = () => {
-    setShowOldPassword((prev) => !prev);
+  const toggleShowpassword = () => {
+    setShowpassword((prev) => !prev);
   };
 
   const toggleShowNewPassword = () => {
@@ -198,6 +196,7 @@ const UserProfile = ({ user }) => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
+                  disabled={!hasPassword}
                 />
               </div>
               <div className={scss.formGroup}>
@@ -219,27 +218,28 @@ const UserProfile = ({ user }) => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
+                  disabled={!hasPassword}
                 />
               </div>
 
               <div className={scss.formGroup}>
-                <label htmlFor="oldPassword">Старий пароль:</label>
+                <label htmlFor="password">Старий пароль:</label>
                 <div className={scss.inputWrapper}>
                   <input
-                    type={showOldPassword ? 'text' : 'password'}
-                    id="oldPassword"
-                    name="oldPassword"
+                    type={showpassword ? 'text' : 'password'}
+                    id="password"
+                    name="password"
                     placeholder="Введіть поточний пароль"
-                    value={formData.oldPassword}
+                    value={formData.password}
                     onChange={handleChange}
-                    disabled={isPasswordNull}
+                    disabled={!hasPassword}
                   />
                   <button
                     type="button"
                     className={scss.eye}
-                    onClick={toggleShowOldPassword}
+                    onClick={toggleShowpassword}
                   >
-                    {showOldPassword ? (
+                    {showpassword ? (
                       <HiOutlineEye color="grey" />
                     ) : (
                       <RiEyeCloseLine color="grey" />
@@ -247,6 +247,7 @@ const UserProfile = ({ user }) => {
                   </button>
                 </div>
               </div>
+
               <div className={scss.formGroup}>
                 <label htmlFor="newPassword">Новий пароль:</label>
                 <div className={scss.inputWrapper}>
@@ -257,7 +258,7 @@ const UserProfile = ({ user }) => {
                     placeholder="Введіть новий пароль"
                     value={formData.newPassword}
                     onChange={handleChange}
-                    disabled={isPasswordNull}
+                    disabled={!hasPassword}
                   />
                   <button
                     type="button"
@@ -272,6 +273,7 @@ const UserProfile = ({ user }) => {
                   </button>
                 </div>
               </div>
+
               <div className={scss.formGroup}>
                 <label htmlFor="confirmPassword">
                   Підтвердити новий пароль:
@@ -284,7 +286,7 @@ const UserProfile = ({ user }) => {
                     placeholder="Підтвердження нового пароля"
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    disabled={isPasswordNull}
+                    disabled={!hasPassword}
                   />
                   <button
                     type="button"
@@ -299,17 +301,17 @@ const UserProfile = ({ user }) => {
                   </button>
                 </div>
               </div>
-            </div>
 
-            <AdditionalInfo formData={formData} handleChange={handleChange} />
+              <AdditionalInfo formData={formData} handleChange={handleChange} />
+            </div>
           </div>
 
           <button
             type="submit"
+            className={scss.submitBtn}
             disabled={isSubmitting}
-            className={scss.submitButton}
           >
-            {isSubmitting ? 'Збереження...' : 'Зберегти'}
+            {isSubmitting ? 'Збереження...' : 'Зберегти зміни'}
           </button>
         </form>
       </div>
