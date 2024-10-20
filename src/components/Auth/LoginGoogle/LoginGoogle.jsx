@@ -25,7 +25,7 @@ const LoginGoogle = () => {
 
   return (
     <div>
-      <div className={scss.googleLogin}>
+      <div>
         <GoogleLogin
           onSuccess={handleGoogleSuccess}
           onError={handleGoogleFailure}
