@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 .modalOverlay {
   position: fixed;
@@ -24,7 +24,7 @@
   display: flex;
   flex-direction: column;
   position: fixed;
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     border-radius: 8px;
   }
 
@@ -47,7 +47,7 @@
   padding: 20px;
   background-color: var(--grey);
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     border-radius: 8px 8px 0 0;
   }
 
@@ -96,7 +96,7 @@
   }
 
   .text {
-    @include media-rules($desktop) {
+    @include media-rules($notebook) {
       font-size: 16px;
     }
   }
@@ -110,7 +110,7 @@
   border-top: 1px solid #ddd;
   background-color: var(--grey);
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     border-radius: 0 0 8px 8px;
   }
 }
@@ -174,7 +174,7 @@
     font-size: 30px;
   }
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     font-size: 34px;
     transition: transform 0.3s ease;
 

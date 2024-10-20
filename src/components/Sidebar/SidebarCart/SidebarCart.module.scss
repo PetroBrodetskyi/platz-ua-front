@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 .sidebarCart {
   background-color: #f5f5f5;

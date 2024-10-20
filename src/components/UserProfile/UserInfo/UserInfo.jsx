@@ -24,7 +24,7 @@ const UserInfo = ({ formData, handleChange, hasPassword }) => {
     <div className={scss.group}>
       <div className={scss.personalInfo}>
         <div className={scss.formGroup}>
-          <label htmlFor="name">Ім'я:</label>
+          <label htmlFor="name"></label>
           <input
             type="text"
             id="name"
@@ -35,7 +35,7 @@ const UserInfo = ({ formData, handleChange, hasPassword }) => {
           />
         </div>
         <div className={scss.formGroup}>
-          <label htmlFor="phone">Телефон:</label>
+          <label htmlFor="phone"></label>
           <input
             type="tel"
             id="phone"
@@ -46,7 +46,7 @@ const UserInfo = ({ formData, handleChange, hasPassword }) => {
           />
         </div>
         <div className={scss.formGroup}>
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email"></label>
           <input
             type="email"
             id="email"
@@ -57,7 +57,7 @@ const UserInfo = ({ formData, handleChange, hasPassword }) => {
           />
         </div>
         <div className={scss.formGroup}>
-          <label htmlFor="password">Старий пароль:</label>
+          <label htmlFor="password"></label>
           <div className={scss.inputWrapper}>
             <input
               type={showpassword ? 'text' : 'password'}
@@ -82,7 +82,7 @@ const UserInfo = ({ formData, handleChange, hasPassword }) => {
           </div>
         </div>
         <div className={scss.formGroup}>
-          <label htmlFor="newPassword">Новий пароль:</label>
+          <label htmlFor="newPassword"></label>
           <div className={scss.inputWrapper}>
             <input
               type={showNewPassword ? 'text' : 'password'}
@@ -107,7 +107,7 @@ const UserInfo = ({ formData, handleChange, hasPassword }) => {
           </div>
         </div>
         <div className={scss.formGroup}>
-          <label htmlFor="confirmPassword">Підтвердити новий пароль:</label>
+          <label htmlFor="confirmPassword"></label>
           <div className={scss.inputWrapper}>
             <input
               type={showConfirmPassword ? 'text' : 'password'}

@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 .tabContent {
   display: flex;
@@ -7,7 +7,7 @@
   background-color: var(--white);
   padding: 10px;
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     padding: 20px 0 40px;
   }
 }
@@ -25,7 +25,7 @@
     flex-wrap: wrap;
   }
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     gap: 40px;
   }
 }
@@ -44,7 +44,7 @@
     gap: 20px;
   }
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     gap: 40px;
   }
 
@@ -63,7 +63,7 @@
       text-align: left;
     }
 
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       max-width: 40%;
       padding: 20px;
       border-bottom: 2px solid var(--red);
@@ -77,7 +77,7 @@
         font-size: 20px;
       }
 
-      @include media-rules(desktop) {
+      @include media-rules(notebook) {
         font-size: 24px;
       }
     }
@@ -90,7 +90,7 @@
         font-size: 14px;
       }
 
-      @include media-rules(desktop) {
+      @include media-rules(notebook) {
         font-size: 16px;
       }
     }
@@ -102,7 +102,7 @@
         font-size: 14px;
       }
 
-      @include media-rules(desktop) {
+      @include media-rules(notebook) {
         font-size: 16px;
       }
     }
@@ -117,7 +117,7 @@
         gap: 4px;
       }
 
-      @include media-rules(desktop) {
+      @include media-rules(notebook) {
         gap: 8px;
       }
     }
@@ -131,7 +131,7 @@
       max-width: 30%;
     }
 
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       max-width: 18%;
     }
 
@@ -168,7 +168,7 @@
     padding: 10px 24px;
   }
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     padding: 10px 34px;
   }
 
@@ -180,7 +180,7 @@
       font-size: 18px;
     }
 
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       font-size: 24px;
     }
   }

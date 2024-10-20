@@ -48,7 +48,7 @@ const SidebarCart = () => {
           <TransitionGroup className={scss.list}>
             {cartItems.map((product) => (
               <Collapse key={product._id} timeout={500}>
-                <li key={product._id}>
+                <li>
                   <SidebarCartItem
                     product={product}
                     onRemove={handleRemoveFromCart}

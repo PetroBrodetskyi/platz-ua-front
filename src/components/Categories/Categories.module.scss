@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 $gap-desktop: 20px;
 $gap-tablet: 8px;
@@ -26,7 +26,7 @@ $gap-mobile: 4px;
       gap: $gap-tablet;
     }
 
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       flex-direction: row;
     }
 
@@ -44,7 +44,7 @@ $gap-mobile: 4px;
         width: 25%;
       }
 
-      @include media-rules(desktop) {
+      @include media-rules(notebook) {
         flex-direction: column;
       }
 
@@ -91,7 +91,7 @@ $gap-mobile: 4px;
           height: 16px;
         }
 
-        @include media-rules(desktop) {
+        @include media-rules(notebook) {
           width: 20px;
           height: 20px;
         }
@@ -115,7 +115,7 @@ $gap-mobile: 4px;
         color: var(--white);
       }
 
-      @include media-rules(desktop) {
+      @include media-rules(notebook) {
         padding: 10px;
       }
 
@@ -137,7 +137,7 @@ $gap-mobile: 4px;
           height: 16px;
         }
 
-        @include media-rules(desktop) {
+        @include media-rules(notebook) {
           width: 20px;
           height: 20px;
         }

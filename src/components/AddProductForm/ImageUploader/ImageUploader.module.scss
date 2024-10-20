@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 .imageContainer {
   display: flex;
@@ -11,7 +11,7 @@
     justify-content: space-between;
   }
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     gap: 10px;
     justify-content: space-between;
   }

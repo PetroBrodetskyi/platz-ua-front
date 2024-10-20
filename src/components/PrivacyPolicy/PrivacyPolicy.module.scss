@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 .PrivacyContainer {
   display: flex;
@@ -12,7 +12,7 @@
     font-size: 14px;
   }
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     padding: 120px 40px;
     font-size: 16px;
   }
@@ -25,7 +25,7 @@
       font-size: 14px;
     }
 
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       font-size: 16px;
     }
   }

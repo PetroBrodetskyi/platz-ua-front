@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 .cartPriceContainer {
   .cartPrice {
@@ -16,7 +16,7 @@
       gap: 4px;
     }
 
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       gap: 4px;
     }
   }
@@ -28,7 +28,7 @@
       font-size: 12px;
     }
 
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       font-size: 16px;
       font-weight: 600;
     }
@@ -43,7 +43,7 @@
       font-size: 20px;
     }
 
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       font-size: 24px;
     }
   }
@@ -59,7 +59,7 @@
       font-size: 24px;
     }
 
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       font-size: 24px;
       transition: transform 0.3s ease;
 

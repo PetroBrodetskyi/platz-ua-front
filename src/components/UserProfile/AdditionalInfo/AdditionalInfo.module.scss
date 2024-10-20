@@ -1,9 +1,9 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 .additionalInfo {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 }
 
 .formGroup {
@@ -25,13 +25,13 @@
     border: none;
     color: var(--white);
 
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       width: 260px;
     }
 
-    // &::placeholder {
-    //   color: var(--white);
-    // }
+    &::placeholder {
+      color: var(--white);
+    }
 
     &:focus {
       border-color: gold;

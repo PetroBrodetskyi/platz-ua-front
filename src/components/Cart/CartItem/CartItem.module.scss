@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 .cartItem {
   display: flex;
@@ -7,7 +7,7 @@
   padding: 10px;
   height: auto;
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     padding: 20px;
   }
 }
@@ -21,7 +21,7 @@
     flex-direction: row;
   }
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     flex-direction: row;
   }
 }
@@ -29,7 +29,7 @@
 .form {
   width: 100%;
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     width: 30%;
   }
 }
@@ -51,7 +51,7 @@
     height: 300px;
   }
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     width: 400px;
     height: 320px;
   }
@@ -73,7 +73,7 @@
       height: 80px;
     }
 
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       width: 98px;
       height: 90px;
     }
@@ -173,7 +173,7 @@
       width: auto;
     }
 
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       width: auto;
     }
   }

@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 .userInfo {
   display: flex;
@@ -12,7 +12,7 @@
     padding: 10px;
   }
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     gap: 4px;
   }
 

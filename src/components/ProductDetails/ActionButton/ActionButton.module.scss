@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 $fontSize-desktop: 16px;
 $fontSize-tablet: 14px;
@@ -22,7 +22,7 @@ $fontSize-mobile: 14px;
     padding: 8px;
   }
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     font-size: $fontSize-desktop;
     padding: 8px;
   }

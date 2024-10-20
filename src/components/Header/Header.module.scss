@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 .header {
   display: flex;
@@ -11,7 +11,7 @@
     padding: 10px 20px;
   }
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     padding: 10px 40px;
     position: fixed;
     z-index: 10000;
@@ -59,7 +59,7 @@
         padding: 0;
       }
 
-      @include media-rules(desktop) {
+      @include media-rules(notebook) {
         gap: 12px;
         width: 240px;
       }
@@ -76,7 +76,7 @@
           font-size: 20px;
         }
 
-        @include media-rules(desktop) {
+        @include media-rules(notebook) {
           font-size: 24px;
         }
 
@@ -112,7 +112,7 @@
       justify-content: space-between;
       width: 100%;
 
-      @include media-rules(desktop) {
+      @include media-rules(notebook) {
         width: auto;
       }
     }
@@ -125,7 +125,7 @@
         flex-direction: column;
       }
 
-      @include media-rules(desktop) {
+      @include media-rules(notebook) {
         flex-direction: column;
       }
     }
@@ -137,7 +137,7 @@
         font-size: 14px;
       }
 
-      @include media-rules(desktop) {
+      @include media-rules(notebook) {
         font-size: 14px;
       }
     }

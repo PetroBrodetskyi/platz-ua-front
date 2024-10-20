@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 .list {
   display: flex;
@@ -10,7 +10,7 @@
     gap: 8px;
   }
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     gap: 8px;
     flex-direction: column;
   }
@@ -34,7 +34,7 @@
     flex-wrap: wrap;
   }
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     flex: 1 1 calc(24.333% - 16px);
   }
 }
@@ -67,7 +67,7 @@
       height: 240px;
     }
 
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       width: auto;
       height: 280px;
     }
@@ -112,7 +112,7 @@
           height: 20px;
         }
 
-        @include media-rules(desktop) {
+        @include media-rules(notebook) {
           width: 30px;
           height: 30px;
         }
@@ -128,7 +128,7 @@
           font-size: 12px;
         }
 
-        @include media-rules(desktop) {
+        @include media-rules(notebook) {
           font-size: 14px;
         }
       }
@@ -147,7 +147,7 @@
         font-size: 12px;
       }
 
-      @include media-rules(desktop) {
+      @include media-rules(notebook) {
         font-size: 14px;
       }
     }
@@ -164,7 +164,7 @@
       padding: 0;
     }
 
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       padding: 0;
     }
   }
@@ -181,7 +181,7 @@
       max-width: 100px;
     }
 
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       font-size: 14px;
       max-width: 280px;
     }

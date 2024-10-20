@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 $form-gap-desktop: 16px;
 $form-gap-tablet: 12px;

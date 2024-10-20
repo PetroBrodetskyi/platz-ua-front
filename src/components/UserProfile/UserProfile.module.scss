@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 $padding-desktop: 120px 40px;
 $padding-tablet: 20px;
@@ -7,7 +7,7 @@ $padding-mobile: 10px;
 .container {
   padding: $padding-mobile;
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     padding: $padding-desktop;
   }
 }
@@ -31,13 +31,13 @@ $padding-mobile: 10px;
     border: none;
     color: var(--white);
 
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       width: 260px;
     }
 
-    // &::placeholder {
-    //   color: var(--white);
-    // }
+    &::placeholder {
+      color: var(--white);
+    }
 
     &:focus {
       border-color: gold;
@@ -51,7 +51,7 @@ $padding-mobile: 10px;
   flex-direction: column;
   gap: 40px;
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     flex-direction: row;
   }
 }
@@ -61,7 +61,7 @@ $padding-mobile: 10px;
   flex-direction: column;
   gap: 40px;
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     flex-direction: row;
   }
 }
@@ -108,14 +108,14 @@ $padding-mobile: 10px;
   font-family: var(--font-family);
   font-size: 14px;
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     width: 260px;
     height: 120px;
   }
 
-  // &::placeholder {
-  //   color: var(--white);
-  // }
+  &::placeholder {
+    color: var(--white);
+  }
 }
 
 .button {
@@ -138,7 +138,7 @@ $padding-mobile: 10px;
     background-color: var(--gold);
   }
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     font-size: 16px;
     width: 100%;
     font-weight: 600;

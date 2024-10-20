@@ -5,7 +5,7 @@ const AdditionalInfo = ({ formData, handleChange }) => {
   return (
     <div className={scss.additionalInfo}>
       <div className={scss.formGroup}>
-        <label htmlFor="plz">PLZ:</label>
+        <label htmlFor="plz"></label>
         <input
           type="text"
           id="plz"
@@ -16,7 +16,7 @@ const AdditionalInfo = ({ formData, handleChange }) => {
         />
       </div>
       <div className={scss.formGroup}>
-        <label htmlFor="city">Місто:</label>
+        <label htmlFor="city"></label>
         <input
           type="text"
           id="city"
@@ -27,7 +27,7 @@ const AdditionalInfo = ({ formData, handleChange }) => {
         />
       </div>
       <div className={scss.formGroup}>
-        <label htmlFor="facebook">Facebook:</label>
+        <label htmlFor="facebook"></label>
         <input
           type="url"
           id="facebook"
@@ -38,7 +38,7 @@ const AdditionalInfo = ({ formData, handleChange }) => {
         />
       </div>
       <div className={scss.formGroup}>
-        <label htmlFor="instagram">Instagram:</label>
+        <label htmlFor="instagram"></label>
         <input
           type="url"
           id="instagram"
@@ -49,7 +49,7 @@ const AdditionalInfo = ({ formData, handleChange }) => {
         />
       </div>
       <div className={scss.formGroup}>
-        <label htmlFor="linkedin">LinkedIn:</label>
+        <label htmlFor="linkedin"></label>
         <input
           type="url"
           id="linkedin"
@@ -60,7 +60,7 @@ const AdditionalInfo = ({ formData, handleChange }) => {
         />
       </div>
       <div className={scss.formGroup}>
-        <label htmlFor="telegram">Телеграм:</label>
+        <label htmlFor="telegram"></label>
         <input
           type="text"
           id="telegram"
@@ -71,7 +71,7 @@ const AdditionalInfo = ({ formData, handleChange }) => {
         />
       </div>
       <div className={scss.formGroup}>
-        <label htmlFor="site">Сайт:</label>
+        <label htmlFor="site"></label>
         <input
           type="text"
           id="site"

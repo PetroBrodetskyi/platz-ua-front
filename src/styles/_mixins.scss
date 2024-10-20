@@ -1,16 +1,25 @@
-@import './breakpoints';
+$mobile: 375px;
+$tablet: 768px;
+$notebook: 1024px;
+$desktop: 1440px;
+
+@use './breakpoints';
 
 @mixin media-rules($screen) {
-  @if $screen ==tablet {
-    @media screen and (min-width: $tablet) {
+  @if $screen == tablet {
+    @media screen and (min-width: breakpoints.$tablet) {
       @content;
     }
-  } @else if $screen ==desktop {
-    @media screen and (min-width: $desktop) {
+  } @else if $screen == notebook {
+    @media screen and (min-width: breakpoints.$notebook) {
       @content;
     }
-  } @else if $screen ==mobile {
-    @media screen and (min-width: $mobile) {
+  } @else if $screen == mobile {
+    @media screen and (min-width: breakpoints.$mobile) {
+      @content;
+    }
+  } @else if $screen == desktop {
+    @media screen and (min-width: breakpoints.$desktop) {
       @content;
     }
   }

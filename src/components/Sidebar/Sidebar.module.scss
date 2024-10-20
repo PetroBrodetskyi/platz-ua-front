@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 .sidebar {
   width: 24%;
@@ -10,7 +10,7 @@
     color: var(--white);
   }
 
-  @media (max-width: $desktop) {
+  @media (max-width: $notebook) {
     display: none;
   }
 }

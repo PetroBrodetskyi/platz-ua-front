@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 .titleFavorite {
   display: flex;
@@ -24,7 +24,7 @@
       max-width: 180px;
     }
 
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       font-size: 20px;
       max-width: 200px;
     }
@@ -40,7 +40,7 @@
         font-size: 22px;
       }
 
-      @include media-rules(desktop) {
+      @include media-rules(notebook) {
         font-size: 22px;
         transition: transform 0.3s ease;
 

@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 .formGroup {
   .inputPlz {
@@ -16,7 +16,7 @@
         padding: 8px;
       }
 
-      @include media-rules(desktop) {
+      @include media-rules(notebook) {
         padding: 10px;
       }
     }

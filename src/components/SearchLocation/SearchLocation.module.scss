@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 .searchLocation {
   position: relative;
@@ -44,7 +44,7 @@
         padding: 10px 10px 10px 14px;
       }
 
-      @include media-rules(desktop) {
+      @include media-rules(notebook) {
         width: 140px;
         padding: 10px 10px 10px 20px;
         font-size: 16px;
@@ -74,13 +74,13 @@
         padding: 10px 10px 10px 14px;
       }
 
-      @include media-rules(desktop) {
+      @include media-rules(notebook) {
         width: 380px;
         padding: 10px 10px 10px 20px;
         font-size: 16px;
       }
 
-      @media (min-width: $desktop-large) {
+      @media (min-width: $desktop) {
         width: 500px;
       }
     }
@@ -103,7 +103,7 @@
         font-size: 14px;
       }
 
-      @include media-rules(desktop) {
+      @include media-rules(notebook) {
         font-size: 18px;
       }
     }
@@ -125,7 +125,7 @@
       padding: 12px 20px;
     }
 
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       font-size: 16px;
       padding: 12px 40px;
     }
@@ -137,7 +137,7 @@
         font-size: 18px;
       }
 
-      @include media-rules(desktop) {
+      @include media-rules(notebook) {
         font-size: 22px;
       }
     }
@@ -172,7 +172,7 @@
       top: 100%;
     }
 
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       top: 100%;
     }
 
@@ -193,7 +193,7 @@
         padding: 10px 10px 10px 14px;
       }
 
-      @include media-rules(desktop) {
+      @include media-rules(notebook) {
         padding: 10px 10px 10px 20px;
       }
     }

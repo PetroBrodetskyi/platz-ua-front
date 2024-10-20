@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 .logoFlex {
   display: flex;
@@ -80,7 +80,7 @@
     font-size: 42px;
   }
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     font-size: 42px;
   }
 
@@ -93,7 +93,7 @@
       font-size: 16px;
     }
 
-    @media (min-width: $desktop) {
+    @media (min-width: $notebook) {
       font-size: 18px;
     }
   }
@@ -107,7 +107,7 @@
       font-size: 16px;
     }
 
-    @media (min-width: $desktop) {
+    @media (min-width: $notebook) {
       font-size: 18px;
     }
   }

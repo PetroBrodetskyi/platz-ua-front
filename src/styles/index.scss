@@ -1,6 +1,6 @@
-@import 'reset';
-@import 'fonts';
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
+@use 'reset';
+@use 'fonts';
 
 :root {
   //colors

@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 .modalOverlay {
   position: fixed;
@@ -50,7 +50,7 @@
     .icon {
       font-size: 18px;
 
-      @include media-rules(desktop) {
+      @include media-rules(notebook) {
         font-size: 20px;
         transition: transform 0.3s ease;
 

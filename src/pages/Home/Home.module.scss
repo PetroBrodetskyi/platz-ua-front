@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 $padding-desktop: 100px 40px;
 $padding-tablet: 16px;
@@ -14,7 +14,7 @@ $padding-mobile: 24px 0;
     padding: $padding-tablet;
   }
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     padding: $padding-desktop;
   }
 }

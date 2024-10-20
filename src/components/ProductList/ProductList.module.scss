@@ -1,9 +1,9 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 .productListWrapper {
   display: flex;
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     justify-content: space-between;
   }
 }
@@ -17,7 +17,7 @@
     width: 100%;
   }
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     width: 74%;
   }
 
@@ -27,14 +27,14 @@
     align-items: center;
     padding: 0 4px;
 
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       padding: 0;
     }
 
     .title {
       font-size: 14px;
 
-      @include media-rules(desktop) {
+      @include media-rules(notebook) {
         font-size: 16px;
         margin: 0;
       }
@@ -42,7 +42,7 @@
   }
 
   &.list .container {
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       width: 72%;
       margin: 0 auto;
     }

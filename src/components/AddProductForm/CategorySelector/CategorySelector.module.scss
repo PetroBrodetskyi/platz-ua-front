@@ -1,4 +1,4 @@
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 .formGroup {
   display: flex;
@@ -26,7 +26,7 @@
       padding: 8px;
     }
 
-    @include media-rules(desktop) {
+    @include media-rules(notebook) {
       padding: 10px;
     }
   }

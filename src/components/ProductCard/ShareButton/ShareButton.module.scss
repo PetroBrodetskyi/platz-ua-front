@@ -1,6 +1,6 @@
 // ShareButton.module.scss
 
-@import 'src/styles/mixins';
+@use 'src/styles/mixins' as *;
 
 .button {
   display: flex;
@@ -21,7 +21,7 @@
     font-size: 30px;
   }
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     font-size: 40px;
   }
 }
