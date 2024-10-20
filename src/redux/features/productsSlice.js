@@ -35,9 +35,19 @@ export const fetchProductById = createAsyncThunk(
 
 export const fetchUserProducts = createAsyncThunk(
   'products/fetchUserProducts',
-  async () => {
-    const response = await axios.get('/products');
-    return response.data.reverse();
+  async (_, { getState, rejectWithValue }) => {
+    const { user } = getState().auth;
+
+    if (!user) {
+      return rejectWithValue('Користувач не авторизований');
+    }
+
+    try {
+      const response = await axios.get('/products');
+      return response.data.reverse();
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
   }
 );
 

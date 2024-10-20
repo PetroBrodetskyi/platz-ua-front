@@ -37,9 +37,19 @@ export const removeFromCartBack = createAsyncThunk(
 
 export const fetchProductsInCart = createAsyncThunk(
   'products/fetchProductsInCart',
-  async () => {
-    const { data } = await axios.get('/users/cart');
-    return data;
+  async (_, { getState, rejectWithValue }) => {
+    const { user } = getState().auth;
+
+    if (!user) {
+      return rejectWithValue('Користувач не авторизований');
+    }
+
+    try {
+      const { data } = await axios.get('/users/cart');
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
   }
 );
 

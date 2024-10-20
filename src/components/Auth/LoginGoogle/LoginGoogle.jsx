@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { GoogleLogin } from '@react-oauth/google';
 import { googleLogin } from '../../../redux/features/authSlice';
-import scss from './LoginGoogle.module.scss';
 
 const LoginGoogle = () => {
   const dispatch = useDispatch();
@@ -10,7 +9,6 @@ const LoginGoogle = () => {
 
   const handleGoogleSuccess = async (response) => {
     const token = response.credential;
-    console.log('Google ID token:', token);
     try {
       const res = await dispatch(googleLogin({ token })).unwrap();
       navigate('/');
