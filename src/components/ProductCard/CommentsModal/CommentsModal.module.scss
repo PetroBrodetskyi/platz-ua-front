@@ -96,7 +96,7 @@
   }
 
   .text {
-    @include media-rules($notebook) {
+    @include media-rules(notebook) {
       font-size: 16px;
     }
   }
