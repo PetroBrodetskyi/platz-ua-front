@@ -32,7 +32,7 @@
     font-weight: 500;
     padding-bottom: 4px;
     border-bottom: 2px solid transparent;
-    transition: border-color 0.3s;
+    @include transition(border-color);
     color: var(--black);
 
     &.active {
@@ -58,7 +58,7 @@
     font-size: 14px;
     border-radius: 4px;
     background-color: var(--grafite);
-    // transition: border-color 0.3s;
+    // @include transition(border-color);
     border: none;
     color: var(--white);
 

@@ -128,7 +128,6 @@ $padding-mobile: 10px;
     cursor: pointer;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    @include transition(background-color);
 
     @include media-rules(tablet) {
       font-size: 14px;

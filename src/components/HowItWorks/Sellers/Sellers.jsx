@@ -7,7 +7,6 @@ import creditcard from '/src/assets/images/creditcard.png';
 import { FaCamera, FaBullhorn, FaComments, FaTruck } from 'react-icons/fa';
 import { IoSearchSharp } from 'react-icons/io5';
 import { ButtonBase } from '@mui/material';
-import { motion } from 'framer-motion';
 
 const Sellers = () => {
   const navigate = useNavigate();
@@ -19,20 +18,11 @@ const Sellers = () => {
   return (
     <div className={scss.tabContent}>
       <ul className={scss.list}>
-        <motion.li
-          className={scss.item}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.3 }}
-        >
-          <motion.img
+        <li className={scss.item}>
+          <img
             src={manshopping}
             alt="Make product photos"
             className={scss.image}
-            initial={{ scale: 0.95 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.3 }}
           />
           <div className={scss.info}>
             <div className={scss.iconTitle}>
@@ -47,14 +37,8 @@ const Sellers = () => {
               запитання ще до того, як вони виникнуть у покупців.
             </p>
           </div>
-        </motion.li>
-        <motion.li
-          className={scss.item}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.3 }}
-        >
+        </li>
+        <li className={scss.item}>
           <div className={scss.info}>
             <div className={scss.iconTitle}>
               <FaBullhorn className={scss.icon} />
@@ -69,29 +53,17 @@ const Sellers = () => {
               зміни.
             </p>
           </div>
-          <motion.img
+          <img
             src={shopping}
             alt="Publish your listing"
             className={scss.image}
-            initial={{ scale: 0.95 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.3 }}
           />
-        </motion.li>
-        <motion.li
-          className={scss.item}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.3 }}
-        >
-          <motion.img
+        </li>
+        <li className={scss.item}>
+          <img
             src={womantalking}
             alt="Communicate with buyers"
             className={scss.image}
-            initial={{ scale: 0.95 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.3 }}
           />
           <div className={scss.info}>
             <div className={scss.iconTitle}>
@@ -106,14 +78,8 @@ const Sellers = () => {
               покупця.
             </p>
           </div>
-        </motion.li>
-        <motion.li
-          className={scss.item}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.3 }}
-        >
+        </li>
+        <li className={scss.item}>
           <div className={scss.info}>
             <div className={scss.iconTitle}>
               <FaTruck className={scss.icon} />
@@ -127,15 +93,12 @@ const Sellers = () => {
               покупців.
             </p>
           </div>
-          <motion.img
+          <img
             src={creditcard}
             alt="Sell your product"
             className={scss.image}
-            initial={{ scale: 0.95 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.3 }}
           />
-        </motion.li>
+        </li>
       </ul>
       <div className={scss.buttonWrapper}>
         <ButtonBase
@@ -143,13 +106,9 @@ const Sellers = () => {
           onClick={handleButtonClick}
           focusRipple
         >
-          <motion.div
-            whileHover={{ scale: 1.1, rotate: 10 }}
-            whileTap={{ scale: 0.9 }}
-            className={scss.motionWrapper}
-          >
+          <div className={scss.motionWrapper}>
             <IoSearchSharp className={scss.iconSearch} />
-          </motion.div>
+          </div>
         </ButtonBase>
       </div>
     </div>

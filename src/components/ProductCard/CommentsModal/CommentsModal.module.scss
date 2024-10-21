@@ -60,7 +60,7 @@
     color: var(--white);
     font-size: 20px;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    @include transition(transform);
 
     &:hover {
       transform: scale(1.2);
@@ -176,7 +176,7 @@
 
   @include media-rules(notebook) {
     font-size: 34px;
-    transition: transform 0.3s ease;
+    @include transition(transform);
 
     &:hover {
       transform: scale(1.2);

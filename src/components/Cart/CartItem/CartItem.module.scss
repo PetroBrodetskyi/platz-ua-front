@@ -125,7 +125,7 @@
   border-radius: 8px;
   background-color: var(--white);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+  @include transition(box-shadow);
 
   &:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
@@ -139,7 +139,7 @@
     border-radius: 8px;
     resize: none;
     font-family: var(--font-family);
-    transition: border-color 0.3s ease;
+    @include transition(border-color);
 
     &:focus {
       border-color: var(--dark-bg);

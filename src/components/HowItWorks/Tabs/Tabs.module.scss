@@ -20,7 +20,7 @@
   cursor: pointer;
   position: relative;
   outline: none;
-  transition: color 0.3s;
+  @include transition(color);
 
   &:hover {
     color: var(--red);

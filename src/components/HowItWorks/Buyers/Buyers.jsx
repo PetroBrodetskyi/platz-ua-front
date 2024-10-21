@@ -7,7 +7,6 @@ import card from '/src/assets/images/card.png';
 import { FaSearch, FaInfoCircle, FaPhone, FaGift } from 'react-icons/fa';
 import { IoSearchSharp } from 'react-icons/io5';
 import { ButtonBase } from '@mui/material';
-import { motion } from 'framer-motion';
 
 const Buyers = () => {
   const navigate = useNavigate();
@@ -19,21 +18,8 @@ const Buyers = () => {
   return (
     <div className={scss.tabContent}>
       <ul className={scss.list}>
-        <motion.li
-          className={scss.item}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.3 }}
-        >
-          <motion.img
-            src={woman}
-            alt="Search for products"
-            className={scss.image}
-            initial={{ scale: 0.95 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.3 }}
-          />
+        <li className={scss.item}>
+          <img src={woman} alt="Search for products" className={scss.image} />
           <div className={scss.info}>
             <div className={scss.iconTitle}>
               <FaSearch className={scss.icon} />
@@ -46,14 +32,8 @@ const Buyers = () => {
               найкраще відповідає вашим потребам.
             </p>
           </div>
-        </motion.li>
-        <motion.li
-          className={scss.item}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.3 }}
-        >
+        </li>
+        <li className={scss.item}>
           <div className={scss.info}>
             <div className={scss.iconTitle}>
               <FaInfoCircle className={scss.icon} />
@@ -65,29 +45,17 @@ const Buyers = () => {
               відгуками та рейтингами, щоб зробити свій вибір!
             </p>
           </div>
-          <motion.img
+          <img
             src={manwithlaptop}
             alt="Find the right product"
             className={scss.image}
-            initial={{ scale: 0.95 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.3 }}
           />
-        </motion.li>
-        <motion.li
-          className={scss.item}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.3 }}
-        >
-          <motion.img
+        </li>
+        <li className={scss.item}>
+          <img
             src={boyandphone}
             alt="Contact the seller"
             className={scss.image}
-            initial={{ scale: 0.95 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.3 }}
           />
           <div className={scss.info}>
             <div className={scss.iconTitle}>
@@ -102,14 +70,8 @@ const Buyers = () => {
               покупку, яка вас задовольнить.
             </p>
           </div>
-        </motion.li>
-        <motion.li
-          className={scss.item}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.3 }}
-        >
+        </li>
+        <li className={scss.item}>
           <div className={scss.info}>
             <div className={scss.iconTitle}>
               <FaGift className={scss.icon} />
@@ -123,15 +85,8 @@ const Buyers = () => {
               ви швидко отримали ваш товар.
             </p>
           </div>
-          <motion.img
-            src={card}
-            alt="Purchase and receive"
-            className={scss.image}
-            initial={{ scale: 0.95 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.3 }}
-          />
-        </motion.li>
+          <img src={card} alt="Purchase and receive" className={scss.image} />
+        </li>
       </ul>
       <div className={scss.buttonWrapper}>
         <ButtonBase
@@ -139,13 +94,9 @@ const Buyers = () => {
           onClick={handleButtonClick}
           focusRipple
         >
-          <motion.div
-            whileHover={{ scale: 1.1, rotate: 10 }}
-            whileTap={{ scale: 0.9 }}
-            className={scss.motionWrapper}
-          >
+          <div className={scss.motionWrapper}>
             <IoSearchSharp className={scss.iconSearch} />
-          </motion.div>
+          </div>
         </ButtonBase>
       </div>
     </div>

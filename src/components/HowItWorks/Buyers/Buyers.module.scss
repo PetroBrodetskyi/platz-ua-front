@@ -35,9 +35,6 @@
   gap: 10px;
   align-items: center;
   justify-content: center;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
 
   @include media-rules(tablet) {
     flex-direction: row;
@@ -125,7 +122,6 @@
 
   .image {
     max-width: 50%;
-    transition: transform 0.3s ease;
 
     @include media-rules(tablet) {
       max-width: 30%;
@@ -154,9 +150,6 @@
   border-radius: 4px;
   padding: 10px 24px;
   cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    transform 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   &:hover {

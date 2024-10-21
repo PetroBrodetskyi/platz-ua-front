@@ -33,7 +33,7 @@
 
 .cartContent {
   overflow: hidden;
-  transition: max-height 2s ease-in-out;
+  @include transition(max-height);
 }
 
 .selectedProducts {

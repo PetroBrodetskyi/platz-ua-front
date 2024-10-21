@@ -71,8 +71,6 @@ $gap-mobile: 4px;
         color: var(--white);
       }
 
-      @include transition(background-color);
-
       &:hover {
         background-color: var(--yellow);
         color: var(--white);
@@ -108,7 +106,6 @@ $gap-mobile: 4px;
       font-size: 14px;
       border-radius: 4px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      @include transition(background-color);
 
       &.darkMode {
         background-color: var(--grey);

@@ -52,7 +52,7 @@
 
       @include media-rules(notebook) {
         font-size: 20px;
-        transition: transform 0.3s ease;
+        @include transition(transform);
 
         &:hover {
           transform: scale(1.2);

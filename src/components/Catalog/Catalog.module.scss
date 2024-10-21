@@ -17,7 +17,7 @@
   font-size: 34px;
   color: var(--red);
   cursor: pointer;
-  transition: all 0.3s ease;
+  @include transition(all);
 
   &.hover {
     background: #000;
