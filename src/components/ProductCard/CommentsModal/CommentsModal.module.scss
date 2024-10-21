@@ -170,7 +170,7 @@
   font-size: 28px;
   color: var(--white);
 
-  @media (min-width: $tablet) {
+  @include media-rules(tablet) {
     font-size: 30px;
   }
 

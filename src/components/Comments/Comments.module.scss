@@ -210,7 +210,7 @@
   cursor: pointer;
   font-size: 28px;
 
-  @media (min-width: $tablet) {
+  @include media-rules(tablet) {
     font-size: 30px;
   }
 

@@ -38,7 +38,7 @@ $gap-mobile: 10px;
       flex-direction: row;
     }
 
-    @media (min-width: $mobile) {
+    @include media-rules(mobile) {
       flex-direction: row;
     }
 
@@ -47,7 +47,7 @@ $gap-mobile: 10px;
         font-size: 14px;
       }
 
-      @media (min-width: $mobile) {
+      @include media-rules(mobile) {
         font-size: 16px;
       }
 

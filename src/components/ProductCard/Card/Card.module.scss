@@ -64,7 +64,7 @@
       height: 170px;
 
       &.listItem {
-        @media (max-width: $tablet) {
+        @include media-rules-max(tablet) {
           height: auto;
           min-height: 320px;
         }

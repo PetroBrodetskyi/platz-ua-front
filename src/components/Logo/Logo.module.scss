@@ -76,7 +76,7 @@
   align-items: center;
   color: var(--white);
 
-  @media (min-width: $tablet) {
+  @include media-rules(tablet) {
     font-size: 42px;
   }
 
@@ -89,11 +89,11 @@
     vertical-align: super;
     color: #3586dc;
 
-    @media (min-width: $tablet) {
+    @include media-rules(tablet) {
       font-size: 16px;
     }
 
-    @media (min-width: $notebook) {
+    @include media-rules(notebook) {
       font-size: 18px;
     }
   }
@@ -103,11 +103,11 @@
     color: var(--yellow);
     vertical-align: super;
 
-    @media (min-width: $tablet) {
+    @include media-rules(tablet) {
       font-size: 16px;
     }
 
-    @media (min-width: $notebook) {
+    @include media-rules(notebook) {
       font-size: 18px;
     }
   }

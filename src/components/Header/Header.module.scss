@@ -25,18 +25,18 @@
     flex-direction: column;
     width: 100%;
 
-    @media (min-width: $tablet) {
+    @include media-rules(tablet) {
       flex-direction: row;
     }
 
-    @media screen and (max-width: $tablet) {
+    @include media-rules-max(tablet) {
       .iconUserDesktop {
         font-size: 24px;
         display: none;
       }
     }
 
-    @media screen and (min-width: $tablet) {
+    @include media-rules(tablet) {
       .iconUserMobile {
         font-size: 24px;
         display: none;
@@ -72,7 +72,7 @@
         font-size: 20px;
         color: var(--white);
 
-        @media (max-width: $tablet) {
+        @include media-rules-max(tablet) {
           font-size: 20px;
         }
 

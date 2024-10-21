@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { createSelector } from 'reselect';
 
 const API_URL = 'https://platz-ua-back.vercel.app/api/users';
 
@@ -27,10 +26,11 @@ export const register = createAsyncThunk(
 
 export const fetchCurrentUser = createAsyncThunk(
   'auth/fetchCurrentUser',
-  async (_, { getState, rejectWithValue }) => {
+  async (_, { getState, dispatch }) => {
     const { auth } = getState();
 
     if (!auth.token) {
+      dispatch(logout());
       return;
     }
 
@@ -43,10 +43,9 @@ export const fetchCurrentUser = createAsyncThunk(
       return response.data;
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        localStorage.removeItem('token');
-        return rejectWithValue('Сесія завершена, будь ласка, увійдіть знову');
+        dispatch(logout());
       }
-      return rejectWithValue(error.message);
+      return null;
     }
   }
 );
@@ -76,6 +75,17 @@ const initialState = {
   error: null
 };
 
+// Функції для обробки стану
+const handlePending = (state) => {
+  state.loading = true;
+  state.error = null;
+};
+
+const handleRejected = (state, action) => {
+  state.loading = false;
+  state.error = action.error.message;
+};
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -90,52 +100,31 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(googleLogin.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+      .addCase(googleLogin.pending, handlePending)
       .addCase(googleLogin.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
         localStorage.setItem('token', action.payload.token);
       })
-      .addCase(googleLogin.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
-      .addCase(login.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+      .addCase(googleLogin.rejected, handleRejected)
+      .addCase(login.pending, handlePending)
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
         localStorage.setItem('token', action.payload.token);
       })
-      .addCase(login.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
-      .addCase(register.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+      .addCase(login.rejected, handleRejected)
+      .addCase(register.pending, handlePending)
       .addCase(register.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
         localStorage.setItem('token', action.payload.token);
       })
-      .addCase(register.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
-      .addCase(fetchCurrentUser.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+      .addCase(register.rejected, handleRejected)
+      .addCase(fetchCurrentUser.pending, handlePending)
       .addCase(fetchCurrentUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload || state.user;
@@ -143,40 +132,29 @@ const authSlice = createSlice({
       .addCase(fetchCurrentUser.rejected, (state, action) => {
         state.loading = false;
         state.user = null;
-        state.error = action.payload || action.error.message;
       })
-      .addCase(fetchUserById.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+      .addCase(fetchUserById.pending, handlePending)
       .addCase(fetchUserById.fulfilled, (state, action) => {
         state.loading = false;
         state.owner = action.payload;
         state.likedUserAvatars =
           action.payload.likedUsers?.map((user) => user.avatarURL) || [];
       })
-      .addCase(fetchUserById.rejected, (state, action) => {
-        state.loading = false;
-        state.owner = null;
-        state.error = action.error.message;
-      })
-      .addCase(updateUserDetails.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+      .addCase(fetchUserById.rejected, handleRejected)
+      .addCase(updateUserDetails.pending, handlePending)
       .addCase(updateUserDetails.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
       })
-      .addCase(updateUserDetails.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      });
+      .addCase(updateUserDetails.rejected, handleRejected);
   }
 });
 
+// Селектори
 export const selectCurrentUser = (state) => state.auth.user;
 export const selectOwner = (state) => state.auth.owner;
+export const selectLoading = (state) => state.auth.loading;
+export const selectError = (state) => state.auth.error;
 
 export const { logout } = authSlice.actions;
 

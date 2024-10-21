@@ -25,6 +25,26 @@ $desktop: 1440px;
   }
 }
 
+@mixin media-rules-max($screen) {
+  @if $screen == tablet {
+    @media screen and (max-width: breakpoints.$tablet) {
+      @content;
+    }
+  } @else if $screen == notebook {
+    @media screen and (max-width: breakpoints.$notebook) {
+      @content;
+    }
+  } @else if $screen == mobile {
+    @media screen and (max-width: breakpoints.$mobile) {
+      @content;
+    }
+  } @else if $screen == desktop {
+    @media screen and (max-width: breakpoints.$desktop) {
+      @content;
+    }
+  }
+}
+
 @mixin transition($property1, $property2: null) {
   $transition: $property1 0.3s linear;
 

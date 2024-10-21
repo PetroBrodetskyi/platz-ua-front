@@ -10,7 +10,7 @@
   flex-direction: row;
   width: 100%;
 
-  @media (max-width: $tablet) {
+  @include media-rules-max(tablet) {
     flex-direction: column;
   }
 }
