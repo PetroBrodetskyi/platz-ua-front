@@ -98,10 +98,10 @@ const LoginForm = () => {
             <div>
               <input
                 {...register('email', {
-                  required: 'Email is required',
+                  required: "Email є обов'язковим",
                   pattern: {
                     value: /^\S+@\S+$/i,
-                    message: 'Invalid email address'
+                    message: 'Невірний формат email адреси'
                   }
                 })}
                 type="text"
@@ -115,10 +115,10 @@ const LoginForm = () => {
             <div className={scss.inputWrapper}>
               <input
                 {...register('password', {
-                  required: 'Password is required',
+                  required: "Пароль є обов'язковим",
                   minLength: {
                     value: 8,
-                    message: 'Password must be at least 8 characters'
+                    message: 'Пароль повинен містити щонайменше 8 символів'
                   }
                 })}
                 type={showPassword ? 'text' : 'password'}
@@ -156,5 +156,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-
-// тут щось не так зі збереженням
