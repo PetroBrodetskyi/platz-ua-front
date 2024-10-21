@@ -10,7 +10,6 @@ import ProductsNotFound from '../UserProducts/ProductsNotFound/ProductsNotFound'
 import { Confirmation } from '../Confirmation/Confirmation';
 import Loader from '../Loader/Loader';
 import { fetchExchangeRate } from '../../redux/features/productsSlice';
-import { fetchComments, addComment } from '../../redux/features/commentsSlice';
 import { fetchUserById } from '../../redux/features/authSlice';
 
 const UserProducts = ({ products, setProducts }) => {
@@ -24,12 +23,10 @@ const UserProducts = ({ products, setProducts }) => {
   const [notification, setNotification] = useState('');
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [productIdToDelete, setProductIdToDelete] = useState(null);
-  const [newComment, setNewComment] = useState('');
 
   const currentUser = useSelector((state) => state.auth.user);
   const owner = useSelector((state) => state.auth.owner);
   const loading = useSelector((state) => state.products.loading);
-  const allComments = useSelector((state) => state.comments.comments);
   const exchangeRate = useSelector((state) => state.products.exchangeRate);
   const dispatch = useDispatch();
 
@@ -45,14 +42,6 @@ const UserProducts = ({ products, setProducts }) => {
   useEffect(() => {
     dispatch(fetchExchangeRate());
   }, [dispatch]);
-
-  useEffect(() => {
-    if (products.length > 0) {
-      products.forEach(({ _id }) => {
-        dispatch(fetchComments(_id));
-      });
-    }
-  }, [dispatch, products]);
 
   const handleEditClick = (productId) => {
     const product = products.find((prod) => prod._id === productId);
@@ -107,15 +96,6 @@ const UserProducts = ({ products, setProducts }) => {
 
   const handleConditionChange = ({ target: { value } }) => {
     setUpdatedProduct((prev) => ({ ...prev, condition: value }));
-  };
-
-  const handleAddComment = (productId) => {
-    if (newComment.trim()) {
-      dispatch(
-        addComment({ productId, comment: newComment, user: currentUser })
-      );
-      setNewComment('');
-    }
   };
 
   const handleDeleteClick = (productId) => {
@@ -187,10 +167,6 @@ const UserProducts = ({ products, setProducts }) => {
             handleDeleteClick={handleDeleteClick}
             currentUser={currentUser}
             exchangeRate={exchangeRate}
-            allComments={allComments}
-            setNewComment={setNewComment}
-            newComment={newComment}
-            handleAddComment={handleAddComment}
           />
         ))}
       </ul>

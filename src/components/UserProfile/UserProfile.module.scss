@@ -82,16 +82,27 @@ $padding-mobile: 10px;
   z-index: 10;
 }
 
+.title {
+  margin: 0;
+}
+
 .avatar {
   border-radius: 50%;
   cursor: pointer;
   width: 180px;
   height: 180px;
   object-fit: cover;
+  box-shadow: var(--logo-shadow);
 }
 
 .fileInput {
   display: none;
+}
+
+.photoAbout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .about {
@@ -105,6 +116,7 @@ $padding-mobile: 10px;
   background-color: var(--grafite);
   font-family: var(--font-family);
   font-size: 14px;
+  outline: none;
 
   @include media-rules(notebook) {
     width: 260px;
@@ -114,6 +126,11 @@ $padding-mobile: 10px;
   &::placeholder {
     color: var(--white);
   }
+}
+
+.chars {
+  padding: 4px 8px;
+  font-size: 12px;
 }
 
 .button {

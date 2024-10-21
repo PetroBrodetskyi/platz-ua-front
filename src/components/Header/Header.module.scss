@@ -154,7 +154,7 @@
     border: 2px solid var(--dark-bg);
     min-width: 44px;
     min-height: 44px;
-    box-shadow: 0 6px 20px rgba(177, 177, 177, 0.786);
+    box-shadow: var(--logo-shadow);
   }
 
   span {

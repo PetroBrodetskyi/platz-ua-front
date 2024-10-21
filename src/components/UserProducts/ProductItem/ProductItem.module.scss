@@ -147,16 +147,4 @@ $padding-mobile: 10px;
       font-size: 24px;
     }
   }
-
-  .comments {
-    padding: 10px;
-
-    @include media-rules(tablet) {
-      padding: 10px;
-    }
-
-    @include media-rules(notebook) {
-      padding: 20px;
-    }
-  }
 }

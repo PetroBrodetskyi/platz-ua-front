@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { MdOutlineDeleteSweep } from 'react-icons/md';
 import ProductDetails from '../UserProductsDetails/UserProductsDetails';
-import CommentsSection from '../CommentsSection/CommentsSection';
 import ActionButton from '../../ProductDetails/ActionButton/ActionButton';
 import scss from './ProductItem.module.scss';
 
@@ -15,16 +14,9 @@ const ProductItem = ({
   handleSaveClick,
   handleDeleteClick,
   currentUser,
-  exchangeRate,
-  allComments,
-  setNewComment,
-  newComment,
-  handleAddComment
+  exchangeRate
 }) => {
   const [selectedImage, setSelectedImage] = useState(product.image1);
-  const comments =
-    allComments.find((comment) => comment.productId === product._id)
-      ?.comments || [];
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
@@ -42,7 +34,9 @@ const ProductItem = ({
           <div className={scss.thumbnailContainer}>
             {product.image1 && (
               <img
-                className={`${scss.thumbnail} ${selectedImage === product.image1 ? scss.selectedThumbnail : ''}`}
+                className={`${scss.thumbnail} ${
+                  selectedImage === product.image1 ? scss.selectedThumbnail : ''
+                }`}
                 src={product.image1}
                 alt={`${product.name} thumbnail 1`}
                 onClick={() => handleImageClick(product.image1)}
@@ -50,7 +44,9 @@ const ProductItem = ({
             )}
             {product.image2 && (
               <img
-                className={`${scss.thumbnail} ${selectedImage === product.image2 ? scss.selectedThumbnail : ''}`}
+                className={`${scss.thumbnail} ${
+                  selectedImage === product.image2 ? scss.selectedThumbnail : ''
+                }`}
                 src={product.image2}
                 alt={`${product.name} thumbnail 2`}
                 onClick={() => handleImageClick(product.image2)}
@@ -58,7 +54,9 @@ const ProductItem = ({
             )}
             {product.image3 && (
               <img
-                className={`${scss.thumbnail} ${selectedImage === product.image3 ? scss.selectedThumbnail : ''}`}
+                className={`${scss.thumbnail} ${
+                  selectedImage === product.image3 ? scss.selectedThumbnail : ''
+                }`}
                 src={product.image3}
                 alt={`${product.name} thumbnail 3`}
                 onClick={() => handleImageClick(product.image3)}
@@ -66,7 +64,9 @@ const ProductItem = ({
             )}
             {product.image4 && (
               <img
-                className={`${scss.thumbnail} ${selectedImage === product.image4 ? scss.selectedThumbnail : ''}`}
+                className={`${scss.thumbnail} ${
+                  selectedImage === product.image4 ? scss.selectedThumbnail : ''
+                }`}
                 src={product.image4}
                 alt={`${product.name} thumbnail 4`}
                 onClick={() => handleImageClick(product.image4)}
@@ -108,16 +108,6 @@ const ProductItem = ({
             )}
           </div>
         </div>
-      </div>
-
-      <div className={scss.comments}>
-        <CommentsSection
-          comments={comments}
-          newComment={newComment}
-          setNewComment={setNewComment}
-          handleAddComment={() => handleAddComment(product._id)}
-          currentUser={currentUser}
-        />
       </div>
     </li>
   );

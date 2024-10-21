@@ -127,8 +127,8 @@ const UserProfile = ({ user }) => {
   return (
     <div className={scss.container}>
       <div className={scss.userProfile}>
-        <div>
-          <h3>Ваші дані</h3>
+        <div className={scss.photoAbout}>
+          <h3 className={scss.title}>Ваші дані</h3>
           <div className={scss.avatarContainer}>
             <div>
               <img
@@ -151,7 +151,7 @@ const UserProfile = ({ user }) => {
             />
           </div>
           <div className={scss.formGroup}>
-            <label htmlFor="about">Про мене:</label>
+            <label htmlFor="about"></label>
             <textarea
               id="about"
               name="about"

@@ -157,7 +157,7 @@
   height: 44px;
   border-radius: 50%;
   border: 2px solid var(--dark-bg);
-  box-shadow: 0 6px 20px rgba(177, 177, 177, 0.786);
+  box-shadow: var(--logo-shadow);
 }
 
 .icon {

@@ -51,7 +51,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  box-shadow: 0 6px 20px rgba(177, 177, 177, 0.786);
+  box-shadow: var(--logo-shadow);
 }
 
 .logoLink {
