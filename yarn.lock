@@ -1753,7 +1753,7 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
-sass@*, sass@^1.79.5:
+sass@*, sass@^1.80.3:
   version "1.80.3"
   resolved "https://registry.npmjs.org/sass/-/sass-1.80.3.tgz"
   integrity sha512-ptDWyVmDMVielpz/oWy3YP3nfs7LpJTHIJZboMVs8GEC9eUmtZTZhMHlTW98wY4aEorDfjN38+Wr/XjskFWcfA==

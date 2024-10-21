@@ -34,7 +34,7 @@ $gap-mobile: 10px;
     justify-content: space-between;
     flex-direction: column;
 
-    @media (max-width: $mobile) {
+    @include media-rules-max(mobile) {
       flex-direction: row;
     }
 
@@ -43,7 +43,7 @@ $gap-mobile: 10px;
     }
 
     .title {
-      @media (max-width: $mobile) {
+      @include media-rules-max(mobile) {
         font-size: 14px;
       }
 
