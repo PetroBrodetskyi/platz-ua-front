@@ -7,11 +7,7 @@ import {
   selectLoading,
   selectError
 } from '../../redux/features/productsSlice';
-import {
-  selectOwner,
-  selectCurrentUser,
-  fetchUserById
-} from '../../redux/features/authSlice';
+import { selectOwner, fetchUserById } from '../../redux/features/authSlice';
 import {
   addToCartBack,
   removeFromCartBack
@@ -35,7 +31,6 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
 
   const [notification, setNotification] = useState('');
-
   const product = useSelector((state) => selectProductById(state, productId));
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
@@ -43,8 +38,12 @@ const ProductDetails = () => {
   const cartItems = useSelector((state) => state.cart.items);
 
   useEffect(() => {
-    if (!product) dispatch(fetchProductById(productId));
-    if (product?.owner) dispatch(fetchUserById(product.owner));
+    if (!product) {
+      dispatch(fetchProductById(productId));
+    }
+    if (product && product.owner) {
+      dispatch(fetchUserById(product.owner));
+    }
   }, [dispatch, product, productId]);
 
   const handleAddToCart = () => {
@@ -96,8 +95,7 @@ const ProductDetails = () => {
           </div>
           <div>
             <p className={scss.detail}>
-              <HiOutlineEye className={scss.icon} />{' '}
-              {product.views !== undefined ? product.views : 'N/A'}
+              <HiOutlineEye className={scss.icon} /> {product.views || 'N/A'}
             </p>
           </div>
           <div>

@@ -28,7 +28,6 @@ const ProductInfo = ({ product, handleAddToCart, isInCart }) => {
             />
           </div>
         </div>
-
         <p className={scss.description}>{product.description}</p>
       </div>
     </div>
