@@ -11,6 +11,7 @@ import {
   fetchProductsByLocation,
   clearProducts
 } from '../../redux/features/productsSlice';
+import axios from 'axios';
 import scss from './SearchLocation.module.scss';
 
 const SearchLocation = () => {
@@ -18,58 +19,39 @@ const SearchLocation = () => {
   const [cityQuery, setCityQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
-  const [locationData, setLocationData] = useState([]);
+  const [isResultSelected, setIsResultSelected] = useState(false);
   const dispatch = useDispatch();
   const { isDarkMode } = useTheme();
 
-  useEffect(() => {
-    const loadLocationData = async () => {
-      const response = await import('./locations.json');
-      setLocationData(response.default);
-    };
-    loadLocationData();
-  }, []);
-
-  const filterLocations = useCallback(() => {
-    if (locationData.length === 0) return [];
-    return locationData.filter(
-      (location) =>
-        (plzQuery === '' || location.plz.toString().includes(plzQuery)) &&
-        (cityQuery === '' ||
-          location.city.toLowerCase().includes(cityQuery.toLowerCase()))
-    );
-  }, [plzQuery, cityQuery, locationData]);
-
-  const handleSearch = useCallback(async () => {
-    const filteredResults = filterLocations();
-    setSearchResults(filteredResults);
-
-    if (filteredResults.length > 0) {
-      dispatch(clearProducts());
-      dispatch(fetchProductsByLocation({ PLZ: plzQuery, city: cityQuery }));
-    } else {
-      console.log('No results found for products.');
-      dispatch(clearProducts());
-      dispatch(fetchProductsByLocation([]));
-    }
-  }, [plzQuery, cityQuery, dispatch, filterLocations]);
-
-  useEffect(() => {
-    if (plzQuery.trim() !== '' || cityQuery.trim() !== '') {
-      const filteredResults = filterLocations();
-      setSearchResults(filteredResults);
-      setShowResults(true);
-    } else {
+  const fetchLocations = useCallback(async () => {
+    if (!plzQuery.trim() && !cityQuery.trim()) {
       setSearchResults([]);
       setShowResults(false);
-      dispatch(clearProducts());
-      dispatch(fetchProducts({ page: 1 }));
+      return;
     }
-  }, [plzQuery, cityQuery, filterLocations, dispatch]);
+
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/api/locations/search?plz=${plzQuery}&city=${cityQuery}`
+      );
+      setSearchResults(response.data);
+      setShowResults(response.data.length > 0 && !isResultSelected);
+    } catch (error) {
+      console.error('Error fetching locations:', error);
+      setSearchResults([]);
+      setShowResults(false);
+    }
+  }, [plzQuery, cityQuery, isResultSelected]);
+
+  useEffect(() => {
+    if (!isResultSelected) {
+      fetchLocations();
+    }
+  }, [plzQuery, cityQuery, fetchLocations, isResultSelected]);
 
   const handleChange = (setter) => (e) => {
-    const value = e.target.value || '';
-    setter(value);
+    setter(e.target.value);
+    setIsResultSelected(false);
   };
 
   const handleClearAll = () => {
@@ -86,8 +68,14 @@ const SearchLocation = () => {
     setPlzQuery(result.plz.toString());
     setCityQuery(result.city);
     setSearchResults([]);
-    setTimeout(() => setShowResults(false), 0);
+    setShowResults(false);
     dispatch(setLocation(result));
+    setIsResultSelected(true);
+  };
+
+  const handleSearch = () => {
+    dispatch(fetchProductsByLocation({ PLZ: plzQuery, city: cityQuery }));
+    setShowResults(false);
   };
 
   const tooltipStyles = {

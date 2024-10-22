@@ -5,7 +5,6 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import SubmitButton from '../SubmitButton/SubmitButton';
 import productsData from '../Categories/products.json';
-import cityes from '../SearchLocation/locations.json';
 import FormInput from './FormInput/FormInput';
 import LocationInput from './LocationInput/LocationInput';
 import ImageUploader from './ImageUploader/ImageUploader';
@@ -46,21 +45,25 @@ const AddProductForm = () => {
     }
   }, [selectedCategory, categories]);
 
+  // Функція для отримання локацій з сервера
+  const fetchLocations = async (plz, city) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/api/locations/search?plz=${plz}&city=${city}`
+      );
+      setFilteredCities(response.data);
+    } catch (error) {
+      console.error('Error fetching locations:', error);
+      setFilteredCities([]);
+    }
+  };
+
   const handlePLZChange = (e) => {
     const plz = e.target.value;
     setValue('PLZ', plz);
 
     if (plz) {
-      const filtered = cityes.filter((city) =>
-        city.plz.toString().startsWith(plz)
-      );
-      setFilteredCities(filtered);
-
-      if (filtered.length === 1) {
-        setValue('city', filtered[0].city);
-      } else {
-        setValue('city', '');
-      }
+      fetchLocations(plz, watch('city'));
     } else {
       setFilteredCities([]);
       setValue('city', '');
@@ -68,18 +71,11 @@ const AddProductForm = () => {
   };
 
   const handleCityChange = (e) => {
-    const cityName = e.target.value.toLowerCase();
+    const cityName = e.target.value;
     setValue('city', cityName);
 
-    const filtered = cityes.filter((city) =>
-      city.city.toLowerCase().includes(cityName)
-    );
-    setFilteredCities(filtered);
-
-    if (filtered.length === 1) {
-      setValue('PLZ', filtered[0].plz);
-    } else {
-      setValue('PLZ', '');
+    if (watch('PLZ')) {
+      fetchLocations(watch('PLZ'), cityName);
     }
   };
 
@@ -156,8 +152,6 @@ const AddProductForm = () => {
       console.error('Error creating product:', error);
       if (error.response) {
         console.error('Response data:', error.response.data);
-        console.error('Response status:', error.response.status);
-        console.error('Response headers:', error.response.headers);
       }
     } finally {
       setIsLoading(false);
