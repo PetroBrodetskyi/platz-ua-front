@@ -49,7 +49,7 @@ const AddProductForm = () => {
   const fetchLocations = async (plz, city) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/locations/search?plz=${plz}&city=${city}`
+        `https://platz-ua-back.vercel.app/api/locations/search?plz=${plz}&city=${city}`
       );
       setFilteredCities(response.data);
     } catch (error) {

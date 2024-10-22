@@ -32,7 +32,7 @@ const SearchLocation = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/locations/search?plz=${plzQuery}&city=${cityQuery}`
+        `https://platz-ua-back.vercel.app/api/locations/search?plz=${plzQuery}&city=${cityQuery}`
       );
       setSearchResults(response.data);
       setShowResults(response.data.length > 0 && !isResultSelected);

@@ -21,13 +21,15 @@ const LocationInput = ({
         onChange={onChange}
         value={value}
       />
-      <button
-        type="button"
-        className={scss.clearButton}
-        onClick={() => onClear(id)}
-      >
-        <IoClose className={scss.icon} />
-      </button>
+      {value && (
+        <button
+          type="button"
+          className={scss.clearButton}
+          onClick={() => onClear(id)}
+        >
+          <IoClose className={scss.icon} />
+        </button>
+      )}
     </div>
     {errors[id] && <span>Це поле обов&apos;язкове</span>}
   </div>
