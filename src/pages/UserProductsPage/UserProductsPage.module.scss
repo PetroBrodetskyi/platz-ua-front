@@ -1,14 +1,1 @@
-.userPage {
-  display: flex;
-  flex-direction: column;
-}
 
-.productsProfileContainer {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-
-  @include media-rules-max(tablet) {
-    flex-direction: column;
-  }
-}

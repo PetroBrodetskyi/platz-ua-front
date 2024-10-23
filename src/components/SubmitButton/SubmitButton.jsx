@@ -7,20 +7,15 @@ const SubmitButton = ({ buttonText, onClick }) => {
     case 'Реєстрація':
     case 'Логін':
     case 'Розмістити':
+    case 'Увійти':
     case 'У кошик':
     case 'У кошику':
       return (
-        <button className={scss.button} type="submit">
+        <button className={scss.button} type="button" onClick={onClick}>
           {buttonText}
         </button>
       );
-    case 'Увійти':
-      return (
-        <button className={scss.buttonSignIn} type="button" onClick={onClick}>
-          {buttonText}
-          <PiSignInBold />
-        </button>
-      );
+
     default:
       return (
         <button onClick={onClick} className={scss.buttonWrapper} type="submit">

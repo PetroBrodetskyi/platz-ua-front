@@ -39,7 +39,7 @@ const UserProductsPage = () => {
   return (
     <div className={scss.userPage}>
       {user ? (
-        <div className={scss.productsProfileContainer}>
+        <div>
           <UserProducts products={products} setProducts={setProducts} />
           <CreateAdButton />
           {isCurrentUser && <ProfileButton />}

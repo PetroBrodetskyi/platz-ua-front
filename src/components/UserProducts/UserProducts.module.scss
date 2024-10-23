@@ -1,12 +1,11 @@
 $padding-desktop: 100px 40px;
 $padding-tablet: 20px;
-$padding-mobile: 0 10px;
+$padding-mobile: 10px;
 
 .userProducts {
-  padding: $padding-mobile;
   display: flex;
-  background-color: var(--light-bg);
   flex-direction: column;
+  padding: $padding-mobile;
 
   @include media-rules(tablet) {
     padding: $padding-mobile;
@@ -16,28 +15,17 @@ $padding-mobile: 0 10px;
     padding: $padding-desktop;
   }
 
-  .productsList {
+  .userInfo {
     display: flex;
-    flex-direction: column;
-
-    @include media-rules(tablet) {
-      flex-direction: column;
-    }
+    align-items: center;
 
     @include media-rules(notebook) {
       flex-direction: column;
     }
-  }
-
-  .userInfo {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    padding: 20px;
 
     .avatar {
-      width: 44px;
-      height: 44px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       border: 2px solid var(--dark-bg);
     }

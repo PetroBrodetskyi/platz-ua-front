@@ -7,23 +7,12 @@ import scss from './UserProducts.module.scss';
 import ProductItem from './ProductItem/ProductItem';
 import Notification from '../Notification/Notification';
 import ProductsNotFound from '../UserProducts/ProductsNotFound/ProductsNotFound';
-import { Confirmation } from '../Confirmation/Confirmation';
 import Loader from '../Loader/Loader';
 import { fetchExchangeRate } from '../../redux/features/productsSlice';
 import { fetchUserById } from '../../redux/features/authSlice';
 
 const UserProducts = ({ products, setProducts }) => {
-  const [isEditing, setIsEditing] = useState(null);
-  const [updatedProduct, setUpdatedProduct] = useState({
-    name: '',
-    price: '',
-    description: '',
-    condition: ''
-  });
   const [notification, setNotification] = useState('');
-  const [showConfirmation, setShowConfirmation] = useState(false);
-  const [productIdToDelete, setProductIdToDelete] = useState(null);
-
   const currentUser = useSelector((state) => state.auth.user);
   const owner = useSelector((state) => state.auth.owner);
   const loading = useSelector((state) => state.products.loading);
@@ -43,146 +32,44 @@ const UserProducts = ({ products, setProducts }) => {
     dispatch(fetchExchangeRate());
   }, [dispatch]);
 
-  const handleEditClick = (productId) => {
-    const product = products.find((prod) => prod._id === productId);
-    setIsEditing(productId);
-    setUpdatedProduct({
-      name: product.name || '',
-      price: product.price || '',
-      description: product.description || '',
-      condition: product.condition || ''
-    });
-  };
-
-  const handleSaveClick = async () => {
-    const product = products.find((prod) => prod._id === isEditing);
-    if (!currentUser || currentUser._id !== product.owner) {
-      alert('Ви не маєте права редагувати це оголошення.');
-      return;
-    }
-
-    try {
-      const { data } = await axios.patch(
-        `https://platz-ua-back.vercel.app/api/products/${isEditing}`,
-        updatedProduct,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-          }
-        }
-      );
-
-      setProducts((prev) =>
-        prev.map((prod) =>
-          prod._id === isEditing ? { ...prod, ...updatedProduct } : prod
-        )
-      );
-      setNotification('Ваше оголошення успішно оновлено!');
-      setIsEditing(null);
-    } catch (error) {
-      console.error(
-        'Error updating product:',
-        error?.response?.data || error.message
-      );
-      setNotification(
-        'Виникла помилка при оновленні продукту. Спробуйте ще раз.'
-      );
-    }
-  };
-
-  const handleChange = ({ target: { name, value } }) => {
-    setUpdatedProduct((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleConditionChange = ({ target: { value } }) => {
-    setUpdatedProduct((prev) => ({ ...prev, condition: value }));
-  };
-
-  const handleDeleteClick = (productId) => {
-    if (!currentUser) return;
-
-    setProductIdToDelete(productId);
-    setShowConfirmation(true);
-  };
-
-  const confirmDelete = async () => {
-    try {
-      await axios.delete(
-        `https://platz-ua-back.vercel.app/api/products/${productIdToDelete}`,
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-        }
-      );
-
-      setProducts((prev) =>
-        prev.filter((prod) => prod._id !== productIdToDelete)
-      );
-      setNotification('Ваше оголошення успішно видалено!');
-    } catch (error) {
-      console.error(
-        'Error deleting product:',
-        error?.response?.data || error.message
-      );
-      setNotification(
-        'Виникла помилка при видаленні продукту. Спробуйте ще раз.'
-      );
-    } finally {
-      setProductIdToDelete(null);
-      setShowConfirmation(false);
-    }
-  };
-
-  const cancelDelete = () => {
-    setProductIdToDelete(null);
-    setShowConfirmation(false);
-  };
-
   if (loading) return <Loader />;
   if (!products.length) return <ProductsNotFound />;
 
   return (
     <div className={scss.userProducts}>
-      {owner && (
-        <div className={scss.userInfo}>
-          <img
-            src={owner.avatarURL}
-            alt="User Avatar"
-            className={scss.avatar}
-          />
-          <p className={scss.userName}>{owner.name}</p>
-          <p>На сайті з {formattedDate}</p>
+      <h3>Оголошення автора</h3>
+      <div className={scss.userInfo}>
+        <div className={scss.container}>
+          {owner && (
+            <div className={scss.userInfoFlex}>
+              <img
+                src={owner.avatarURL}
+                alt="User Avatar"
+                className={scss.avatar}
+              />
+              <p className={scss.userName}>{owner.name}</p>
+              <p>На сайті з {formattedDate}</p>
+            </div>
+          )}
         </div>
-      )}
-      <ul className={scss.productsList}>
-        {products.map((product) => (
-          <ProductItem
-            key={product._id}
-            product={product}
-            isEditing={isEditing}
-            updatedProduct={updatedProduct}
-            handleChange={handleChange}
-            handleConditionChange={handleConditionChange}
-            handleEditClick={handleEditClick}
-            handleSaveClick={handleSaveClick}
-            handleDeleteClick={handleDeleteClick}
-            currentUser={currentUser}
-            exchangeRate={exchangeRate}
-          />
-        ))}
-      </ul>
-      {notification && (
-        <Notification
-          message={notification}
-          onClose={() => setNotification('')}
-        />
-      )}
-      {showConfirmation && (
-        <Confirmation
-          message="Ви впевнені, що хочете видалити це оголошення?"
-          onConfirm={confirmDelete}
-          onCancel={cancelDelete}
-        />
-      )}
+        <div>
+          <ul className={scss.productsList}>
+            {products.map((product) => (
+              <ProductItem
+                key={product._id}
+                product={product}
+                exchangeRate={exchangeRate}
+              />
+            ))}
+          </ul>
+          {notification && (
+            <Notification
+              message={notification}
+              onClose={() => setNotification('')}
+            />
+          )}
+        </div>
+      </div>
     </div>
   );
 };

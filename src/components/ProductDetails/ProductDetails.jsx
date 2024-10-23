@@ -8,6 +8,7 @@ import {
   selectError
 } from '../../redux/features/productsSlice';
 import { selectOwner, fetchUserById } from '../../redux/features/authSlice';
+import { fetchProductsInCart } from '../../redux/features/cartSlice';
 import {
   addToCartBack,
   removeFromCartBack
@@ -44,19 +45,22 @@ const ProductDetails = () => {
     if (product && product.owner) {
       dispatch(fetchUserById(product.owner));
     }
+    dispatch(fetchProductsInCart());
   }, [dispatch, product, productId]);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     const isInCart = cartItems.some((item) => item._id === product._id);
     const productWithOwner = { ...product, owner };
 
     if (isInCart) {
-      dispatch(removeFromCartBack(product._id));
+      await dispatch(removeFromCartBack(product._id));
       setNotification(`${product.name} видалено з кошика!`);
     } else {
-      dispatch(addToCartBack(productWithOwner));
+      await dispatch(addToCartBack(productWithOwner));
       setNotification(`${product.name} додано до кошика!`);
     }
+
+    dispatch(fetchProductsInCart());
   };
 
   if (loading) return <Loader />;
@@ -118,7 +122,7 @@ const ProductDetails = () => {
           </div>
           <SubmitButton
             buttonText={isInCart ? 'У кошику' : 'У кошик'}
-            handleAddToCart={handleAddToCart}
+            onClick={handleAddToCart}
           />
         </div>
       </div>
