@@ -1,11 +1,12 @@
 $padding-desktop: 100px 40px;
 $padding-tablet: 20px;
-$padding-mobile: 10px;
+$padding-mobile: 10px 0;
 
 .userProducts {
   display: flex;
   flex-direction: column;
   padding: $padding-mobile;
+  gap: 10px;
 
   @include media-rules(tablet) {
     padding: $padding-mobile;
@@ -13,14 +14,48 @@ $padding-mobile: 10px;
 
   @include media-rules(notebook) {
     padding: $padding-desktop;
+    gap: 20px;
+  }
+
+  .title {
+    margin: 0;
+    padding: 0 10px;
+
+    @include media-rules(notebook) {
+      padding: 0;
+    }
+  }
+
+  .productsList {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 
   .userInfo {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    gap: 10px;
 
     @include media-rules(notebook) {
-      flex-direction: column;
+      flex-direction: row;
+      gap: 40px;
+    }
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 10px;
+
+    @include media-rules(tablet) {
+      padding: 0;
+    }
+
+    @include media-rules(notebook) {
+      padding: 0;
+      width: 240px;
     }
 
     .avatar {

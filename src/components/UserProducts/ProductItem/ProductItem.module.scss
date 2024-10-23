@@ -2,43 +2,69 @@ $padding-desktop: 30px;
 $padding-tablet: 20px;
 $padding-mobile: 10px;
 
-.productsItem {
+.productItem {
   display: flex;
   flex-direction: column;
+  animation: fadeIn 1s ease-in;
+  overflow: hidden;
+}
 
-  .imageDetails {
-    display: flex;
-    flex-direction: column;
+.product {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 
-    @include media-rules(tablet) {
-      flex-direction: row;
-      align-items: flex-start;
-    }
-
-    @include media-rules(notebook) {
-      flex-direction: row;
-      gap: 40px;
-      width: 90%;
-    }
+  @include media-rules(tablet) {
+    flex-direction: row;
+    gap: 0;
   }
 
-  .image {
+  @include media-rules(notebook) {
+    flex-direction: row;
+    gap: 40px;
+  }
+
+  .productImage {
+    position: relative;
     width: 100%;
-    height: 300px;
-    object-fit: cover;
+    height: 320px;
 
     @include media-rules(tablet) {
-      height: 320px;
+      height: 240px;
+      width: 40%;
     }
 
     @include media-rules(notebook) {
-      width: 320px;
       height: 320px;
+      width: 320px;
+    }
+
+    .image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
     }
   }
-
-  .detailsContainer {
+  .productInfo {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    padding: 0 10px;
+
+    @include media-rules(tablet) {
+      padding: 0;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }

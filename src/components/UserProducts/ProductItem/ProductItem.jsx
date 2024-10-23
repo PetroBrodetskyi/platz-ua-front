@@ -6,15 +6,16 @@ const ProductItem = ({ product, exchangeRate }) => {
   const [selectedImage] = useState(product.image1);
 
   return (
-    <li className={scss.productsItem}>
-      <div className={scss.imageDetails}>
-        <img
-          className={scss.image}
-          src={selectedImage}
-          alt={`${product.name} selected image`}
-        />
-
-        <div className={scss.detailsContainer}>
+    <li className={scss.productItem}>
+      <div className={scss.product}>
+        <div className={`${scss.productImage}`}>
+          <img
+            className={scss.image}
+            src={selectedImage}
+            alt={`${product.name} selected image`}
+          />
+        </div>
+        <div className={scss.productInfo}>
           <ProductDetails product={product} exchangeRate={exchangeRate} />
         </div>
       </div>

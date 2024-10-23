@@ -37,11 +37,11 @@ const UserProducts = ({ products, setProducts }) => {
 
   return (
     <div className={scss.userProducts}>
-      <h3>Оголошення автора</h3>
+      <h3 className={scss.title}>Оголошення автора</h3>
       <div className={scss.userInfo}>
-        <div className={scss.container}>
+        <div>
           {owner && (
-            <div className={scss.userInfoFlex}>
+            <div className={scss.container}>
               <img
                 src={owner.avatarURL}
                 alt="User Avatar"
