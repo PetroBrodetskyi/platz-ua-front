@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
+import {
+  FaFacebook,
+  FaInstagram,
+  FaLinkedin,
+  FaTelegram,
+  FaGlobe
+} from 'react-icons/fa';
 import { format } from 'date-fns';
 import { uk } from 'date-fns/locale';
 import scss from './UserProducts.module.scss';
@@ -49,6 +55,64 @@ const UserProducts = ({ products, setProducts }) => {
               />
               <p className={scss.userName}>{owner.name}</p>
               <p>На сайті з {formattedDate}</p>
+              <p className={scss.about}>{owner.about}</p>
+              <div className={scss.socialLinks}>
+                {owner.facebook && (
+                  <a
+                    href={owner.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={scss.userLink}
+                  >
+                    <FaFacebook className={scss.icon} />
+                    Facebook
+                  </a>
+                )}
+                {owner.instagram && (
+                  <a
+                    href={owner.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={scss.userLink}
+                  >
+                    <FaInstagram className={scss.icon} />
+                    Instagram
+                  </a>
+                )}
+                {owner.linkedin && (
+                  <a
+                    href={owner.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={scss.userLink}
+                  >
+                    <FaLinkedin className={scss.icon} />
+                    Linkedin
+                  </a>
+                )}
+                {owner.telegram && (
+                  <a
+                    href={owner.telegram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={scss.userLink}
+                  >
+                    <FaTelegram className={scss.icon} />
+                    Telegram
+                  </a>
+                )}
+                {owner.site && (
+                  <a
+                    href={owner.site}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={scss.userLink}
+                  >
+                    <FaGlobe className={scss.icon} />
+                    Website
+                  </a>
+                )}
+              </div>
             </div>
           )}
         </div>

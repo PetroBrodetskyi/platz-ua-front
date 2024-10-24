@@ -48,6 +48,7 @@ $padding-mobile: 10px 0;
     flex-direction: column;
     width: 100%;
     padding: 0 10px;
+    gap: 10px;
 
     @include media-rules(tablet) {
       padding: 0;
@@ -59,8 +60,8 @@ $padding-mobile: 10px 0;
     }
 
     .avatar {
-      width: 120px;
-      height: 120px;
+      width: 160px;
+      height: 160px;
       border-radius: 50%;
       border: 2px solid var(--dark-bg);
     }
@@ -68,5 +69,29 @@ $padding-mobile: 10px 0;
     .userName {
       font-weight: 600;
     }
+  }
+
+  .userLink {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: var(--dark-bg);
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: var(--accent-color);
+    }
+  }
+
+  .icon {
+    font-size: 24px;
+  }
+
+  .socialLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 }

@@ -89,8 +89,8 @@ $padding-mobile: 10px;
 .avatar {
   border-radius: 50%;
   cursor: pointer;
-  width: 180px;
-  height: 180px;
+  width: 160px;
+  height: 160px;
   object-fit: cover;
   box-shadow: var(--logo-shadow);
 }
@@ -107,7 +107,7 @@ $padding-mobile: 10px;
 
 .about {
   width: 100%;
-  height: 120px;
+  height: 380px;
   padding: 10px;
   resize: none;
   border: none;
