@@ -34,12 +34,7 @@ const Cart = () => {
         dispatch(fetchProducts({ page: 1 })),
         dispatch(fetchExchangeRate())
       ]);
-
-      const serverCartItems = await dispatch(fetchProductsInCart()).unwrap();
-      if (storedCart && storedCart.length !== serverCartItems.length) {
-        localStorage.setItem('cart', JSON.stringify(serverCartItems));
-        dispatch(setCartItems(serverCartItems));
-      }
+      await dispatch(fetchProductsInCart());
     };
 
     fetchData();
