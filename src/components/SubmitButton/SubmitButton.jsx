@@ -3,11 +3,17 @@ import scss from './SubmitButton.module.scss';
 
 const SubmitButton = ({ buttonText, onClick }) => {
   switch (buttonText) {
-    case 'Відправити':
     case 'Реєстрація':
     case 'Логін':
     case 'Розмістити':
     case 'Увійти':
+      return (
+        <button className={scss.button} type="submit" onClick={onClick}>
+          {buttonText}
+        </button>
+      );
+
+    case 'Відправити':
     case 'У кошик':
     case 'У кошику':
       return (
