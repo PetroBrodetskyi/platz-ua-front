@@ -34,7 +34,20 @@ const Cart = () => {
         dispatch(fetchProducts({ page: 1 })),
         dispatch(fetchExchangeRate())
       ]);
-      await dispatch(fetchProductsInCart());
+
+      const serverCartItems = await dispatch(fetchProductsInCart()).unwrap();
+
+      const isCartDifferent =
+        !storedCart ||
+        storedCart.length !== serverCartItems.length ||
+        storedCart.some(
+          (item, index) => item._id !== serverCartItems[index]._id
+        );
+
+      if (isCartDifferent) {
+        localStorage.setItem('cart', JSON.stringify(serverCartItems));
+        dispatch(setCartItems(serverCartItems));
+      }
     };
 
     fetchData();

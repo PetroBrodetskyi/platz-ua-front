@@ -61,10 +61,20 @@ $padding-mobile: 10px 0;
     }
 
     .avatar {
-      width: 160px;
-      height: 160px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       box-shadow: var(--logo-shadow);
+
+      @include media-rules(tablet) {
+        width: 120px;
+        height: 120px;
+      }
+
+      @include media-rules(notebook) {
+        width: 160px;
+        height: 160px;
+      }
     }
 
     .userName {
