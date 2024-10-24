@@ -36,15 +36,7 @@ const Cart = () => {
       ]);
 
       const serverCartItems = await dispatch(fetchProductsInCart()).unwrap();
-
-      const isCartDifferent =
-        !storedCart ||
-        storedCart.length !== serverCartItems.length ||
-        storedCart.some(
-          (item, index) => item._id !== serverCartItems[index]._id
-        );
-
-      if (isCartDifferent) {
+      if (storedCart && storedCart.length !== serverCartItems.length) {
         localStorage.setItem('cart', JSON.stringify(serverCartItems));
         dispatch(setCartItems(serverCartItems));
       }
