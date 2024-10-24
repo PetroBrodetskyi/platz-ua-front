@@ -17,9 +17,8 @@ import Loader from '../Loader/Loader';
 import { fetchExchangeRate } from '../../redux/features/productsSlice';
 import { fetchUserById } from '../../redux/features/authSlice';
 
-const UserProducts = ({ products, setProducts }) => {
+const UserProducts = ({ products }) => {
   const [notification, setNotification] = useState('');
-  const currentUser = useSelector((state) => state.auth.user);
   const owner = useSelector((state) => state.auth.owner);
   const loading = useSelector((state) => state.products.loading);
   const exchangeRate = useSelector((state) => state.products.exchangeRate);
@@ -53,8 +52,8 @@ const UserProducts = ({ products, setProducts }) => {
                 alt="User Avatar"
                 className={scss.avatar}
               />
-              <p className={scss.userName}>{owner.name}</p>
-              <p>На сайті з {formattedDate}</p>
+              <h3 className={scss.userName}>{owner.name}</h3>
+
               <p className={scss.about}>{owner.about}</p>
               <div className={scss.socialLinks}>
                 {owner.facebook && (
@@ -112,6 +111,7 @@ const UserProducts = ({ products, setProducts }) => {
                     Website
                   </a>
                 )}
+                <p>На сайті з {formattedDate}</p>
               </div>
             </div>
           )}

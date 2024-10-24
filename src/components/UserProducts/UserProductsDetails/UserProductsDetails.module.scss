@@ -10,14 +10,6 @@ $padding-mobile: 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-
-    @include media-rules(tablet) {
-      gap: 14px;
-    }
-
-    @include media-rules(notebook) {
-      gap: 16px;
-    }
   }
 
   .namePrice {

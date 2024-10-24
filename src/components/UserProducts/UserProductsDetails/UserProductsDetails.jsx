@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom'; // Імпортуємо Link
 import CartPrice from '../../ProductCard/CartPrice/CartPrice';
 import { fetchExchangeRate } from '../../../redux/features/productsSlice';
 import scss from './UserProductsDetails.module.scss';
@@ -18,7 +19,9 @@ const ProductDetails = ({ product, isInCart, handleAddToCart }) => {
     <div className={scss.productDetails}>
       <div className={scss.container}>
         <div className={scss.namePrice}>
-          <h3 className={scss.title}>{product.name}</h3>
+          <h3 className={scss.title}>
+            <Link to={`/product/${product._id}`}>{product.name}</Link>
+          </h3>
           <div>
             <CartPrice
               price={product.price}

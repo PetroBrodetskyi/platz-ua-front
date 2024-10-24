@@ -1,4 +1,3 @@
-import { PiSignInBold } from 'react-icons/pi';
 import scss from './SubmitButton.module.scss';
 
 const SubmitButton = ({ buttonText, onClick }) => {
