@@ -5,8 +5,7 @@ import shopping from '/src/assets/images/shopping.png';
 import womantalking from '/src/assets/images/womantalking.png';
 import creditcard from '/src/assets/images/creditcard.png';
 import { FaCamera, FaBullhorn, FaComments, FaTruck } from 'react-icons/fa';
-import { IoSearchSharp } from 'react-icons/io5';
-import { ButtonBase } from '@mui/material';
+import SubmitButton from '../../SubmitButton';
 
 const Sellers = () => {
   const navigate = useNavigate();
@@ -101,15 +100,7 @@ const Sellers = () => {
         </li>
       </ul>
       <div className={scss.buttonWrapper}>
-        <ButtonBase
-          className={scss.searchButton}
-          onClick={handleButtonClick}
-          focusRipple
-        >
-          <div className={scss.motionWrapper}>
-            <IoSearchSharp className={scss.iconSearch} />
-          </div>
-        </ButtonBase>
+        <SubmitButton buttonText="Знайти" onClick={handleButtonClick} />
       </div>
     </div>
   );

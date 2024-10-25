@@ -5,18 +5,45 @@ const SubmitButton = ({ buttonText, onClick }) => {
     case 'Реєстрація':
     case 'Логін':
     case 'Розмістити':
-    case 'Увійти':
       return (
         <button className={scss.button} type="submit" onClick={onClick}>
           {buttonText}
         </button>
       );
 
-    case 'Відправити':
     case 'У кошик':
     case 'У кошику':
       return (
         <button className={scss.button} type="button" onClick={onClick}>
+          {buttonText}
+        </button>
+      );
+
+    case 'Знайти':
+      return (
+        <button className={scss.search} type="button" onClick={onClick}>
+          {buttonText}
+        </button>
+      );
+
+    case 'Увійти':
+      return (
+        <button className={scss.button} type="button" onClick={onClick}>
+          {buttonText}
+        </button>
+      );
+
+    case 'Відправити':
+      return (
+        <button className={scss.button} type="button" onClick={onClick}>
+          {buttonText}
+        </button>
+      );
+
+    case 'Підписатися':
+    case 'Повідомлення':
+      return (
+        <button className={scss.followSend} type="button" onClick={onClick}>
           {buttonText}
         </button>
       );

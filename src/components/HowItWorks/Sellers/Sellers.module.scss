@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  background-color: var(--white);
   padding: 10px;
 
   @include media-rules(notebook) {
@@ -133,52 +132,4 @@
       transform: scale(1.05);
     }
   }
-}
-
-.buttonWrapper {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
-}
-
-.searchButton {
-  background-color: var(--red);
-  color: var(--white);
-  border-radius: 4px;
-  padding: 10px 24px;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-  &:hover {
-    background-color: var(--gold);
-    transform: scale(1.05);
-  }
-
-  @include media-rules(tablet) {
-    padding: 10px 24px;
-  }
-
-  @include media-rules(notebook) {
-    padding: 10px 34px;
-  }
-
-  .iconSearch {
-    font-size: 16px;
-    color: var(--white);
-
-    @include media-rules(tablet) {
-      font-size: 18px;
-    }
-
-    @include media-rules(notebook) {
-      font-size: 24px;
-    }
-  }
-}
-
-.motionWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }

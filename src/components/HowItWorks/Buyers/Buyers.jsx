@@ -5,8 +5,7 @@ import woman from '/src/assets/images/woman.png';
 import boyandphone from '/src/assets/images/boyandphone.png';
 import card from '/src/assets/images/card.png';
 import { FaSearch, FaInfoCircle, FaPhone, FaGift } from 'react-icons/fa';
-import { IoSearchSharp } from 'react-icons/io5';
-import { ButtonBase } from '@mui/material';
+import SubmitButton from '../../SubmitButton';
 
 const Buyers = () => {
   const navigate = useNavigate();
@@ -89,15 +88,9 @@ const Buyers = () => {
         </li>
       </ul>
       <div className={scss.buttonWrapper}>
-        <ButtonBase
-          className={scss.searchButton}
-          onClick={handleButtonClick}
-          focusRipple
-        >
-          <div className={scss.motionWrapper}>
-            <IoSearchSharp className={scss.iconSearch} />
-          </div>
-        </ButtonBase>
+        <div className={scss.buttonWrapper}>
+          <SubmitButton buttonText="Знайти" onClick={handleButtonClick} />
+        </div>
       </div>
     </div>
   );
