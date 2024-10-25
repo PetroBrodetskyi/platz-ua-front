@@ -94,7 +94,7 @@ const UserProducts = ({ products }) => {
       setNotification(
         isFollowing
           ? 'Ви більше не відстежуєте автора.'
-          : 'Ви успішно підписалися на автора!'
+          : 'Ви успішно підписалися!'
       );
 
       setTimeout(() => setNotification(''), 3000);
@@ -112,15 +112,21 @@ const UserProducts = ({ products }) => {
     <div className={`${scss.userProducts} ${isLoadingData ? '' : scss.loaded}`}>
       <div className={scss.titleContainer}>
         <h3 className={scss.title}>Оголошення автора</h3>
-        <div className={scss.followers}>
-          <h4>Стежить:</h4>
-          <UserAvatars users={followingData} />
-        </div>
-        <div className={scss.followers}>
-          <h4>Читачі:</h4>
-          <UserAvatars users={followersData} />
+
+        <div
+          className={`${scss.followContainer} ${scss.desktopFollowContainer}`}
+        >
+          <div className={scss.followers}>
+            <h4>Стежить:</h4>
+            <UserAvatars users={followingData} />
+          </div>
+          <div className={scss.followers}>
+            <h4>Читачі:</h4>
+            <UserAvatars users={followersData} />
+          </div>
         </div>
       </div>
+
       <div className={scss.userInfo}>
         {owner && (
           <div className={scss.container}>
@@ -129,6 +135,20 @@ const UserProducts = ({ products }) => {
               alt="User Avatar"
               className={scss.avatar}
             />
+
+            <div
+              className={`${scss.followContainer} ${scss.mobileFollowContainer}`}
+            >
+              <div className={scss.followers}>
+                <h4>Стежить:</h4>
+                <UserAvatars users={followingData} />
+              </div>
+              <div className={scss.followers}>
+                <h4>Читачі:</h4>
+                <UserAvatars users={followersData} />
+              </div>
+            </div>
+
             <div>
               <h3 className={scss.userName}>{owner.name}</h3>
               {owner.plz || owner.city ? (

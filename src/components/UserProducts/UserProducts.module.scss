@@ -111,12 +111,45 @@ $padding-mobile: 10px 0;
 
   .titleContainer {
     display: flex;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: space-between;
+
+    @include media-rules(tablet) {
+      padding: 10px;
+    }
+  }
+
+  .followContainer {
+    display: none;
+
+    &.desktopFollowContainer {
+      display: none;
+
+      @include media-rules(notebook) {
+        display: flex;
+        flex-direction: row;
+        gap: 100px;
+      }
+    }
+
+    &.mobileFollowContainer {
+      display: flex;
+      justify-content: space-around;
+
+      @include media-rules(notebook) {
+        display: none;
+      }
+    }
   }
 
   .followers {
     display: flex;
+    flex-direction: column;
     gap: 10px;
     align-items: center;
+
+    @include media-rules(tablet) {
+      flex-direction: row;
+    }
   }
 }
