@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom'; // Імпортуємо Link
+import { Link } from 'react-router-dom';
 import CartPrice from '../../ProductCard/CartPrice/CartPrice';
 import { fetchExchangeRate } from '../../../redux/features/productsSlice';
 import scss from './UserProductsDetails.module.scss';

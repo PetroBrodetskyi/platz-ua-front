@@ -4,7 +4,6 @@ $form-padding-mobile: 10px;
 
 .formContainer {
   padding: $form-padding-mobile;
-  background-color: var(--light-bg);
 
   @include media-rules(tablet) {
     padding: $form-padding-tablet;
@@ -24,7 +23,6 @@ $form-padding-mobile: 10px;
   flex-direction: column;
   justify-content: center;
   padding: $form-padding-mobile;
-  background-color: var(--white);
   gap: 20px;
 
   @include media-rules(tablet) {

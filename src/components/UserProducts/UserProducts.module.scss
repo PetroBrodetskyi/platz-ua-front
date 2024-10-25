@@ -103,4 +103,20 @@ $padding-mobile: 10px 0;
     flex-direction: column;
     gap: 10px;
   }
+
+  .buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .titleContainer {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .followers {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
 }

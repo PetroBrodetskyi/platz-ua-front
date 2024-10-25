@@ -1,7 +1,6 @@
 .cartItem {
   display: flex;
   flex-direction: column;
-  background-color: var(--white);
   padding: 10px;
   height: auto;
 
@@ -121,7 +120,6 @@
   gap: 15px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: var(--white);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   @include transition(box-shadow);
 

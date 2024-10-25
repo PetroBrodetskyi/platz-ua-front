@@ -71,7 +71,7 @@ const Cart = () => {
   return (
     <div className={scss.cart}>
       {loadingRemove && <Loader />}
-      <h1>Кошик</h1>
+      <h3>Кошик</h3>
       {validCartItems.length === 0 ? (
         <p>Ваш кошик порожній</p>
       ) : (

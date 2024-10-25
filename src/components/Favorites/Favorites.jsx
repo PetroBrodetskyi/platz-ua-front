@@ -29,7 +29,7 @@ const Favorites = () => {
 
   return (
     <div className={scss.favorite}>
-      <h1>Обрані товари</h1>
+      <h3>Обрані товари</h3>
       {favoriteProducts.length === 0 ? (
         <p>У вас немає обраних товарів.</p>
       ) : (
