@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { format } from 'date-fns';
 import { uk } from 'date-fns/locale';
-import ProductItem from './ProductItem/ProductItem';
+import Loader from '../Loader/Loader';
 import Notification from '../Notification/Notification';
 import ProductsNotFound from '../UserProducts/ProductsNotFound/ProductsNotFound';
-import Loader from '../Loader/Loader';
 import { fetchExchangeRate } from '../../redux/features/productsSlice';
 import {
   fetchUserById,
@@ -13,21 +12,24 @@ import {
   selectIsFollowing
 } from '../../redux/features/authSlice';
 import axiosInstance from '../../redux/axiosConfig';
-import UserAvatars from '../UserProducts/UserAvatars';
 import UserInfo from './UserInfo';
+import UserAvatars from '../UserProducts/UserAvatars';
 import scss from './UserProducts.module.scss';
+
+const ProductItem = lazy(() => import('./ProductItem/ProductItem'));
 
 const UserProducts = ({ products }) => {
   const [notification, setNotification] = useState('');
   const [followersData, setFollowersData] = useState([]);
   const [followingData, setFollowingData] = useState([]);
-  const [isLoadingData, setIsLoadingData] = useState(true);
-  const [areAvatarsLoading, setAreAvatarsLoading] = useState(true);
+  const [loadingState, setLoadingState] = useState({
+    userData: true,
+    avatars: true
+  });
   const owner = useSelector((state) => state.auth.owner);
   const loading = useSelector((state) => state.products.loading);
   const exchangeRate = useSelector((state) => state.products.exchangeRate);
   const isFollowing = useSelector(selectIsFollowing);
-
   const dispatch = useDispatch();
 
   const formattedDate = owner
@@ -46,38 +48,37 @@ const UserProducts = ({ products }) => {
         } catch (error) {
           console.error('Error fetching data:', error);
         } finally {
-          setIsLoadingData(false);
+          setLoadingState((prev) => ({ ...prev, userData: false }));
         }
       }
     };
-
     fetchData();
   }, [dispatch, products]);
 
-  const fetchFollowingStatus = async () => {
-    if (!owner) return;
-
-    try {
-      const { data } = await axiosInstance.get(`/users/${owner._id}`);
-      const fetchUsers = async (userIds) =>
-        Promise.all(
-          userIds.map((userId) => axiosInstance.get(`/users/${userId}`))
-        );
-
-      const followersResponses = await fetchUsers(data.followers);
-      const followingResponses = await fetchUsers(data.following);
-
-      setFollowersData(followersResponses.map((res) => res.data));
-      setFollowingData(followingResponses.map((res) => res.data));
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-      setNotification('Помилка при отриманні даних користувача');
-    } finally {
-      setAreAvatarsLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchFollowingStatus = async () => {
+      if (!owner) return;
+
+      try {
+        const { data } = await axiosInstance.get(`/users/${owner._id}`);
+        const fetchUsers = async (userIds) =>
+          Promise.all(
+            userIds.map((userId) => axiosInstance.get(`/users/${userId}`))
+          );
+
+        const followersResponses = await fetchUsers(data.followers);
+        const followingResponses = await fetchUsers(data.following);
+
+        setFollowersData(followersResponses.map((res) => res.data));
+        setFollowingData(followingResponses.map((res) => res.data));
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        setNotification('Помилка при отриманні даних користувача');
+      } finally {
+        setLoadingState((prev) => ({ ...prev, avatars: false }));
+      }
+    };
+
     fetchFollowingStatus();
   }, [owner, isFollowing]);
 
@@ -89,7 +90,6 @@ const UserProducts = ({ products }) => {
     try {
       await axiosInstance.patch(endpoint);
       dispatch(setFollowingStatus(!isFollowing));
-
       setNotification(
         isFollowing
           ? 'Ви більше не відстежуєте автора.'
@@ -102,11 +102,13 @@ const UserProducts = ({ products }) => {
     }
   };
 
-  if (isLoadingData || loading) return <Loader />;
+  if (loadingState.userData || loading) return <Loader />;
   if (!products.length) return <ProductsNotFound />;
 
   return (
-    <div className={`${scss.userProducts} ${isLoadingData ? '' : scss.loaded}`}>
+    <div
+      className={`${scss.userProducts} ${loadingState.userData ? '' : scss.loaded}`}
+    >
       <div className={scss.titleContainer}>
         <h3 className={scss.title}>Оголошення автора</h3>
         <div
@@ -114,11 +116,17 @@ const UserProducts = ({ products }) => {
         >
           <div className={scss.followers}>
             <h4>Стежить:</h4>
-            <UserAvatars users={followingData} areLoading={areAvatarsLoading} />
+            <UserAvatars
+              users={followingData}
+              isLoading={loadingState.avatars}
+            />
           </div>
           <div className={scss.followers}>
             <h4>Читачі:</h4>
-            <UserAvatars users={followersData} areLoading={areAvatarsLoading} />
+            <UserAvatars
+              users={followersData}
+              isLoading={loadingState.avatars}
+            />
           </div>
         </div>
       </div>
@@ -135,15 +143,17 @@ const UserProducts = ({ products }) => {
           />
         )}
         <div>
-          <ul className={scss.productsList}>
-            {products.map((product) => (
-              <ProductItem
-                key={product._id}
-                product={product}
-                exchangeRate={exchangeRate}
-              />
-            ))}
-          </ul>
+          <Suspense fallback={<Loader />}>
+            <ul className={scss.productsList}>
+              {products.map((product) => (
+                <ProductItem
+                  key={product._id}
+                  product={product}
+                  exchangeRate={exchangeRate}
+                />
+              ))}
+            </ul>
+          </Suspense>
           {notification && (
             <Notification
               message={notification}
