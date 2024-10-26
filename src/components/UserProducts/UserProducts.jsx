@@ -16,19 +16,24 @@ import ProductsNotFound from '../UserProducts/ProductsNotFound/ProductsNotFound'
 import SubmitButton from '../SubmitButton';
 import Loader from '../Loader/Loader';
 import { fetchExchangeRate } from '../../redux/features/productsSlice';
-import { fetchUserById } from '../../redux/features/authSlice';
+import {
+  fetchUserById,
+  setFollowingStatus,
+  selectIsFollowing
+} from '../../redux/features/authSlice';
 import axiosInstance from '../../redux/axiosConfig';
 import UserAvatars from '../UserProducts/UserAvatars';
 
 const UserProducts = ({ products }) => {
   const [notification, setNotification] = useState('');
-  const [isFollowing, setIsFollowing] = useState(null);
   const [followersData, setFollowersData] = useState([]);
   const [followingData, setFollowingData] = useState([]);
   const [isLoadingData, setIsLoadingData] = useState(true);
   const owner = useSelector((state) => state.auth.owner);
   const loading = useSelector((state) => state.products.loading);
   const exchangeRate = useSelector((state) => state.products.exchangeRate);
+  const isFollowing = useSelector(selectIsFollowing);
+
   const dispatch = useDispatch();
 
   const formattedDate = owner
@@ -61,7 +66,6 @@ const UserProducts = ({ products }) => {
 
       try {
         const { data } = await axiosInstance.get(`/users/${owner._id}`);
-        setIsFollowing(data.followers.includes(owner._id));
 
         const fetchUsers = async (userIds) =>
           Promise.all(
@@ -87,20 +91,19 @@ const UserProducts = ({ products }) => {
       ? `/users/${owner._id}/unfollow`
       : `/users/${owner._id}/follow`;
 
-    setIsFollowing((prev) => !prev);
-
     try {
       await axiosInstance.patch(endpoint);
+
+      dispatch(setFollowingStatus(!isFollowing));
+
       setNotification(
         isFollowing
           ? 'Ви більше не відстежуєте автора.'
           : 'Ви успішно підписалися!'
       );
-
       setTimeout(() => setNotification(''), 3000);
     } catch (error) {
       console.error('Error updating follow status:', error);
-      setIsFollowing((prev) => !prev);
       setNotification('Помилка при оновленні підписки');
     }
   };

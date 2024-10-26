@@ -52,8 +52,13 @@ export const fetchCurrentUser = createAsyncThunk(
 
 export const fetchUserById = createAsyncThunk(
   'auth/fetchUserById',
-  async (userId) => {
+  async (userId, { getState, dispatch }) => {
     const response = await axios.get(`${API_URL}/${userId}`);
+    const currentUserId = getState().auth.user?._id;
+
+    const isFollowing = response.data.followers.includes(currentUserId);
+    dispatch(setFollowingStatus(isFollowing));
+
     return response.data;
   }
 );
@@ -72,7 +77,8 @@ const initialState = {
   token: localStorage.getItem('token') || null,
   likedUserAvatars: [],
   loading: false,
-  error: null
+  error: null,
+  isFollowing: false
 };
 
 // Функції для обробки стану
@@ -90,11 +96,15 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    setFollowingStatus: (state, action) => {
+      state.isFollowing = action.payload;
+    },
     logout: (state) => {
       state.user = null;
       state.owner = null;
       state.token = null;
       state.likedUserAvatars = [];
+      state.isFollowing = false;
       localStorage.removeItem('token');
     }
   },
@@ -155,7 +165,8 @@ export const selectCurrentUser = (state) => state.auth.user;
 export const selectOwner = (state) => state.auth.owner;
 export const selectLoading = (state) => state.auth.loading;
 export const selectError = (state) => state.auth.error;
+export const selectIsFollowing = (state) => state.auth.isFollowing;
 
-export const { logout } = authSlice.actions;
+export const { logout, setFollowingStatus } = authSlice.actions;
 
 export default authSlice.reducer;
