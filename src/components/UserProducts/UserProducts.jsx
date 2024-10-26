@@ -22,6 +22,7 @@ const UserProducts = ({ products }) => {
   const [followersData, setFollowersData] = useState([]);
   const [followingData, setFollowingData] = useState([]);
   const [isLoadingData, setIsLoadingData] = useState(true);
+  const [areAvatarsLoading, setAreAvatarsLoading] = useState(true);
   const owner = useSelector((state) => state.auth.owner);
   const loading = useSelector((state) => state.products.loading);
   const exchangeRate = useSelector((state) => state.products.exchangeRate);
@@ -71,6 +72,8 @@ const UserProducts = ({ products }) => {
     } catch (error) {
       console.error('Error fetching user data:', error);
       setNotification('Помилка при отриманні даних користувача');
+    } finally {
+      setAreAvatarsLoading(false);
     }
   };
 
@@ -111,27 +114,25 @@ const UserProducts = ({ products }) => {
         >
           <div className={scss.followers}>
             <h4>Стежить:</h4>
-            <UserAvatars users={followingData} />
+            <UserAvatars users={followingData} areLoading={areAvatarsLoading} />
           </div>
           <div className={scss.followers}>
             <h4>Читачі:</h4>
-            <UserAvatars users={followersData} />
+            <UserAvatars users={followersData} areLoading={areAvatarsLoading} />
           </div>
         </div>
       </div>
 
       <div className={scss.userInfo}>
         {owner && (
-          <>
-            <UserInfo
-              owner={owner}
-              followingData={followingData}
-              followersData={followersData}
-              isFollowing={isFollowing}
-              handleFollowClick={handleFollowClick}
-              formattedDate={formattedDate}
-            />
-          </>
+          <UserInfo
+            owner={owner}
+            followingData={followingData}
+            followersData={followersData}
+            isFollowing={isFollowing}
+            handleFollowClick={handleFollowClick}
+            formattedDate={formattedDate}
+          />
         )}
         <div>
           <ul className={scss.productsList}>
