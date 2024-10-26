@@ -60,31 +60,31 @@ const UserProducts = ({ products }) => {
     fetchData();
   }, [dispatch, products]);
 
+  const fetchFollowingStatus = async () => {
+    if (!owner) return;
+
+    try {
+      const { data } = await axiosInstance.get(`/users/${owner._id}`);
+
+      const fetchUsers = async (userIds) =>
+        Promise.all(
+          userIds.map((userId) => axiosInstance.get(`/users/${userId}`))
+        );
+
+      const followersResponses = await fetchUsers(data.followers);
+      const followingResponses = await fetchUsers(data.following);
+
+      setFollowersData(followersResponses.map((res) => res.data));
+      setFollowingData(followingResponses.map((res) => res.data));
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      setNotification('Помилка при отриманні даних користувача');
+    }
+  };
+
   useEffect(() => {
-    const fetchFollowingStatus = async () => {
-      if (!owner) return;
-
-      try {
-        const { data } = await axiosInstance.get(`/users/${owner._id}`);
-
-        const fetchUsers = async (userIds) =>
-          Promise.all(
-            userIds.map((userId) => axiosInstance.get(`/users/${userId}`))
-          );
-
-        const followersResponses = await fetchUsers(data.followers);
-        const followingResponses = await fetchUsers(data.following);
-
-        setFollowersData(followersResponses.map((res) => res.data));
-        setFollowingData(followingResponses.map((res) => res.data));
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-        setNotification('Помилка при отриманні даних користувача');
-      }
-    };
-
     fetchFollowingStatus();
-  }, [owner]);
+  }, [owner, isFollowing]);
 
   const handleFollowClick = async () => {
     const endpoint = isFollowing
@@ -93,7 +93,6 @@ const UserProducts = ({ products }) => {
 
     try {
       await axiosInstance.patch(endpoint);
-
       dispatch(setFollowingStatus(!isFollowing));
 
       setNotification(
@@ -101,6 +100,7 @@ const UserProducts = ({ products }) => {
           ? 'Ви більше не відстежуєте автора.'
           : 'Ви успішно підписалися!'
       );
+
       setTimeout(() => setNotification(''), 3000);
     } catch (error) {
       console.error('Error updating follow status:', error);
