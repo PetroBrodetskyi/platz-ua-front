@@ -6,12 +6,7 @@
   cursor: pointer;
 
   @include media-rules(tablet) {
-    gap: 4px;
     padding: 10px;
-  }
-
-  @include media-rules(notebook) {
-    gap: 4px;
   }
 
   .avatar {

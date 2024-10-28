@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import Tooltip from '@mui/material/Tooltip';
 import scss from './UserInfo.module.scss';
 
 const UserInfo = ({ owner }) => {
@@ -15,7 +16,9 @@ const UserInfo = ({ owner }) => {
   return (
     <div className={scss.userInfo} onClick={handleOwnerClick}>
       <img src={owner.avatarURL} alt={owner.name} className={scss.avatar} />
-      <p className={scss.name}>{owner.name}</p>
+      <Tooltip title="Перейти на сторінку автора" placement="bottom-start">
+        <p className={scss.name}>{owner.name}</p>
+      </Tooltip>
     </div>
   );
 };

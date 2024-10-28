@@ -14,7 +14,7 @@ import {
   removeFromCartBack
 } from '../../redux/features/cartSlice';
 import Notification from '../Notification/Notification';
-import scss from './ProductDetails.module.scss';
+import Tooltip from '@mui/material/Tooltip';
 import Gallery from './Gallery/Gallery';
 import SubmitButton from '../SubmitButton';
 import ProductInfo from './ProductInfo/ProductInfo';
@@ -26,6 +26,7 @@ import { GrLocation } from 'react-icons/gr';
 import { HiOutlineEye } from 'react-icons/hi';
 import { MdOutlineDateRange } from 'react-icons/md';
 import { FaRegFaceSmile, FaRegFaceMeh } from 'react-icons/fa6';
+import scss from './ProductDetails.module.scss';
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -74,17 +75,17 @@ const ProductDetails = () => {
       <UserInfo owner={owner} />
       <div className={scss.container}>
         <div className={scss.infoContainer}>
-          <div>
+          <Tooltip title="PLZ / індекс" placement="left">
             <p className={scss.detail}>
               <TbLocation className={scss.icon} /> {product.PLZ}
             </p>
-          </div>
-          <div>
+          </Tooltip>
+          <Tooltip title="Місто" placement="left">
             <p className={scss.detail}>
               <GrLocation className={scss.icon} /> {product.city}
             </p>
-          </div>
-          <div>
+          </Tooltip>
+          <Tooltip title="Стан" placement="left">
             <p className={scss.detail}>
               {product.condition === 'новий' ? (
                 <>
@@ -96,18 +97,18 @@ const ProductDetails = () => {
                 </>
               )}
             </p>
-          </div>
-          <div>
+          </Tooltip>
+          <Tooltip title="Переглядів" placement="left">
             <p className={scss.detail}>
               <HiOutlineEye className={scss.icon} /> {product.views || 'N/A'}
             </p>
-          </div>
-          <div>
+          </Tooltip>
+          <Tooltip title="Дата розміщення" placement="left">
             <p className={scss.detail}>
               <MdOutlineDateRange className={scss.icon} />{' '}
               {new Date(product.createdAt).toLocaleDateString()}
             </p>
-          </div>
+          </Tooltip>
         </div>
         <div className={scss.gallery}>
           <Gallery images={product} />

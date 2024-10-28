@@ -34,6 +34,7 @@ const UserProductsPage = lazy(
 const UserProfilePage = lazy(
   () => import('../../pages/UserProfilePage/UserProfilePage')
 );
+const FollowPage = lazy(() => import('../../pages/FollowPage/FollowPage'));
 const HowItWorksPage = lazy(
   () => import('../../pages/HowItWorksPage/HowItWorksPage')
 );
@@ -70,6 +71,7 @@ const AppBar = () => {
     { path: '/product/:productId', element: <ProductDetailPage /> },
     { path: '/user/:userId', element: <UserProductsPage /> },
     { path: '/user-profile/:userId', element: <UserProfilePage /> },
+    { path: '/follow', element: <FollowPage /> },
     { path: '/how-it-works', element: <HowItWorksPage /> },
     { path: '/terms-of-service', element: <TermsOfServicePage /> },
     { path: '/privacy-policy', element: <PrivacyPolicyPage /> },
