@@ -61,16 +61,9 @@ const UserProducts = ({ products }) => {
 
       try {
         const { data } = await axiosInstance.get(`/users/${owner._id}`);
-        const fetchUsers = async (userIds) =>
-          Promise.all(
-            userIds.map((userId) => axiosInstance.get(`/users/${userId}`))
-          );
 
-        const followersResponses = await fetchUsers(data.followers);
-        const followingResponses = await fetchUsers(data.following);
-
-        setFollowersData(followersResponses.map((res) => res.data));
-        setFollowingData(followingResponses.map((res) => res.data));
+        setFollowersData(data.followers);
+        setFollowingData(data.following);
       } catch (error) {
         console.error('Error fetching user data:', error);
         setNotification('Помилка при отриманні даних користувача');

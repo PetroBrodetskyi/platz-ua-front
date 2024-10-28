@@ -56,10 +56,15 @@ export const fetchUserById = createAsyncThunk(
     const response = await axios.get(`${API_URL}/${userId}`);
     const currentUserId = getState().auth.user?._id;
 
-    const isFollowing = response.data.followers.includes(currentUserId);
+    const followers = response.data.followers || [];
+    const following = response.data.following || [];
+
+    const isFollowing = followers.some(
+      (follower) => follower._id === currentUserId
+    );
     dispatch(setFollowingStatus(isFollowing));
 
-    return response.data;
+    return { ...response.data, followers, following };
   }
 );
 
