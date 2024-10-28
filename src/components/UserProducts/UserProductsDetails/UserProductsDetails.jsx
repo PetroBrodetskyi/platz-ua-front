@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CartPrice from '../../ProductCard/CartPrice/CartPrice';
 import { fetchExchangeRate } from '../../../redux/features/productsSlice';
+import Tooltip from '@mui/material/Tooltip';
 import scss from './UserProductsDetails.module.scss';
 
 const ProductDetails = ({ product, isInCart, handleAddToCart }) => {
@@ -19,9 +20,11 @@ const ProductDetails = ({ product, isInCart, handleAddToCart }) => {
     <div className={scss.productDetails}>
       <div className={scss.container}>
         <div className={scss.namePrice}>
-          <h3 className={scss.title}>
-            <Link to={`/product/${product._id}`}>{product.name}</Link>
-          </h3>
+          <Tooltip title="Перейти на сторінку оголошення" placement="top-start">
+            <h3 className={scss.title}>
+              <Link to={`/product/${product._id}`}>{product.name}</Link>
+            </h3>
+          </Tooltip>
           <div>
             <CartPrice
               price={product.price}

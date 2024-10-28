@@ -5,9 +5,9 @@ import {
   FaTelegram,
   FaGlobe
 } from 'react-icons/fa';
-import scss from '../UserProducts.module.scss';
 import UserAvatars from '../../UserProducts/UserAvatars';
 import SubmitButton from '../../SubmitButton';
+import scss from '../UserProducts.module.scss';
 
 const UserInfo = ({
   owner,
