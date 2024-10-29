@@ -45,11 +45,13 @@ const FollowersList = ({
                   </p>
                 </div>
               </div>
-              <SubmitButton
-                buttonText={isFollowing ? 'Відстежується' : 'Стежити'}
-                onClick={() => handleFollowClick(follower._id)}
-                disabled={isFollowing}
-              />
+              {follower._id !== currentUserId && (
+                <SubmitButton
+                  buttonText={isFollowing ? 'Відстежується' : 'Стежити'}
+                  onClick={() => handleFollowClick(follower._id)}
+                  disabled={isFollowing}
+                />
+              )}
             </li>
           );
         })}

@@ -23,14 +23,14 @@ const FollowPage = ({ userId }) => {
     }
   }, [dispatch, userId]);
 
-  if (!owner || !currentUser) return <Loader />;
+  if (!owner) return <Loader />;
 
   return (
     <div className={scss.followPage}>
       <Followers
         followersData={owner.followers}
         followingData={owner.following}
-        currentUserId={currentUser._id}
+        currentUserId={currentUser ? currentUser._id : null}
         initialTab={initialTab}
       />
     </div>
