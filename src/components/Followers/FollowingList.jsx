@@ -2,7 +2,12 @@ import { useNavigate } from 'react-router-dom';
 import scss from './Followers.module.scss';
 import SubmitButton from '../SubmitButton';
 
-const FollowingList = ({ following, handleFollowClick }) => {
+const FollowingList = ({
+  following,
+  currentUserId,
+  handleFollowClick,
+  followingIds
+}) => {
   const navigate = useNavigate();
 
   const handleUserClick = (userId) => {
@@ -14,12 +19,13 @@ const FollowingList = ({ following, handleFollowClick }) => {
       <h3>Стежить</h3>
       <ul>
         {following.map((followed) => {
-          const isFollowing = true;
+          const isFollowing = followingIds.includes(followed._id);
+
           return (
             <li key={followed._id} className={scss.item}>
               <div className={scss.user}>
                 <img
-                  src={followed.avatarURL || avatarPublicId}
+                  src={followed.avatarURL || 'default_avatar.png'}
                   alt={`${followed.name}'s avatar`}
                   className={scss.avatar}
                   onClick={() => handleUserClick(followed._id)}
@@ -32,13 +38,16 @@ const FollowingList = ({ following, handleFollowClick }) => {
                     {followed.name}
                   </h4>
                   <p className={scss.city}>
-                    {followed.plz} {followed.city}
+                    {followed.city || followed.plz
+                      ? `${followed.city || ''}, ${followed.plz || ''}`
+                      : 'Немає даних'}
                   </p>
                 </div>
               </div>
               <SubmitButton
                 buttonText={isFollowing ? 'Відстежується' : 'Стежити'}
                 onClick={() => handleFollowClick(followed._id)}
+                disabled={isFollowing}
               />
             </li>
           );

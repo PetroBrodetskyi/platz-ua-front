@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import scss from './Followers.module.scss';
 import Tabs from '../Tabs';
@@ -8,25 +8,37 @@ import axiosInstance from '../../redux/axiosConfig';
 import { setFollowingStatus } from '../../redux/features/authSlice';
 import Notification from '../Notification';
 
-const Followers = ({ followersData, followingData, initialTab }) => {
+const Followers = ({
+  followersData,
+  followingData,
+  currentUserId,
+  initialTab
+}) => {
   const [activeTab, setActiveTab] = useState(initialTab || 'following');
   const [notification, setNotification] = useState('');
   const dispatch = useDispatch();
+  const [followingIds, setFollowingIds] = useState(
+    followingData.map((user) => user._id)
+  );
 
-  const handleFollowClick = async (followerId) => {
-    const isFollowing = followingData.some((user) => user._id === followerId);
+  const handleFollowClick = async (userId) => {
+    const isFollowing = followingIds.includes(userId);
     const endpoint = isFollowing
-      ? `/users/${followerId}/unfollow`
-      : `/users/${followerId}/follow`;
+      ? `/users/${userId}/unfollow`
+      : `/users/${userId}/follow`;
 
     try {
       await axiosInstance.patch(endpoint);
+
+      if (isFollowing) {
+        setFollowingIds((prevIds) => prevIds.filter((id) => id !== userId));
+        setNotification('Ви більше не відстежуєте автора.');
+      } else {
+        setFollowingIds((prevIds) => [...prevIds, userId]);
+        setNotification('Ви успішно підписалися!');
+      }
+
       dispatch(setFollowingStatus(!isFollowing));
-      setNotification(
-        isFollowing
-          ? 'Ви більше не відстежуєте автора.'
-          : 'Ви успішно підписалися!'
-      );
       setTimeout(() => setNotification(''), 3000);
     } catch (error) {
       console.error('Error updating follow status:', error);
@@ -40,12 +52,21 @@ const Followers = ({ followersData, followingData, initialTab }) => {
   ];
 
   const renderTabContent = {
-    following: <FollowingList following={followingData} />,
+    following: (
+      <FollowingList
+        following={followingData}
+        currentUserId={currentUserId}
+        handleFollowClick={handleFollowClick}
+        followingIds={followingIds}
+      />
+    ),
     followers: (
       <FollowersList
         followers={followersData}
         followingData={followingData}
+        currentUserId={currentUserId}
         handleFollowClick={handleFollowClick}
+        followingIds={followingIds}
       />
     )
   }[activeTab];

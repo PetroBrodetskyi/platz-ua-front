@@ -4,8 +4,10 @@ import SubmitButton from '../SubmitButton';
 
 const FollowersList = ({
   followers,
-  followingData = [],
-  handleFollowClick
+  followingData,
+  currentUserId,
+  handleFollowClick,
+  followingIds
 }) => {
   const navigate = useNavigate();
 
@@ -18,14 +20,13 @@ const FollowersList = ({
       <h3>Читачі</h3>
       <ul>
         {followers.map((follower) => {
-          const isFollowing = followingData.some(
-            (followed) => followed._id === follower._id
-          );
+          const isFollowing = followingIds.includes(follower._id);
+
           return (
             <li key={follower._id} className={scss.item}>
               <div className={scss.user}>
                 <img
-                  src={follower.avatarURL || avatarPublicId}
+                  src={follower.avatarURL || 'default_avatar.png'}
                   alt={`${follower.name}'s avatar`}
                   className={scss.avatar}
                   onClick={() => handleUserClick(follower._id)}
@@ -38,13 +39,16 @@ const FollowersList = ({
                     {follower.name}
                   </h4>
                   <p className={scss.city}>
-                    {follower.plz} {follower.city}
+                    {follower.city || follower.plz
+                      ? `${follower.city || ''}, ${follower.plz || ''}`
+                      : 'Немає даних'}
                   </p>
                 </div>
               </div>
               <SubmitButton
                 buttonText={isFollowing ? 'Відстежується' : 'Стежити'}
                 onClick={() => handleFollowClick(follower._id)}
+                disabled={isFollowing}
               />
             </li>
           );
