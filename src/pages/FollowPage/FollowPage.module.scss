@@ -1,3 +1,7 @@
 .followPage {
-  padding: 120px 40px;
+  padding: 0;
+
+  @include media-rules(notebook) {
+    padding: 100px 10px;
+  }
 }

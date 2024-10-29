@@ -1,10 +1,11 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { uk } from 'date-fns/locale';
-import Loader from '../Loader/Loader';
-import Notification from '../Notification/Notification';
-import ProductsNotFound from '../UserProducts/ProductsNotFound/ProductsNotFound';
+import Loader from '../Loader';
+import Notification from '../Notification';
+import ProductsNotFound from '../UserProducts/ProductsNotFound';
 import { fetchExchangeRate } from '../../redux/features/productsSlice';
 import {
   fetchUserById,
@@ -16,7 +17,7 @@ import UserInfo from './UserInfo';
 import UserAvatars from '../UserProducts/UserAvatars';
 import scss from './UserProducts.module.scss';
 
-const ProductItem = lazy(() => import('./ProductItem/ProductItem'));
+const ProductItem = lazy(() => import('./ProductItem'));
 
 const UserProducts = ({ products }) => {
   const [notification, setNotification] = useState('');
@@ -31,6 +32,7 @@ const UserProducts = ({ products }) => {
   const exchangeRate = useSelector((state) => state.products.exchangeRate);
   const isFollowing = useSelector(selectIsFollowing);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const formattedDate = owner
     ? format(new Date(owner.createdAt), 'MMMM yyyy', { locale: uk })
@@ -61,7 +63,6 @@ const UserProducts = ({ products }) => {
 
       try {
         const { data } = await axiosInstance.get(`/users/${owner._id}`);
-
         setFollowersData(data.followers);
         setFollowingData(data.following);
       } catch (error) {
@@ -95,6 +96,14 @@ const UserProducts = ({ products }) => {
     }
   };
 
+  const handleFollowersClick = () => {
+    navigate(`/follow`, { state: { tab: 'followers' } });
+  };
+
+  const handleFollowingClick = () => {
+    navigate(`/follow`, { state: { tab: 'following' } });
+  };
+
   if (loadingState.userData || loading) return <Loader />;
   if (!products.length) return <ProductsNotFound />;
 
@@ -107,14 +116,14 @@ const UserProducts = ({ products }) => {
         <div
           className={`${scss.followContainer} ${scss.desktopFollowContainer}`}
         >
-          <div className={scss.followers}>
+          <div className={scss.followers} onClick={handleFollowingClick}>
             <h4>Стежить:</h4>
             <UserAvatars
               users={followingData}
               isLoading={loadingState.avatars}
             />
           </div>
-          <div className={scss.followers}>
+          <div className={scss.followers} onClick={handleFollowersClick}>
             <h4>Читачі:</h4>
             <UserAvatars
               users={followersData}
