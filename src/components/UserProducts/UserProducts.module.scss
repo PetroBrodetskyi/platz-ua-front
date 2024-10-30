@@ -147,6 +147,7 @@ $padding-mobile: 10px 0;
     flex-direction: column;
     gap: 10px;
     align-items: center;
+    cursor: pointer;
 
     @include media-rules(tablet) {
       flex-direction: row;

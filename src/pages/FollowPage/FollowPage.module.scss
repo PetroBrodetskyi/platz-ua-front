@@ -17,10 +17,12 @@
     border-radius: 50%;
     border: 2px solid var(--dark-bg);
     box-shadow: var(--logo-shadow);
+    cursor: pointer;
   }
 
   .ownerName {
     margin: 0;
     font-weight: 600;
+    cursor: pointer;
   }
 }

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   fetchUserById,
   selectOwner,
@@ -12,6 +12,7 @@ import Loader from '../../components/Loader';
 
 const FollowPage = ({ userId }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const owner = useSelector(selectOwner);
   const currentUser = useSelector(selectCurrentUser);
   const location = useLocation();
@@ -23,11 +24,15 @@ const FollowPage = ({ userId }) => {
     }
   }, [dispatch, userId]);
 
+  const handleOwnerClick = () => {
+    navigate(`/user/${owner._id}`);
+  };
+
   if (!owner) return <Loader />;
 
   return (
     <div className={scss.followPage}>
-      <div className={scss.header}>
+      <div className={scss.header} onClick={handleOwnerClick}>
         <img
           src={owner.avatarURL || avatarPublicId}
           alt={`${owner.name}'s avatar`}
