@@ -27,7 +27,16 @@ const FollowPage = ({ userId }) => {
 
   return (
     <div className={scss.followPage}>
+      <div className={scss.header}>
+        <img
+          src={owner.avatarURL || avatarPublicId}
+          alt={`${owner.name}'s avatar`}
+          className={scss.avatar}
+        />
+        <p className={scss.ownerName}>{owner.name}</p>
+      </div>
       <Followers
+        owner={owner}
         followersData={owner.followers}
         followingData={owner.following}
         currentUserId={currentUser ? currentUser._id : null}

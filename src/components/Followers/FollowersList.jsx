@@ -17,8 +17,7 @@ const FollowersList = ({
 
   return (
     <div className={scss.list}>
-      <h3>Читачі</h3>
-      <ul>
+      <ul className={scss.listContainer}>
         {followers.map((follower) => {
           const isFollowing = followingIds.includes(follower._id);
 

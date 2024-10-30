@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+import { useCallback } from 'react';
 import {
   FaFacebook,
   FaInstagram,
@@ -17,15 +19,26 @@ const UserInfo = ({
   handleFollowClick,
   formattedDate
 }) => {
+  const navigate = useNavigate();
+
+  const handleFollowersClick = useCallback(() => {
+    navigate(`/follow`, { state: { tab: 'followers' } });
+  }, [navigate]);
+
+  const handleFollowingClick = useCallback(() => {
+    navigate(`/follow`, { state: { tab: 'following' } });
+  }, [navigate]);
+
   return (
     <div className={scss.container}>
       <img src={owner.avatarURL} alt="User Avatar" className={scss.avatar} />
+
       <div className={`${scss.followContainer} ${scss.mobileFollowContainer}`}>
-        <div className={scss.followers}>
+        <div className={scss.followers} onClick={handleFollowersClick}>
           <h4>Стежить:</h4>
           <UserAvatars users={followingData} />
         </div>
-        <div className={scss.followers}>
+        <div className={scss.followers} onClick={handleFollowingClick}>
           <h4>Читачі:</h4>
           <UserAvatars users={followersData} />
         </div>
@@ -47,7 +60,9 @@ const UserInfo = ({
         )}
         <SubmitButton buttonText="Повідомлення" onClick={() => {}} />
       </div>
+
       <p className={scss.about}>{owner.about}</p>
+
       <div className={scss.socialLinks}>
         {owner.facebook && (
           <a
