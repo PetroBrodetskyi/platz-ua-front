@@ -97,15 +97,14 @@ const UserProducts = ({ products }) => {
   };
 
   const handleFollowersClick = () => {
-    navigate(`/follow`, { state: { tab: 'followers' } });
+    navigate('/follow', { state: { tab: 'followers' } });
   };
 
   const handleFollowingClick = () => {
-    navigate(`/follow`, { state: { tab: 'following' } });
+    navigate('/follow', { state: { tab: 'following' } });
   };
 
   if (loadingState.userData || loading) return <Loader />;
-  if (!products.length) return <ProductsNotFound />;
 
   return (
     <div
@@ -145,17 +144,21 @@ const UserProducts = ({ products }) => {
           />
         )}
         <div>
-          <Suspense fallback={<Loader />}>
-            <ul className={scss.productsList}>
-              {products.map((product) => (
-                <ProductItem
-                  key={product._id}
-                  product={product}
-                  exchangeRate={exchangeRate}
-                />
-              ))}
-            </ul>
-          </Suspense>
+          {products.length ? (
+            <Suspense fallback={<Loader />}>
+              <ul className={scss.productsList}>
+                {products.map((product) => (
+                  <ProductItem
+                    key={product._id}
+                    product={product}
+                    exchangeRate={exchangeRate}
+                  />
+                ))}
+              </ul>
+            </Suspense>
+          ) : (
+            <ProductsNotFound />
+          )}
           {notification && (
             <Notification
               message={notification}

@@ -24,9 +24,14 @@
 }
 
 .avatar {
-  width: 64px;
-  height: 64px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
   border: 2px solid var(--dark-bg);
   box-shadow: var(--logo-shadow);
+
+  @include media-rules(tablet) {
+    width: 64px;
+    height: 64px;
+  }
 }

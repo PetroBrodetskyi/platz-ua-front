@@ -13,15 +13,18 @@
 .tabReviews {
   background: none;
   border: none;
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 2px 20px;
+  font-size: 14px;
   cursor: pointer;
   position: relative;
   outline: none;
-  @include transition(color);
+  color: var(--white);
+  background-color: var(--grafite);
+  border-radius: 4px;
+  @include transition(background-color);
 
   &:hover {
-    color: var(--red);
+    background-color: var(--red);
   }
 }
 
@@ -29,7 +32,7 @@
 .tabReviews::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -4px;
   left: 50%;
   width: 0;
   height: 2px;

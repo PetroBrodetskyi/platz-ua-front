@@ -6,7 +6,7 @@ const Tabs = ({ activeTab, onTabChange, tabs }) => {
       <div className={scss.tabsContainer}>
         {tabs.map((tab) => (
           <button
-            key={tab.value} // Використовуйте value як унікальний ключ
+            key={tab.value}
             className={`${scss.tabDetails} ${activeTab === tab.value ? scss.active : ''}`}
             onClick={() => onTabChange(tab.value)}
           >

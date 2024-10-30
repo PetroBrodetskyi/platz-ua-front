@@ -19,7 +19,7 @@
   }
 
   @include transition(box-shadow);
-  min-width: 192px;
+  min-width: 182px;
 
   @include media-rules(tablet) {
     padding: 0;
