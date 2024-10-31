@@ -26,6 +26,7 @@ const Header = ({ onClick }) => {
   const cartItems = useSelector((state) => state.cart.items);
   const [animateFavorite, setAnimateFavorite] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   useEffect(() => {
     if (token) {
       dispatch(fetchCurrentUser());
@@ -72,31 +73,32 @@ const Header = ({ onClick }) => {
       <div className={scss.container}>
         <div className={scss.logoUserMobile}>
           <Logo />
-          <NavLink to={getUserProfileUrl()}>
-            <button
-              type="button"
-              className={scss.iconUserMobile}
-              onClick={onClick}
-            >
-              {user && user.verify && renderUserInfo()}
-            </button>
-          </NavLink>
+          <button
+            type="button"
+            className={scss.iconUserMobile}
+            onClick={onClick}
+          >
+            {user && user.verify && renderUserInfo()}
+          </button>
         </div>
         <div className={scss.menu}>
           <Catalog />
           <SearchLocation onSearch={(products) => products} />
         </div>
         <div className={scss.userMenu}>
-          <NavLink to={getUserProfileUrl()}>
-            <button
-              type="button"
-              className={scss.iconUserDesktop}
-              onClick={onClick}
-            >
-              {user && user.verify && renderUserInfo()}
-            </button>
-          </NavLink>
-          {isMenuOpen && <UserMenu onClose={() => setIsMenuOpen(false)} />}{' '}
+          <button
+            type="button"
+            className={scss.iconUserDesktop}
+            onClick={onClick}
+          >
+            {user && user.verify && renderUserInfo()}
+          </button>
+          {isMenuOpen && (
+            <UserMenu
+              onClose={() => setIsMenuOpen(false)}
+              getUserProfileUrl={getUserProfileUrl}
+            />
+          )}
           {!user || !user.verify ? (
             <Tooltip
               title="Увійти"

@@ -1,33 +1,31 @@
 .menuContainer {
   position: absolute;
-  top: 250px;
+  top: 8%;
   right: 0;
-  background-color: #fff;
+  background-color: var(--grafite);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  border-radius: 4px;
+  width: 50%;
+  height: 100vh;
   z-index: 100;
+
+  @include media-rules(notebook) {
+    top: 98%;
+    right: 0;
+    font-size: 16px;
+    width: 300px;
+  }
 }
 
 .menuList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   list-style: none;
-  padding: 10px;
+  padding: 20px;
   margin: 0;
 
-  li {
-    margin-bottom: 10px;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-
-    a {
-      text-decoration: none;
-      color: #333;
-      font-weight: 500;
-
-      &:hover {
-        color: #007bff;
-      }
-    }
+  .item {
+    color: var(--white);
   }
 }

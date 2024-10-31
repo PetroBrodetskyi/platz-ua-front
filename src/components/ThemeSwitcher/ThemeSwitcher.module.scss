@@ -1,0 +1,18 @@
+.themeContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.themeToggle {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  cursor: pointer;
+  font-size: 18px;
+
+  @include media-rules(notebook) {
+    font-size: 24px;
+  }
+}

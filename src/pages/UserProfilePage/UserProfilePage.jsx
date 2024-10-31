@@ -10,10 +10,7 @@ import {
   fetchUsersPublicProducts
 } from '../../redux/features/productsSlice';
 import UserProfile from '../../components/UserProfile/UserProfile';
-import { Switch } from '@mui/material';
-import { ImSun } from 'react-icons/im';
-import { BsMoon } from 'react-icons/bs';
-import { useTheme } from '../../context/ThemeContext.jsx';
+import ThemeSwitcher from '../../components/ThemeSwitcher/ThemeSwitcher';
 import scss from './UserProfilePage.module.scss';
 
 const UserProfilePage = () => {
@@ -21,7 +18,6 @@ const UserProfilePage = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
   const user = useSelector((state) => state.auth.owner);
-  const { isDarkMode, toggleTheme } = useTheme();
 
   useEffect(() => {
     if (!userId) return;
@@ -45,23 +41,13 @@ const UserProfilePage = () => {
   const shouldShowUserProfile = currentUser && currentUser._id === userId;
 
   return (
-    <div className={`${scss.userPage} ${isDarkMode ? 'darkMode' : ''}`}>
+    <div className={`${scss.userPage}`}>
       {shouldShowUserProfile && (
         <UserProfile user={user} onUpdate={handleUpdate} />
       )}
 
       <div className={scss.themeContainer}>
-        <h3>Змінити тему</h3>
-        <div className={scss.themeToggle}>
-          <ImSun className={scss.icon} onClick={toggleTheme} />
-          <Switch
-            checked={isDarkMode}
-            onChange={toggleTheme}
-            color="primary"
-            inputProps={{ 'aria-label': 'theme switcher' }}
-          />
-          <BsMoon className={scss.icon} onClick={toggleTheme} />
-        </div>
+        <ThemeSwitcher />
       </div>
     </div>
   );
