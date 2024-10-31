@@ -10,11 +10,21 @@
   }
 }
 
+.themeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+
+  @include media-rules(notebook) {
+    padding: 120px 0;
+  }
+}
+
 .themeToggle {
   display: flex;
   align-items: center;
   gap: 4px;
-  padding: 10px;
 }
 
 .icon {

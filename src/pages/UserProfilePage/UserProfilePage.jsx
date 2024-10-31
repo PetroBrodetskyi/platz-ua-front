@@ -50,15 +50,18 @@ const UserProfilePage = () => {
         <UserProfile user={user} onUpdate={handleUpdate} />
       )}
 
-      <div className={scss.themeToggle}>
-        <ImSun className={scss.icon} onClick={toggleTheme} />
-        <Switch
-          checked={isDarkMode}
-          onChange={toggleTheme}
-          color="primary"
-          inputProps={{ 'aria-label': 'theme switcher' }}
-        />
-        <BsMoon className={scss.icon} onClick={toggleTheme} />
+      <div className={scss.themeContainer}>
+        <h3>Змінити тему</h3>
+        <div className={scss.themeToggle}>
+          <ImSun className={scss.icon} onClick={toggleTheme} />
+          <Switch
+            checked={isDarkMode}
+            onChange={toggleTheme}
+            color="primary"
+            inputProps={{ 'aria-label': 'theme switcher' }}
+          />
+          <BsMoon className={scss.icon} onClick={toggleTheme} />
+        </div>
       </div>
     </div>
   );

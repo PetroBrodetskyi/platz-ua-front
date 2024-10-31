@@ -7,6 +7,7 @@ import { RiLoginCircleLine } from 'react-icons/ri';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import SearchLocation from '../SearchLocation/SearchLocation';
 import Logo from '../Logo/Logo';
+import UserMenu from '../UserMenu/UserMenu';
 import { fetchCurrentUser } from '../../redux/features/authSlice';
 import Catalog from '../Catalog';
 import scss from './Header.module.scss';
@@ -24,7 +25,7 @@ const Header = ({ onClick }) => {
   const favorites = useSelector((state) => state.favorites.items);
   const cartItems = useSelector((state) => state.cart.items);
   const [animateFavorite, setAnimateFavorite] = useState(false);
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   useEffect(() => {
     if (token) {
       dispatch(fetchCurrentUser());
@@ -42,6 +43,10 @@ const Header = ({ onClick }) => {
   const getUserProfileUrl = () =>
     user ? `/user-profile/${user._id}` : '/auth';
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   const renderUserInfo = () =>
     user && (
       <Tooltip
@@ -52,7 +57,12 @@ const Header = ({ onClick }) => {
         }}
       >
         <div className={scss.userInfo}>
-          <img src={user.avatarURL} alt={user.name} className={scss.avatar} />
+          <img
+            src={user.avatarURL}
+            alt={user.name}
+            className={scss.avatar}
+            onClick={toggleMenu}
+          />
         </div>
       </Tooltip>
     );
@@ -74,11 +84,7 @@ const Header = ({ onClick }) => {
         </div>
         <div className={scss.menu}>
           <Catalog />
-          <SearchLocation
-            onSearch={(products) => {
-              products;
-            }}
-          />
+          <SearchLocation onSearch={(products) => products} />
         </div>
         <div className={scss.userMenu}>
           <NavLink to={getUserProfileUrl()}>
@@ -90,6 +96,7 @@ const Header = ({ onClick }) => {
               {user && user.verify && renderUserInfo()}
             </button>
           </NavLink>
+          {isMenuOpen && <UserMenu onClose={() => setIsMenuOpen(false)} />}{' '}
           {!user || !user.verify ? (
             <Tooltip
               title="Увійти"
