@@ -1,0 +1,27 @@
+.userPage {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  @include media-rules(tablet) {
+    flex-direction: row;
+    justify-content: center;
+    gap: 120px;
+  }
+}
+
+.themeToggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px;
+}
+
+.icon {
+  font-size: 18px;
+  cursor: pointer;
+
+  @include media-rules(tablet) {
+    font-size: 24px;
+  }
+}

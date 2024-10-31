@@ -10,15 +10,17 @@ import {
   fetchUsersPublicProducts
 } from '../../redux/features/productsSlice';
 import UserProfile from '../../components/UserProfile/UserProfile';
-import scss from './UserProfilePage.module.scss';
+import { Switch } from '@mui/material';
+import { ImSun } from 'react-icons/im';
+import { BsMoon } from 'react-icons/bs';
 import { useTheme } from '../../context/ThemeContext.jsx';
+import scss from './UserProfilePage.module.scss';
 
 const UserProfilePage = () => {
   const { userId } = useParams();
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
   const user = useSelector((state) => state.auth.owner);
-
   const { isDarkMode, toggleTheme } = useTheme();
 
   useEffect(() => {
@@ -47,7 +49,17 @@ const UserProfilePage = () => {
       {shouldShowUserProfile && (
         <UserProfile user={user} onUpdate={handleUpdate} />
       )}
-      <button onClick={toggleTheme}>Перемикання теми</button>
+
+      <div className={scss.themeToggle}>
+        <ImSun className={scss.icon} onClick={toggleTheme} />
+        <Switch
+          checked={isDarkMode}
+          onChange={toggleTheme}
+          color="primary"
+          inputProps={{ 'aria-label': 'theme switcher' }}
+        />
+        <BsMoon className={scss.icon} onClick={toggleTheme} />
+      </div>
     </div>
   );
 };
