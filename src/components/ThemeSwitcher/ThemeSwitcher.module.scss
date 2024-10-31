@@ -1,6 +1,11 @@
 .themeContainer {
   display: flex;
   flex-direction: column;
+  align-items: center;
+
+  @include media-rules(notebook) {
+    align-items: start;
+  }
 }
 
 .themeToggle {

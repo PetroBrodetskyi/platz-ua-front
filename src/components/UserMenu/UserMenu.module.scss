@@ -1,12 +1,12 @@
 .menuContainer {
   position: absolute;
+  gap: 20px;
   top: 8%;
   right: 0;
   background-color: var(--grafite);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  width: 50%;
-  height: 100vh;
+  width: 100%;
   z-index: 100;
 
   @include media-rules(notebook) {
@@ -20,12 +20,24 @@
 .menuList {
   display: flex;
   flex-direction: column;
+
   gap: 20px;
   list-style: none;
   padding: 20px;
   margin: 0;
 
   .item {
+    width: 100%;
     color: var(--white);
+    text-align: center;
+    @include transition(color);
+
+    @include media-rules(notebook) {
+      text-align: start;
+    }
+
+    &:hover {
+      color: var(--red);
+    }
   }
 }
