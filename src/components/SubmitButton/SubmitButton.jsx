@@ -27,12 +27,6 @@ const SubmitButton = ({ buttonText, onClick }) => {
       );
 
     case 'Увійти':
-      return (
-        <button className={scss.button} type="button" onClick={onClick}>
-          {buttonText}
-        </button>
-      );
-
     case 'Відправити':
       return (
         <button className={scss.button} type="button" onClick={onClick}>
@@ -44,14 +38,14 @@ const SubmitButton = ({ buttonText, onClick }) => {
     case 'Відстежується':
     case 'Повідомлення':
       return (
-        <button className={scss.followSend} type="submit" onClick={onClick}>
+        <button className={scss.followSend} type="button" onClick={onClick}>
           {buttonText}
         </button>
       );
 
     default:
       return (
-        <button onClick={onClick} className={scss.buttonWrapper} type="submit">
+        <button onClick={onClick} className={scss.buttonWrapper} type="button">
           {buttonText}
         </button>
       );

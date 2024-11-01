@@ -33,7 +33,7 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
           </NavLink>
         </li>
         <li className={scss.item}>
-          <NavLink to="/user-messages" onClick={onClose}>
+          <NavLink to="/messages" onClick={onClose}>
             Мої повідомлення
           </NavLink>
         </li>

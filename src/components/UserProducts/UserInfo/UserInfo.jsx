@@ -29,6 +29,11 @@ const UserInfo = ({
     navigate(`/follow`, { state: { tab: 'following' } });
   }, [navigate]);
 
+  const handleMessagesClick = useCallback(() => {
+    navigate('/messages', { state: { targetUserId: owner._id } });
+    console.log(owner._id);
+  }, [navigate, owner._id]);
+
   return (
     <div className={scss.container}>
       <img src={owner.avatarURL} alt="User Avatar" className={scss.avatar} />
@@ -58,7 +63,11 @@ const UserInfo = ({
             onClick={handleFollowClick}
           />
         )}
-        <SubmitButton buttonText="Повідомлення" onClick={() => {}} />
+        <SubmitButton
+          buttonText="Повідомлення"
+          onClick={handleMessagesClick}
+          type="button"
+        />
       </div>
 
       <p className={scss.about}>{owner.about}</p>
