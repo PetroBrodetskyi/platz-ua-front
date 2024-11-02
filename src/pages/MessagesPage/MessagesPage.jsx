@@ -1,14 +1,33 @@
-import { useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchChats } from '../../redux/features/chatSlice';
+import {
+  fetchCurrentUser,
+  selectCurrentUser
+} from '../../redux/features/authSlice';
 import Messages from '../../components/Messages/Messages';
-import scss from './MessagesPage.module.scss';
 
 const MessagesPage = () => {
-  const location = useLocation();
-  const targetUserId = location.state?.targetUserId;
+  const dispatch = useDispatch();
+  const user = useSelector(selectCurrentUser);
+
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (user?._id) {
+      dispatch(fetchChats(user._id));
+    }
+  }, [dispatch, user]);
 
   return (
-    <div className={scss.messages}>
-      <Messages targetUserId={targetUserId} />
+    <div>
+      {user?._id ? (
+        <Messages targetUserId={user._id} />
+      ) : (
+        <p>Завантаження користувача...</p>
+      )}
     </div>
   );
 };

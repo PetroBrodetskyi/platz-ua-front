@@ -31,7 +31,6 @@ const UserInfo = ({
 
   const handleMessagesClick = useCallback(() => {
     navigate('/messages', { state: { targetUserId: owner._id } });
-    console.log(owner._id);
   }, [navigate, owner._id]);
 
   return (

@@ -4,6 +4,7 @@ import commentsReducer from './features/commentsSlice';
 import authReducer from './features/authSlice';
 import favoritesReducer from './features/favoritesSlice';
 import cartReducer from './features/cartSlice';
+import chatReducer from './features/chatSlice';
 import { setupAxiosInterceptors } from './axiosConfig';
 
 const store = configureStore({
@@ -12,7 +13,8 @@ const store = configureStore({
     comments: commentsReducer,
     auth: authReducer,
     favorites: favoritesReducer,
-    cart: cartReducer
+    cart: cartReducer,
+    chat: chatReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

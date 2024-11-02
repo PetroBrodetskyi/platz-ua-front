@@ -1,48 +1,71 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import axios from 'axios';
 import scss from './ChatWindow.module.scss';
 
-const ChatWindow = ({ chatId }) => {
+const ChatWindow = ({ chatId, currentUser }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
-  const socket = io();
+  const [socket, setSocket] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    socket.on('chat message', (msg) => {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { id: prevMessages.length + 1, text: msg.content, sender: msg.senderId }
-      ]);
+    const newSocket = io('https://platz-ua-back.onrender.com');
+    setSocket(newSocket);
+
+    newSocket.on('chat message', (msg) => {
+      if (msg.chatId === chatId) {
+        setMessages((prevMessages) => [...prevMessages, msg]);
+      }
     });
 
     return () => {
-      socket.off('chat message');
+      newSocket.disconnect();
     };
-  }, []);
+  }, [chatId]);
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      setLoading(true);
+      try {
+        const { data } = await axios.get(
+          `https://platz-ua-back.onrender.com/api/chat/messages?chatId=${chatId}`
+        );
+        setMessages(data);
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (chatId) fetchMessages();
+  }, [chatId]);
 
   const sendMessage = async () => {
     if (newMessage.trim()) {
+      const receiverId =
+        selectedChat?.userId1 === currentUser._id
+          ? selectedChat.userId2
+          : selectedChat.userId1;
+
+      const messageData = {
+        senderId: currentUser._id,
+        receiverId,
+        chatId: selectedChat._id,
+        content: newMessage,
+        senderName: currentUser.name
+      };
+
       try {
         await axios.post(
           'https://platz-ua-back.onrender.com/api/chat/messages',
-          {
-            senderId: 'userSelf',
-            receiverId: chatId,
-            content: newMessage
-          }
+          messageData
         );
-
         socket.emit('chat message', {
-          senderId: 'userSelf',
-          receiverId: chatId,
-          content: newMessage
+          ...messageData,
+          chatId: selectedChat._id
         });
-
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { id: prevMessages.length + 1, text: newMessage, sender: 'self' }
-        ]);
         setNewMessage('');
       } catch (error) {
         console.error('Error sending message:', error);
@@ -53,12 +76,25 @@ const ChatWindow = ({ chatId }) => {
   return (
     <div className={scss.chatWindow}>
       <div className={scss.messages}>
-        {messages.length === 0 ? (
+        {loading ? (
+          <p>Завантаження повідомлень...</p>
+        ) : messages.length === 0 ? (
           <p>Це ваша перша розмова. Напишіть повідомлення!</p>
         ) : (
           messages.map((msg) => (
-            <div key={msg.id} className={scss[msg.sender]}>
-              {msg.text}
+            <div
+              key={msg._id}
+              className={
+                scss[msg.senderId === currentUser._id ? 'self' : 'other']
+              }
+            >
+              <strong>
+                {msg.senderId === currentUser._id
+                  ? 'Ви'
+                  : msg.senderName || 'Користувач'}
+                :
+              </strong>
+              <span>{msg.content}</span>
             </div>
           ))
         )}

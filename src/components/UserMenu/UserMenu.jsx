@@ -1,10 +1,13 @@
 import { useRef, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import ThemeSwitcher from '../ThemeSwitcher';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/features/authSlice';
 import scss from './UserMenu.module.scss';
 
 const UserMenu = ({ onClose, getUserProfileUrl }) => {
   const menuRef = useRef(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -18,6 +21,10 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [onClose]);
+
+  const handleLogout = async () => {
+    await dispatch(logout());
+  };
 
   return (
     <div className={scss.menuContainer} ref={menuRef}>
@@ -47,8 +54,20 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
             Обрані
           </NavLink>
         </li>
+
         <li className={scss.item}>
           <ThemeSwitcher />
+        </li>
+        <li className={scss.item}>
+          <button
+            className={scss.exitButton}
+            onClick={() => {
+              handleLogout();
+              onClose();
+            }}
+          >
+            Вийти
+          </button>
         </li>
       </ul>
     </div>
