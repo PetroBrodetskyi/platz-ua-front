@@ -1,3 +1,7 @@
 .messages {
-  padding: 320px 40px;
+  padding: 120px 40px;
+
+  .messagesContainer {
+    display: flex;
+  }
 }

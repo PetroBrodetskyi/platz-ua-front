@@ -30,16 +30,22 @@ const Messages = () => {
   return (
     <div className={scss.messages}>
       <h3>Ваші повідомлення</h3>
-      <ChatList
-        chats={chats}
-        onSelectChat={handleUserSelect}
-        currentUser={currentUser}
-      />
-      {selectedChat ? (
-        <ChatWindow chatId={selectedChat._id} currentUser={currentUser} />
-      ) : (
-        <p>Виберіть користувача, щоб почати спілкування.</p>
-      )}
+      <div className={scss.messagesContainer}>
+        <ChatList
+          chats={chats}
+          onSelectChat={handleUserSelect}
+          currentUser={currentUser}
+        />
+        {selectedChat ? (
+          <ChatWindow
+            chatId={selectedChat._id}
+            currentUser={currentUser}
+            selectedChat={selectedChat}
+          />
+        ) : (
+          <p>Виберіть користувача, щоб почати спілкування.</p>
+        )}
+      </div>
     </div>
   );
 };

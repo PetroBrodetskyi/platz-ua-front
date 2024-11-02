@@ -3,7 +3,7 @@ import { io } from 'socket.io-client';
 import axios from 'axios';
 import scss from './ChatWindow.module.scss';
 
-const ChatWindow = ({ chatId, currentUser }) => {
+const ChatWindow = ({ chatId, currentUser, selectedChat }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [socket, setSocket] = useState(null);
@@ -43,32 +43,43 @@ const ChatWindow = ({ chatId, currentUser }) => {
   }, [chatId]);
 
   const sendMessage = async () => {
-    if (newMessage.trim()) {
-      const receiverId =
-        selectedChat?.userId1 === currentUser._id
-          ? selectedChat.userId2
-          : selectedChat.userId1;
+    if (newMessage.trim() && selectedChat) {
+      const receiverId = selectedChat.users.find(
+        (user) => user !== currentUser._id
+      );
+
+      if (!receiverId) {
+        console.error('Receiver ID is undefined');
+        return;
+      }
 
       const messageData = {
         senderId: currentUser._id,
-        receiverId,
+        receiverId: receiverId,
         chatId: selectedChat._id,
         content: newMessage,
         senderName: currentUser.name
       };
 
       try {
-        await axios.post(
+        const response = await axios.post(
           'https://platz-ua-back.onrender.com/api/chat/messages',
           messageData
         );
+
+        setMessages((prevMessages) => [...prevMessages, response.data]);
+
         socket.emit('chat message', {
           ...messageData,
           chatId: selectedChat._id
         });
+
         setNewMessage('');
       } catch (error) {
-        console.error('Error sending message:', error);
+        console.error(
+          'Error sending message:',
+          error.response?.data || error.message
+        );
       }
     }
   };
