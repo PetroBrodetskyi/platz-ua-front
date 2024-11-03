@@ -40,8 +40,8 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
           </NavLink>
         </li>
         <li className={scss.item}>
-          <NavLink to="/messages" onClick={onClose}>
-            Мої повідомлення
+          <NavLink to="/chats" onClick={onClose}>
+            Мої чати
           </NavLink>
         </li>
         <li className={scss.item}>
@@ -54,7 +54,6 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
             Обрані
           </NavLink>
         </li>
-
         <li className={scss.item}>
           <ThemeSwitcher />
         </li>

@@ -1,6 +1,22 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+export const fetchChat = createAsyncThunk(
+  'chat/fetchChat',
+  async (chatId, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `https://platz-ua-back.onrender.com/api/chat/chats/${chatId}`
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || 'Не вдалося завантажити чат'
+      );
+    }
+  }
+);
+
 export const fetchChats = createAsyncThunk(
   'chat/fetchChats',
   async (userId, { rejectWithValue }) => {
@@ -42,6 +58,19 @@ const chatSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchChats.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchChat.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchChat.fulfilled, (state, action) => {
+        state.loading = false;
+        state.selectedChat = action.payload;
+        state.error = null;
+      })
+      .addCase(fetchChat.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

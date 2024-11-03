@@ -55,7 +55,7 @@ const ChatWindow = ({ chatId, currentUser, selectedChat }) => {
 
       const messageData = {
         senderId: currentUser._id,
-        receiverId: receiverId,
+        receiverId,
         chatId: selectedChat._id,
         content: newMessage,
         senderName: currentUser.name

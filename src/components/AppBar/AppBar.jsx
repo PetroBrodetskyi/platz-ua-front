@@ -34,6 +34,8 @@ const UserProductsPage = lazy(
 const UserProfilePage = lazy(
   () => import('../../pages/UserProfilePage/UserProfilePage')
 );
+const ChatPage = lazy(() => import('../../pages/ChatPage/ChatPage'));
+const ChatsPage = lazy(() => import('../../pages/ChatsPage/ChatsPage'));
 const MessagesPage = lazy(
   () => import('../../pages/MessagesPage/MessagesPage')
 );
@@ -75,6 +77,8 @@ const AppBar = () => {
     { path: '/user/:userId', element: <UserProductsPage /> },
     { path: '/user-profile/:userId', element: <UserProfilePage /> },
     { path: '/follow', element: <FollowPage /> },
+    { path: '/chats', element: <ChatsPage /> },
+    { path: '/chat/:chatId', element: <ChatPage /> },
     { path: '/messages', element: <MessagesPage /> },
     { path: '/how-it-works', element: <HowItWorksPage /> },
     { path: '/terms-of-service', element: <TermsOfServicePage /> },
