@@ -1,19 +1,63 @@
 .chat {
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+  gap: 10px;
 
   @include media-rules(desktop) {
     padding: 120px 40px;
+    width: 70%;
+  }
+
+  .header {
+    padding: 0 10px;
   }
 
   .messages {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 4px;
   }
 
   .item {
     display: flex;
     align-items: center;
     gap: 10px;
+    background-color: var(--grafite);
+    padding: 10px;
+    color: var(--white);
+
+    @include media-rules(desktop) {
+      border-radius: 4px;
+    }
+  }
+
+  .avatar {
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: var(--logo-shadow);
+    width: 50px;
+    height: 50px;
+  }
+
+  .timestamp {
+    font-size: 12px;
+  }
+
+  .textarea {
+    width: 100%;
+    resize: none;
+    font-family: var(--font-family);
+    padding: 8px;
+  }
+
+  .send {
+    display: flex;
+    padding: 10px;
+    justify-content: flex-end;
+
+    @include media-rules(desktop) {
+      padding: 0;
+    }
   }
 }

@@ -1,4 +1,8 @@
 import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { BsArrowLeft } from 'react-icons/bs';
+import Loader from '../../Loader';
+import SubmitButton from '../../SubmitButton';
 import axios from 'axios';
 import scss from './Chat.module.scss';
 
@@ -6,6 +10,7 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -62,29 +67,62 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
 
   return (
     <div className={scss.chat}>
-      <h3>Переписка</h3>
+      <div className={scss.header}>
+        <button onClick={() => navigate(-1)} className={scss.backButton}>
+          <BsArrowLeft size={24} /> Назад
+        </button>
+      </div>
+
       {loading ? (
-        <p>Завантаження повідомлень...</p>
+        <Loader />
       ) : messages.length === 0 ? (
         <p>Ця переписка порожня. Напишіть перше повідомлення!</p>
       ) : (
         <ul className={scss.messages}>
-          {messages.map((message) => (
-            <li key={message._id} className={scss.item}>
-              <strong>{message.senderName}: </strong>
-              <span>{message.content}</span>
-            </li>
-          ))}
+          {messages.map((message) => {
+            const isCurrentUser = message.senderId === currentUser._id;
+            const senderAvatar = isCurrentUser
+              ? currentUser.avatarURL
+              : chatPartner.avatarURL;
+            const senderId = isCurrentUser ? currentUser._id : chatPartner._id;
+
+            return (
+              <li
+                key={message._id}
+                className={`${scss.item} ${isCurrentUser ? scss.currentUser : scss.chatPartner}`}
+              >
+                <Link to={`/user/${senderId}`}>
+                  <img
+                    src={senderAvatar}
+                    alt={`${message.senderName} avatar`}
+                    className={scss.avatar}
+                  />
+                </Link>
+                <div className={scss.messageContent}>
+                  <Link to={`/user/${senderId}`} className={scss.senderName}>
+                    <strong>{message.senderName}: </strong>
+                  </Link>
+                  <p>{message.content}</p>
+                  <span className={scss.timestamp}>
+                    {new Date(message.createdAt).toLocaleString()}
+                  </span>
+                </div>
+              </li>
+            );
+          })}
         </ul>
       )}
       <div className={scss.inputContainer}>
-        <input
+        <textarea
           type="text"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           placeholder="Напишіть повідомлення..."
+          className={scss.textarea}
         />
-        <button onClick={sendMessage}>Відправити</button>
+        <div className={scss.send}>
+          <SubmitButton buttonText="Написати" onClick={sendMessage} />
+        </div>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import Chat from '../../components/Chats/Chat';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../redux/features/authSlice';
 import { useEffect, useState } from 'react';
+import Loader from '../../components/Loader';
 import axios from 'axios';
 
 const ChatPage = () => {
@@ -42,7 +43,7 @@ const ChatPage = () => {
   }, [chatId, currentUser]);
 
   if (!chatPartner) {
-    return <p>Завантаження даних співрозмовника...</p>;
+    return <Loader />;
   }
 
   return (

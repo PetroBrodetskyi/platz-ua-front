@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import Chats from '../../components/Chats/Chats';
 import scss from './ChatsPage.module.scss';
+import Loader from '../../components/Loader';
 import { selectCurrentUser } from '../../redux/features/authSlice';
 
 const ChatsPage = () => {
@@ -29,7 +30,8 @@ const ChatsPage = () => {
             return {
               ...userData,
               chatId: chat._id,
-              lastMessage: chat.lastMessage || 'Немає повідомлень'
+              lastMessage: chat.lastMessage || 'Немає повідомлень',
+              lastMessageCreatedAt: chat.createdAt
             };
           })
         );
@@ -59,7 +61,7 @@ const ChatsPage = () => {
   return (
     <div className={scss.chatsPage}>
       {loading ? (
-        <p>Завантаження чатів...</p>
+        <Loader />
       ) : chatPartners.length === 0 ? (
         <p>У вас немає чатів</p>
       ) : (
