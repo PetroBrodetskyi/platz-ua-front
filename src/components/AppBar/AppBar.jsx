@@ -36,9 +36,6 @@ const UserProfilePage = lazy(
 );
 const ChatPage = lazy(() => import('../../pages/ChatPage/ChatPage'));
 const ChatsPage = lazy(() => import('../../pages/ChatsPage/ChatsPage'));
-const MessagesPage = lazy(
-  () => import('../../pages/MessagesPage/MessagesPage')
-);
 const FollowPage = lazy(() => import('../../pages/FollowPage/FollowPage'));
 const HowItWorksPage = lazy(
   () => import('../../pages/HowItWorksPage/HowItWorksPage')
@@ -79,7 +76,6 @@ const AppBar = () => {
     { path: '/follow', element: <FollowPage /> },
     { path: '/chats', element: <ChatsPage /> },
     { path: '/chat/:chatId', element: <ChatPage /> },
-    { path: '/messages', element: <MessagesPage /> },
     { path: '/how-it-works', element: <HowItWorksPage /> },
     { path: '/terms-of-service', element: <TermsOfServicePage /> },
     { path: '/privacy-policy', element: <PrivacyPolicyPage /> },

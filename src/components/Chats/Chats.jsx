@@ -9,24 +9,26 @@ const Chats = ({ chatPartners }) => {
   };
 
   return (
-    <div className={scss.chatList}>
-      {chatPartners.map((partner) => (
-        <div
-          key={partner._id}
-          className={scss.chatPartner}
-          onClick={() => handleChatClick(partner.chatId)}
-        >
-          <img
-            src={partner.avatarURL || '/path/to/default/avatar.png'}
-            alt={`${partner.name}'s avatar`}
-            className={scss.avatar}
-          />
-          <div className={scss.chatInfo}>
-            <p className={scss.partnerName}>{partner.name}</p>
-            <p className={scss.lastMessage}>{partner.lastMessage}</p>
-          </div>
-        </div>
-      ))}
+    <div>
+      <ul className={scss.chatList}>
+        {chatPartners.map((partner) => (
+          <li
+            key={partner._id}
+            className={scss.chatPartner}
+            onClick={() => handleChatClick(partner.chatId)}
+          >
+            <img
+              src={partner.avatarURL || avatarPublicId}
+              alt={`${partner.name}'s avatar`}
+              className={scss.avatar}
+            />
+            <div className={scss.chatInfo}>
+              <p className={scss.partnerName}>{partner.name}</p>
+              <p className={scss.lastMessage}>{partner.lastMessage}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import {
   FaFacebook,
   FaInstagram,
@@ -9,6 +10,8 @@ import {
 } from 'react-icons/fa';
 import UserAvatars from '../../UserProducts/UserAvatars';
 import SubmitButton from '../../SubmitButton';
+import { selectCurrentUser } from '../../../redux/features/authSlice';
+import axios from 'axios';
 import scss from '../UserProducts.module.scss';
 
 const UserInfo = ({
@@ -20,6 +23,7 @@ const UserInfo = ({
   formattedDate
 }) => {
   const navigate = useNavigate();
+  const currentUser = useSelector(selectCurrentUser);
 
   const handleFollowersClick = useCallback(() => {
     navigate(`/follow`, { state: { tab: 'followers' } });
@@ -29,9 +33,22 @@ const UserInfo = ({
     navigate(`/follow`, { state: { tab: 'following' } });
   }, [navigate]);
 
-  const handleMessagesClick = useCallback(() => {
-    navigate('/messages', { state: { targetUserId: owner._id } });
-  }, [navigate, owner._id]);
+  const handleMessagesClick = useCallback(async () => {
+    if (!currentUser) {
+      console.error('Залогінений користувач не знайдений');
+      return;
+    }
+
+    try {
+      const { data: chat } = await axios.post(
+        'https://platz-ua-back.onrender.com/api/chat/chats',
+        { userId1: currentUser._id, userId2: owner._id }
+      );
+      navigate(`/chat/${chat._id}`);
+    } catch (error) {
+      console.error('Помилка при створенні або отриманні чату:', error);
+    }
+  }, [navigate, owner._id, currentUser]);
 
   return (
     <div className={scss.container}>

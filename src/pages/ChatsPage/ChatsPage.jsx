@@ -12,25 +12,19 @@ const ChatsPage = () => {
 
   useEffect(() => {
     if (!currentUser) {
-      console.log('Користувач не авторизований або дані ще не завантажено');
       return;
     }
 
     const fetchChats = async () => {
-      console.log(
-        `Завантаження чатів для користувача з ID: ${currentUser._id}`
-      );
       try {
         const { data } = await axios.get(
           `https://platz-ua-back.onrender.com/api/chat/chats?userId=${currentUser._id}`
         );
-        console.log('Отримані чати:', data);
 
         const partners = await Promise.all(
           data.map(async (chat) => {
-            const chatPartnerId = chat.users.find(
-              (userId) => userId !== currentUser._id
-            );
+            const chatPartnerId =
+              chat.user1 === currentUser._id ? chat.user2 : chat.user1;
             const userData = await fetchUserById(chatPartnerId);
             return {
               ...userData,
@@ -53,7 +47,6 @@ const ChatsPage = () => {
         const { data } = await axios.get(
           `https://platz-ua-back.vercel.app/api/users/${userId}`
         );
-        console.log('Отримані дані співрозмовника:', data);
         return data;
       } catch (error) {
         console.error('Помилка отримання даних користувача:', error);
@@ -65,7 +58,6 @@ const ChatsPage = () => {
 
   return (
     <div className={scss.chatsPage}>
-      <h1>Мої чати</h1>
       {loading ? (
         <p>Завантаження чатів...</p>
       ) : chatPartners.length === 0 ? (

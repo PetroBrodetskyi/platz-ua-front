@@ -25,7 +25,7 @@ const FollowersList = ({
             <li key={follower._id} className={scss.item}>
               <div className={scss.user}>
                 <img
-                  src={follower.avatarURL || 'default_avatar.png'}
+                  src={follower.avatarURL || avatarPublicId}
                   alt={`${follower.name}'s avatar`}
                   className={scss.avatar}
                   onClick={() => handleUserClick(follower._id)}

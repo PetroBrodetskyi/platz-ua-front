@@ -1,11 +1,30 @@
 .chatList {
-  padding: 120px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @include media-rules(tablet) {
+    padding: 120px 40px;
+  }
 }
 
 .chatPartner {
   display: flex;
   align-items: center;
   gap: 10px;
+  border: 1px solid var(--dark-grey);
+  padding: 10px;
+  border-radius: 4px;
+
+  cursor: pointer;
+
+  @include media-rules(desktop) {
+    width: 70%;
+  }
+
+  .partnerName {
+    font-weight: 600;
+  }
 
   .avatar {
     border-radius: 50%;
