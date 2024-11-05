@@ -1,82 +1,93 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const fetchChat = createAsyncThunk(
-  'chat/fetchChat',
-  async (chatId, { rejectWithValue }) => {
-    try {
-      const response = await axios.get(
-        `https://platz-ua-back.onrender.com/api/chat/chats/${chatId}`
-      );
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(
-        error.response?.data || 'Не вдалося завантажити чат'
-      );
-    }
+const initialState = {
+  messages: [],
+  loading: false,
+  error: null
+};
+
+export const fetchMessages = createAsyncThunk(
+  'chat/fetchMessages',
+  async (chatId) => {
+    const response = await axios.get(
+      `https://platz-ua-back.vercel.app/api/chat/messages?chatId=${chatId}`
+    );
+    return response.data;
   }
 );
 
-export const fetchChats = createAsyncThunk(
-  'chat/fetchChats',
-  async (userId, { rejectWithValue }) => {
-    try {
-      const response = await axios.get(
-        `https://platz-ua-back.onrender.com/api/chat/chats?userId=${userId}`
-      );
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(
-        error.response?.data || 'Не вдалося завантажити чати'
-      );
-    }
+export const sendMessage = createAsyncThunk(
+  'chat/sendMessage',
+  async (messageData) => {
+    const response = await axios.post(
+      'https://platz-ua-back.vercel.app/api/chat/messages',
+      messageData
+    );
+    return response.data;
+  }
+);
+
+export const editMessage = createAsyncThunk(
+  'chat/editMessage',
+  async ({ messageId, content }) => {
+    const response = await axios.patch(
+      `https://platz-ua-back.vercel.app/api/chat/messages/${messageId}`,
+      { content }
+    );
+    return response.data;
+  }
+);
+
+export const deleteMessage = createAsyncThunk(
+  'chat/deleteMessage',
+  async (messageId) => {
+    await axios.delete(
+      `https://platz-ua-back.vercel.app/api/chat/messages/${messageId}`
+    );
+    return messageId;
   }
 );
 
 const chatSlice = createSlice({
   name: 'chat',
-  initialState: {
-    chats: [],
-    loading: false,
-    error: null,
-    selectedChat: null
-  },
-  reducers: {
-    selectChat: (state, action) => {
-      state.selectedChat = action.payload;
-    }
-  },
+  initialState,
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchChats.pending, (state) => {
+      .addCase(fetchMessages.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchChats.fulfilled, (state, action) => {
+      .addCase(fetchMessages.fulfilled, (state, action) => {
         state.loading = false;
-        state.chats = action.payload;
-        state.error = null;
+        state.messages = action.payload;
       })
-      .addCase(fetchChats.rejected, (state, action) => {
+      .addCase(fetchMessages.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.error.message;
       })
-      .addCase(fetchChat.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+      .addCase(sendMessage.fulfilled, (state, action) => {
+        state.messages.push(action.payload);
       })
-      .addCase(fetchChat.fulfilled, (state, action) => {
-        state.loading = false;
-        state.selectedChat = action.payload;
-        state.error = null;
+      .addCase(editMessage.fulfilled, (state, action) => {
+        const index = state.messages.findIndex(
+          (msg) => msg._id === action.payload._id
+        );
+        if (index !== -1) {
+          state.messages[index].content = action.payload.content;
+        }
       })
-      .addCase(fetchChat.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
+      .addCase(deleteMessage.fulfilled, (state, action) => {
+        state.messages = state.messages.filter(
+          (msg) => msg._id !== action.payload
+        );
       });
   }
 });
 
-export const { selectChat } = chatSlice.actions;
+export const selectMessages = (state) => state.chat.messages;
+export const selectLoading = (state) => state.chat.loading;
+export const selectError = (state) => state.chat.error;
 
 export default chatSlice.reducer;

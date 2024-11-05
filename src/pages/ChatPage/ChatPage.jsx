@@ -22,7 +22,7 @@ const ChatPage = () => {
     const fetchChatData = async () => {
       try {
         const { data } = await axios.get(
-          `https://platz-ua-back.onrender.com/api/chat/chats/${chatId}`,
+          `https://platz-ua-back.vercel.app/api/chat/chats/${chatId}`,
           {
             headers: {
               Authorization: `Bearer ${currentUser.token}`

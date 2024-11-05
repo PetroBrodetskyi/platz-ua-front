@@ -19,7 +19,7 @@ const ChatsPage = () => {
     const fetchChats = async () => {
       try {
         const { data } = await axios.get(
-          `https://platz-ua-back.onrender.com/api/chat/chats?userId=${currentUser._id}`
+          `https://platz-ua-back.vercel.app/api/chat/chats?userId=${currentUser._id}`
         );
 
         const partners = await Promise.all(
@@ -31,7 +31,7 @@ const ChatsPage = () => {
               ...userData,
               chatId: chat._id,
               lastMessage: chat.lastMessage || 'Немає повідомлень',
-              lastMessageCreatedAt: chat.createdAt
+              lastMessageUpdatedAt: chat.updatedAt
             };
           })
         );

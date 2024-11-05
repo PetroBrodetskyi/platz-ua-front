@@ -29,7 +29,7 @@ const Chats = ({ chatPartners }) => {
               <p className={scss.partnerName}>{partner.name}</p>
               <p className={scss.lastMessage}>{partner.lastMessage}</p>
               <p className={scss.timestamp}>
-                {formatDistanceToNow(new Date(partner.lastMessageCreatedAt), {
+                {formatDistanceToNow(new Date(partner.lastMessageUpdatedAt), {
                   addSuffix: true,
                   locale: uk
                 })}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BsArrowLeft } from 'react-icons/bs';
+import { BsArrowLeft, BsThreeDots } from 'react-icons/bs';
 import Loader from '../../Loader';
 import SubmitButton from '../../SubmitButton';
 import axios from 'axios';
@@ -10,6 +10,8 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(true);
+  const [editingMessageId, setEditingMessageId] = useState(null);
+  const [editingContent, setEditingContent] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,7 +23,7 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
 
       try {
         const { data } = await axios.get(
-          `https://platz-ua-back.onrender.com/api/chat/messages?chatId=${chatId}`
+          `https://platz-ua-back.vercel.app/api/chat/messages?chatId=${chatId}`
         );
         setMessages(data);
       } catch (error) {
@@ -46,7 +48,7 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
 
       try {
         const response = await axios.post(
-          'https://platz-ua-back.onrender.com/api/chat/messages',
+          'https://platz-ua-back.vercel.app/api/chat/messages',
           messageData
         );
 
@@ -62,6 +64,51 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
           error.response?.data || error.message
         );
       }
+    }
+  };
+
+  const editMessage = async (messageId) => {
+    if (editingContent.trim()) {
+      try {
+        const response = await axios.patch(
+          `https://platz-ua-back.vercel.app/api/chat/messages/${messageId}`,
+          { content: editingContent }
+        );
+
+        if (response.status === 200) {
+          setMessages((prevMessages) =>
+            prevMessages.map((msg) =>
+              msg._id === messageId ? { ...msg, content: editingContent } : msg
+            )
+          );
+          setEditingMessageId(null);
+          setEditingContent('');
+        }
+      } catch (error) {
+        console.error(
+          'Error editing message:',
+          error.response?.data || error.message
+        );
+      }
+    }
+  };
+
+  const deleteMessage = async (messageId) => {
+    try {
+      const response = await axios.delete(
+        `https://platz-ua-back.vercel.app/api/chat/messages/${messageId}`
+      );
+
+      if (response.status === 200) {
+        setMessages((prevMessages) =>
+          prevMessages.filter((msg) => msg._id !== messageId)
+        );
+      }
+    } catch (error) {
+      console.error(
+        'Error deleting message:',
+        error.response?.data || error.message
+      );
     }
   };
 
@@ -102,11 +149,46 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
                   <Link to={`/user/${senderId}`} className={scss.senderName}>
                     <strong>{message.senderName}: </strong>
                   </Link>
-                  <p>{message.content}</p>
-                  <span className={scss.timestamp}>
-                    {new Date(message.createdAt).toLocaleString()}
-                  </span>
+                  {editingMessageId === message._id ? (
+                    <div>
+                      <textarea
+                        value={editingContent}
+                        onChange={(e) => setEditingContent(e.target.value)}
+                        placeholder="Редагуйте повідомлення..."
+                      />
+                      <button onClick={() => editMessage(message._id)}>
+                        Зберегти
+                      </button>
+                      <button onClick={() => setEditingMessageId(null)}>
+                        Скасувати
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <p>{message.content}</p>
+                      <span className={scss.timestamp}>
+                        {new Date(message.createdAt).toLocaleString()}
+                      </span>
+                      {isCurrentUser && (
+                        <BsThreeDots
+                          onClick={() => {
+                            setEditingMessageId(message._id);
+                            setEditingContent(message.content);
+                          }}
+                          className={scss.dots}
+                        />
+                      )}
+                    </>
+                  )}
                 </div>
+                {isCurrentUser && (
+                  <button
+                    onClick={() => deleteMessage(message._id)}
+                    className={scss.deleteButton}
+                  >
+                    Видалити
+                  </button>
+                )}
               </li>
             );
           })}
