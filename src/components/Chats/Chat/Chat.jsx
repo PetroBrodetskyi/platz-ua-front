@@ -1,42 +1,38 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BsArrowLeft, BsThreeDots } from 'react-icons/bs';
+import { BsArrowLeft } from 'react-icons/bs';
+import { CiMenuKebab } from 'react-icons/ci';
 import Loader from '../../Loader';
 import SubmitButton from '../../SubmitButton';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  fetchMessages,
+  sendMessage,
+  editMessage,
+  deleteMessage,
+  selectMessages,
+  selectLoading
+} from '../../../redux/features/chatSlice';
 import scss from './Chat.module.scss';
 
 const Chat = ({ chatId, currentUser, chatPartner }) => {
-  const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
-  const [loading, setLoading] = useState(true);
   const [editingMessageId, setEditingMessageId] = useState(null);
   const [editingContent, setEditingContent] = useState('');
+  const [menuVisible, setMenuVisible] = useState(null);
+  const dispatch = useDispatch();
+  const messages = useSelector(selectMessages);
+  const loading = useSelector(selectLoading);
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchMessages = async () => {
-      if (!chatId) {
-        console.error('chatId не визначений.');
-        return;
-      }
+    if (chatId) {
+      dispatch(fetchMessages(chatId));
+    }
+  }, [chatId, dispatch]);
 
-      try {
-        const { data } = await axios.get(
-          `https://platz-ua-back.vercel.app/api/chat/messages?chatId=${chatId}`
-        );
-        setMessages(data);
-      } catch (error) {
-        console.error('Помилка завантаження повідомлень:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchMessages();
-  }, [chatId]);
-
-  const sendMessage = async () => {
+  const handleSendMessage = () => {
     if (newMessage.trim()) {
       const messageData = {
         senderId: currentUser._id,
@@ -45,71 +41,36 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
         content: newMessage,
         senderName: currentUser.name
       };
-
-      try {
-        const response = await axios.post(
-          'https://platz-ua-back.vercel.app/api/chat/messages',
-          messageData
-        );
-
-        if (response.status === 201) {
-          setMessages((prevMessages) => [...prevMessages, response.data]);
-          setNewMessage('');
-        } else {
-          console.error('Unexpected response:', response);
-        }
-      } catch (error) {
-        console.error(
-          'Error sending message:',
-          error.response?.data || error.message
-        );
-      }
+      dispatch(sendMessage(messageData));
+      setNewMessage('');
     }
   };
 
-  const editMessage = async (messageId) => {
+  const handleEditMessage = (messageId) => {
     if (editingContent.trim()) {
-      try {
-        const response = await axios.patch(
-          `https://platz-ua-back.vercel.app/api/chat/messages/${messageId}`,
-          { content: editingContent }
-        );
-
-        if (response.status === 200) {
-          setMessages((prevMessages) =>
-            prevMessages.map((msg) =>
-              msg._id === messageId ? { ...msg, content: editingContent } : msg
-            )
-          );
-          setEditingMessageId(null);
-          setEditingContent('');
-        }
-      } catch (error) {
-        console.error(
-          'Error editing message:',
-          error.response?.data || error.message
-        );
-      }
+      dispatch(editMessage({ messageId, content: editingContent }));
+      setEditingMessageId(null);
+      setEditingContent('');
     }
   };
 
-  const deleteMessage = async (messageId) => {
-    try {
-      const response = await axios.delete(
-        `https://platz-ua-back.vercel.app/api/chat/messages/${messageId}`
-      );
+  const handleDeleteMessage = (messageId) => {
+    dispatch(deleteMessage(messageId));
+  };
 
-      if (response.status === 200) {
-        setMessages((prevMessages) =>
-          prevMessages.filter((msg) => msg._id !== messageId)
-        );
-      }
-    } catch (error) {
-      console.error(
-        'Error deleting message:',
-        error.response?.data || error.message
-      );
-    }
+  const toggleMenu = (messageId) => {
+    setMenuVisible((prev) => (prev === messageId ? null : messageId));
+  };
+
+  const handleMenuEdit = (messageId) => {
+    setEditingMessageId(messageId);
+    setEditingContent(messages.find((msg) => msg._id === messageId).content);
+    setMenuVisible(null);
+  };
+
+  const handleMenuDelete = (messageId) => {
+    handleDeleteMessage(messageId);
+    setMenuVisible(null);
   };
 
   return (
@@ -138,57 +99,73 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
                 key={message._id}
                 className={`${scss.item} ${isCurrentUser ? scss.currentUser : scss.chatPartner}`}
               >
-                <Link to={`/user/${senderId}`}>
-                  <img
-                    src={senderAvatar}
-                    alt={`${message.senderName} avatar`}
-                    className={scss.avatar}
-                  />
-                </Link>
-                <div className={scss.messageContent}>
-                  <Link to={`/user/${senderId}`} className={scss.senderName}>
-                    <strong>{message.senderName}: </strong>
-                  </Link>
-                  {editingMessageId === message._id ? (
-                    <div>
-                      <textarea
-                        value={editingContent}
-                        onChange={(e) => setEditingContent(e.target.value)}
-                        placeholder="Редагуйте повідомлення..."
+                <div>
+                  <div className={scss.messageContent}>
+                    <Link to={`/user/${senderId}`}>
+                      <img
+                        src={senderAvatar}
+                        alt={`${message.senderName} avatar`}
+                        className={scss.avatar}
                       />
-                      <button onClick={() => editMessage(message._id)}>
-                        Зберегти
-                      </button>
-                      <button onClick={() => setEditingMessageId(null)}>
-                        Скасувати
-                      </button>
-                    </div>
-                  ) : (
-                    <>
-                      <p>{message.content}</p>
-                      <span className={scss.timestamp}>
-                        {new Date(message.createdAt).toLocaleString()}
-                      </span>
-                      {isCurrentUser && (
-                        <BsThreeDots
-                          onClick={() => {
-                            setEditingMessageId(message._id);
-                            setEditingContent(message.content);
-                          }}
-                          className={scss.dots}
-                        />
+                    </Link>
+
+                    <div className={scss.message}>
+                      <Link
+                        to={`/user/${senderId}`}
+                        className={scss.senderName}
+                      >
+                        <strong>{message.senderName}: </strong>
+                      </Link>
+                      {editingMessageId === message._id ? (
+                        <div className={scss.editContainer}>
+                          <textarea
+                            value={editingContent}
+                            onChange={(e) => setEditingContent(e.target.value)}
+                            placeholder="Редагуйте повідомлення..."
+                            className={scss.editMessage}
+                          />
+                          <div>
+                            <button
+                              onClick={() => handleEditMessage(message._id)}
+                            >
+                              Зберегти
+                            </button>
+                            <button onClick={() => setEditingMessageId(null)}>
+                              Скасувати
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className={scss.message}>
+                          <p className={scss.text}>{message.content}</p>
+                          <span className={scss.timestamp}>
+                            {new Date(message.createdAt).toLocaleString()}
+                          </span>
+                        </div>
                       )}
-                    </>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  {isCurrentUser && (
+                    <div className={scss.menuWrapper}>
+                      <CiMenuKebab
+                        onClick={() => toggleMenu(message._id)}
+                        className={scss.icon}
+                      />
+                      {menuVisible === message._id && (
+                        <div className={scss.menu}>
+                          <button onClick={() => handleMenuEdit(message._id)}>
+                            Редагувати
+                          </button>
+                          <button onClick={() => handleMenuDelete(message._id)}>
+                            Видалити
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   )}
                 </div>
-                {isCurrentUser && (
-                  <button
-                    onClick={() => deleteMessage(message._id)}
-                    className={scss.deleteButton}
-                  >
-                    Видалити
-                  </button>
-                )}
               </li>
             );
           })}
@@ -203,7 +180,7 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
           className={scss.textarea}
         />
         <div className={scss.send}>
-          <SubmitButton buttonText="Написати" onClick={sendMessage} />
+          <SubmitButton buttonText="Написати" onClick={handleSendMessage} />
         </div>
       </div>
     </div>
