@@ -10,37 +10,71 @@ const ChatPage = () => {
   const { chatId } = useParams();
   const currentUser = useSelector(selectCurrentUser);
   const [chatPartner, setChatPartner] = useState(null);
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchChatPartner = async () => {
+    if (!currentUser) {
+      setError('Будь ласка, увійдіть, щоб переглянути цей чат.');
+      return;
+    }
+
+    const fetchChatData = async () => {
       try {
         const { data } = await axios.get(
-          `https://platz-ua-back.onrender.com/api/chat/chats/${chatId}`
+          `https://platz-ua-back.onrender.com/api/chat/chats/${chatId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${currentUser.token}`
+            }
+          }
         );
 
         if (!data) {
-          throw new Error('Chat data is not available.');
+          throw new Error('Дані чату недоступні.');
         }
+
+        if (![data.user1, data.user2].includes(currentUser._id)) {
+          setError('У вас немає доступу до цього чату.');
+          setIsAuthorized(false);
+          return;
+        }
+
+        setIsAuthorized(true);
 
         const partnerId =
           data.user1 === currentUser._id ? data.user2 : data.user1;
 
         const partnerData = await axios.get(
-          `https://platz-ua-back.vercel.app/api/users/${partnerId}`
+          `https://platz-ua-back.vercel.app/api/users/${partnerId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${currentUser.token}`
+            }
+          }
         );
 
         if (!partnerData.data) {
-          throw new Error('Chat partner data is not available.');
+          throw new Error('Дані про партнера чату недоступні.');
         }
 
         setChatPartner(partnerData.data);
-      } catch (error) {
-        console.error('Error fetching chat partner:', error);
+      } catch (err) {
+        console.error('Помилка при завантаженні даних чату:', err);
+        setError('Не вдалося завантажити дані чату.');
       }
     };
 
-    fetchChatPartner();
+    fetchChatData();
   }, [chatId, currentUser]);
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
+  if (!isAuthorized) {
+    return <p>Доступ заборонено</p>;
+  }
 
   if (!chatPartner) {
     return <Loader />;

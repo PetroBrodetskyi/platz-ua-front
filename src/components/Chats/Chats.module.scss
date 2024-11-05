@@ -30,12 +30,11 @@
   background-color: var(--grafite);
   padding: 10px;
   color: var(--white);
+  cursor: pointer;
 
   @include media-rules(desktop) {
     border-radius: 4px;
   }
-
-  cursor: pointer;
 
   @include media-rules(desktop) {
     width: 70%;
