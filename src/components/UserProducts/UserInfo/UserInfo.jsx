@@ -41,7 +41,7 @@ const UserInfo = ({
 
     try {
       const { data: chat } = await axios.post(
-        'https://platz-ua-back.onrender.com/api/chat/chats',
+        'https://platz-ua-back.vercel.app/api/chat/chats',
         { userId1: currentUser._id, userId2: owner._id }
       );
       navigate(`/chat/${chat._id}`);
