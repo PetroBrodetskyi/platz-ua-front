@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import ThemeSwitcher from '../ThemeSwitcher';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/features/authSlice';
 import Notification from '../Notification';
 import scss from './UserMenu.module.scss';
@@ -11,6 +11,9 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showNotification, setShowNotification] = useState(false);
+
+  // Отримуємо поточного користувача з Redux
+  const currentUser = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -41,11 +44,13 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
               Мій профіль
             </NavLink>
           </li>
-          <li className={scss.item}>
-            <NavLink to="/user-ads" onClick={onClose}>
-              Мої оголошення
-            </NavLink>
-          </li>
+          {currentUser && (
+            <li className={scss.item}>
+              <NavLink to={`/user/${currentUser._id}`} onClick={onClose}>
+                Мої оголошення
+              </NavLink>
+            </li>
+          )}
           <li className={scss.item}>
             <NavLink to="/chats" onClick={onClose}>
               Мої чати

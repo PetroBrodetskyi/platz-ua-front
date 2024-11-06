@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { MdOutlineFavorite, MdOutlineFavoriteBorder } from 'react-icons/md';
 import { fetchProducts } from '../../redux/features/productsSlice';
 import { FaTrash } from 'react-icons/fa';
 import scss from './Favorites.module.scss';
@@ -31,7 +32,10 @@ const Favorites = () => {
     <div className={scss.favorite}>
       <h3>Обрані товари</h3>
       {favoriteProducts.length === 0 ? (
-        <p>У вас немає обраних товарів.</p>
+        <div className={scss.favoriteInfo}>
+          <p className={scss.text}>У вас немає обраних</p>
+          <MdOutlineFavoriteBorder className={scss.icon} />
+        </div>
       ) : (
         <ul>
           {favoriteProducts.map((product) => (

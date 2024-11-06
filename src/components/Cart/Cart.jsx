@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { PiShoppingCart } from 'react-icons/pi';
 import {
   removeFromCartBack,
   fetchProductsInCart,
@@ -73,7 +74,10 @@ const Cart = () => {
       {loadingRemove && <Loader />}
       <h3>Кошик</h3>
       {validCartItems.length === 0 ? (
-        <p>Ваш кошик порожній</p>
+        <div className={scss.cartInfo}>
+          <p className={scss.text}>Ваш кошик порожній</p>
+          <PiShoppingCart className={scss.icon} />
+        </div>
       ) : (
         validCartItems.map((item) => (
           <CartItem

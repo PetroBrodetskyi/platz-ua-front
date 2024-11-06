@@ -1,4 +1,7 @@
 .favorite {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   padding: 100px 40px;
 
   h1 {
@@ -17,5 +20,41 @@
       margin: 10px 0;
       font-size: 18px;
     }
+  }
+}
+
+.favoriteInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 200px;
+  height: 200px;
+  background-color: var(--grafite);
+  border-radius: 50%;
+
+  @include media-rules(notebook) {
+    gap: 20px;
+    width: 400px;
+    height: 400px;
+  }
+
+  .text {
+    font-size: 16px;
+    font-weight: 600;
+
+    @include media-rules(notebook) {
+      font-size: 24px;
+      font-weight: 600;
+    }
+  }
+}
+
+.icon {
+  font-size: 40px;
+
+  @include media-rules(notebook) {
+    font-size: 140px;
   }
 }
