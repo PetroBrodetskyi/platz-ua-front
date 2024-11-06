@@ -70,3 +70,29 @@
   background-color: var(--grafite);
   color: #fff;
 }
+
+.send {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  font-size: 14px;
+  width: 260px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--grafite);
+  margin-right: auto;
+  margin-left: auto;
+  color: #fff;
+  cursor: pointer;
+  @include transition(background-color);
+
+  &:hover {
+    background-color: var(--gold);
+  }
+
+  @include media-rules(notebook) {
+    width: auto;
+    font-weight: 600;
+    padding: 10px 20px;
+  }
+}

@@ -12,10 +12,12 @@ const ChatPage = () => {
   const [chatPartner, setChatPartner] = useState(null);
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!currentUser) {
       setError('Будь ласка, увійдіть, щоб переглянути цей чат.');
+      setIsLoading(false);
       return;
     }
 
@@ -37,6 +39,7 @@ const ChatPage = () => {
         if (![data.user1, data.user2].includes(currentUser._id)) {
           setError('У вас немає доступу до цього чату.');
           setIsAuthorized(false);
+          setIsLoading(false);
           return;
         }
 
@@ -62,11 +65,17 @@ const ChatPage = () => {
       } catch (err) {
         console.error('Помилка при завантаженні даних чату:', err);
         setError('Не вдалося завантажити дані чату.');
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchChatData();
   }, [chatId, currentUser]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   if (error) {
     return <p>{error}</p>;

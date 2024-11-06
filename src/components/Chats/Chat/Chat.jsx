@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BsArrowLeft } from 'react-icons/bs';
+import { MdOutlineArrowBackIosNew } from 'react-icons/md';
 import { CiMenuKebab } from 'react-icons/ci';
 import Loader from '../../Loader';
 import SubmitButton from '../../SubmitButton';
@@ -20,20 +20,38 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
   const [editingMessageId, setEditingMessageId] = useState(null);
   const [editingContent, setEditingContent] = useState('');
   const [menuVisible, setMenuVisible] = useState(null);
+  const menuRef = useRef(null);
   const dispatch = useDispatch();
   const messages = useSelector(selectMessages);
   const loading = useSelector(selectLoading);
-
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!currentUser || !chatPartner) {
+      navigate('/');
+      return;
+    }
+
     if (chatId) {
       dispatch(fetchMessages(chatId));
     }
-  }, [chatId, dispatch]);
+  }, [chatId, currentUser, chatPartner, dispatch, navigate]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setMenuVisible(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const handleSendMessage = () => {
-    if (newMessage.trim()) {
+    if (newMessage.trim() && currentUser && chatPartner) {
       const messageData = {
         senderId: currentUser._id,
         receiverId: chatPartner._id,
@@ -63,9 +81,12 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
   };
 
   const handleMenuEdit = (messageId) => {
-    setEditingMessageId(messageId);
-    setEditingContent(messages.find((msg) => msg._id === messageId).content);
-    setMenuVisible(null);
+    const message = messages.find((msg) => msg._id === messageId);
+    if (message) {
+      setEditingMessageId(messageId);
+      setEditingContent(message.content);
+      setMenuVisible(null);
+    }
   };
 
   const handleMenuDelete = (messageId) => {
@@ -73,11 +94,13 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
     setMenuVisible(null);
   };
 
+  if (!currentUser || !chatPartner) return null;
+
   return (
     <div className={scss.chat}>
       <div className={scss.header}>
         <button onClick={() => navigate(-1)} className={scss.backButton}>
-          <BsArrowLeft size={24} /> Назад
+          <MdOutlineArrowBackIosNew className={scss.icon} />
         </button>
       </div>
 
@@ -88,62 +111,60 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
       ) : (
         <ul className={scss.messages}>
           {messages.map((message) => {
-            const isCurrentUser = message.senderId === currentUser._id;
+            const isCurrentUser =
+              message.senderId === (currentUser && currentUser._id);
             const senderAvatar = isCurrentUser
               ? currentUser.avatarURL
-              : chatPartner.avatarURL;
-            const senderId = isCurrentUser ? currentUser._id : chatPartner._id;
+              : chatPartner?.avatarURL;
+            const senderId = isCurrentUser ? currentUser._id : chatPartner?._id;
 
             return (
               <li
                 key={message._id}
-                className={`${scss.item} ${isCurrentUser ? scss.currentUser : scss.chatPartner}`}
+                className={`${scss.item} ${
+                  isCurrentUser ? scss.currentUser : scss.chatPartner
+                }`}
               >
-                <div>
-                  <div className={scss.messageContent}>
-                    <Link to={`/user/${senderId}`}>
-                      <img
-                        src={senderAvatar}
-                        alt={`${message.senderName} avatar`}
-                        className={scss.avatar}
-                      />
-                    </Link>
+                <div className={scss.messageContent}>
+                  <Link to={`/user/${senderId}`}>
+                    <img
+                      src={senderAvatar || '/default-avatar.png'}
+                      alt={`${message.senderName} avatar`}
+                      className={scss.avatar}
+                    />
+                  </Link>
 
-                    <div className={scss.message}>
-                      <Link
-                        to={`/user/${senderId}`}
-                        className={scss.senderName}
-                      >
-                        <strong>{message.senderName}: </strong>
-                      </Link>
-                      {editingMessageId === message._id ? (
-                        <div className={scss.editContainer}>
-                          <textarea
-                            value={editingContent}
-                            onChange={(e) => setEditingContent(e.target.value)}
-                            placeholder="Редагуйте повідомлення..."
-                            className={scss.editMessage}
-                          />
-                          <div>
-                            <button
-                              onClick={() => handleEditMessage(message._id)}
-                            >
-                              Зберегти
-                            </button>
-                            <button onClick={() => setEditingMessageId(null)}>
-                              Скасувати
-                            </button>
-                          </div>
+                  <div className={scss.message}>
+                    <Link to={`/user/${senderId}`} className={scss.senderName}>
+                      <strong>{message.senderName} </strong>
+                    </Link>
+                    {editingMessageId === message._id ? (
+                      <div className={scss.editContainer}>
+                        <textarea
+                          value={editingContent}
+                          onChange={(e) => setEditingContent(e.target.value)}
+                          placeholder="Редагуйте повідомлення..."
+                          className={scss.editMessage}
+                        />
+                        <div className={scss.editButtons}>
+                          <button
+                            onClick={() => handleEditMessage(message._id)}
+                          >
+                            Зберегти
+                          </button>
+                          <button onClick={() => setEditingMessageId(null)}>
+                            Скасувати
+                          </button>
                         </div>
-                      ) : (
-                        <div className={scss.message}>
-                          <p className={scss.text}>{message.content}</p>
-                          <span className={scss.timestamp}>
-                            {new Date(message.createdAt).toLocaleString()}
-                          </span>
-                        </div>
-                      )}
-                    </div>
+                      </div>
+                    ) : (
+                      <div className={scss.message}>
+                        <p className={scss.text}>{message.content}</p>
+                        <span className={scss.timestamp}>
+                          {new Date(message.createdAt).toLocaleString()}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div>
@@ -154,11 +175,17 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
                         className={scss.icon}
                       />
                       {menuVisible === message._id && (
-                        <div className={scss.menu}>
-                          <button onClick={() => handleMenuEdit(message._id)}>
+                        <div ref={menuRef} className={scss.menu}>
+                          <button
+                            onClick={() => handleMenuEdit(message._id)}
+                            className={scss.btn}
+                          >
                             Редагувати
                           </button>
-                          <button onClick={() => handleMenuDelete(message._id)}>
+                          <button
+                            onClick={() => handleMenuDelete(message._id)}
+                            className={scss.btn}
+                          >
                             Видалити
                           </button>
                         </div>
