@@ -26,7 +26,6 @@ const SubmitButton = ({ buttonText, onClick }) => {
         </button>
       );
 
-    case 'Увійти':
     case 'Відправити':
       return (
         <button className={scss.button} type="button" onClick={onClick}>
@@ -34,6 +33,7 @@ const SubmitButton = ({ buttonText, onClick }) => {
         </button>
       );
 
+    case 'Увійти':
     case 'Стежити':
     case 'Відстежується':
     case 'Повідомлення':

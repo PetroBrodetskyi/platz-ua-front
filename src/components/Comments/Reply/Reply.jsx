@@ -90,20 +90,24 @@ const Reply = ({
     <div className={scss.replyContainer}>
       {replyTo === commentId && (
         <div className={scss.replyInput}>
-          <img
-            src={currentUser.avatarURL || <TbGhost className={scss.icon} />}
-            alt={currentUser.name || 'Анонім'}
-            className={scss.avatar}
-          />
-          <textarea
-            value={replyText}
-            onChange={(e) => setReplyText(e.target.value)}
-            placeholder="Ваша відповідь..."
-            className={scss.textarea}
-          />
-          <button className={scss.button} onClick={handleAddReply}>
-            Відправити
-          </button>
+          <div className={scss.avatarText}>
+            <img
+              src={currentUser.avatarURL || <TbGhost className={scss.icon} />}
+              alt={currentUser.name || 'Анонім'}
+              className={scss.avatar}
+            />
+            <textarea
+              value={replyText}
+              onChange={(e) => setReplyText(e.target.value)}
+              placeholder="Ваша відповідь..."
+              className={scss.textarea}
+            />
+          </div>
+          <div className={scss.actions}>
+            <button className={scss.button} onClick={handleAddReply}>
+              Відправити
+            </button>
+          </div>
         </div>
       )}
 
@@ -141,18 +145,20 @@ const Reply = ({
                     placeholder="Редагувати відповідь..."
                     className={scss.textarea}
                   />
-                  <button
-                    className={scss.button}
-                    onClick={() => handleEditReply(_id)}
-                  >
-                    Зберегти
-                  </button>
-                  <button
-                    className={scss.button}
-                    onClick={() => setEditing({ id: null, text: '' })}
-                  >
-                    Скасувати
-                  </button>
+                  <div className={scss.actions}>
+                    <button
+                      className={scss.button}
+                      onClick={() => handleEditReply(_id)}
+                    >
+                      Зберегти
+                    </button>
+                    <button
+                      className={scss.button}
+                      onClick={() => setEditing({ id: null, text: '' })}
+                    >
+                      Скасувати
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <>

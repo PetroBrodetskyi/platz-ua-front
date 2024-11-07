@@ -9,6 +9,7 @@ import {
   deleteComment
 } from '../../../redux/features/commentsSlice.js';
 import Notification from '../../Notification';
+import SubmitButton from '../../SubmitButton';
 import { TbGhost } from 'react-icons/tb';
 import { LuArrowUpCircle } from 'react-icons/lu';
 import { nanoid } from 'nanoid';
@@ -192,7 +193,7 @@ const CommentsModal = ({ show, onToggle, productId }) => {
           ) : (
             <div className={scss.loginPrompt}>
               <p>Увійдіть, щоб відправити повідомлення.</p>
-              <button onClick={handleLoginClick}>Увійти</button>
+              <SubmitButton buttonText={'Увійти'} onClick={handleLoginClick} />
             </div>
           )}
         </div>

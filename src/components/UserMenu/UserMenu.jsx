@@ -12,7 +12,6 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
   const navigate = useNavigate();
   const [showNotification, setShowNotification] = useState(false);
 
-  // Отримуємо поточного користувача з Redux
   const currentUser = useSelector((state) => state.auth.user);
 
   useEffect(() => {

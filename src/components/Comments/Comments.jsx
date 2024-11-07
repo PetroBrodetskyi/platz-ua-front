@@ -8,6 +8,7 @@ import {
   editComment
 } from '../../redux/features/commentsSlice';
 import Notification from '../Notification';
+import SubmitButton from '../SubmitButton';
 import { TbGhost } from 'react-icons/tb';
 import { LuArrowUpCircle } from 'react-icons/lu';
 import { nanoid } from 'nanoid';
@@ -106,105 +107,114 @@ const Comments = ({ productId }) => {
           ))
         ) : commentsForProduct.length ? (
           commentsForProduct.map(({ _id, user, text, createdAt, replies }) => (
-            <div key={_id || nanoid()} className={scss.firstComment}>
-              <div
-                className={scss.userContainer}
-                onClick={() => user && handleUserClick(user._id)}
-                style={{ cursor: user ? 'pointer' : 'default' }}
-              >
-                {user?.avatarURL ? (
-                  <img
-                    src={user.avatarURL}
-                    alt={user.name}
-                    className={scss.avatar}
-                  />
+            <div key={_id || nanoid()} className={scss.commentsContainer}>
+              <div className={scss.comment}>
+                <div
+                  className={scss.userContainer}
+                  onClick={() => user && handleUserClick(user._id)}
+                  style={{ cursor: user ? 'pointer' : 'default' }}
+                >
+                  {user?.avatarURL ? (
+                    <img
+                      src={user.avatarURL}
+                      alt={user.name}
+                      className={scss.avatar}
+                    />
+                  ) : (
+                    <div className={scss.iconContainer}>
+                      <TbGhost className={scss.icon} />
+                    </div>
+                  )}
+                  <div className={scss.nameContainer}>
+                    <h4>{user ? user.name : 'Видалений акаунт'}</h4>
+                    <p className={scss.date}>
+                      {formatDistanceToNow(new Date(createdAt), {
+                        addSuffix: true,
+                        locale: uk
+                      })}
+                    </p>
+                  </div>
+                </div>
+
+                {editingCommentId === _id ? (
+                  <div className={scss.editForm}>
+                    <div>
+                      <textarea
+                        value={editingText}
+                        onChange={(e) => setEditingText(e.target.value)}
+                        placeholder="Редагувати коментар..."
+                        className={scss.textarea}
+                      />
+                    </div>
+                    <div className={scss.actions}>
+                      <button
+                        className={scss.button}
+                        onClick={() => handleEditComment(_id)}
+                      >
+                        Зберегти
+                      </button>
+                      <button
+                        className={scss.button}
+                        onClick={() => {
+                          setEditingCommentId(null);
+                          setEditingText('');
+                        }}
+                      >
+                        Скасувати
+                      </button>
+                    </div>
+                  </div>
                 ) : (
-                  <div className={scss.iconContainer}>
-                    <TbGhost className={scss.icon} />
-                  </div>
+                  <>
+                    <p className={scss.text}>{text}</p>
+                    <div className={scss.actions}>
+                      {currentUser?._id === user?._id && (
+                        <>
+                          <button
+                            className={scss.button}
+                            onClick={() => {
+                              setEditingCommentId(_id);
+                              setEditingText(text);
+                            }}
+                          >
+                            Редагувати
+                          </button>
+                          <button
+                            className={scss.button}
+                            onClick={() => handleDeleteComment(_id)}
+                          >
+                            Видалити
+                          </button>
+                        </>
+                      )}
+                      {currentUser && (
+                        <button
+                          className={scss.button}
+                          onClick={() => setReplyTo(_id)}
+                        >
+                          Відповісти
+                        </button>
+                      )}
+                    </div>
+                  </>
                 )}
-                <div className={scss.nameContainer}>
-                  <h4>{user ? user.name : 'Видалений акаунт'}</h4>
-                  <p className={scss.date}>
-                    {formatDistanceToNow(new Date(createdAt), {
-                      addSuffix: true,
-                      locale: uk
-                    })}
-                  </p>
-                </div>
               </div>
-
-              {editingCommentId === _id ? (
-                <div className={scss.editForm}>
-                  <textarea
-                    value={editingText}
-                    onChange={(e) => setEditingText(e.target.value)}
-                    placeholder="Редагувати коментар..."
-                    className={scss.textarea}
-                  />
-                  <button
-                    className={scss.button}
-                    onClick={() => handleEditComment(_id)}
-                  >
-                    Зберегти
-                  </button>
-                  <button
-                    className={scss.button}
-                    onClick={() => {
-                      setEditingCommentId(null);
-                      setEditingText('');
-                    }}
-                  >
-                    Скасувати
-                  </button>
-                </div>
-              ) : (
-                <>
-                  <p className={scss.text}>{text}</p>
-                  <div className={scss.dateTime}>
-                    {currentUser?._id === user?._id && (
-                      <>
-                        <button
-                          className={scss.button}
-                          onClick={() => {
-                            setEditingCommentId(_id);
-                            setEditingText(text);
-                          }}
-                        >
-                          Редагувати
-                        </button>
-                        <button
-                          className={scss.button}
-                          onClick={() => handleDeleteComment(_id)}
-                        >
-                          Видалити
-                        </button>
-                      </>
-                    )}
-                    <button
-                      className={scss.button}
-                      onClick={() => setReplyTo(_id)}
-                    >
-                      Відповісти
-                    </button>
-                  </div>
-                </>
-              )}
-
-              <Reply
-                replies={replies}
-                productId={productId}
-                commentId={_id}
-                currentUser={currentUser}
-                onUserClick={handleUserClick}
-                onSetNotification={setNotification}
-                replyTo={replyTo}
-                setReplyTo={setReplyTo}
-              />
+              <div className={scss.replies}>
+                <Reply
+                  replies={replies}
+                  productId={productId}
+                  commentId={_id}
+                  currentUser={currentUser}
+                  onUserClick={handleUserClick}
+                  onSetNotification={setNotification}
+                  replyTo={replyTo}
+                  setReplyTo={setReplyTo}
+                />
+              </div>
             </div>
           ))
         ) : (
-          <p>Немає коментарів.</p>
+          <p>Немає коментарів</p>
         )}
       </div>
 
@@ -234,7 +244,7 @@ const Comments = ({ productId }) => {
       ) : (
         <div className={scss.loginPrompt}>
           <p>Увійдіть, щоб додати коментарі</p>
-          <button onClick={handleLoginClick}>Увійти</button>
+          <SubmitButton buttonText={'Увійти'} onClick={handleLoginClick} />
         </div>
       )}
     </div>

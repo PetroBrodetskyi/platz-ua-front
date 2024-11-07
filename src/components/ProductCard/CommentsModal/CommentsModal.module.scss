@@ -160,6 +160,12 @@
   box-shadow: var(--logo-shadow);
 }
 
+.loginPrompt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .icon {
   display: flex;
   justify-content: center;
