@@ -11,6 +11,7 @@
   margin-left: auto;
   color: #fff;
   cursor: pointer;
+  @include transition(background-color);
 
   &:hover {
     background-color: var(--gold);
@@ -21,6 +22,17 @@
     width: 100%;
     font-weight: 600;
   }
+}
+
+.enter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--red);
+  padding: 8px;
+  font-size: 14px;
+  width: 160px;
+  border-radius: 4px;
 }
 
 .search {

@@ -10,16 +10,14 @@
 
   @include media-rules(notebook) {
     gap: 8px;
-    flex-direction: column;
   }
 }
 
 .productItem {
   display: flex;
   flex-direction: column;
-  background-color: var(--white);
-  border: 1px solid var(--light-grey);
   min-width: 182px;
+  background-color: var(--grafite);
   position: relative;
   overflow: visible;
 
@@ -28,7 +26,6 @@
   flex: 1 1 calc(50% - 4px);
 
   @include media-rules(tablet) {
-    padding: 10px;
     flex-wrap: wrap;
   }
 
@@ -50,7 +47,6 @@
   flex-direction: column;
 
   @include media-rules(tablet) {
-    gap: 8px;
     flex-direction: column;
   }
 
@@ -159,11 +155,11 @@
     padding: 0 4px;
 
     @include media-rules(tablet) {
-      padding: 0;
+      padding: 10px;
     }
 
     @include media-rules(notebook) {
-      padding: 0;
+      padding: 10px;
     }
   }
 

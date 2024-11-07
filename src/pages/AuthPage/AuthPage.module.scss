@@ -3,14 +3,20 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 40px;
-  padding: 40px 0;
+  gap: 20px;
+  padding: 10px 0;
 
   @include media-rules(notebook) {
-    padding: 140px 40px;
-    flex-direction: row;
+    padding: 120px 40px;
+    gap: 40px;
     align-items: start;
   }
+}
+
+.title {
+  padding: 0 10px;
+  text-align: center;
+  margin: 0;
 }
 
 .formContainer {
@@ -18,14 +24,15 @@
   flex-direction: column;
   align-items: center;
   gap: 40px;
-  background-color: var(--white);
-  padding: 20px;
+  padding: 0 10px;
   border-radius: 4px;
   width: 100%;
 
   @include media-rules(notebook) {
-    width: 60%;
-    min-height: 840px;
+    width: 70%;
+    padding: 0;
+    flex-direction: row;
+    margin: 0 auto;
   }
 }
 
@@ -41,12 +48,9 @@
 }
 
 .registerText {
-  text-align: center;
-  font-weight: 600;
-}
-
-.cards {
-  @include media-rules(notebook) {
-    width: 25%;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }

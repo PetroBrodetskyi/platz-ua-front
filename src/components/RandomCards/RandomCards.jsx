@@ -89,7 +89,7 @@ const RandomCards = () => {
     if (products.length > 0 && randomProducts.length === 0) {
       const shuffled = [...products]
         .sort(() => 0.5 - Math.random())
-        .slice(0, 2);
+        .slice(0, 4);
       setRandomProducts(shuffled);
     }
   }, [products, randomProducts]);
