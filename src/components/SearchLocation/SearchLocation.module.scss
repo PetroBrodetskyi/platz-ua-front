@@ -32,9 +32,9 @@
       &.darkMode {
         background-color: var(--grafite);
         color: var(--white);
-        border-bottom: 2px solid var(--white);
-        border-top: 2px solid var(--white);
-        border-left: 2px solid var(--white);
+        border-bottom: 1px solid var(--white);
+        border-top: 1px solid var(--white);
+        border-left: 1px solid var(--white);
       }
 
       @include media-rules(tablet) {
@@ -57,23 +57,23 @@
       border-right: 2px solid var(--black);
       border-left: none;
       outline: none;
-      min-width: 200px;
+      width: auto;
 
       &.darkMode {
         background-color: var(--grafite);
         color: var(--white);
-        border-bottom: 2px solid var(--white);
-        border-top: 2px solid var(--white);
-        border-right: 2px solid var(--white);
+        border-bottom: 1px solid var(--white);
+        border-top: 1px solid var(--white);
+        border-right: 1px solid var(--white);
       }
 
       @include media-rules(tablet) {
-        min-width: 200px;
+        width: auto;
         padding: 10px 10px 10px 14px;
       }
 
       @include media-rules(notebook) {
-        width: 380px;
+        width: auto;
         padding: 10px 10px 10px 20px;
         font-size: 16px;
       }
