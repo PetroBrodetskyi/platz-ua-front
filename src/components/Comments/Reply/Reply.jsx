@@ -86,6 +86,11 @@ const Reply = ({
     [editing.text, dispatch, productId, commentId, onSetNotification]
   );
 
+  const handleCancelReply = () => {
+    setReplyText('');
+    setReplyTo(null);
+  };
+
   return (
     <div className={scss.replyContainer}>
       {replyTo === commentId && (
@@ -106,6 +111,9 @@ const Reply = ({
           <div className={scss.actions}>
             <button className={scss.button} onClick={handleAddReply}>
               Відправити
+            </button>
+            <button className={scss.button} onClick={handleCancelReply}>
+              Скасувати
             </button>
           </div>
         </div>
