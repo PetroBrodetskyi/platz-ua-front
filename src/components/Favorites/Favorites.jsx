@@ -6,6 +6,7 @@ import { fetchProducts } from '../../redux/features/productsSlice';
 import { FaTrash } from 'react-icons/fa';
 import scss from './Favorites.module.scss';
 import { toggleFavorite } from '../../redux/features/favoritesSlice';
+import RandomCards from '../RandomCards/RandomCards';
 
 const Favorites = () => {
   const dispatch = useDispatch();
@@ -32,9 +33,13 @@ const Favorites = () => {
     <div className={scss.favorite}>
       <h3>Обрані товари</h3>
       {favoriteProducts.length === 0 ? (
-        <div className={scss.favoriteInfo}>
-          <p className={scss.text}>У вас немає обраних</p>
-          <MdOutlineFavoriteBorder className={scss.icon} />
+        <div className={scss.favoriteEmpty}>
+          <div className={scss.favoriteInfo}>
+            <p className={scss.text}>У вас немає обраних</p>
+            <MdOutlineFavoriteBorder className={scss.icon} />
+          </div>
+          <h3>Вас можуть зацікавити</h3>
+          <RandomCards />
         </div>
       ) : (
         <ul>
