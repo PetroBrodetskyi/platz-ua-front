@@ -1,6 +1,8 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import EmojiPicker from 'emoji-picker-react';
+import { Theme } from 'emoji-picker-react';
 import {
   fetchComments,
   addComment,
@@ -9,7 +11,9 @@ import {
 } from '../../redux/features/commentsSlice';
 import Notification from '../Notification';
 import SubmitButton from '../SubmitButton';
+import Modal from '../Modal';
 import { TbGhost } from 'react-icons/tb';
+import { MdOutlineEmojiEmotions } from 'react-icons/md';
 import { LuArrowUpCircle } from 'react-icons/lu';
 import { nanoid } from 'nanoid';
 import scss from './Comments.module.scss';
@@ -37,6 +41,7 @@ const Comments = ({ productId }) => {
   const [editingText, setEditingText] = useState('');
   const [notification, setNotification] = useState('');
   const [replyTo, setReplyTo] = useState(null);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   useEffect(() => {
     dispatch(fetchComments(productId));
@@ -85,6 +90,11 @@ const Comments = ({ productId }) => {
       setEditingCommentId(null);
       setEditingText('');
     }
+  };
+
+  const onEmojiClick = (emojiData) => {
+    setNewComment((prevComment) => prevComment + emojiData.emoji);
+    setShowEmojiPicker(false);
   };
 
   const handleUserClick = (userId) => navigate(`/user/${userId}`);
@@ -239,14 +249,31 @@ const Comments = ({ productId }) => {
             placeholder="Додати коментар..."
             className={scss.textarea}
           />
-          <button className={scss.add} onClick={handleAddComment}>
-            <LuArrowUpCircle className={scss.icon} />
-          </button>
+          <div className={scss.emoji}>
+            <button onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
+              <MdOutlineEmojiEmotions className={scss.icon} />
+            </button>
+            <Modal
+              isOpen={showEmojiPicker}
+              onClose={() => setShowEmojiPicker(false)}
+            >
+              <div className={scss.emojiPickerContainer}>
+                <EmojiPicker
+                  onEmojiClick={onEmojiClick}
+                  emojiStyle="google"
+                  className={scss.EmojiPickerReact}
+                />
+              </div>
+            </Modal>
+            <button className={scss.add} onClick={handleAddComment}>
+              <LuArrowUpCircle className={scss.icon} />
+            </button>
+          </div>
         </div>
       ) : (
         <div className={scss.loginPrompt}>
           <p>Увійдіть, щоб додати коментарі</p>
-          <SubmitButton buttonText={'Увійти'} onClick={handleLoginClick} />
+          <SubmitButton buttonText="Увійти" onClick={handleLoginClick} />
         </div>
       )}
     </div>
