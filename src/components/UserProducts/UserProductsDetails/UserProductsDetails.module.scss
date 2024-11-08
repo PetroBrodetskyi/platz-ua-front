@@ -15,7 +15,6 @@ $padding-mobile: 10px;
   .namePrice {
     display: flex;
     justify-content: space-between;
-    align-items: center;
   }
 
   .title {
@@ -40,6 +39,18 @@ $padding-mobile: 10px;
 
     @include media-rules(notebook) {
       font-size: 16px;
+      height: 246px;
+      padding-right: 40px;
+      overflow-y: auto;
+
+      &::-webkit-scrollbar {
+        width: 4px;
+        background-color: var(--dark-bg);
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: var(--white);
+      }
     }
   }
 }

@@ -214,7 +214,9 @@ const Comments = ({ productId }) => {
             </div>
           ))
         ) : (
-          <p>Немає коментарів</p>
+          <p className={scss.noComments}>
+            Ви можете написати перший коментар або поставити запитання автору
+          </p>
         )}
       </div>
 
