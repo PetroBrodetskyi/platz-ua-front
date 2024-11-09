@@ -2,7 +2,8 @@ import {
   MdOutlinePhonelink,
   MdOutlineMapsHomeWork,
   MdOutlineToys,
-  MdEmojiFoodBeverage
+  MdEmojiFoodBeverage,
+  MdSportsBasketball
 } from 'react-icons/md';
 import { FaCar, FaCampground } from 'react-icons/fa';
 import { GiClothes } from 'react-icons/gi';
@@ -24,6 +25,7 @@ const categoryIcons = {
   іграшки: { icon: <MdOutlineToys />, label: 'Іграшки' },
   послуги: { icon: <RiCustomerService2Fill />, label: 'Послуги' },
   продукти: { icon: <MdEmojiFoodBeverage />, label: 'Продукти' },
+  спорт: { icon: <MdSportsBasketball />, label: 'Спорт' },
   default: { icon: <TbPoint />, label: 'Інше' }
 };
 
