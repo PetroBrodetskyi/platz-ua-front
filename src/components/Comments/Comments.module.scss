@@ -275,6 +275,7 @@
   align-items: center;
   cursor: pointer;
   font-size: 28px;
+  color: var(--white);
 
   @include media-rules(tablet) {
     font-size: 30px;

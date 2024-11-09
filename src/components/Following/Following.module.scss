@@ -29,13 +29,14 @@
     flex-shrink: 0;
 
     .avatar {
-      width: 54px;
-      height: 54px;
+      width: 64px;
+      height: 64px;
       border-radius: 50%;
       object-fit: cover;
     }
 
     .name {
+      font-size: 12px;
       font-weight: 600;
       text-align: center;
     }
