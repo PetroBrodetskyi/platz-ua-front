@@ -26,6 +26,7 @@
   width: 200px;
   height: 200px;
   background-color: var(--grafite);
+  color: var(--white);
   border-radius: 50%;
 
   @include media-rules(notebook) {

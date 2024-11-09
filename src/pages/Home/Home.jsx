@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import ProductList from '../../components/ProductList/ProductList';
-import CreateAdButton from '../../components/CreateAdButton/CreateAdButton';
-import Logout from '../../components/Logout/Logout';
+import ProductList from '../../components/ProductList';
+import CreateAdButton from '../../components/CreateAdButton';
+import Logout from '../../components/Logout';
+import Following from '../../components/Following';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import scss from './Home.module.scss';
@@ -29,6 +30,7 @@ const Home = () => {
 
   return (
     <div className={scss.home}>
+      <Following />
       <ProductList />
       <CreateAdButton />
       {user ? (

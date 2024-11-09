@@ -24,7 +24,7 @@ const UserAvatars = ({ users, isLoading, onAvatarClick }) => {
           </Typography>
           <AvatarGroup max={4} className={scss.avatars}>
             {users.map(({ _id, name, avatarURL, avatarPublicId }) => (
-              <Avatar key={_id} alt={name} src={avatarURL || avatarPublicId} />
+              <Avatar key={_id} alt={name} src={avatarURL || avatarPublicId} className={scss.avatar} />
             ))}
           </AvatarGroup>
         </>

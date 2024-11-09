@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 import Sidebar from '../Sidebar/Sidebar';
 import scss from './ProductList.module.scss';
-import ViewToggle from './ViewToggle/ViewToggle';
+import ViewToggle from './ViewToggle';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { removeFromCartBack } from '../../redux/features/cartSlice';
 

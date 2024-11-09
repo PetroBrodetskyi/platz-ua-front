@@ -14,7 +14,7 @@ $padding-mobile: 10px 0;
 
   @include media-rules(notebook) {
     padding: $padding-desktop;
-    gap: 20px;
+    gap: 40px;
   }
 
   .title {
@@ -113,10 +113,6 @@ $padding-mobile: 10px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    @include media-rules(tablet) {
-      padding: 10px;
-    }
   }
 
   .followContainer {

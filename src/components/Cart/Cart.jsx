@@ -14,6 +14,8 @@ import {
 import CartItem from './CartItem/CartItem';
 import Loader from '../Loader/Loader';
 import { ConfirmationLogin } from '../Confirmation/Confirmation';
+import RandomCards from '../RandomCards/RandomCards';
+import { useTheme } from '../../context/ThemeContext';
 import scss from './Cart.module.scss';
 
 const Cart = () => {
@@ -69,14 +71,22 @@ const Cart = () => {
     navigate('/auth');
   };
 
+  const { isDarkMode } = useTheme();
+
   return (
     <div className={scss.cart}>
       {loadingRemove && <Loader />}
       <h3>Кошик</h3>
       {validCartItems.length === 0 ? (
-        <div className={scss.cartInfo}>
-          <p className={scss.text}>Ваш кошик порожній</p>
-          <PiShoppingCart className={scss.icon} />
+        <div className={scss.cartEmpty}>
+          <div
+            className={`${scss.cartInfo} ${isDarkMode ? scss.darkMode : ''}`}
+          >
+            <p className={scss.text}>Ваш кошик порожній</p>
+            <PiShoppingCart className={scss.icon} />
+          </div>
+          <h3>Вас можуть зацікавити</h3>
+          <RandomCards />
         </div>
       ) : (
         validCartItems.map((item) => (

@@ -4,3 +4,10 @@
   gap: 10px;
   justify-content: center;
 }
+
+.avatar {
+  @include media-rules(notebook) {
+    width: 54px;
+    height: 54px;
+  }
+}

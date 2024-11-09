@@ -27,6 +27,14 @@
   }
 }
 
+.cartEmpty {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
 .cartInfo {
   display: flex;
   flex-direction: column;
@@ -36,6 +44,7 @@
   width: 200px;
   height: 200px;
   background-color: var(--grafite);
+  color: var(--white);
   border-radius: 50%;
 
   @include media-rules(notebook) {

@@ -13,6 +13,7 @@ import { HiOutlineEye } from 'react-icons/hi';
 import TitleFavorite from '../ProductCard/TitleFavorite/TitleFavorite';
 import CartPrice from '../ProductCard/CartPrice/CartPrice';
 import CreateCondition from '../ProductCard/CreateCondition/CreateCondition';
+import { useTheme } from '../../context/ThemeContext.jsx';
 import Notification from '../Notification/Notification';
 import scss from './RandomCards.module.scss';
 
@@ -94,6 +95,8 @@ const RandomCards = () => {
     }
   }, [products, randomProducts]);
 
+  const { isDarkMode } = useTheme();
+
   return (
     <div className={scss.container}>
       <ul className={scss.list}>
@@ -104,7 +107,7 @@ const RandomCards = () => {
           return (
             <li
               key={product._id}
-              className={`${scss.productItem} ${product.isSquare ? 'square' : ''}`}
+              className={`${scss.productItem} ${product.isSquare ? 'square' : ''} ${isDarkMode ? scss.darkMode : ''}`}
             >
               <div className={scss.product}>
                 <div className={scss.productImage}>
