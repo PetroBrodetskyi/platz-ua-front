@@ -1,8 +1,23 @@
 .following {
+  padding: 0 10px;
+  width: 100%;
+
+  @include media-rules(desktop) {
+    padding: 0;
+  }
+
   .userList {
     display: flex;
-    gap: 40px;
+    gap: 20px;
     overflow-x: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    @include media-rules(desktop) {
+      gap: 40px;
+    }
   }
 
   .userItem {
@@ -10,6 +25,8 @@
     flex-direction: column;
     gap: 8px;
     align-items: center;
+    cursor: pointer;
+    flex-shrink: 0;
 
     .avatar {
       width: 54px;

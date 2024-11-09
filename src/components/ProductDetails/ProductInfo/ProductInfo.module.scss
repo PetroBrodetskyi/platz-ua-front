@@ -78,7 +78,7 @@ $gap-mobile: 10px;
   }
 
   .description {
-    font-size: 12px;
+    font-size: 14px;
 
     @include media-rules(tablet) {
       font-size: 14px;
@@ -108,7 +108,7 @@ $gap-mobile: 10px;
     font-family: var(--font-family);
     resize: none;
     height: 200px;
-    font-size: 12px;
+    font-size: 14px;
 
     @include media-rules(tablet) {
       font-size: 14px;

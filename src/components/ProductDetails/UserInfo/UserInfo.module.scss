@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 20px 10px;
+  padding: 10px;
   cursor: pointer;
 
   @include media-rules(tablet) {
@@ -10,15 +10,10 @@
   }
 
   .avatar {
-    width: 44px;
-    height: 44px;
+    width: 54px;
+    height: 54px;
     border-radius: 50%;
     border: 2px solid var(--dark-bg);
-
-    @include media-rules(desktop) {
-      width: 54px;
-      height: 54px;
-    }
   }
 
   .name {
