@@ -202,19 +202,21 @@ const AddProductForm = () => {
               value={watch('city')}
             />
           </div>
-          {filteredCities.length > 0 && (
-            <ul className={scss.searchResults}>
-              {filteredCities.map((city) => (
-                <li
-                  key={`${city.plz}-${city.city}`}
-                  onClick={() => handleCitySelect(city)}
-                  className={scss.resultItem}
-                >
-                  {city.city} ({city.plz})
-                </li>
-              ))}
-            </ul>
-          )}
+          <div className={scss.results}>
+            {filteredCities.length > 0 && (
+              <ul className={scss.searchResults}>
+                {filteredCities.map((city) => (
+                  <li
+                    key={`${city.plz}-${city.city}`}
+                    onClick={() => handleCitySelect(city)}
+                    className={scss.resultItem}
+                  >
+                    {city.city} ({city.plz})
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
           <CategorySelector
             categories={categories}
             subcategories={subcategories}
