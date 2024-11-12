@@ -6,9 +6,10 @@
     input {
       width: 100%;
       padding: 6px;
-      border: 1px solid #ccc;
       border-radius: 4px;
       font-size: 14px;
+      background-color: var(--grafite);
+      color: var(--white);
 
       @include media-rules(tablet) {
         padding: 8px;
@@ -36,6 +37,7 @@
 
     .icon {
       font-size: 18px;
+      color: var(--white);
     }
   }
 

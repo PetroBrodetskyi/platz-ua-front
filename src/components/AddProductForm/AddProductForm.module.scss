@@ -68,11 +68,15 @@ $form-padding-mobile: 10px;
   }
 
   .textarea {
+    background-color: var(--grafite);
+    color: var(--white);
     height: 200px;
     padding: 10px;
     resize: none;
     font-family: var(--font-family);
     font-size: 14px;
+    border-radius: 4px;
+    border: none;
   }
 
   .chars {
@@ -105,7 +109,6 @@ $form-padding-mobile: 10px;
   position: absolute;
   top: 0;
   left: 0;
-  background-color: var(--white);
   max-height: 200px;
   overflow-y: auto;
   width: 100%;
@@ -116,10 +119,6 @@ $form-padding-mobile: 10px;
   .resultItem {
     padding: 10px;
     cursor: pointer;
-
-    &:hover {
-      background-color: #f1f1f1;
-    }
 
     @include media-rules(tablet) {
       padding: 10px;

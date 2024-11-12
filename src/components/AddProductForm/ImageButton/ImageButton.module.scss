@@ -10,17 +10,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 180px;
-    height: 180px;
-    background-color: #68686831;
-    border: 2px solid var(--dark-grey);
+    width: 174px;
+    height: 174px;
+    background-color: var(--grafite);
+    color: var(--white);
     border-radius: 4px;
     cursor: pointer;
     overflow: hidden;
 
     &:hover {
-      background-color: #4b4b4b;
-      color: var(--white);
+      background-color: var(--grey);
+    }
+
+    @include media-rules(tablet) {
+      width: 180px;
+      height: 180px;
     }
 
     .icon {

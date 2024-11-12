@@ -9,6 +9,7 @@ const SubcategoriesSelect = ({ subcategories, register, errors }) => {
           id="subcategory1"
           {...register('subcategory1', { required: true })}
           autoComplete="off"
+          className={scss.select}
         >
           <option value="">Виберіть категорію</option>
           {subcategories.map((subcat) => (
@@ -25,6 +26,7 @@ const SubcategoriesSelect = ({ subcategories, register, errors }) => {
           id="subcategory2"
           {...register('subcategory2')}
           autoComplete="off"
+          className={scss.select}
         >
           <option value="">Виберіть категорію</option>
           {subcategories.map((subcat) => (
@@ -40,6 +42,7 @@ const SubcategoriesSelect = ({ subcategories, register, errors }) => {
           id="subcategory3"
           {...register('subcategory3')}
           autoComplete="off"
+          className={scss.select}
         >
           <option value="">Виберіть категорію</option>
           {subcategories.map((subcat) => (

@@ -12,10 +12,15 @@
     }
   }
 
+  .select {
+    background-color: var(--grafite);
+    color: var(--white);
+    border: none;
+  }
+
   select {
     width: 100%;
     padding: 6px;
-    border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
     appearance: none;

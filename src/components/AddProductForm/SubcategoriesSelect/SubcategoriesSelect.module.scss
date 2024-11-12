@@ -3,6 +3,12 @@
   flex-direction: column;
   gap: 10px;
 
+  .select {
+    background-color: var(--grafite);
+    color: var(--white);
+    border: none;
+  }
+
   span {
     color: var(--red);
     font-size: 0.875em;

@@ -8,7 +8,11 @@ const CategorySelector = ({ categories, subcategories, register, errors }) => (
       <h4>Виберіть розділ та від 1 до 3 категорій</h4>
       <IoMdInformationCircleOutline className={scss.icon} />
     </div>
-    <select id="category" {...register('category', { required: true })}>
+    <select
+      id="category"
+      {...register('category', { required: true })}
+      className={scss.select}
+    >
       <option value="">Виберіть розділ</option>
       {categories.map((cat) => (
         <option key={cat.name} value={cat.name}>

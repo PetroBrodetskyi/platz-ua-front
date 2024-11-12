@@ -20,6 +20,7 @@ const FormInput = ({
       autoComplete="on"
       onChange={onChange}
       value={value}
+      className={scss.input}
     />
     {errors[id] && <span>Це поле обов&apos;язкове</span>}
   </div>
