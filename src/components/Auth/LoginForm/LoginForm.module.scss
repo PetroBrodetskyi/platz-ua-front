@@ -33,7 +33,6 @@
     padding-bottom: 4px;
     border-bottom: 2px solid transparent;
     @include transition(border-color);
-    color: var(--black);
 
     &.active {
       border-color: gold;

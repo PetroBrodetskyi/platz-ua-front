@@ -30,9 +30,11 @@ const Home = () => {
 
   return (
     <div className={scss.home}>
-      <Following />
+      {user && <Following />}
+
       <ProductList />
       <CreateAdButton />
+
       {user ? (
         user.verify ? (
           <Logout />

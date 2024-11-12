@@ -67,9 +67,11 @@ const ProductCard = ({ viewMode }) => {
         setLoadingOwners((prev) => ({ ...prev, [ownerId]: true }));
         try {
           const response = await dispatch(fetchUserById(ownerId)).unwrap();
-          const updatedOwners = { ...owners, [ownerId]: response };
-          setOwners(updatedOwners);
-          localStorage.setItem('owners', JSON.stringify(updatedOwners));
+          setOwners((prev) => {
+            const updatedOwners = { ...prev, [ownerId]: response };
+            localStorage.setItem('owners', JSON.stringify(updatedOwners));
+            return updatedOwners;
+          });
         } catch (error) {
           console.error('Failed to fetch owner:', error);
         } finally {
