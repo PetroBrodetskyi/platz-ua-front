@@ -79,12 +79,12 @@ const RegisterForm = () => {
           <ul className={scss.authNav}>
             <li>
               <NavLink className={scss.classNavLink} to="/auth?type=register">
-                Реєстрація
+                <span className={scss.navigate}>Реєстрація</span>
               </NavLink>
             </li>
             <li>
               <NavLink className={scss.classNavLink} to="/auth?type=login">
-                Вхід
+                <span className={scss.navigate}>Вхід</span>
               </NavLink>
             </li>
           </ul>
@@ -217,9 +217,14 @@ const RegisterForm = () => {
                     : scss.checkbox
                 }
               />
-              Я погоджуюсь з
-              <a href="/privacy-policy" className={scss.privacyLink}>
-                <span> політикою конфіденційності</span>
+              <span> Я погоджуюсь з </span>
+              <a
+                href="/privacy-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={scss.privacyLink}
+              >
+                <span className={scss.text}>політикою конфіденційності</span>
               </a>
             </label>
           </div>

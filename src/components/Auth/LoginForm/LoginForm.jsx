@@ -84,12 +84,12 @@ const LoginForm = () => {
             <ul className={scss.authNav}>
               <li>
                 <NavLink className={scss.classNavLink} to="/auth?type=register">
-                  Реєстрація
+                  <span className={scss.navigate}>Реєстрація</span>
                 </NavLink>
               </li>
               <li>
                 <NavLink className={scss.classNavLink} to="/auth?type=login">
-                  Вхід
+                  <span className={scss.navigate}>Вхід</span>
                 </NavLink>
               </li>
             </ul>

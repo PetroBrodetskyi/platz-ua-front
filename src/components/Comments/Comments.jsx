@@ -2,7 +2,6 @@ import { useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import EmojiPicker from 'emoji-picker-react';
-import { Theme } from 'emoji-picker-react';
 import {
   fetchComments,
   addComment,
