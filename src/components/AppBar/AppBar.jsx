@@ -95,6 +95,18 @@ const AppBar = () => {
         />
       )
     },
+    {
+      path: '/email-verified-earlier',
+      element: (
+        <SplashScreen
+          onFinish={() => navigate('/')}
+          message={{
+            title: 'Ваш e-mail було підтверджено раніше',
+            text: 'Виконується перенаправлення на головну сторінку...'
+          }}
+        />
+      )
+    },
     { path: '*', element: <NotFoundPage /> }
   ];
 
