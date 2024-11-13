@@ -217,7 +217,7 @@ const RegisterForm = () => {
                     : scss.checkbox
                 }
               />
-              <span> Я погоджуюсь з </span>
+              <span className={scss.agree}> Я погоджуюсь з </span>
               <a
                 href="/privacy-policy"
                 target="_blank"
