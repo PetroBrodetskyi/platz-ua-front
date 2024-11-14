@@ -47,7 +47,6 @@ const FollowingList = ({
                 <SubmitButton
                   buttonText={isFollowing ? 'Відстежується' : 'Стежити'}
                   onClick={() => handleFollowClick(followed._id)}
-                  disabled={isFollowing}
                 />
               )}
             </li>

@@ -83,7 +83,8 @@ const initialState = {
   likedUserAvatars: [],
   loading: false,
   error: null,
-  isFollowing: false
+  isFollowing: false,
+  followingIds: []
 };
 
 // Функції для обробки стану
@@ -104,12 +105,16 @@ const authSlice = createSlice({
     setFollowingStatus: (state, action) => {
       state.isFollowing = action.payload;
     },
+    updateFollowingIds: (state, action) => {
+      state.followingIds = action.payload;
+    },
     logout: (state) => {
       state.user = null;
       state.owner = null;
       state.token = null;
       state.likedUserAvatars = [];
       state.isFollowing = false;
+      state.followingIds = [];
       localStorage.removeItem('token');
     }
   },
@@ -171,7 +176,9 @@ export const selectOwner = (state) => state.auth.owner;
 export const selectLoading = (state) => state.auth.loading;
 export const selectError = (state) => state.auth.error;
 export const selectIsFollowing = (state) => state.auth.isFollowing;
+export const selectFollowingIds = (state) => state.auth.followingIds;
 
-export const { logout, setFollowingStatus } = authSlice.actions;
+export const { logout, setFollowingStatus, updateFollowingIds } =
+  authSlice.actions;
 
 export default authSlice.reducer;

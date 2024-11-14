@@ -4,7 +4,6 @@ import SubmitButton from '../SubmitButton';
 
 const FollowersList = ({
   followers,
-  followingData,
   currentUserId,
   handleFollowClick,
   followingIds
@@ -48,7 +47,6 @@ const FollowersList = ({
                 <SubmitButton
                   buttonText={isFollowing ? 'Відстежується' : 'Стежити'}
                   onClick={() => handleFollowClick(follower._id)}
-                  disabled={isFollowing}
                 />
               )}
             </li>
