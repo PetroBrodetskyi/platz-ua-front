@@ -1,9 +1,9 @@
 .followers {
   width: 100%;
-  margin: 0 auto;
 
-  @include media-rules(tablet) {
+  @include media-rules(desktop) {
     width: 70%;
+    margin: 0 auto;
   }
 }
 
@@ -27,7 +27,6 @@
   width: 54px;
   height: 54px;
   border-radius: 50%;
-  border: 2px solid var(--dark-bg);
   box-shadow: var(--logo-shadow);
 
   @include media-rules(tablet) {
