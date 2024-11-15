@@ -159,6 +159,7 @@ const authSlice = createSlice({
         state.owner = action.payload;
         state.likedUserAvatars =
           action.payload.likedUsers?.map((user) => user.avatarURL) || [];
+        state.followingIds = action.payload.following.map((user) => user._id);
       })
       .addCase(fetchUserById.rejected, handleRejected)
       .addCase(updateUserDetails.pending, handlePending)
