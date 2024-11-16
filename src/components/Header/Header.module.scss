@@ -58,8 +58,7 @@
       }
 
       @include media-rules(notebook) {
-        gap: 12px;
-        width: 240px;
+        gap: 14px;
       }
 
       .icon {

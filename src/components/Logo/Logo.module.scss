@@ -4,6 +4,10 @@
   cursor: pointer;
   gap: 10px;
   animation: fadeIn 2s ease-in;
+
+  @include media-rules(desktop) {
+    gap: 14px;
+  }
 }
 
 .splashScreen {
@@ -52,6 +56,11 @@
   height: 40px;
   border-radius: 50%;
   box-shadow: var(--logo-shadow);
+
+  @include media-rules(desktop) {
+    width: 44px;
+    height: 44px;
+  }
 }
 
 .logoLink {

@@ -14,7 +14,7 @@ const UserAvatars = ({ users, isLoading, onAvatarClick }) => {
       {loading ? (
         <AvatarGroup max={4} className={scss.avatars}>
           {[...Array(4)].map((_, index) => (
-            <Skeleton key={index} variant="circular" width={44} height={44} />
+            <Skeleton key={index} variant="circular" width={50} height={50} />
           ))}
         </AvatarGroup>
       ) : (
@@ -24,7 +24,12 @@ const UserAvatars = ({ users, isLoading, onAvatarClick }) => {
           </Typography>
           <AvatarGroup max={4} className={scss.avatars}>
             {users.map(({ _id, name, avatarURL, avatarPublicId }) => (
-              <Avatar key={_id} alt={name} src={avatarURL || avatarPublicId} className={scss.avatar} />
+              <Avatar
+                key={_id}
+                alt={name}
+                src={avatarURL || avatarPublicId}
+                className={scss.avatar}
+              />
             ))}
           </AvatarGroup>
         </>

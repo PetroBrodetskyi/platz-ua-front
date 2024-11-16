@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CartPrice from '../../ProductCard/CartPrice/CartPrice';
+import { TbLocation } from 'react-icons/tb';
 import { fetchExchangeRate } from '../../../redux/features/productsSlice';
 import Tooltip from '@mui/material/Tooltip';
 import scss from './UserProductsDetails.module.scss';
@@ -24,6 +25,12 @@ const ProductDetails = ({ product, isInCart, handleAddToCart }) => {
             <h3 className={scss.title}>
               <Link to={`/product/${product._id}`}>{product.name}</Link>
             </h3>
+            <div className={scss.location}>
+              <TbLocation />
+              <p>
+                {product.PLZ} {product.city}
+              </p>
+            </div>
           </Tooltip>
           <div>
             <CartPrice
