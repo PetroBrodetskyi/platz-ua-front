@@ -40,7 +40,7 @@ const UserProducts = ({ products }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (products.length > 0) {
+      if (products.length > 0 && !owner) {
         try {
           const ownerId = products[0].owner;
           await Promise.all([
@@ -52,10 +52,12 @@ const UserProducts = ({ products }) => {
         } finally {
           setLoadingState((prev) => ({ ...prev, userData: false }));
         }
+      } else {
+        setLoadingState((prev) => ({ ...prev, userData: false }));
       }
     };
     fetchData();
-  }, [dispatch, products]);
+  }, [dispatch, products, owner]);
 
   useEffect(() => {
     const fetchFollowingStatus = async () => {
