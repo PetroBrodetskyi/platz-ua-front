@@ -21,7 +21,6 @@
   overflow: visible;
   border: 1px solid var(--light-grey);
   background-color: var(--white);
-  border-bottom: 1px solid #ddd;
   animation: fadeIn 1s ease-in;
 
   @include transition(box-shadow);

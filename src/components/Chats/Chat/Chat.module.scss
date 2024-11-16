@@ -6,6 +6,7 @@
 
   @include media-rules(desktop) {
     padding: 120px 40px;
+    gap: 40px;
   }
 
   .header {

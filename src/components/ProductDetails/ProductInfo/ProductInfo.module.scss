@@ -17,11 +17,12 @@ $gap-mobile: 10px;
   }
 
   .info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     padding: 0 10px;
 
     @include media-rules(notebook) {
-      display: flex;
-      flex-direction: column;
       padding: 0;
       gap: 10px;
     }

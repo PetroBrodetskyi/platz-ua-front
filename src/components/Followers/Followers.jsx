@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import scss from './Followers.module.scss';
+import { useTheme } from '../../context/ThemeContext';
 import Tabs from '../Tabs';
 import FollowersList from './FollowersList';
 import FollowingList from './FollowingList';
@@ -11,6 +11,7 @@ import {
   updateFollowingIds
 } from '../../redux/features/authSlice';
 import Notification from '../Notification';
+import scss from './Followers.module.scss';
 
 const Followers = ({
   owner,
@@ -86,6 +87,8 @@ const Followers = ({
     )
   }[activeTab];
 
+  const { isDarkMode } = useTheme();
+
   return (
     <div className={scss.followers}>
       <div className={scss.header}>
@@ -101,7 +104,9 @@ const Followers = ({
           {owner.plz} {owner.city}
         </p>
       </div>
-      <div className={scss.tabsContainer}>
+      <div
+        className={`${scss.tabsContainer} ${isDarkMode ? scss.darkMode : ''}`}
+      >
         <Tabs activeTab={activeTab} onTabChange={setActiveTab} tabs={tabs} />
 
         {renderTabContent}

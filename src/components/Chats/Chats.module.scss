@@ -29,7 +29,7 @@
 .item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
   background-color: var(--grafite);
   padding: 10px;
   color: var(--white);
@@ -38,11 +38,25 @@
   @include media-rules(desktop) {
     border-radius: 4px;
     padding: 10px 20px;
-    gap: 20px;
   }
 
   .partnerName {
     font-weight: 600;
+  }
+
+  .chatInfoContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 90%;
+
+    @include media-rules(desktop) {
+      gap: 20px;
+    }
+  }
+
+  .icon {
+    font-size: 20px;
   }
 
   .avatar {

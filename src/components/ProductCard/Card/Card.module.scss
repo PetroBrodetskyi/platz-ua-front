@@ -6,7 +6,7 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid #ddd;
+
   animation: fadeIn 1s ease-in;
 
   &.darkMode {
@@ -39,6 +39,10 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
+
+    &.listItem {
+      gap: 10px;
+    }
 
     @include media-rules(tablet) {
       gap: 8px;
@@ -200,7 +204,7 @@
       flex-direction: column;
       justify-content: space-between;
       flex: 1;
-      padding: 0 4px;
+      padding: 0 4px 4px;
 
       &.listItem {
         gap: 4px;
@@ -227,7 +231,7 @@
       &.listItem {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: 10px;
       }
     }
 

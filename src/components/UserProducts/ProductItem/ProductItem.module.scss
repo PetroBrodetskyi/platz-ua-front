@@ -12,7 +12,7 @@ $padding-mobile: 10px;
 .product {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 20px;
   background-color: var(--white);
 
   &.darkMode {
@@ -62,7 +62,7 @@ $padding-mobile: 10px;
     flex-direction: column;
     justify-content: space-between;
     flex: 1;
-    padding: 10px;
+    padding: 0 10px;
 
     @include media-rules(tablet) {
       padding: 20px 40px 20px 0;
