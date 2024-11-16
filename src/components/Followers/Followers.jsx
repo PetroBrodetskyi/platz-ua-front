@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import scss from './Followers.module.scss';
 import Tabs from '../Tabs';
 import FollowersList from './FollowersList';
@@ -12,6 +13,7 @@ import {
 import Notification from '../Notification';
 
 const Followers = ({
+  owner,
   followersData,
   followingData,
   currentUserId,
@@ -19,6 +21,7 @@ const Followers = ({
 }) => {
   const [activeTab, setActiveTab] = useState(initialTab || 'following');
   const [notification, setNotification] = useState('');
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const followingIds = useSelector((state) => state.auth.followingIds);
 
@@ -54,6 +57,10 @@ const Followers = ({
     }
   };
 
+  const handleOwnerClick = () => {
+    navigate(`/user/${owner._id}`);
+  };
+
   const tabs = [
     { label: 'Стежить', value: 'following' },
     { label: 'Читачі', value: 'followers' }
@@ -81,8 +88,24 @@ const Followers = ({
 
   return (
     <div className={scss.followers}>
-      <Tabs activeTab={activeTab} onTabChange={setActiveTab} tabs={tabs} />
-      {renderTabContent}
+      <div className={scss.header}>
+        <div className={scss.ownerInfo} onClick={handleOwnerClick}>
+          <img
+            src={owner.avatarURL || avatarPublicId}
+            alt={`${owner.name}'s avatar`}
+            className={scss.avatar}
+          />
+          <h3 className={scss.ownerName}>{owner.name}</h3>
+        </div>
+        <p className={scss.location}>
+          {owner.plz} {owner.city}
+        </p>
+      </div>
+      <div className={scss.tabsContainer}>
+        <Tabs activeTab={activeTab} onTabChange={setActiveTab} tabs={tabs} />
+
+        {renderTabContent}
+      </div>
       {notification && (
         <Notification
           message={notification}

@@ -1,10 +1,58 @@
 .followers {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
   @include media-rules(desktop) {
-    width: 70%;
+    flex-direction: row;
+    gap: 40px;
+    width: 86%;
     margin: 0 auto;
   }
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+
+  @include media-rules(desktop) {
+    width: 220px;
+  }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+
+    @include media-rules(desktop) {
+      width: 160px;
+      height: 160px;
+    }
+  }
+
+  .ownerInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    cursor: pointer;
+  }
+
+  .ownerName {
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .location {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+}
+
+.tabsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
 }
 
 .item {

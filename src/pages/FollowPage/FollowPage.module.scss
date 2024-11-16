@@ -1,27 +1,15 @@
 .followPage {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   padding: 10px;
 
   @include media-rules(notebook) {
-    padding: 100px 40px;
-  }
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  .avatar {
-    width: 54px;
-    height: 54px;
-    border-radius: 50%;
-    box-shadow: var(--logo-shadow);
-    cursor: pointer;
+    padding: 120px 40px;
+    gap: 40px;
   }
 
-  .ownerName {
+  .title {
     margin: 0;
-    font-weight: 600;
-    cursor: pointer;
   }
 }

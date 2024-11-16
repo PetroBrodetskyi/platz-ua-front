@@ -6,7 +6,11 @@
 
 .tabsContainer {
   display: flex;
-  gap: 48px;
+  gap: 80px;
+
+  @include media-rules(tablet) {
+    gap: 120px;
+  }
 }
 
 .tabDetails,

@@ -24,22 +24,11 @@ const FollowPage = ({ userId }) => {
     }
   }, [dispatch, userId]);
 
-  const handleOwnerClick = () => {
-    navigate(`/user/${owner._id}`);
-  };
-
   if (!owner) return <Loader />;
 
   return (
     <div className={scss.followPage}>
-      <div className={scss.header} onClick={handleOwnerClick}>
-        <img
-          src={owner.avatarURL || avatarPublicId}
-          alt={`${owner.name}'s avatar`}
-          className={scss.avatar}
-        />
-        <p className={scss.ownerName}>{owner.name}</p>
-      </div>
+      <h3 className={scss.title}>Підписки та підписники</h3>
       <Followers
         owner={owner}
         followersData={owner.followers}
