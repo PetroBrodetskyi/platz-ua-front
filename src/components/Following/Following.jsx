@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserById } from '../../redux/features/authSlice';
+import {
+  fetchUserById,
+  selectFollowingUsers
+} from '../../redux/features/authSlice';
 import { Link } from 'react-router-dom';
 import scss from './Following.module.scss';
 
 const Following = () => {
   const dispatch = useDispatch();
-  const followingUsers = useSelector(
-    (state) => state.auth.owner?.following || []
-  );
+  const followingUsers = useSelector(selectFollowingUsers);
   const currentUserId = useSelector((state) => state.auth.user?._id);
 
   useEffect(() => {

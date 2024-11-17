@@ -13,6 +13,7 @@ import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import ScrollToTop from '../ScrollToTop/ScrollToTop';
 import SplashScreen from '../SplashScreen/SplashScreen';
 import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
+import CookieBanner from '../CookieBanner/CookieBanner';
 import Loader from '../Loader/Loader';
 import scss from './AppBar.module.scss';
 
@@ -100,6 +101,7 @@ const AppBar = () => {
 
   return (
     <div className={scss.wrapper}>
+      <CookieBanner />
       <Header />
       <LinearDeterminate loading={loading} />
       <div className={scss.appBar}>

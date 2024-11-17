@@ -17,7 +17,8 @@
   padding: 0 10px;
 
   @include media-rules(desktop) {
-    width: 220px;
+    padding: 0;
+    min-width: 220px;
   }
 
   .avatar {
@@ -55,16 +56,9 @@
   gap: 40px;
   width: 100%;
   padding: 20px 10px;
-  background-color: var(--white);
-
-  &.darkMode {
-    background-color: var(--grafite);
-  }
 
   @include media-rules(desktop) {
-    border: 1px solid var(--light-grey);
-    padding: 40px;
-    border-radius: 54px;
+    padding: 0;
   }
 }
 

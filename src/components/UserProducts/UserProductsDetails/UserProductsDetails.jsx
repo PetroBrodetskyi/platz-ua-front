@@ -7,7 +7,7 @@ import { fetchExchangeRate } from '../../../redux/features/productsSlice';
 import Tooltip from '@mui/material/Tooltip';
 import scss from './UserProductsDetails.module.scss';
 
-const ProductDetails = ({ product, isInCart, handleAddToCart }) => {
+const UserProductsDetails = ({ product, isInCart, handleAddToCart }) => {
   const dispatch = useDispatch();
   const exchangeRate = useSelector((state) => state.products.exchangeRate);
 
@@ -22,14 +22,16 @@ const ProductDetails = ({ product, isInCart, handleAddToCart }) => {
       <div className={scss.container}>
         <div className={scss.namePrice}>
           <Tooltip title="Перейти на сторінку оголошення" placement="top-start">
-            <h3 className={scss.title}>
-              <Link to={`/product/${product._id}`}>{product.name}</Link>
-            </h3>
-            <div className={scss.location}>
-              <TbLocation />
-              <p>
-                {product.PLZ} {product.city}
-              </p>
+            <div>
+              <h3 className={scss.title}>
+                <Link to={`/product/${product._id}`}>{product.name}</Link>
+              </h3>
+              <div className={scss.location}>
+                <TbLocation />
+                <p>
+                  {product.PLZ} {product.city}
+                </p>
+              </div>
             </div>
           </Tooltip>
           <div>
@@ -49,4 +51,4 @@ const ProductDetails = ({ product, isInCart, handleAddToCart }) => {
   );
 };
 
-export default ProductDetails;
+export default UserProductsDetails;

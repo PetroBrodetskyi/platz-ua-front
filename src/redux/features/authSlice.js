@@ -1,7 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSelector } from 'reselect';
 import axios from 'axios';
 
 const API_URL = 'https://platz-ua-back.vercel.app/api/users';
+
+const selectAuth = (state) => state.auth;
 
 export const googleLogin = createAsyncThunk(
   'auth/googleLogin',
@@ -178,6 +181,11 @@ export const selectLoading = (state) => state.auth.loading;
 export const selectError = (state) => state.auth.error;
 export const selectIsFollowing = (state) => state.auth.isFollowing;
 export const selectFollowingIds = (state) => state.auth.followingIds;
+
+export const selectFollowingUsers = createSelector(
+  [selectAuth],
+  (auth) => auth.owner?.following || []
+);
 
 export const { logout, setFollowingStatus, updateFollowingIds } =
   authSlice.actions;
