@@ -4,7 +4,7 @@
 
 .form {
   border-radius: 4px;
-  width: 260px;
+  width: 330px;
   animation: fadeIn 0.3s ease-in;
 }
 
@@ -25,7 +25,7 @@
 
   .classNavLink {
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     padding-bottom: 4px;
     border-bottom: 2px solid transparent;
     @include transition(border-color);

@@ -3,7 +3,7 @@ import scss from './ProductCondition.module.scss';
 const ProductCondition = ({ register, errors }) => {
   return (
     <div className={scss.stateGroup}>
-      <div>
+      <div className={scss.state}>
         <label htmlFor="new">
           <div className={scss.stateButton}>
             <input
@@ -16,7 +16,7 @@ const ProductCondition = ({ register, errors }) => {
           </div>
         </label>
       </div>
-      <div>
+      <div className={scss.state}>
         <label htmlFor="used">
           <div className={scss.stateButton}>
             <input

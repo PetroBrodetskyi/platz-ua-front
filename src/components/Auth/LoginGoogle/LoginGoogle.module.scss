@@ -1,8 +1,5 @@
 .googleLogin {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 260px;
-  height: 60px;
-  border: 2px solid var(--black);
+  padding: 10px;
+  border-radius: 4px;
+  background-color: var(--grey);
 }

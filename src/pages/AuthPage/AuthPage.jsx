@@ -24,9 +24,9 @@ const AuthPage = () => {
       <div className={scss.formContainer}>
         <div className={scss.formWrapper}>
           {isLogin ? <LoginForm /> : <RegisterForm />}
-          <div className={scss.googleLoginWrapper}>
-            <LoginGoogle />
-          </div>
+        </div>
+        <div className={scss.googleLoginWrapper}>
+          <LoginGoogle />
         </div>
         <div className={scss.registerText}>
           <p>
@@ -40,16 +40,8 @@ const AuthPage = () => {
             іншою інформацією, яка може бути необхідна для надання наших послуг.
           </p>
           <p>
-            Ми обробляємо ваші дані відповідно до законодавства України та
-            Німеччини, включаючи, але не обмежуючись, Загальним регламентом
-            захисту даних (GDPR) та Законом України про захист персональних
-            даних. Обробка ваших даних здійснюється лише в тих цілях, для яких
-            ви їх надали, і з дотриманням всіх необхідних заходів для
-            забезпечення їх безпеки.
-          </p>
-          <p>
             Надаючи свої дані, ви підтверджуєте, що ознайомлені з нашою
-            <a href="/privacy-policy" className={scss.privacyLink}>
+            <a href="/privacy-policy" className={scss.privacy}>
               <b> політикою конфіденційності </b>
             </a>
             та даєте свою згоду на обробку ваших персональних даних для

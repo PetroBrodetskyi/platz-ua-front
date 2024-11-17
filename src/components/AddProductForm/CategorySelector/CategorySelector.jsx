@@ -20,7 +20,7 @@ const CategorySelector = ({ categories, subcategories, register, errors }) => (
         </option>
       ))}
     </select>
-    {errors.category && <span>Це поле обов&apos;язкове</span>}
+    {errors.category && <span>Це поле обов'язкове</span>}
     <SubcategoriesSelect
       subcategories={subcategories}
       register={register}

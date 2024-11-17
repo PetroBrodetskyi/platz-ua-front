@@ -5,6 +5,14 @@
   .stateButton {
     display: flex;
     gap: 4px;
+    background-color: var(--grafite);
+    padding: 6px 10px;
+    border-radius: 50px;
+    cursor: pointer;
+
+    @include media-rules(notebook) {
+      padding: 8px 10px;
+    }
   }
 }
 

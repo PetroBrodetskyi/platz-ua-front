@@ -22,7 +22,7 @@ $form-padding-mobile: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: $form-padding-mobile;
+  padding: 0;
   gap: 20px;
 
   @include media-rules(tablet) {
