@@ -5,14 +5,14 @@ const CookieBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const cookiesAccepted = localStorage.getItem('cookiesAccepted');
+    const cookiesAccepted = document.cookie.includes('cookiesAccepted=true');
     if (!cookiesAccepted) {
       setIsVisible(true);
     }
   }, []);
 
   const handleAccept = () => {
-    localStorage.setItem('cookiesAccepted', 'true');
+    document.cookie = 'cookiesAccepted=true; path=/; max-age=31536000';
     setIsVisible(false);
 
     loadGoogleAnalytics();
