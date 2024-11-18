@@ -1,12 +1,12 @@
 .cart {
-  padding: 10px;
+  padding: 20px 10px;
 
   @include media-rules(tablet) {
     padding: 10px;
   }
 
   @include media-rules(notebook) {
-    padding: 100px 40px;
+    padding: 120px 40px;
     display: flex;
     flex-direction: column;
     gap: 20px;

@@ -6,9 +6,11 @@ import {
   fetchUserProducts,
   fetchUsersPublicProducts
 } from '../../redux/features/productsSlice';
-import CreateAdButton from '../../components/CreateAdButton/CreateAdButton';
-import ProfileButton from '../../components/ProfileButton/ProfileButton';
-import UserProducts from '../../components/UserProducts/UserProducts';
+import CreateAdButton from '../../components/CreateAdButton';
+import ProfileButton from '../../components/ProfileButton';
+import UserProducts from '../../components/UserProducts';
+import RandomCards from '../../components/RandomCards';
+
 import scss from './UserProductsPage.module.scss';
 
 const UserProductsPage = () => {
@@ -37,16 +39,23 @@ const UserProductsPage = () => {
   const isCurrentUser = currentUser && currentUser._id === userId;
 
   return (
-    <div className={scss.userPage}>
-      {user ? (
-        <div>
-          <UserProducts products={products} setProducts={setProducts} />
-          <CreateAdButton />
-          {isCurrentUser && <ProfileButton />}
-        </div>
-      ) : (
-        <p>Завантаження даних...</p>
-      )}
+    <div>
+      <div className={scss.userPage}>
+        {user ? (
+          <div>
+            <UserProducts products={products} setProducts={setProducts} />
+            <CreateAdButton />
+            {isCurrentUser && <ProfileButton />}
+          </div>
+        ) : (
+          <p>Завантаження даних...</p>
+        )}
+      </div>
+
+      <div className={scss.random}>
+        <h3>Вас також можуть зацікавити</h3>
+        <RandomCards />
+      </div>
     </div>
   );
 };

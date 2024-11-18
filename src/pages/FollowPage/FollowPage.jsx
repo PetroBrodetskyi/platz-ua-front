@@ -9,6 +9,7 @@ import {
 import Followers from '../../components/Followers';
 import scss from './FollowPage.module.scss';
 import Loader from '../../components/Loader';
+import RandomCards from '../../components/RandomCards';
 
 const FollowPage = ({ userId }) => {
   const dispatch = useDispatch();
@@ -28,7 +29,6 @@ const FollowPage = ({ userId }) => {
 
   return (
     <div className={scss.followPage}>
-      <h3 className={scss.title}>Підписки та підписники</h3>
       <Followers
         owner={owner}
         followersData={owner.followers}
@@ -36,6 +36,10 @@ const FollowPage = ({ userId }) => {
         currentUserId={currentUser ? currentUser._id : null}
         initialTab={initialTab}
       />
+      <div className={scss.random}>
+        <h3 className={scss.title}>Вас можуть зацікавити</h3>
+        <RandomCards />
+      </div>
     </div>
   );
 };

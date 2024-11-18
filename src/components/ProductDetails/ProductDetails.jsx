@@ -20,6 +20,7 @@ import SubmitButton from '../SubmitButton';
 import ProductInfo from './ProductInfo/ProductInfo';
 import UserInfo from './UserInfo/UserInfo';
 import Loader from '../Loader/Loader';
+import Map from '../../components/Map';
 import Comments from '../Comments/Comments';
 import { TbLocation } from 'react-icons/tb';
 import { GrLocation } from 'react-icons/gr';
@@ -126,6 +127,10 @@ const ProductDetails = () => {
             onClick={handleAddToCart}
           />
         </div>
+      </div>
+      <h3>На карті</h3>
+      <div className={scss.map}>
+        <Map />
       </div>
       <div className={scss.comments}>
         <Comments productId={productId} />

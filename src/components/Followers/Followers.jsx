@@ -91,25 +91,28 @@ const Followers = ({
 
   return (
     <div className={scss.followers}>
-      <div className={scss.header}>
-        <div className={scss.ownerInfo} onClick={handleOwnerClick}>
-          <img
-            src={owner.avatarURL || avatarPublicId}
-            alt={`${owner.name}'s avatar`}
-            className={scss.avatar}
-          />
-          <h3 className={scss.ownerName}>{owner.name}</h3>
+      <h3 className={scss.title}>Підписки та підписники</h3>
+      <div className={scss.followContainer}>
+        <div className={scss.header}>
+          <div className={scss.ownerInfo} onClick={handleOwnerClick}>
+            <img
+              src={owner.avatarURL || avatarPublicId}
+              alt={`${owner.name}'s avatar`}
+              className={scss.avatar}
+            />
+            <h3 className={scss.ownerName}>{owner.name}</h3>
+          </div>
+          <p className={scss.location}>
+            {owner.plz} {owner.city}
+          </p>
         </div>
-        <p className={scss.location}>
-          {owner.plz} {owner.city}
-        </p>
-      </div>
-      <div
-        className={`${scss.tabsContainer} ${isDarkMode ? scss.darkMode : ''}`}
-      >
-        <Tabs activeTab={activeTab} onTabChange={setActiveTab} tabs={tabs} />
+        <div
+          className={`${scss.tabsContainer} ${isDarkMode ? scss.darkMode : ''}`}
+        >
+          <Tabs activeTab={activeTab} onTabChange={setActiveTab} tabs={tabs} />
 
-        {renderTabContent}
+          {renderTabContent}
+        </div>
       </div>
       {notification && (
         <Notification

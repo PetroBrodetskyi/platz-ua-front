@@ -11,6 +11,7 @@ import {
 } from '../../redux/features/productsSlice';
 import UserProfile from '../../components/UserProfile/UserProfile';
 import ThemeSwitcher from '../../components/ThemeSwitcher/ThemeSwitcher';
+import RandomCards from '../../components/RandomCards/RandomCards';
 import scss from './UserProfilePage.module.scss';
 
 const UserProfilePage = () => {
@@ -41,13 +42,19 @@ const UserProfilePage = () => {
   const shouldShowUserProfile = currentUser && currentUser._id === userId;
 
   return (
-    <div className={`${scss.userPage}`}>
-      {shouldShowUserProfile && (
-        <UserProfile user={user} onUpdate={handleUpdate} />
-      )}
+    <div>
+      <div className={`${scss.userPage}`}>
+        {shouldShowUserProfile && (
+          <UserProfile user={user} onUpdate={handleUpdate} />
+        )}
 
-      <div className={scss.themeContainer}>
-        <ThemeSwitcher />
+        <div className={scss.themeContainer}>
+          <ThemeSwitcher />
+        </div>
+      </div>
+      <div className={scss.random}>
+        <h3 className={scss.title}>Вас можуть зацікавити</h3>
+        <RandomCards />
       </div>
     </div>
   );
