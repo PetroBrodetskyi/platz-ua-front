@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import ProductDetails from '../UserProductsDetails/UserProductsDetails';
+import UserProductsDetails from '../UserProductsDetails/UserProductsDetails';
 import { useTheme } from '../../../context/ThemeContext';
 import scss from './ProductItem.module.scss';
 
@@ -21,7 +21,7 @@ const ProductItem = ({ product, exchangeRate }) => {
           </Link>
         </div>
         <div className={scss.productInfo}>
-          <ProductDetails product={product} exchangeRate={exchangeRate} />
+          <UserProductsDetails product={product} exchangeRate={exchangeRate} />
         </div>
       </div>
     </li>
