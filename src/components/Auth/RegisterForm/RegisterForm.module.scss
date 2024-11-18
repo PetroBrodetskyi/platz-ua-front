@@ -19,7 +19,7 @@
 
 .authNav {
   display: flex;
-  gap: 20px;
+  gap: 60px;
   justify-content: center;
   margin-bottom: 16px;
 
@@ -104,6 +104,12 @@
   position: absolute;
   color: var(--red);
   font-size: 12px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .checkbox {
