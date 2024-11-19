@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import Skeleton from '@mui/material/Skeleton';
 import {
   fetchProductById,
   selectProductById,
@@ -8,8 +10,8 @@ import {
   selectError
 } from '../../redux/features/productsSlice';
 import { selectOwner, fetchUserById } from '../../redux/features/authSlice';
-import { fetchProductsInCart } from '../../redux/features/cartSlice';
 import {
+  fetchProductsInCart,
   addToCartBack,
   removeFromCartBack
 } from '../../redux/features/cartSlice';
@@ -34,18 +36,50 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
 
   const [notification, setNotification] = useState('');
+  const [coordinates, setCoordinates] = useState(null);
+  const [loadingCoordinates, setLoadingCoordinates] = useState(true);
   const product = useSelector((state) => selectProductById(state, productId));
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
   const owner = useSelector(selectOwner);
   const cartItems = useSelector((state) => state.cart.items);
 
+  const fetchCoordinates = async (plz, city) => {
+    try {
+      setLoadingCoordinates(true);
+      const response = await axios.get(
+        'https://platz-ua-back.vercel.app/api/locations'
+      );
+      const location = response.data.find(
+        (loc) =>
+          loc.plz === Number(plz) &&
+          loc.city.trim().toLowerCase() === city.trim().toLowerCase()
+      );
+      if (location) {
+        setCoordinates({
+          latitude: location.latitude,
+          longitude: location.longitude
+        });
+      } else {
+        console.warn('Location not found for the given PLZ and city');
+      }
+    } catch (err) {
+      console.error('Error fetching coordinates:', err);
+    } finally {
+      setLoadingCoordinates(false);
+    }
+  };
+
   useEffect(() => {
     if (!product) {
       dispatch(fetchProductById(productId));
-    }
-    if (product && product.owner) {
-      dispatch(fetchUserById(product.owner));
+    } else {
+      if (product.owner) {
+        dispatch(fetchUserById(product.owner));
+      }
+      if (product.PLZ && product.city) {
+        fetchCoordinates(product.PLZ, product.city);
+      }
     }
     dispatch(fetchProductsInCart());
   }, [dispatch, product, productId]);
@@ -128,9 +162,36 @@ const ProductDetails = () => {
           />
         </div>
       </div>
-      <h3>На карті</h3>
-      <div className={scss.map}>
-        <Map />
+      <div className={scss.mapContainer}>
+        <h3 className={scss.title}>На карті</h3>
+        <div className={scss.mapInfoContainer}>
+          <p className={scss.mapInfo}>
+            На карті відображено місцезнаходження населеного пункту, зазначеного
+            продавцем при створенні оголошення. Це дозволяє приблизно оцінити,
+            де знаходиться товар або послуга. Для отримання точної адреси
+            зверніться до продавця під час обговорення деталей.
+          </p>
+          <div className={scss.map}>
+            {loadingCoordinates ? (
+              <Skeleton
+                variant="rectangular"
+                animation="pulse"
+                width="100%"
+                height="400px"
+                style={{ borderRadius: '8px' }}
+              />
+            ) : coordinates ? (
+              <Map
+                latitude={coordinates.latitude}
+                longitude={coordinates.longitude}
+                plz={product.PLZ}
+                city={product.city}
+              />
+            ) : (
+              <p>Координати не знайдено</p>
+            )}
+          </div>
+        </div>
       </div>
       <div className={scss.comments}>
         <Comments productId={productId} />

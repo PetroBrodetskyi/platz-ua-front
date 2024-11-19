@@ -106,8 +106,52 @@ $padding-mobile: 20px;
     gap: 4px;
   }
 
+  .mapContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 0;
+
+    @include media-rules(notebook) {
+      gap: 40px;
+      padding: 0;
+    }
+  }
+
+  .mapInfoContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @include media-rules(notebook) {
+      width: 100%;
+      flex-direction: row;
+      gap: 40px;
+    }
+  }
+
+  .title {
+    margin: 0;
+    padding: 0 10px;
+  }
+
   .map {
-    width: 80%;
-    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+
+    @include media-rules(notebook) {
+      flex-direction: row;
+      gap: 40px;
+      width: 100%;
+    }
+  }
+
+  .mapInfo {
+    padding: 0 10px;
+
+    @include media-rules(notebook) {
+      width: 320px;
+      font-size: 16px;
+    }
   }
 }
