@@ -113,7 +113,7 @@ const Map = ({ latitude, longitude, plz, city }) => {
       </MapContainer>
 
       {distance && (
-        <p style={{ marginTop: 10, fontSize: 16 }}>
+        <p className={scss.distance}>
           Відстань до {plz} {city} складає приблизно: {distance} км
         </p>
       )}

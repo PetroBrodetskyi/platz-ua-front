@@ -13,6 +13,7 @@ import SubmitButton from '../SubmitButton';
 import Modal from '../Modal';
 import { TbGhost } from 'react-icons/tb';
 import { MdOutlineEmojiEmotions } from 'react-icons/md';
+import { RiMessage3Line } from 'react-icons/ri';
 import { LuArrowUpCircle } from 'react-icons/lu';
 import { nanoid } from 'nanoid';
 import scss from './Comments.module.scss';
@@ -103,7 +104,10 @@ const Comments = ({ productId }) => {
 
   return (
     <div className={scss.comments}>
-      <h3 className={scss.title}>Коментарі</h3>
+      <div className={scss.header}>
+        <RiMessage3Line className={scss.icon} />
+        <h3 className={scss.title}>Коментарі</h3>
+      </div>
       {notification && <Notification message={notification} />}
       <div className={scss.commentList}>
         {loading ? (
