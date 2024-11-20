@@ -18,7 +18,7 @@ const Map = ({ latitude, longitude, plz, city }) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
       <Marker position={[latitude, longitude]}>
-        <Popup className={scss.popup}>
+        <Popup>
           {plz} {city}
         </Popup>
       </Marker>

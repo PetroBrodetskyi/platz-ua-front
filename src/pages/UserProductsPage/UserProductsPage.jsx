@@ -52,10 +52,10 @@ const UserProductsPage = () => {
         )}
       </div>
 
-      <div className={scss.random}>
+      {/* <div className={scss.random}>
         <h3>Вас також можуть зацікавити</h3>
         <RandomCards />
-      </div>
+      </div> */}
     </div>
   );
 };
