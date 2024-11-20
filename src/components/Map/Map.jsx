@@ -19,13 +19,14 @@ const Map = ({ latitude, longitude, plz, city }) => {
   const mapRef = useRef(null);
 
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: 'AIzaSyCms2IVM_HmCChOtpULniyEYXP5BdvZ2DE'
+    googleMapsApiKey: import.meta.env.PLATZUA_GOOGLE_KEY
   });
 
   const center = useMemo(
     () => ({ lat: latitude, lng: longitude }),
     [latitude, longitude]
   );
+
   const mapOptions = useMemo(
     () => ({
       disableDefaultUI: true,
