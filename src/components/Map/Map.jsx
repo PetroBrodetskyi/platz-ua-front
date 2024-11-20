@@ -69,6 +69,13 @@ const Map = ({ latitude, longitude, plz, city }) => {
           lineOptions: { styles: [{ color: '#000', weight: 5 }] }
         }).addTo(map);
 
+        const routingContainer = document.querySelector(
+          '.leaflet-routing-container'
+        );
+        if (routingContainer) {
+          routingContainer.style.display = 'none';
+        }
+
         return () => {
           routingControl.remove();
         };
@@ -82,7 +89,7 @@ const Map = ({ latitude, longitude, plz, city }) => {
     <div className={scss.mapContainer}>
       <MapContainer
         center={userLocation || [latitude, longitude]}
-        zoom={13}
+        zoom={12}
         className={scss.map}
       >
         <TileLayer
