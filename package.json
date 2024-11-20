@@ -26,6 +26,8 @@
     "geolib": "^3.3.4",
     "jwt-decode": "^4.0.0",
     "leaflet": "^1.9.4",
+    "leaflet-control-geocoder": "^2.4.0",
+    "leaflet-routing-machine": "^3.2.12",
     "libphonenumber-js": "^1.11.11",
     "lodash.debounce": "^4.0.8",
     "nanoid": "^5.0.7",
