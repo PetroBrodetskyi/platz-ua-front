@@ -10,8 +10,7 @@ const Map = ({ latitude, longitude, plz, city }) => {
       style={{
         height: '400px',
         width: '100%',
-        borderRadius: '8px',
-        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+        borderRadius: '8px'
       }}
     >
       <TileLayer

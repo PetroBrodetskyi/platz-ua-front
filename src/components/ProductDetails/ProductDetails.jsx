@@ -15,15 +15,15 @@ import {
   addToCartBack,
   removeFromCartBack
 } from '../../redux/features/cartSlice';
-import Notification from '../Notification/Notification';
+import Notification from '../Notification';
 import Tooltip from '@mui/material/Tooltip';
-import Gallery from './Gallery/Gallery';
+import Gallery from './Gallery';
 import SubmitButton from '../SubmitButton';
-import ProductInfo from './ProductInfo/ProductInfo';
-import UserInfo from './UserInfo/UserInfo';
-import Loader from '../Loader/Loader';
-import Map from '../../components/Map';
-import Comments from '../Comments/Comments';
+import ProductInfo from './ProductInfo';
+import UserInfo from './UserInfo';
+import Loader from '../Loader';
+import Map from '../Map';
+import Comments from '../Comments';
 import { TbLocation } from 'react-icons/tb';
 import { GrLocation } from 'react-icons/gr';
 import { HiOutlineEye } from 'react-icons/hi';
@@ -162,14 +162,18 @@ const ProductDetails = () => {
           />
         </div>
       </div>
+
+      <div className={scss.comments}>
+        <Comments productId={productId} />
+      </div>
       <div className={scss.mapContainer}>
-        <h3 className={scss.title}>На карті</h3>
+        <h3 className={scss.title}>Локація</h3>
         <div className={scss.mapInfoContainer}>
           <p className={scss.mapInfo}>
             На карті відображено місцезнаходження населеного пункту, зазначеного
             продавцем при створенні оголошення. Це дозволяє приблизно оцінити,
             де знаходиться товар або послуга. Для отримання точної адреси
-            зверніться до продавця під час обговорення деталей.
+            зверніться до продавця під час обговорення деталей замовлення
           </p>
           <div className={scss.map}>
             {loadingCoordinates ? (
@@ -193,10 +197,6 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
-      <div className={scss.comments}>
-        <Comments productId={productId} />
-      </div>
-
       {notification && (
         <Notification
           message={notification}
