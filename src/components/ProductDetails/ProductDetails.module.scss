@@ -114,7 +114,6 @@ $padding-tablet: 0 20px;
     background-color: var(--grafite);
 
     @include media-rules(notebook) {
-      gap: 40px;
       padding: 40px;
       border-radius: 8px;
     }
@@ -129,6 +128,31 @@ $padding-tablet: 0 20px;
       width: 100%;
       flex-direction: row;
       gap: 40px;
+    }
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 10px;
+
+    .icon {
+      font-size: 28px;
+      color: var(--black);
+
+      @include media-rules(tablet) {
+        font-size: 30px;
+      }
+
+      @include media-rules(notebook) {
+        font-size: 34px;
+      }
+    }
+
+    @include media-rules(notebook) {
+      gap: 8px;
+      padding: 0;
     }
   }
 
@@ -152,7 +176,6 @@ $padding-tablet: 0 20px;
       width: 320px;
       font-size: 16px;
       border-radius: 8px;
-      background-color: var(--grafite);
     }
   }
 }

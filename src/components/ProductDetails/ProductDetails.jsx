@@ -167,7 +167,10 @@ const ProductDetails = () => {
         <Comments productId={productId} />
       </div>
       <div className={scss.mapContainer}>
-        <h3 className={scss.title}>Локація</h3>
+        <div className={scss.header}>
+          <TbLocation className={scss.icon} />
+          <h3 className={scss.title}>Локація</h3>
+        </div>
         <div className={scss.mapInfoContainer}>
           <p className={scss.mapInfo}>
             На карті відображено місцезнаходження населеного пункту, зазначеного

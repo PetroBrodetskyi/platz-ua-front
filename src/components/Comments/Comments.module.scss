@@ -17,6 +17,19 @@
   gap: 4px;
   padding: 0 10px;
 
+  .icon {
+    font-size: 28px;
+    color: var(--black);
+
+    @include media-rules(tablet) {
+      font-size: 30px;
+    }
+
+    @include media-rules(notebook) {
+      font-size: 34px;
+    }
+  }
+
   @include media-rules(notebook) {
     gap: 8px;
     padding: 0;
