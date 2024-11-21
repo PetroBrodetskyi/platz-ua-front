@@ -26,6 +26,7 @@ const Map = ({ latitude, longitude, plz, city }) => {
     () => ({ lat: latitude, lng: longitude }),
     [latitude, longitude]
   );
+
   const mapOptions = useMemo(
     () => ({
       disableDefaultUI: true,
@@ -102,13 +103,13 @@ const Map = ({ latitude, longitude, plz, city }) => {
             />
           )}
         </GoogleMap>
-      </div>
-      <div>
-        {distance && (
-          <p className={scss.distance}>
-            Відстань до {plz} {city} складає приблизно: {distance} км
-          </p>
-        )}
+        <div>
+          {distance && (
+            <p className={scss.distance}>
+              Відстань до {plz} {city} складає приблизно: {distance} км
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

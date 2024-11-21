@@ -13,9 +13,9 @@ import SubmitButton from '../SubmitButton';
 import Modal from '../Modal';
 import { TbGhost } from 'react-icons/tb';
 import { MdOutlineEmojiEmotions } from 'react-icons/md';
-import { RiMessage3Line } from 'react-icons/ri';
 import { LuArrowUpCircle } from 'react-icons/lu';
 import { nanoid } from 'nanoid';
+import { useTheme } from '../../context/ThemeContext';
 import scss from './Comments.module.scss';
 import { formatDistanceToNow } from 'date-fns';
 import { uk } from 'date-fns/locale';
@@ -99,15 +99,13 @@ const Comments = ({ productId }) => {
 
   const handleUserClick = (userId) => navigate(`/user/${userId}`);
   const handleLoginClick = () => navigate('/auth');
+  const { isDarkMode } = useTheme();
 
   if (error) return <p>Помилка завантаження коментарів: {error}</p>;
 
   return (
     <div className={scss.comments}>
-      <div className={scss.header}>
-        <RiMessage3Line className={scss.icon} />
-        <h3 className={scss.title}>Коментарі</h3>
-      </div>
+      <h3 className={scss.title}>Коментарі</h3>
       {notification && <Notification message={notification} />}
       <div className={scss.commentList}>
         {loading ? (
@@ -121,7 +119,9 @@ const Comments = ({ productId }) => {
         ) : commentsForProduct.length ? (
           commentsForProduct.map(({ _id, user, text, createdAt, replies }) => (
             <div key={_id || nanoid()} className={scss.commentsContainer}>
-              <div className={scss.comment}>
+              <div
+                className={`${scss.comment} ${isDarkMode ? scss.darkMode : ''}`}
+              >
                 <div
                   className={scss.userContainer}
                   onClick={() => user && handleUserClick(user._id)}
@@ -234,7 +234,9 @@ const Comments = ({ productId }) => {
       </div>
 
       {currentUser ? (
-        <div className={scss.addComment}>
+        <div
+          className={`${scss.addComment} ${isDarkMode ? scss.darkMode : ''}`}
+        >
           {currentUser.avatarURL ? (
             <img
               src={currentUser.avatarURL}

@@ -1,0 +1,50 @@
+.mapContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
+  background-color: var(--white);
+
+  &.darkMode {
+    background-color: var(--grafite);
+  }
+
+  @include media-rules(notebook) {
+    padding: 40px;
+    border-radius: 44px;
+  }
+}
+
+.mapInfoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @include media-rules(notebook) {
+    width: 100%;
+    flex-direction: row;
+    gap: 40px;
+  }
+}
+
+.title {
+  margin: 0;
+}
+
+.map {
+  display: flex;
+  flex-direction: column;
+
+  @include media-rules(notebook) {
+    flex-direction: row;
+    gap: 40px;
+    width: 100%;
+  }
+}
+
+.mapInfo {
+  @include media-rules(notebook) {
+    width: 220px;
+    font-size: 16px;
+  }
+}

@@ -24,6 +24,7 @@ import UserInfo from './UserInfo';
 import Loader from '../Loader';
 import Map from '../Map';
 import Comments from '../Comments';
+import LocationMap from './LocationMap';
 import { TbLocation } from 'react-icons/tb';
 import { GrLocation } from 'react-icons/gr';
 import { HiOutlineEye } from 'react-icons/hi';
@@ -167,38 +168,12 @@ const ProductDetails = () => {
         <Comments productId={productId} />
       </div>
       <div className={scss.mapContainer}>
-        <div className={scss.header}>
-          <TbLocation className={scss.icon} />
-          <h3 className={scss.title}>Локація</h3>
-        </div>
-        <div className={scss.mapInfoContainer}>
-          <p className={scss.mapInfo}>
-            На карті відображено місцезнаходження населеного пункту, зазначеного
-            продавцем при створенні оголошення. Це дозволяє приблизно оцінити,
-            де знаходиться товар або послуга. Для отримання точної адреси
-            зверніться до продавця під час обговорення деталей замовлення
-          </p>
-          <div className={scss.map}>
-            {loadingCoordinates ? (
-              <Skeleton
-                variant="rectangular"
-                animation="pulse"
-                width="100%"
-                height="400px"
-                style={{ borderRadius: '8px' }}
-              />
-            ) : coordinates ? (
-              <Map
-                latitude={coordinates.latitude}
-                longitude={coordinates.longitude}
-                plz={product.PLZ}
-                city={product.city}
-              />
-            ) : (
-              <p>Координати не знайдено</p>
-            )}
-          </div>
-        </div>
+        <LocationMap
+          loadingCoordinates={loadingCoordinates}
+          coordinates={coordinates}
+          plz={product.PLZ}
+          city={product.city}
+        />
       </div>
       {notification && (
         <Notification
