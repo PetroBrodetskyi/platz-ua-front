@@ -2,11 +2,13 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 20px 10px;
   cursor: pointer;
 
   @include media-rules(tablet) {
-    padding: 0;
+    padding: 10px 20px 10px 10px;
+    border-radius: 44px;
+    background-color: var(--white);
+    gap: 10px;
   }
 
   .avatar {
@@ -17,5 +19,38 @@
 
   .name {
     font-weight: 600;
+  }
+}
+
+.menu {
+  display: flex;
+  padding: 20px 10px;
+  font-weight: 600;
+  align-items: center;
+  justify-content: space-between;
+
+  @include media-rules(desktop) {
+    padding: 0;
+  }
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  @include media-rules(desktop) {
+    gap: 40px;
+  }
+
+  .navigate {
+    padding: 4px 8px;
+    border-radius: 44px;
+    background-color: var(--white);
+    font-weight: 600;
+
+    @include media-rules(desktop) {
+      padding: 10px 20px;
+    }
   }
 }

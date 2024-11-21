@@ -1,0 +1,159 @@
+.replyContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reply {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px;
+  background-color: var(--blue);
+  color: var(--white);
+  border-radius: 44px 0;
+  align-self: flex-end;
+  max-width: 90%;
+
+  @include media-rules(notebook) {
+    padding: 20px;
+    gap: 8px;
+  }
+}
+
+.replyInput {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 0 44px;
+  background-color: var(--blue);
+}
+
+.avatarText {
+  display: flex;
+  gap: 20px;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  box-shadow: var(--logo-shadow);
+}
+
+.textarea {
+  width: 100%;
+  height: auto;
+  resize: none;
+  font-family: var(--font-family);
+  background-color: inherit;
+  font-size: 14px;
+  border: none;
+  outline: none;
+  color: var(--black);
+
+  &.darkMode {
+    color: var(--white);
+  }
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    background-color: var(--light-bg);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--dark-grey);
+    border-radius: 10px;
+  }
+
+  @include media-rules(desktop) {
+    font-size: 16px;
+    height: auto;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+      background-color: var(--light-bg);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--dark-grey);
+    }
+  }
+}
+
+.text {
+  font-weight: 400;
+  font-size: 14px;
+  padding: 10px 20px;
+
+  @include media-rules(notebook) {
+    font-size: 16px;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.button {
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.replyList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.replyText {
+  display: flex;
+  flex-direction: column;
+  font-weight: 400;
+  font-size: 12px;
+  border-radius: 8px;
+
+  @include media-rules(notebook) {
+    font-size: 16px;
+    padding-left: 60px;
+  }
+}
+
+.userContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+
+  @include media-rules(notebook) {
+    gap: 10px;
+  }
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 24px;
+
+  @include media-rules(notebook) {
+    @include transition(transform);
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.editForm {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+}

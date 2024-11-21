@@ -164,10 +164,10 @@ const ProductDetails = () => {
         </div>
       </div>
 
-      <div className={scss.comments}>
+      <div className={scss.comments} id="comments-section">
         <Comments productId={productId} />
       </div>
-      <div className={scss.mapContainer}>
+      <div className={scss.mapContainer} id="location-section">
         <LocationMap
           loadingCoordinates={loadingCoordinates}
           coordinates={coordinates}

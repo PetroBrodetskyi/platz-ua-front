@@ -56,6 +56,13 @@ const SubmitButton = ({ buttonText, onClick }) => {
         </button>
       );
 
+    case 'Додати':
+      return (
+        <button className={scss.add} type="button" onClick={onClick}>
+          {buttonText}
+        </button>
+      );
+
     default:
       return (
         <button onClick={onClick} className={scss.buttonWrapper} type="button">

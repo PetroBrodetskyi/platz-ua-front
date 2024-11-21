@@ -92,7 +92,9 @@ const Followers = ({
   return (
     <div className={scss.followers}>
       <h3 className={scss.title}>Підписки та підписники</h3>
-      <div className={scss.followContainer}>
+      <div
+        className={`${scss.followContainer} ${isDarkMode ? scss.darkMode : ''}`}
+      >
         <div className={scss.header}>
           <div className={scss.ownerInfo} onClick={handleOwnerClick}>
             <img

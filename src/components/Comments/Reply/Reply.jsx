@@ -6,10 +6,18 @@ import {
   editReply,
   fetchComments
 } from '../../../redux/features/commentsSlice';
+import { useTheme } from '../../../context/ThemeContext';
 import { TbGhost } from 'react-icons/tb';
+import {
+  MdOutlineEdit,
+  MdOutlineSaveAs,
+  MdOutlineDelete,
+  MdOutlineCancel
+} from 'react-icons/md';
+import { LuArrowUpCircle } from 'react-icons/lu';
 import { formatDistanceToNow } from 'date-fns';
 import { uk } from 'date-fns/locale';
-import scss from '../Comments.module.scss';
+import scss from './Reply.module.scss';
 
 const Reply = ({
   replies,
@@ -91,6 +99,8 @@ const Reply = ({
     setReplyTo(null);
   };
 
+  const { isDarkMode } = useTheme();
+
   return (
     <div className={scss.replyContainer}>
       {replyTo === commentId && (
@@ -105,15 +115,15 @@ const Reply = ({
               value={replyText}
               onChange={(e) => setReplyText(e.target.value)}
               placeholder="Ваша відповідь..."
-              className={scss.textarea}
+              className={`${scss.textarea} ${isDarkMode ? scss.darkMode : ''}`}
             />
           </div>
           <div className={scss.actions}>
             <button className={scss.button} onClick={handleAddReply}>
-              Відправити
+              <LuArrowUpCircle />
             </button>
             <button className={scss.button} onClick={handleCancelReply}>
-              Скасувати
+              <MdOutlineCancel />
             </button>
           </div>
         </div>
@@ -151,20 +161,20 @@ const Reply = ({
                       setEditing({ id: _id, text: e.target.value })
                     }
                     placeholder="Редагувати відповідь..."
-                    className={scss.textarea}
+                    className={`${scss.textarea} ${isDarkMode ? scss.darkMode : ''}`}
                   />
                   <div className={scss.actions}>
                     <button
                       className={scss.button}
                       onClick={() => handleEditReply(_id)}
                     >
-                      Зберегти
+                      <MdOutlineSaveAs />
                     </button>
                     <button
                       className={scss.button}
                       onClick={() => setEditing({ id: null, text: '' })}
                     >
-                      Скасувати
+                      <MdOutlineCancel />
                     </button>
                   </div>
                 </div>
@@ -177,13 +187,13 @@ const Reply = ({
                         className={scss.button}
                         onClick={() => setEditing({ id: _id, text })}
                       >
-                        Редагувати
+                        <MdOutlineEdit />
                       </button>
                       <button
                         className={scss.button}
                         onClick={() => handleDeleteReply(_id)}
                       >
-                        Видалити
+                        <MdOutlineDelete />
                       </button>
                     </div>
                   )}

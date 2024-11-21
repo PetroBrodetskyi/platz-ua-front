@@ -12,7 +12,14 @@ import Notification from '../Notification';
 import SubmitButton from '../SubmitButton';
 import Modal from '../Modal';
 import { TbGhost } from 'react-icons/tb';
-import { MdOutlineEmojiEmotions } from 'react-icons/md';
+import {
+  MdOutlineEmojiEmotions,
+  MdOutlineEdit,
+  MdOutlineCancel,
+  MdOutlineSaveAs,
+  MdReply,
+  MdOutlineDelete
+} from 'react-icons/md';
 import { LuArrowUpCircle } from 'react-icons/lu';
 import { nanoid } from 'nanoid';
 import { useTheme } from '../../context/ThemeContext';
@@ -156,7 +163,7 @@ const Comments = ({ productId }) => {
                         value={editingText}
                         onChange={(e) => setEditingText(e.target.value)}
                         placeholder="Редагувати коментар..."
-                        className={scss.textarea}
+                        className={`${scss.textarea} ${isDarkMode ? scss.darkMode : ''}`}
                       />
                     </div>
                     <div className={scss.actions}>
@@ -164,7 +171,7 @@ const Comments = ({ productId }) => {
                         className={scss.button}
                         onClick={() => handleEditComment(_id)}
                       >
-                        Зберегти
+                        <MdOutlineSaveAs />
                       </button>
                       <button
                         className={scss.button}
@@ -173,7 +180,7 @@ const Comments = ({ productId }) => {
                           setEditingText('');
                         }}
                       >
-                        Скасувати
+                        <MdOutlineCancel />
                       </button>
                     </div>
                   </div>
@@ -190,13 +197,13 @@ const Comments = ({ productId }) => {
                               setEditingText(text);
                             }}
                           >
-                            Редагувати
+                            <MdOutlineEdit />
                           </button>
                           <button
                             className={scss.button}
                             onClick={() => handleDeleteComment(_id)}
                           >
-                            Видалити
+                            <MdOutlineDelete />
                           </button>
                         </>
                       )}
@@ -205,7 +212,7 @@ const Comments = ({ productId }) => {
                           className={scss.button}
                           onClick={() => setReplyTo(_id)}
                         >
-                          Відповісти
+                          <MdReply />
                         </button>
                       )}
                     </div>
@@ -252,10 +259,13 @@ const Comments = ({ productId }) => {
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="Додати коментар..."
-            className={scss.textarea}
+            className={`${scss.textarea} ${isDarkMode ? scss.darkMode : ''}`}
           />
           <div className={scss.emoji}>
-            <button onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
+            <button
+              className={`${scss.add} ${isDarkMode ? scss.darkMode : ''}`}
+              onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+            >
               <MdOutlineEmojiEmotions className={scss.icon} />
             </button>
             <Modal
@@ -270,7 +280,10 @@ const Comments = ({ productId }) => {
                 />
               </div>
             </Modal>
-            <button className={scss.add} onClick={handleAddComment}>
+            <button
+              className={`${scss.add} ${isDarkMode ? scss.darkMode : ''}`}
+              onClick={handleAddComment}
+            >
               <LuArrowUpCircle className={scss.icon} />
             </button>
           </div>

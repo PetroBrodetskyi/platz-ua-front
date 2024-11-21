@@ -13,12 +13,35 @@ const UserInfo = ({ owner }) => {
     navigate(`/user/${owner._id}`);
   };
 
+  const handleScrollTo = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className={scss.userInfo} onClick={handleOwnerClick}>
-      <img src={owner.avatarURL} alt={owner.name} className={scss.avatar} />
-      <Tooltip title="Перейти на сторінку автора" placement="bottom-start">
-        <p className={scss.name}>{owner.name}</p>
-      </Tooltip>
+    <div className={scss.menu}>
+      <div className={scss.userInfo} onClick={handleOwnerClick}>
+        <img src={owner.avatarURL} alt={owner.name} className={scss.avatar} />
+        <Tooltip title="Перейти на сторінку автора" placement="bottom-start">
+          <p className={scss.name}>{owner.name}</p>
+        </Tooltip>
+      </div>
+      <div className={scss.navigation}>
+        <button
+          className={scss.navigate}
+          onClick={() => handleScrollTo('comments-section')}
+        >
+          <p>Коментарі</p>
+        </button>
+        <button
+          className={scss.navigate}
+          onClick={() => handleScrollTo('location-section')}
+        >
+          <p>Локація</p>
+        </button>
+      </div>
     </div>
   );
 };
