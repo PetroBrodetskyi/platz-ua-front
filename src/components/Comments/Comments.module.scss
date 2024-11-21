@@ -121,7 +121,11 @@
 .editForm {
   display: flex;
   flex-direction: column;
-  width: 600px;
+  width: 300px;
+
+  @include media-rules(notebook) {
+    width: 600px;
+  }
 }
 
 .commentsContainer {
@@ -181,6 +185,7 @@
   border: none;
   outline: none;
   color: var(--black);
+  padding: 10px;
 
   &.darkMode {
     color: var(--white);
