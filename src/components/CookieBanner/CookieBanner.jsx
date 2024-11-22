@@ -14,8 +14,12 @@ const CookieBanner = () => {
   const handleAccept = () => {
     document.cookie = 'cookiesAccepted=true; path=/; max-age=31536000';
     setIsVisible(false);
-
     loadGoogleAnalytics();
+  };
+
+  const handleReject = () => {
+    document.cookie = 'cookiesAccepted=false; path=/; max-age=31536000';
+    setIsVisible(false);
   };
 
   const loadGoogleAnalytics = () => {
@@ -25,7 +29,7 @@ const CookieBanner = () => {
     script.onload = () => {
       window.dataLayer = window.dataLayer || [];
       function gtag() {
-        dataLayer.push(arguments);
+        window.dataLayer.push(arguments);
       }
       gtag('js', new Date());
       gtag('config', 'G-4VZXZ9J5C3');
@@ -36,16 +40,21 @@ const CookieBanner = () => {
   return (
     isVisible && (
       <div className={scss.cookieBanner}>
+        <div className={scss.logoTitle}>
+          <img src="/logo.svg" alt="Логотип Platz UA" className={scss.logo} />
+          <h3 className={scss.title}>Використання файлів cookie</h3>
+        </div>
         <p>
           Ми використовуємо файли cookie та інші технології для забезпечення
           коректної роботи сайту, аналізу трафіку та покращення його
-          функціональності. Ви можете змінити налаштування cookie у своєму
-          браузері або припинити використання сайту, якщо не погоджуєтесь із
-          цим. Детальніше про те, як ми обробляємо ваші дані, читайте у нашій{' '}
-          <a href="/privacy-policy">Політиці конфіденційності</a>. Продовжуючи
-          використання сайту, ви погоджуєтесь на обробку файлів cookie.
+          функціональності. Ви можете налаштувати свої вподобання нижче або
+          детальніше ознайомитися у{' '}
+          <a href="/privacy-policy">Політиці конфіденційності</a>.
         </p>
-        <button onClick={handleAccept}>Зрозуміло!</button>
+        <div className={scss.buttons}>
+          <button onClick={handleAccept}>Прийняти всі</button>
+          <button onClick={handleReject}>Відхилити</button>
+        </div>
       </div>
     )
   );

@@ -1,4 +1,4 @@
-.PrivacyContainer {
+.privacyContainer {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -15,16 +15,30 @@
   }
 
   .text {
-    font-size: 12px;
+    font-size: 14px;
     animation: fadeIn 0.5s ease-in;
-
-    @include media-rules(tablet) {
-      font-size: 14px;
-    }
 
     @include media-rules(notebook) {
       font-size: 16px;
     }
+  }
+}
+
+.accordion {
+  border-radius: 8px;
+
+  @include media-rules(notebook) {
+    width: 70%;
+    margin: 0 auto;
+  }
+
+  &.darkMode {
+    background-color: var(--grafite);
+    color: var(--white);
+  }
+
+  .icon {
+    font-size: 24px;
   }
 }
 
