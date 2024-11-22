@@ -112,7 +112,7 @@ const TermsOfService = () => {
 
   return (
     <div className={scss.termsContainer}>
-      <h4>Умови використання</h4>
+      <h3 className={scss.title}>Умови використання</h3>
       <div className={scss.termsContent}>
         <div>
           <p className={scss.infoText}>

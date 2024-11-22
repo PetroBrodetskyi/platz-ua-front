@@ -161,7 +161,7 @@ const PrivacyPolicy = () => {
 
   return (
     <div className={scss.privacyContainer}>
-      <h4>Політика конфіденційності</h4>
+      <h3 className={scss.title}>Політика конфіденційності</h3>
       <div className={scss.privacyContent}>
         <div>
           <p className={scss.infoText}>
