@@ -2,16 +2,12 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 10px;
-
-  @include media-rules(tablet) {
-    padding: 20px 10px;
-    font-size: 14px;
-  }
+  padding: 20px 10px;
 
   @include media-rules(notebook) {
     padding: 120px 40px;
     font-size: 16px;
+    gap: 40px;
   }
 
   .text {
@@ -24,13 +20,36 @@
   }
 }
 
-.accordion {
-  border-radius: 8px;
+.privacyContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
   @include media-rules(notebook) {
+    flex-direction: row;
+    gap: 40px;
     width: 70%;
     margin: 0 auto;
   }
+}
+
+.infoText {
+  font-size: 14px;
+
+  @include media-rules(notebook) {
+    width: 220px;
+    font-size: 16px;
+  }
+}
+
+.menuInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.accordion {
+  border-radius: 8px;
 
   &.darkMode {
     background-color: var(--grafite);
@@ -39,6 +58,10 @@
 
   .icon {
     font-size: 24px;
+
+    &.darkMode {
+      color: var(--white);
+    }
   }
 }
 

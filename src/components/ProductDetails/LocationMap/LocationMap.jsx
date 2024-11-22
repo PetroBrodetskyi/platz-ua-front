@@ -8,34 +8,39 @@ const LocationMap = ({ loadingCoordinates, coordinates, plz, city }) => {
   const { isDarkMode } = useTheme();
 
   return (
-    <div className={`${scss.mapContainer} ${isDarkMode ? scss.darkMode : ''}`}>
+    <div className={scss.locationMap}>
       <h3 className={scss.title}>Локація</h3>
-      <div className={scss.mapInfoContainer}>
-        <p className={scss.mapInfo}>
-          На карті відображено місцезнаходження населеного пункту, зазначеного
-          продавцем при створенні оголошення. Це дозволяє приблизно оцінити, де
-          знаходиться товар або послуга. Для отримання точної адреси зверніться
-          до продавця під час обговорення деталей замовлення.
-        </p>
-        <div className={scss.map}>
-          {loadingCoordinates ? (
-            <Skeleton
-              variant="rectangular"
-              animation="pulse"
-              width="100%"
-              height="400px"
-              style={{ borderRadius: '8px' }}
-            />
-          ) : coordinates ? (
-            <Map
-              latitude={coordinates.latitude}
-              longitude={coordinates.longitude}
-              plz={plz}
-              city={city}
-            />
-          ) : (
-            <p>Координати не знайдено</p>
-          )}
+      <div
+        className={`${scss.mapContainer} ${isDarkMode ? scss.darkMode : ''}`}
+      >
+        <div className={scss.mapInfoContainer}>
+          <p className={scss.mapInfo}>
+            На карті відображено місцезнаходження населеного пункту, зазначеного
+            продавцем при створенні оголошення. Це дозволяє приблизно оцінити,
+            де знаходиться товар або послуга. Для отримання точної адреси, якщо
+            це необхідно, зверніться до продавця під час обговорення деталей
+            замовлення.
+          </p>
+          <div className={scss.map}>
+            {loadingCoordinates ? (
+              <Skeleton
+                variant="rectangular"
+                animation="pulse"
+                width="100%"
+                height="400px"
+                style={{ borderRadius: '8px' }}
+              />
+            ) : coordinates ? (
+              <Map
+                latitude={coordinates.latitude}
+                longitude={coordinates.longitude}
+                plz={plz}
+                city={city}
+              />
+            ) : (
+              <p>Координати не знайдено</p>
+            )}
+          </div>
         </div>
       </div>
     </div>
