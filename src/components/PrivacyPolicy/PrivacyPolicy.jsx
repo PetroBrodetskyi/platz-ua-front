@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Accordion,
   AccordionSummary,
@@ -164,7 +163,7 @@ const PrivacyPolicy = () => {
     <div className={scss.privacyContainer}>
       <h4>Політика конфіденційності</h4>
       <div className={scss.privacyContent}>
-        <div className={scss.iconText}>
+        <div>
           <p className={scss.infoText}>
             Ця політика конфіденційності пояснює, як ми збираємо,
             використовуємо, зберігаємо та захищаємо ваші персональні дані під

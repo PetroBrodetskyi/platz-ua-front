@@ -1,13 +1,8 @@
-.TermsContainer {
+.termsContainer {
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 20px 10px;
-
-  @include media-rules(tablet) {
-    padding: 20px 10px;
-    font-size: 14px;
-  }
 
   @include media-rules(notebook) {
     padding: 120px 40px 100px;
@@ -15,7 +10,7 @@
   }
 
   .text {
-    font-size: 12px;
+    font-size: 14px;
     animation: fadeIn 0.5s ease-in;
 
     @include media-rules(tablet) {
@@ -28,13 +23,48 @@
   }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
+.termsContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @include media-rules(notebook) {
+    flex-direction: row;
+    gap: 40px;
+    width: 70%;
+    margin: 0 auto;
+  }
+}
+
+.menuInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.accordion {
+  border-radius: 8px;
+
+  &.darkMode {
+    background-color: var(--grafite);
+    color: var(--white);
   }
 
-  to {
-    opacity: 1;
+  .icon {
+    font-size: 24px;
+
+    &.darkMode {
+      color: var(--white);
+    }
+  }
+}
+
+.infoText {
+  font-size: 14px;
+
+  @include media-rules(notebook) {
+    width: 220px;
+    font-size: 16px;
   }
 }
 
