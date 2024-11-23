@@ -2,11 +2,11 @@
   display: flex;
   justify-content: center;
   padding: 12px;
-  width: 260px;
   border: none;
-  border-radius: 4px;
+  border-radius: 44px;
   background-color: var(--red);
   margin-right: auto;
+  width: 100%;
   margin-left: auto;
   color: var(--white);
   cursor: pointer;
@@ -30,7 +30,7 @@
   padding: 8px;
   font-size: 14px;
   width: 160px;
-  border-radius: 4px;
+  border-radius: 44px;
 }
 
 .search {

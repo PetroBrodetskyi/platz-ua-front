@@ -6,10 +6,12 @@ import {
 } from '@react-google-maps/api';
 import { useJsApiLoader } from '@react-google-maps/api';
 import scss from './Map.module.scss';
+import { borderRadius } from '@mui/system';
 
 const containerStyle = {
   width: '100%',
-  height: '400px'
+  height: '400px',
+  borderRadius: '4px'
 };
 
 const Map = ({ latitude, longitude, plz, city }) => {

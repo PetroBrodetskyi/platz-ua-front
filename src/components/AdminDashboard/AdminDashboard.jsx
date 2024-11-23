@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import SubmitButton from '../../components/SubmitButton';
 import axios from 'axios';
 import scss from './AdminDashboard.module.scss';
 
@@ -8,36 +9,31 @@ const AdminDashboard = () => {
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('pending');
   const [owners, setOwners] = useState({});
-  const [loadingOwners, setLoadingOwners] = useState({});
-  const [totalProducts, setTotalProducts] = useState(0); // Додано для зберігання загальної кількості оголошень
+  const [totalProducts, setTotalProducts] = useState(0);
 
-  // Функція для отримання даних про власника
-  const fetchOwner = async (ownerId) => {
-    try {
-      if (!owners[ownerId] && !loadingOwners[ownerId]) {
-        setLoadingOwners((prev) => ({ ...prev, [ownerId]: true }));
+  const fetchOwner = useCallback(
+    async (ownerId) => {
+      if (owners[ownerId]) return;
+      try {
         const response = await axios.get(
           `https://platz-ua-back.vercel.app/api/users/${ownerId}`
         );
         setOwners((prev) => ({ ...prev, [ownerId]: response.data }));
-        setLoadingOwners((prev) => ({ ...prev, [ownerId]: false }));
+      } catch (err) {
+        console.error('Error fetching owner:', err);
       }
-    } catch (err) {
-      console.error('Error fetching owner:', err);
-    }
-  };
+    },
+    [owners]
+  );
 
-  // Функція для оновлення статусу продукту
   const updateProductStatus = async (productId, newStatus) => {
     try {
       await axios.patch(
         `https://platz-ua-back.vercel.app/api/products/${productId}`,
-        {
-          status: newStatus
-        }
+        { status: newStatus }
       );
-      setProducts((prevProducts) =>
-        prevProducts.map((product) =>
+      setProducts((prev) =>
+        prev.map((product) =>
           product._id === productId
             ? { ...product, status: newStatus }
             : product
@@ -49,23 +45,27 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleEdit = (productId) => {
+    // Логіка редагування (наприклад, відкриття форми або редірект)
+    console.log(`Редагувати продукт із ID: ${productId}`);
+    // Можна додати навігацію до форми редагування, якщо є:
+    // navigate(`/edit-product/${productId}`);
+  };
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // Додаємо параметр all до запиту
         const response = await axios.get(
           'https://platz-ua-back.vercel.app/api/products/public/?all=true'
         );
-        setProducts(response.data);
+        const productsData = response.data;
+        setProducts(productsData);
+        setTotalProducts(productsData.length);
 
-        // Встановлюємо загальну кількість продуктів
-        setTotalProducts(response.data.length);
-
-        // Отримання даних про власників для всіх продуктів
         const uniqueOwnerIds = [
-          ...new Set(response.data.map((product) => product.owner))
+          ...new Set(productsData.map((product) => product.owner))
         ];
-        uniqueOwnerIds.forEach((ownerId) => fetchOwner(ownerId));
+        uniqueOwnerIds.forEach(fetchOwner);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -74,11 +74,15 @@ const AdminDashboard = () => {
     };
 
     fetchProducts();
-  }, []);
+  }, [fetchOwner]);
 
-  const filteredProducts = products
-    .filter((product) => product.status === filter)
-    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  const filteredProducts = useMemo(
+    () =>
+      products
+        .filter((product) => product.status === filter)
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
+    [products, filter]
+  );
 
   if (loading) {
     return <div className={scss.loading}>Завантаження...</div>;
@@ -90,14 +94,24 @@ const AdminDashboard = () => {
 
   return (
     <div className={scss.container}>
-      <h1>Привіт, Адмін!</h1>
-      <h2>Список оголошень:</h2>
-      <p>Загальна кількість оголошень: {totalProducts}</p>
-
-      <div className={scss.filterButtons}>
-        <button onClick={() => setFilter('pending')}>На модерацію</button>
-        <button onClick={() => setFilter('approved')}>Затверджені</button>
-        <button onClick={() => setFilter('rejected')}>Відхилені</button>
+      <h3>Список оголошень</h3>
+      <div className={scss.filterContainer}>
+        <h4>Загальна кількість оголошень: {totalProducts}</h4>
+        <div className={scss.buttons}>
+          {['pending', 'approved', 'rejected'].map((status) => (
+            <SubmitButton
+              key={status}
+              onClick={() => setFilter(status)}
+              buttonText={
+                status === 'pending'
+                  ? 'На модерацію'
+                  : status === 'approved'
+                    ? 'Затверджені'
+                    : 'Відхилені'
+              }
+            />
+          ))}
+        </div>
       </div>
 
       {filteredProducts.length === 0 ? (
@@ -106,101 +120,76 @@ const AdminDashboard = () => {
         <ul className={scss.productList}>
           {filteredProducts.map((product) => (
             <li key={product._id} className={scss.productItem}>
-              <div className={scss.imageContainer}>
-                {product.image1 && (
-                  <div className={scss.imageWrapper}>
-                    <img
-                      className={scss.productImage}
-                      src={product.image1}
-                      alt={`${product.name} image 1`}
-                    />
-                  </div>
-                )}
-                {product.image2 && (
-                  <div className={scss.imageWrapper}>
-                    <img
-                      className={scss.productImage}
-                      src={product.image2}
-                      alt={`${product.name} image 2`}
-                    />
-                  </div>
-                )}
-                {product.image3 && (
-                  <div className={scss.imageWrapper}>
-                    <img
-                      className={scss.productImage}
-                      src={product.image3}
-                      alt={`${product.name} image 3`}
-                    />
-                  </div>
-                )}
-                {product.image4 && (
-                  <div className={scss.imageWrapper}>
-                    <img
-                      className={scss.productImage}
-                      src={product.image4}
-                      alt={`${product.name} image 4`}
-                    />
-                  </div>
-                )}
-              </div>
               <h3>{product.name}</h3>
-              <p>Ціна: {product.price}</p>
-              <p>Опис: {product.description}</p>
-              <p>Стан: {product.condition}</p>
-              <p>Місто: {product.city}</p>
-              <p>PLZ: {product.PLZ}</p>
-              <p>Статус: {product.status}</p>
-              <p>ID: {product._id}</p>
-              <p>
-                Дата розміщення:{' '}
-                {new Date(product.createdAt).toLocaleDateString()}
-              </p>
-              <p>
-                Час розміщення:{' '}
-                {new Date(product.createdAt).toLocaleTimeString()}
-              </p>
-              {product.owner && owners[product.owner] && (
-                <div className={scss.ownerInfo}>
-                  <h4>Інформація про власника:</h4>
-                  <p>Ім&apos;я: {owners[product.owner].name}</p>
-                  <p>Електронна пошта: {owners[product.owner].email}</p>
-                  <p>Телефон: {owners[product.owner].phone}</p>
+              <div className={scss.productInfo}>
+                <div className={scss.imageContainer}>
+                  {[1, 2, 3, 4]
+                    .map((i) => product[`image${i}`])
+                    .filter(Boolean)
+                    .map((image, index) => (
+                      <div key={index} className={scss.imageWrapper}>
+                        <img
+                          className={scss.image}
+                          src={image}
+                          alt={`${product.name} image ${index + 1}`}
+                        />
+                      </div>
+                    ))}
                 </div>
-              )}
-              {/* Кнопки для затвердження або відхилення оголошень */}
+                <div className={scss.productDetails}>
+                  <h4>Продукт</h4>
+                  <p>Ціна: {product.price}</p>
+                  <p>Опис: {product.description}</p>
+                  <p>Стан: {product.condition}</p>
+                  <p>Місто: {product.city}</p>
+                  <p>PLZ: {product.PLZ}</p>
+                  <p>Статус: {product.status}</p>
+                  <p>ID: {product._id}</p>
+                  <p>
+                    Дата: {new Date(product.createdAt).toLocaleDateString()}{' '}
+                    {new Date(product.createdAt).toLocaleTimeString()}
+                  </p>
+                </div>
+                <div>
+                  {product.owner && owners[product.owner] && (
+                    <div className={scss.ownerInfo}>
+                      <h4>Інформація про власника</h4>
+                      {owners[product.owner].avatarURL ? (
+                        <img
+                          src={owners[product.owner].avatarURL}
+                          alt={`Аватар ${owners[product.owner].name}`}
+                          className={scss.avatar}
+                        />
+                      ) : (
+                        <div className={scss.defaultAvatar}>Без аватара</div>
+                      )}
+                      <p>Ім'я: {owners[product.owner].name}</p>
+                      <p>Email: {owners[product.owner].email}</p>
+                      <p>Телефон: {owners[product.owner].phone}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
               <div className={scss.statusButtons}>
                 {product.status === 'pending' && (
-                  <>
-                    <button
+                  <div className={scss.buttons}>
+                    <SubmitButton
                       onClick={() =>
                         updateProductStatus(product._id, 'approved')
                       }
-                    >
-                      Затвердити
-                    </button>
-                    <button
+                      buttonText="Затвердити"
+                    />
+                    <SubmitButton
                       onClick={() =>
                         updateProductStatus(product._id, 'rejected')
                       }
-                    >
-                      Відхилити
-                    </button>
-                  </>
-                )}
-                {product.status === 'approved' && (
-                  <button
-                    onClick={() => updateProductStatus(product._id, 'pending')}
-                  >
-                    Повернути на модерацію
-                  </button>
-                )}
-                {product.status === 'rejected' && (
-                  <button
-                    onClick={() => updateProductStatus(product._id, 'pending')}
-                  >
-                    Повернути на модерацію
-                  </button>
+                      buttonText="Відхилити"
+                    />
+                    <SubmitButton
+                      onClick={() => handleEdit(product._id)}
+                      buttonText="Редагувати"
+                    />
+                  </div>
                 )}
               </div>
             </li>

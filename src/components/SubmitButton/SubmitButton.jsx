@@ -36,6 +36,12 @@ const SubmitButton = ({ buttonText, onClick }) => {
     case 'Стежити':
     case 'Відстежується':
     case 'Повідомлення':
+    case 'Затвердити':
+    case 'Відхилити':
+    case 'На модерацію':
+    case 'Затверджені':
+    case 'Відхилені':
+    case 'Редагувати':
       return (
         <button className={scss.followSend} type="button" onClick={onClick}>
           {buttonText}

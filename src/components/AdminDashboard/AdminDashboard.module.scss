@@ -1,64 +1,82 @@
 .container {
-  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 120px 40px;
+}
+
+.filterContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
 }
 
 .imageContainer {
   display: flex;
   flex-wrap: wrap;
-  /* Зображення переходять на новий рядок при необхідності */
+  width: 480px;
   gap: 10px;
-  /* Проміжок між зображеннями */
   justify-content: center;
-  /* Вирівнювання зображень по центру */
 }
 
 .imageWrapper {
-  width: 100px;
-  /* Ширина контейнера для зображення */
-  height: 100px;
-  /* Висота контейнера для зображення */
+  max-width: 200px;
+  max-height: 200px;
   overflow: hidden;
-  /* Сховати частини зображення, що виходять за межі */
-  border-radius: 8px;
-  /* Закруглені кути */
-  border: 1px solid #ddd;
-  /* Обвідка */
   display: flex;
   align-items: center;
-  /* Вертикальне вирівнювання зображення по центру */
   justify-content: center;
-  /* Горизонтальне вирівнювання зображення по центру */
 }
 
-.productImage {
+.image {
   width: 100%;
-  /* Зображення займає всю ширину контейнера */
   height: auto;
-  /* Висота автоматично налаштовується відповідно до пропорцій */
   object-fit: cover;
-  /* Зображення заповнює контейнер без спотворень */
   cursor: pointer;
-  /* Курсор у вигляді руки при наведенні */
 }
 
 .productList {
-  list-style-type: none;
-  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
 .productItem {
-  margin-bottom: 30px;
-  border: 1px solid #ddd;
-  padding: 15px;
-  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #ddd;
 }
 
-.filterButtons {
-  margin-bottom: 20px;
+.productInfo {
+  display: flex;
+  gap: 40px;
+}
 
-  button {
-    margin-right: 10px;
-    padding: 10px 20px;
-    cursor: pointer;
+.ownerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .avatar {
+    width: 50px;
+    height: 50px;
   }
+}
+
+.productDetails {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
