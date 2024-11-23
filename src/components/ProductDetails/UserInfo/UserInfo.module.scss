@@ -4,10 +4,7 @@
   gap: 8px;
   cursor: pointer;
 
-  @include media-rules(tablet) {
-    padding: 10px 20px 10px 10px;
-    border-radius: 44px;
-    background-color: var(--white);
+  @include media-rules(desktop) {
     gap: 10px;
   }
 
@@ -18,7 +15,7 @@
   }
 
   .name {
-    font-weight: 600;
+    margin: 0;
   }
 }
 
@@ -29,7 +26,7 @@
   align-items: center;
   justify-content: space-between;
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     padding: 0;
   }
 }
@@ -39,7 +36,7 @@
   align-items: center;
   gap: 10px;
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     gap: 40px;
   }
 
@@ -48,6 +45,11 @@
     border-radius: 44px;
     background-color: var(--white);
     font-weight: 600;
+
+    &.darkMode {
+      background-color: var(--grey);
+      color: var(--white);
+    }
 
     @include media-rules(desktop) {
       padding: 10px 20px;

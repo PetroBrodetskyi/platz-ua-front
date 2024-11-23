@@ -1,6 +1,6 @@
 import Modal from 'react-modal';
 import { FiX } from 'react-icons/fi';
-import { Helmet } from 'react-helmet-async'; // Новий імпорт
+import { Helmet } from 'react-helmet-async';
 import ShareButton from '../ShareButton';
 import { useTheme } from '../../../context/ThemeContext';
 import { useEffect } from 'react';

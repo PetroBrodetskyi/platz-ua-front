@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import Skeleton from '@mui/material/Skeleton';
 import {
   fetchProductById,
   selectProductById,
@@ -22,7 +21,6 @@ import SubmitButton from '../SubmitButton';
 import ProductInfo from './ProductInfo';
 import UserInfo from './UserInfo';
 import Loader from '../Loader';
-import Map from '../Map';
 import Comments from '../Comments';
 import LocationMap from './LocationMap';
 import { TbLocation } from 'react-icons/tb';

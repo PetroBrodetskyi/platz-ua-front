@@ -7,7 +7,6 @@ import {
   fetchUsersPublicProducts
 } from '../../redux/features/productsSlice';
 import CreateAdButton from '../../components/CreateAdButton';
-import ProfileButton from '../../components/ProfileButton';
 import UserProducts from '../../components/UserProducts';
 import RandomCards from '../../components/RandomCards';
 
@@ -45,7 +44,6 @@ const UserProductsPage = () => {
           <div>
             <UserProducts products={products} setProducts={setProducts} />
             <CreateAdButton />
-            {isCurrentUser && <ProfileButton />}
           </div>
         ) : (
           <p>Завантаження даних...</p>

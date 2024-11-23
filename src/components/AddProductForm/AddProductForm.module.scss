@@ -1,37 +1,38 @@
-$form-padding-desktop: 100px 20px 30px 30px;
-$form-padding-tablet: 20px;
-$form-padding-mobile: 10px;
+$padding-desktop: 120px 40px;
+$padding-tablet: 20px;
+$padding-mobile: 20px 10px;
 
 .formContainer {
-  padding: $form-padding-mobile;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: $padding-mobile;
 
   @include media-rules(tablet) {
-    padding: $form-padding-tablet;
+    padding: $padding-tablet;
   }
 
   @include media-rules(notebook) {
-    padding: $form-padding-desktop;
+    padding: $padding-desktop;
+    gap: 40px;
   }
 }
 
 .title {
-  margin-bottom: 20px;
+  margin: 0;
 }
 
 .form {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0;
   gap: 20px;
 
   @include media-rules(tablet) {
-    padding: $form-padding-tablet;
     gap: 20px;
   }
 
   @include media-rules(notebook) {
-    padding: $form-padding-tablet;
     flex-direction: row;
     gap: 40px;
   }
