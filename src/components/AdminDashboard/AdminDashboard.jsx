@@ -120,7 +120,13 @@ const AdminDashboard = () => {
         <ul className={scss.productList}>
           {filteredProducts.map((product) => (
             <li key={product._id} className={scss.productItem}>
-              <h3>{product.name}</h3>
+              <div className={scss.productHeader}>
+                <h3>{product.name}</h3>
+                <p className={scss.date}>
+                  Розміщено {new Date(product.createdAt).toLocaleDateString()}{' '}
+                  {new Date(product.createdAt).toLocaleTimeString()}
+                </p>
+              </div>
               <div className={scss.productInfo}>
                 <div className={scss.imageContainer}>
                   {[1, 2, 3, 4]
@@ -137,7 +143,7 @@ const AdminDashboard = () => {
                     ))}
                 </div>
                 <div className={scss.productDetails}>
-                  <h4>Продукт</h4>
+                  <h4>Інформація про продукт</h4>
                   <p>Ціна: {product.price}</p>
                   <p>Опис: {product.description}</p>
                   <p>Стан: {product.condition}</p>
@@ -145,10 +151,6 @@ const AdminDashboard = () => {
                   <p>PLZ: {product.PLZ}</p>
                   <p>Статус: {product.status}</p>
                   <p>ID: {product._id}</p>
-                  <p>
-                    Дата: {new Date(product.createdAt).toLocaleDateString()}{' '}
-                    {new Date(product.createdAt).toLocaleTimeString()}
-                  </p>
                 </div>
                 <div>
                   {product.owner && owners[product.owner] && (
