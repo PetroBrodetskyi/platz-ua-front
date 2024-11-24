@@ -1,5 +1,5 @@
 import ProductItem from '../ProductItem';
-import scss from '../AdminDashboard.module.scss';
+import scss from './ProductList.module.scss';
 
 const ProductList = ({
   products,

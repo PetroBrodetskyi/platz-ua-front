@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import OwnerInfo from '../OwnerInfo';
 import SubmitButton from '../../SubmitButton';
-import scss from '../AdminDashboard.module.scss';
+import scss from './ProductItem.module.scss';
 
 const ProductItem = ({
   product,
@@ -108,26 +108,45 @@ const ProductItem = ({
         <div className={scss.productDetails}>
           {isEditing ? (
             <>
-              {['price', 'description', 'city', 'PLZ'].map((field) => (
-                <label key={field}>
-                  {field === 'price'
-                    ? 'Ціна:'
-                    : field === 'description'
-                      ? 'Опис:'
-                      : field === 'city'
-                        ? 'Місто:'
-                        : 'PLZ:'}
-                  <input
-                    type={field === 'price' ? 'number' : 'text'}
-                    name={field}
-                    value={editedProduct[field]}
-                    onChange={handleInputChange}
-                    className={
-                      field === 'description' ? scss.textarea : scss.input
-                    }
-                  />
-                </label>
-              ))}
+              <label>
+                Ціна:
+                <input
+                  type="number"
+                  name="price"
+                  value={editedProduct.price}
+                  onChange={handleInputChange}
+                  className={scss.input}
+                />
+              </label>
+              <label>
+                Опис:
+                <textarea
+                  name="description"
+                  value={editedProduct.description}
+                  onChange={handleInputChange}
+                  className={scss.textarea}
+                />
+              </label>
+              <label>
+                Місто:
+                <input
+                  type="text"
+                  name="city"
+                  value={editedProduct.city}
+                  onChange={handleInputChange}
+                  className={scss.input}
+                />
+              </label>
+              <label>
+                PLZ:
+                <input
+                  type="text"
+                  name="PLZ"
+                  value={editedProduct.PLZ}
+                  onChange={handleInputChange}
+                  className={scss.input}
+                />
+              </label>
             </>
           ) : (
             <>

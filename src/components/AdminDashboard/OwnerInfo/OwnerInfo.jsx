@@ -1,4 +1,4 @@
-import scss from '../AdminDashboard.module.scss';
+import scss from './OwnerInfo.module.scss';
 
 const OwnerInfo = ({ owner }) => {
   return (
