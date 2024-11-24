@@ -49,4 +49,41 @@ $padding-mobile: 10px;
       }
     }
   }
+
+  .editForm {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    input,
+    textarea {
+      font-size: 16px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        border-color: #007bff;
+      }
+
+      &::placeholder {
+        color: #888;
+      }
+    }
+
+    .MuiTextField-root {
+      margin-bottom: 12px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    gap: 10px;
+  }
 }
