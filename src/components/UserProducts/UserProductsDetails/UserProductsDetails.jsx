@@ -161,7 +161,7 @@ const UserProductsDetails = ({ product }) => {
               type="number"
               InputProps={{
                 startAdornment: (
-                  <InputAdornment position="start">₴</InputAdornment>
+                  <InputAdornment position="start">€</InputAdornment>
                 )
               }}
             />

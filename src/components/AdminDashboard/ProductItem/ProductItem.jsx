@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
+import TextField from '@mui/material/TextField';
+import { InputAdornment } from '@mui/material';
 import OwnerInfo from '../OwnerInfo';
 import SubmitButton from '../../SubmitButton';
 import scss from './ProductItem.module.scss';
@@ -75,12 +77,14 @@ const ProductItem = ({
     <li className={scss.productItem}>
       <div className={scss.productHeader}>
         {isEditing ? (
-          <input
-            type="text"
+          <TextField
+            label="Назва"
             name="name"
             value={editedProduct.name}
             onChange={handleInputChange}
-            className={scss.input}
+            variant="outlined"
+            fullWidth
+            margin="normal"
           />
         ) : (
           <h3>{product.name}</h3>
@@ -108,45 +112,50 @@ const ProductItem = ({
         <div className={scss.productDetails}>
           {isEditing ? (
             <>
-              <label>
-                Ціна:
-                <input
-                  type="number"
-                  name="price"
-                  value={editedProduct.price}
-                  onChange={handleInputChange}
-                  className={scss.input}
-                />
-              </label>
-              <label>
-                Опис:
-                <textarea
-                  name="description"
-                  value={editedProduct.description}
-                  onChange={handleInputChange}
-                  className={scss.textarea}
-                />
-              </label>
-              <label>
-                Місто:
-                <input
-                  type="text"
-                  name="city"
-                  value={editedProduct.city}
-                  onChange={handleInputChange}
-                  className={scss.input}
-                />
-              </label>
-              <label>
-                PLZ:
-                <input
-                  type="text"
-                  name="PLZ"
-                  value={editedProduct.PLZ}
-                  onChange={handleInputChange}
-                  className={scss.input}
-                />
-              </label>
+              <TextField
+                label="Ціна"
+                name="price"
+                value={editedProduct.price}
+                onChange={handleInputChange}
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                type="number"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">€</InputAdornment>
+                  )
+                }}
+              />
+              <TextField
+                label="Опис"
+                name="description"
+                value={editedProduct.description}
+                onChange={handleInputChange}
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                multiline
+                rows={4}
+              />
+              <TextField
+                label="Місто"
+                name="city"
+                value={editedProduct.city}
+                onChange={handleInputChange}
+                variant="outlined"
+                fullWidth
+                margin="normal"
+              />
+              <TextField
+                label="PLZ"
+                name="PLZ"
+                value={editedProduct.PLZ}
+                onChange={handleInputChange}
+                variant="outlined"
+                fullWidth
+                margin="normal"
+              />
             </>
           ) : (
             <>
