@@ -50,7 +50,8 @@ const AuthPage = () => {
           </p>
         </div>
       </div>
-      <div className={scss.cards}>
+      <div className={scss.random}>
+        <h3 className={scss.title}>Вас можуть зацікавити</h3>
         <RandomCards />
       </div>
     </div>
