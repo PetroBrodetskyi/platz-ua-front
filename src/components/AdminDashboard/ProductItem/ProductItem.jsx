@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import axios from 'axios';
-import TextField from '@mui/material/TextField';
-import { InputAdornment } from '@mui/material';
 import OwnerInfo from '../OwnerInfo';
 import SubmitButton from '../../SubmitButton';
 import scss from './ProductItem.module.scss';
@@ -77,14 +75,13 @@ const ProductItem = ({
     <li className={scss.productItem}>
       <div className={scss.productHeader}>
         {isEditing ? (
-          <TextField
-            label="Назва"
+          <input
+            type="text"
             name="name"
             value={editedProduct.name}
             onChange={handleInputChange}
-            variant="outlined"
-            fullWidth
-            margin="normal"
+            placeholder="Назва"
+            className={scss.input}
           />
         ) : (
           <h3>{product.name}</h3>
@@ -112,54 +109,41 @@ const ProductItem = ({
         <div className={scss.productDetails}>
           {isEditing ? (
             <>
-              <TextField
-                label="Ціна"
+              <input
+                type="number"
                 name="price"
                 value={editedProduct.price}
                 onChange={handleInputChange}
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                type="number"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">€</InputAdornment>
-                  )
-                }}
+                placeholder="Ціна (€)"
+                className={scss.input}
               />
-              <TextField
-                label="Опис"
+              <textarea
                 name="description"
                 value={editedProduct.description}
                 onChange={handleInputChange}
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                multiline
-                rows={4}
+                placeholder="Опис"
+                className={scss.textarea}
               />
-              <TextField
-                label="Місто"
+              <input
+                type="text"
                 name="city"
                 value={editedProduct.city}
                 onChange={handleInputChange}
-                variant="outlined"
-                fullWidth
-                margin="normal"
+                placeholder="Місто"
+                className={scss.input}
               />
-              <TextField
-                label="PLZ"
+              <input
+                type="text"
                 name="PLZ"
                 value={editedProduct.PLZ}
                 onChange={handleInputChange}
-                variant="outlined"
-                fullWidth
-                margin="normal"
+                placeholder="PLZ"
+                className={scss.input}
               />
             </>
           ) : (
             <>
-              <p>Ціна: {product.price}</p>
+              <p>Ціна: {product.price} €</p>
               <p>Опис: {product.description}</p>
               <p>Місто: {product.city}</p>
               <p>PLZ: {product.PLZ}</p>

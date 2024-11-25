@@ -99,6 +99,12 @@ const Reply = ({
     setReplyTo(null);
   };
 
+  const handleInput = (event) => {
+    const target = event.target;
+    target.style.height = 'auto';
+    target.style.height = `${target.scrollHeight}px`;
+  };
+
   const { isDarkMode } = useTheme();
 
   return (
@@ -114,6 +120,7 @@ const Reply = ({
             <textarea
               value={replyText}
               onChange={(e) => setReplyText(e.target.value)}
+              onInput={handleInput}
               placeholder="Ваша відповідь..."
               className={`${scss.textarea} ${isDarkMode ? scss.darkMode : ''}`}
             />
@@ -160,6 +167,7 @@ const Reply = ({
                     onChange={(e) =>
                       setEditing({ id: _id, text: e.target.value })
                     }
+                    onInput={handleInput}
                     placeholder="Редагувати відповідь..."
                     className={`${scss.textarea} ${isDarkMode ? scss.darkMode : ''}`}
                   />

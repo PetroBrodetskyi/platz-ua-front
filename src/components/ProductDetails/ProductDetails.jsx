@@ -155,10 +155,12 @@ const ProductDetails = () => {
               isInCart={isInCart}
             />
           </div>
-          <SubmitButton
-            buttonText={isInCart ? 'У кошику' : 'У кошик'}
-            onClick={handleAddToCart}
-          />
+          <div className={scss.buttonWrapper}>
+            <SubmitButton
+              buttonText={isInCart ? 'У кошику' : 'У кошик'}
+              onClick={handleAddToCart}
+            />
+          </div>
         </div>
       </div>
 

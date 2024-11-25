@@ -100,6 +100,14 @@ $padding-tablet: 0 20px;
     }
   }
 
+  .buttonWrapper {
+    padding: 0 10px;
+
+    @include media-rules(notebook) {
+      padding: 0;
+    }
+  }
+
   .icons {
     display: flex;
     align-items: сenter;

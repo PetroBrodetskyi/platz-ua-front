@@ -75,6 +75,10 @@ const Comments = ({ productId }) => {
         'Помилка додавання коментаря'
       );
       setNewComment('');
+      const textareaElement = document.querySelector(`.${scss.textarea}`);
+      if (textareaElement) {
+        textareaElement.style.height = 'auto';
+      }
     }
   };
 
@@ -97,6 +101,12 @@ const Comments = ({ productId }) => {
       setEditingCommentId(null);
       setEditingText('');
     }
+  };
+
+  const handleInput = (event) => {
+    const target = event.target;
+    target.style.height = 'auto';
+    target.style.height = `${target.scrollHeight}px`;
   };
 
   const onEmojiClick = (emojiData) => {
@@ -162,6 +172,7 @@ const Comments = ({ productId }) => {
                       <textarea
                         value={editingText}
                         onChange={(e) => setEditingText(e.target.value)}
+                        onInput={handleInput}
                         placeholder="Редагувати коментар..."
                         className={`${scss.textarea} ${isDarkMode ? scss.darkMode : ''}`}
                       />
@@ -258,6 +269,7 @@ const Comments = ({ productId }) => {
           <textarea
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
+            onInput={handleInput}
             placeholder="Додати коментар..."
             className={`${scss.textarea} ${isDarkMode ? scss.darkMode : ''}`}
           />

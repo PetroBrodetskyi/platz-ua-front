@@ -14,8 +14,6 @@ import Notification from '../../Notification/Notification';
 import SubmitButton from '../../SubmitButton';
 import { selectCurrentUser } from '../../../redux/features/authSlice';
 import axiosInstance from '../../../redux/axiosConfig';
-import TextField from '@mui/material/TextField';
-import { InputAdornment } from '@mui/material';
 import scss from './UserProductsDetails.module.scss';
 
 const UserProductsDetails = ({ product }) => {
@@ -101,6 +99,17 @@ const UserProductsDetails = ({ product }) => {
     }
   };
 
+  const handleDeleteProduct = async () => {
+    try {
+      await axiosInstance.delete(`/products/${product._id}`);
+      setNotification('Продукт успішно видалено!');
+      setTimeout(() => setNotification(''), 3000);
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      setNotification('Помилка при видаленні продукту');
+    }
+  };
+
   return (
     <div className={scss.productDetails}>
       <div className={scss.container}>
@@ -130,58 +139,40 @@ const UserProductsDetails = ({ product }) => {
 
         {isEditing ? (
           <div className={scss.editForm}>
-            <TextField
-              label="Назва продукту"
+            <input
+              type="text"
               name="name"
               value={editedProduct.name}
               onChange={handleInputChange}
-              variant="outlined"
-              fullWidth
-              margin="normal"
+              placeholder="Назва продукту"
             />
-            <TextField
-              label="Опис"
+            <textarea
               name="description"
               value={editedProduct.description}
               onChange={handleInputChange}
-              variant="outlined"
-              fullWidth
-              margin="normal"
-              multiline
-              rows={4}
+              placeholder="Опис"
+              rows="4"
             />
-            <TextField
-              label="Ціна"
+            <input
+              type="number"
               name="price"
               value={editedProduct.price}
               onChange={handleInputChange}
-              variant="outlined"
-              fullWidth
-              margin="normal"
-              type="number"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">€</InputAdornment>
-                )
-              }}
+              placeholder="Ціна (€)"
             />
-            <TextField
-              label="Місто"
+            <input
+              type="text"
               name="city"
               value={editedProduct.city}
               onChange={handleInputChange}
-              variant="outlined"
-              fullWidth
-              margin="normal"
+              placeholder="Місто"
             />
-            <TextField
-              label="PLZ"
+            <input
+              type="text"
               name="PLZ"
               value={editedProduct.PLZ}
               onChange={handleInputChange}
-              variant="outlined"
-              fullWidth
-              margin="normal"
+              placeholder="PLZ"
             />
             <div className={scss.buttons}>
               <SubmitButton buttonText="Зберегти" onClick={handleSaveChanges} />
@@ -195,7 +186,17 @@ const UserProductsDetails = ({ product }) => {
           <div>
             <p className={scss.description}>{product.description}</p>
             {currentUser && currentUser._id === product.owner && (
-              <SubmitButton buttonText="Редагувати" onClick={handleEditClick} />
+              <div className={scss.buttons}>
+                <SubmitButton
+                  buttonText="Редагувати"
+                  onClick={handleEditClick}
+                />
+                <SubmitButton
+                  buttonText="Видалити"
+                  onClick={handleDeleteProduct}
+                  className={scss.deleteButton}
+                />
+              </div>
             )}
           </div>
         )}

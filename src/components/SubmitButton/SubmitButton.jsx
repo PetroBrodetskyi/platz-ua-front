@@ -1,84 +1,73 @@
 import scss from './SubmitButton.module.scss';
 
-const SubmitButton = ({ buttonText, onClick }) => {
-  switch (buttonText) {
-    case 'Реєстрація':
-    case 'Логін':
-    case 'Розмістити':
-      return (
-        <button className={scss.button} type="submit" onClick={onClick}>
-          {buttonText}
-        </button>
-      );
+const SubmitButton = ({
+  buttonText,
+  onClick,
+  type = 'button',
+  className = ''
+}) => {
+  let buttonClass = scss.button;
 
-    case 'У кошик':
-    case 'У кошику':
-      return (
-        <button className={scss.button} type="button" onClick={onClick}>
-          {buttonText}
-        </button>
-      );
+  switch (true) {
+    case ['Реєстрація', 'Логін', 'Розмістити'].includes(buttonText):
+      buttonClass = scss.button;
+      type = 'submit';
+      break;
 
-    case 'Знайти':
-      return (
-        <button className={scss.search} type="button" onClick={onClick}>
-          {buttonText}
-        </button>
-      );
+    case ['У кошик', 'У кошику'].includes(buttonText):
+      buttonClass = scss.button;
+      break;
 
-    case 'Відправити':
-      return (
-        <button className={scss.button} type="button" onClick={onClick}>
-          {buttonText}
-        </button>
-      );
+    case buttonText === 'Знайти':
+      buttonClass = scss.search;
+      break;
 
-    case 'Стежити':
-    case 'Відстежується':
-    case 'Повідомлення':
-    case 'Затвердити':
-    case 'Відхилити':
-    case 'На модерацію':
-    case 'Затверджені':
-    case 'Відхилені':
-    case 'Редагувати':
-    case 'Видалити':
-    case 'Зберегти':
-    case 'Скасувати':
-      return (
-        <button className={scss.followSend} type="button" onClick={onClick}>
-          {buttonText}
-        </button>
-      );
+    case buttonText === 'Відправити':
+      buttonClass = scss.button;
+      break;
 
-    case 'Написати':
-      return (
-        <button className={scss.send} type="button" onClick={onClick}>
-          {buttonText}
-        </button>
-      );
+    case [
+      'Стежити',
+      'Відстежується',
+      'Повідомлення',
+      'Затвердити',
+      'Відхилити',
+      'На модерацію',
+      'Затверджені',
+      'Відхилені',
+      'Редагувати',
+      'Видалити',
+      'Зберегти',
+      'Скасувати'
+    ].includes(buttonText):
+      buttonClass = scss.followSend;
+      break;
 
-    case 'Увійти':
-      return (
-        <button className={scss.enter} type="button" onClick={onClick}>
-          {buttonText}
-        </button>
-      );
+    case buttonText === 'Написати':
+      buttonClass = scss.send;
+      break;
 
-    case 'Додати':
-      return (
-        <button className={scss.add} type="button" onClick={onClick}>
-          {buttonText}
-        </button>
-      );
+    case buttonText === 'Увійти':
+      buttonClass = scss.enter;
+      break;
+
+    case buttonText === 'Додати':
+      buttonClass = scss.add;
+      break;
 
     default:
-      return (
-        <button onClick={onClick} className={scss.buttonWrapper} type="button">
-          {buttonText}
-        </button>
-      );
+      buttonClass = scss.buttonWrapper;
   }
+
+  return (
+    <button
+      className={`${buttonClass} ${className}`}
+      type={type}
+      onClick={onClick}
+    >
+      {buttonText}
+    </button>
+  );
 };
 
 export default SubmitButton;

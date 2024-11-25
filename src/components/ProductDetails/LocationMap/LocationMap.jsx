@@ -1,5 +1,6 @@
 import React from 'react';
 import Skeleton from '@mui/material/Skeleton';
+import { FaMapMarkedAlt } from 'react-icons/fa'; // Імпорт іконки
 import Map from '../../Map';
 import { useTheme } from '../../../context/ThemeContext';
 import scss from './LocationMap.module.scss';
@@ -38,7 +39,18 @@ const LocationMap = ({ loadingCoordinates, coordinates, plz, city }) => {
                 city={city}
               />
             ) : (
-              <p>Координати не знайдено</p>
+              <div className={scss.placeholder}>
+                <FaMapMarkedAlt className={scss.icon} />
+                <p className={scss.text}>Координати не знайдено</p>
+                <p>
+                  Можливо, дозвіл на доступ до геоданих був відключений або
+                  заборонений
+                </p>
+                <p>
+                  Перевірте налаштування доступу до місцезнаходження у вашому
+                  браузері або пристрої
+                </p>
+              </div>
             )}
           </div>
         </div>

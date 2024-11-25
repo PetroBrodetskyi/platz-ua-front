@@ -21,11 +21,13 @@
   gap: 8px;
   flex: 1;
   overflow-y: auto;
+  max-height: 600px;
 
   @include media-rules(notebook) {
     gap: 20px;
     margin: 0 auto;
     width: 70%;
+    max-height: 800px;
   }
 
   &::-webkit-scrollbar {
@@ -177,6 +179,7 @@
 
 .textarea {
   width: 100%;
+  overflow: hidden;
   height: auto;
   resize: none;
   font-family: var(--font-family);
@@ -185,6 +188,7 @@
   border: none;
   outline: none;
   color: var(--black);
+  transition: height 0.2s ease-in-out;
 
   &.darkMode {
     color: var(--white);

@@ -113,8 +113,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
   padding: 2px 8px;
   border-radius: 54px;
+  border: 1px solid #ddd;
+}
+
+.comments {
+  padding: 4px 8px;
+  border-radius: 8px;
   border: 1px solid #ddd;
 }

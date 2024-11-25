@@ -45,7 +45,8 @@ const Map = ({ latitude, longitude, plz, city }) => {
           setUserLocation({ lat: userLat, lng: userLng });
         },
         (error) =>
-          console.error('Не вдалося отримати місце розташування:', error)
+          console.error('Не вдалося отримати місце розташування:', error),
+        { enableHighAccuracy: true }
       );
     }
   }, []);
