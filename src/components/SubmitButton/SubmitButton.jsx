@@ -38,7 +38,11 @@ const SubmitButton = ({
       'Редагувати',
       'Видалити',
       'Зберегти',
-      'Скасувати'
+      'Скасувати',
+      'Підтвердити',
+      'Ок',
+      'Не зараз',
+      'Увійти'
     ].includes(buttonText):
       buttonClass = scss.followSend;
       break;

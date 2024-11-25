@@ -1,10 +1,10 @@
-import { MdOutlineDeleteSweep } from 'react-icons/md';
-import { RiLoginCircleLine } from 'react-icons/ri';
-import { GiCancel } from 'react-icons/gi';
 import { motion } from 'framer-motion';
+import SubmitButton from '../SubmitButton';
+import { useTheme } from '../../context/ThemeContext';
 import scss from './Confirmation.module.scss';
 
 const Confirmation = ({ message, onConfirm, onCancel }) => {
+  const { isDarkMode } = useTheme();
   return (
     <motion.div
       className={scss.dialogOverlay}
@@ -13,7 +13,7 @@ const Confirmation = ({ message, onConfirm, onCancel }) => {
       exit={{ opacity: 0 }}
     >
       <motion.div
-        className={scss.dialogBox}
+        className={`${scss.dialogBox} ${isDarkMode ? scss.darkMode : ''}`}
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.8, opacity: 0 }}
@@ -21,26 +21,8 @@ const Confirmation = ({ message, onConfirm, onCancel }) => {
       >
         <p>{message}</p>
         <div className={scss.dialogButtons}>
-          <motion.button
-            onClick={onConfirm}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <div className={scss.buttonContainer}>
-              <MdOutlineDeleteSweep className={scss.icon} />
-              <span>підтвердити</span>
-            </div>
-          </motion.button>
-          <motion.button
-            onClick={onCancel}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <div className={scss.buttonContainer}>
-              <GiCancel className={scss.icon} />
-              <span>скасувати</span>
-            </div>
-          </motion.button>
+          <SubmitButton onClick={onConfirm} buttonText="Підтвердити" />
+          <SubmitButton onClick={onCancel} buttonText="Скасувати" />
         </div>
       </motion.div>
     </motion.div>
@@ -64,13 +46,11 @@ const ConfirmationOk = ({ message, onClose }) => {
       >
         <p>{message}</p>
         <div className={scss.dialogButtons}>
-          <motion.button
+          <SubmitButton
             onClick={onClose}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span>Ок</span>
-          </motion.button>
+            buttonText="Ок"
+            className={scss.followSend} // Apply 'followSend' style
+          />
         </div>
       </motion.div>
     </motion.div>
@@ -94,26 +74,16 @@ const ConfirmationLogin = ({ message, onConfirm, onCancel }) => {
       >
         <p>{message}</p>
         <div className={scss.dialogButtons}>
-          <motion.button
+          <SubmitButton
             onClick={onConfirm}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <div className={scss.buttonContainer}>
-              <RiLoginCircleLine className={scss.icon} />
-              <span>Увійти</span>
-            </div>
-          </motion.button>
-          <motion.button
+            buttonText="Увійти"
+            className={scss.followSend} // Apply 'followSend' style
+          />
+          <SubmitButton
             onClick={onCancel}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <div className={scss.buttonContainer}>
-              <GiCancel className={scss.icon} />
-              <span>Не зараз</span>
-            </div>
-          </motion.button>
+            buttonText="Не зараз"
+            className={scss.followSend} // Apply 'followSend' style
+          />
         </div>
       </motion.div>
     </motion.div>
