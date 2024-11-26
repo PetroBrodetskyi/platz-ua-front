@@ -1,1 +1,36 @@
+.noChats {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 10px;
 
+  .title {
+    margin: 0;
+  }
+
+  @include media-rules(desktop) {
+    gap: 40px;
+    padding: 120px 40px;
+  }
+}
+
+.random {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 40px 0;
+
+  @include media-rules(notebook) {
+    padding: 0 40px 40px;
+    gap: 20px;
+  }
+
+  .title {
+    margin: 0;
+    padding: 0 10px;
+
+    @include media-rules(notebook) {
+      padding: 0;
+    }
+  }
+}

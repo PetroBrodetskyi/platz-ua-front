@@ -4,6 +4,7 @@ import {
   fetchUserById,
   selectFollowingUsers
 } from '../../redux/features/authSlice';
+import Tooltip from '@mui/material/Tooltip';
 import { Link } from 'react-router-dom';
 import scss from './Following.module.scss';
 
@@ -22,18 +23,20 @@ const Following = () => {
     <div className={scss.following}>
       <div className={scss.userList}>
         {followingUsers.map((user) => (
-          <div key={user._id} className={scss.userItem}>
-            <Link to={`/user/${user._id}`}>
-              <img
-                src={user.avatarURL}
-                alt={user.name}
-                className={scss.avatar}
-              />
-            </Link>
-            <Link to={`/user/${user._id}`} className={scss.name}>
-              {user.name.split(' ')[0]}
-            </Link>
-          </div>
+          <Tooltip title="Перейти на сторінку автора" placement="bottom-start">
+            <div key={user._id} className={scss.userItem}>
+              <Link to={`/user/${user._id}`}>
+                <img
+                  src={user.avatarURL}
+                  alt={user.name}
+                  className={scss.avatar}
+                />
+              </Link>
+              <Link to={`/user/${user._id}`} className={scss.name}>
+                {user.name.split(' ')[0]}
+              </Link>
+            </div>
+          </Tooltip>
         ))}
       </div>
     </div>

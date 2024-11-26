@@ -4,6 +4,8 @@ import axios from 'axios';
 import Chats from '../../components/Chats/Chats';
 import scss from './ChatsPage.module.scss';
 import Loader from '../../components/Loader';
+import Following from '../../components/Following';
+import RandomCards from '../../components/RandomCards/RandomCards';
 import { selectCurrentUser } from '../../redux/features/authSlice';
 
 const ChatsPage = () => {
@@ -60,13 +62,22 @@ const ChatsPage = () => {
 
   return (
     <div className={scss.chatsPage}>
-      {loading ? (
-        <Loader />
-      ) : chatPartners.length === 0 ? (
-        <p>У вас немає чатів</p>
-      ) : (
-        <Chats chatPartners={chatPartners} />
-      )}
+      <div>
+        {loading ? (
+          <Loader />
+        ) : chatPartners.length === 0 ? (
+          <div className={scss.noChats}>
+            <h3 className={scss.title}>У вас ще немає чатів</h3>
+            <Following />
+          </div>
+        ) : (
+          <Chats chatPartners={chatPartners} />
+        )}
+      </div>
+      <div className={scss.random}>
+        <h3 className={scss.title}>Вас можуть зацікавити</h3>
+        <RandomCards />
+      </div>
     </div>
   );
 };
