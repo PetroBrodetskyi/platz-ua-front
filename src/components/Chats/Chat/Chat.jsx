@@ -4,6 +4,7 @@ import { MdOutlineArrowBackIosNew } from 'react-icons/md';
 import { CiMenuKebab } from 'react-icons/ci';
 import Loader from '../../Loader';
 import SubmitButton from '../../SubmitButton';
+import { useTheme } from '../../../context/ThemeContext';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchMessages,
@@ -107,6 +108,8 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
 
   if (!currentUser || !chatPartner) return null;
 
+  const { isDarkMode } = useTheme();
+
   return (
     <div className={scss.chat}>
       <div className={scss.header}>
@@ -157,7 +160,7 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
                           onChange={(e) => setEditingContent(e.target.value)}
                           onInput={handleInput}
                           placeholder="Редагуйте повідомлення..."
-                          className={scss.editMessage}
+                          className={`${scss.editMessage} ${isDarkMode ? scss.darkMode : ''}`}
                         />
                         <div className={scss.editButtons}>
                           <button
