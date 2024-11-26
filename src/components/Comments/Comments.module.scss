@@ -52,17 +52,10 @@
 .text {
   font-weight: 400;
   font-size: 14px;
-  padding: 10px 20px;
 
   @include media-rules(notebook) {
     font-size: 16px;
   }
-}
-
-.button {
-  padding: 4px 8px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
 }
 
 .userContainer {
@@ -87,7 +80,6 @@
 .actions {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   gap: 10px;
 }
 
@@ -186,29 +178,9 @@
     color: var(--white);
   }
 
-  &::-webkit-scrollbar {
-    width: 4px;
-    background-color: var(--light-bg);
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--dark-grey);
-    border-radius: 10px;
-  }
-
   @include media-rules(desktop) {
     font-size: 16px;
     height: auto;
-
-    &::-webkit-scrollbar {
-      width: 8px;
-      background-color: var(--light-bg);
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: var(--dark-grey);
-    }
   }
 }
 

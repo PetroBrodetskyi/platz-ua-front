@@ -182,7 +182,7 @@ const Comments = ({ productId }) => {
                         className={scss.button}
                         onClick={() => handleEditComment(_id)}
                       >
-                        <MdOutlineSaveAs />
+                        Зберегти
                       </button>
                       <button
                         className={scss.button}
@@ -191,7 +191,7 @@ const Comments = ({ productId }) => {
                           setEditingText('');
                         }}
                       >
-                        <MdOutlineCancel />
+                        Скасувати
                       </button>
                     </div>
                   </div>
@@ -208,13 +208,13 @@ const Comments = ({ productId }) => {
                               setEditingText(text);
                             }}
                           >
-                            <MdOutlineEdit />
+                            Редагувати
                           </button>
                           <button
                             className={scss.button}
                             onClick={() => handleDeleteComment(_id)}
                           >
-                            <MdOutlineDelete />
+                            Видалити
                           </button>
                         </>
                       )}
@@ -223,7 +223,7 @@ const Comments = ({ productId }) => {
                           className={scss.button}
                           onClick={() => setReplyTo(_id)}
                         >
-                          <MdReply />
+                          Відповісти
                         </button>
                       )}
                     </div>

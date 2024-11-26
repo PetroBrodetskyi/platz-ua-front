@@ -127,10 +127,10 @@ const Reply = ({
           </div>
           <div className={scss.actions}>
             <button className={scss.button} onClick={handleAddReply}>
-              <LuArrowUpCircle />
+              Відповісти
             </button>
             <button className={scss.button} onClick={handleCancelReply}>
-              <MdOutlineCancel />
+              Скасувати
             </button>
           </div>
         </div>
@@ -176,13 +176,13 @@ const Reply = ({
                       className={scss.button}
                       onClick={() => handleEditReply(_id)}
                     >
-                      <MdOutlineSaveAs />
+                      Зберегти
                     </button>
                     <button
                       className={scss.button}
                       onClick={() => setEditing({ id: null, text: '' })}
                     >
-                      <MdOutlineCancel />
+                      Скасувати
                     </button>
                   </div>
                 </div>
@@ -195,13 +195,13 @@ const Reply = ({
                         className={scss.button}
                         onClick={() => setEditing({ id: _id, text })}
                       >
-                        <MdOutlineEdit />
+                        Редагувати
                       </button>
                       <button
                         className={scss.button}
                         onClick={() => handleDeleteReply(_id)}
                       >
-                        <MdOutlineDelete />
+                        Видалити
                       </button>
                     </div>
                   )}

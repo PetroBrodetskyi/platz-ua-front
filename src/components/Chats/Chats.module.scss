@@ -30,9 +30,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--grafite);
-  border-radius: 44px;
-  padding: 10px;
   color: var(--white);
   cursor: pointer;
 
@@ -62,7 +59,6 @@
   .avatar {
     border-radius: 50%;
     object-fit: cover;
-    box-shadow: var(--logo-shadow);
     width: 50px;
     height: 50px;
   }
