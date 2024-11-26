@@ -50,6 +50,12 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
     };
   }, []);
 
+  const handleInput = (event) => {
+    const target = event.target;
+    target.style.height = 'auto';
+    target.style.height = `${target.scrollHeight}px`;
+  };
+
   const handleSendMessage = () => {
     if (newMessage.trim() && currentUser && chatPartner) {
       const messageData = {
@@ -61,6 +67,11 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
       };
       dispatch(sendMessage(messageData));
       setNewMessage('');
+
+      const textareaElement = document.querySelector(`.${scss.textarea}`);
+      if (textareaElement) {
+        textareaElement.style.height = 'auto';
+      }
     }
   };
 
@@ -101,6 +112,7 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
       <div className={scss.header}>
         <button onClick={() => navigate(-1)} className={scss.backButton}>
           <MdOutlineArrowBackIosNew className={scss.icon} />
+          Мої чати
         </button>
       </div>
 
@@ -143,6 +155,7 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
                         <textarea
                           value={editingContent}
                           onChange={(e) => setEditingContent(e.target.value)}
+                          onInput={handleInput}
                           placeholder="Редагуйте повідомлення..."
                           className={scss.editMessage}
                         />
@@ -203,6 +216,7 @@ const Chat = ({ chatId, currentUser, chatPartner }) => {
           type="text"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
+          onInput={handleInput}
           placeholder="Напишіть повідомлення..."
           className={scss.textarea}
         />
