@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import FilterButtons from '../AdminDashboard/FilterButtons';
 import ProductList from '../AdminDashboard/ProductList';
-import axios from 'axios';
+import axiosInstance from '../../redux/axiosConfig';
 import scss from './AdminDashboard.module.scss';
 
 const AdminDashboard = () => {
@@ -16,9 +16,7 @@ const AdminDashboard = () => {
     async (ownerId) => {
       if (owners[ownerId]) return;
       try {
-        const response = await axios.get(
-          `https://platz-ua-back.vercel.app/api/users/${ownerId}`
-        );
+        const response = await axiosInstance.get(`/users/${ownerId}`);
         setOwners((prev) => ({ ...prev, [ownerId]: response.data }));
       } catch (err) {
         console.error('Error fetching owner:', err);
@@ -30,9 +28,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(
-          'https://platz-ua-back.vercel.app/api/products/public/?all=true'
-        );
+        const response = await axiosInstance.get('/products/public/?all=true');
         const productsData = response.data;
         setProducts(productsData);
         setTotalProducts(productsData.length);
@@ -53,10 +49,9 @@ const AdminDashboard = () => {
 
   const updateProductStatus = async (productId, newStatus) => {
     try {
-      await axios.patch(
-        `https://platz-ua-back.vercel.app/api/products/${productId}`,
-        { status: newStatus }
-      );
+      await axiosInstance.patch(`/products/${productId}`, {
+        status: newStatus
+      });
       setProducts((prev) =>
         prev.map((product) =>
           product._id === productId
@@ -76,9 +71,7 @@ const AdminDashboard = () => {
 
   const deleteProduct = async (productId) => {
     try {
-      await axios.delete(
-        `https://platz-ua-back.vercel.app/api/products/${productId}`
-      );
+      await axiosInstance.delete(`/products/${productId}`);
       setProducts((prev) =>
         prev.filter((product) => product._id !== productId)
       );
