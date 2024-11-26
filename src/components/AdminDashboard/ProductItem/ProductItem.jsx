@@ -4,6 +4,8 @@ import OwnerInfo from '../OwnerInfo';
 import SubmitButton from '../../SubmitButton';
 import scss from './ProductItem.module.scss';
 
+const statuses = ['pending', 'approved', 'rejected', 'vip', 'archive'];
+
 const ProductItem = ({
   product,
   owner,
@@ -16,7 +18,8 @@ const ProductItem = ({
     price: product.price,
     description: product.description,
     city: product.city,
-    PLZ: product.PLZ
+    PLZ: product.PLZ,
+    status: product.status
   });
   const [error, setError] = useState('');
 
@@ -66,7 +69,8 @@ const ProductItem = ({
       price: product.price,
       description: product.description,
       city: product.city,
-      PLZ: product.PLZ
+      PLZ: product.PLZ,
+      status: product.status
     });
     setIsEditing(false);
   };
@@ -140,6 +144,18 @@ const ProductItem = ({
                 placeholder="PLZ"
                 className={scss.input}
               />
+              <select
+                name="status"
+                value={editedProduct.status}
+                onChange={handleInputChange}
+                className={scss.select}
+              >
+                {statuses.map((status) => (
+                  <option key={status} value={status}>
+                    {status}
+                  </option>
+                ))}
+              </select>
             </>
           ) : (
             <>
@@ -147,9 +163,9 @@ const ProductItem = ({
               <p>Опис: {product.description}</p>
               <p>Місто: {product.city}</p>
               <p>PLZ: {product.PLZ}</p>
+              <p>Статус: {product.status}</p>
             </>
           )}
-          <p>Статус: {product.status}</p>
           <p>ID: {product._id}</p>
         </div>
         {owner && <OwnerInfo owner={owner} />}
@@ -166,10 +182,6 @@ const ProductItem = ({
             <SubmitButton
               onClick={() => updateProductStatus(product._id, 'approved')}
               buttonText="Затвердити"
-            />
-            <SubmitButton
-              onClick={() => updateProductStatus(product._id, 'rejected')}
-              buttonText="Відхилити"
             />
             <SubmitButton
               onClick={() => setIsEditing(true)}

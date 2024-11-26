@@ -140,10 +140,14 @@ const ProductCard = ({ viewMode }) => {
     ));
   };
 
+  const approvedProducts = products.filter(
+    (product) => product.status === 'approved'
+  );
+
   return (
     <>
       <InfiniteScroll
-        dataLength={products.length}
+        dataLength={approvedProducts.length}
         next={fetchMoreProducts}
         hasMore={hasMore}
         endMessage={null}
@@ -151,7 +155,7 @@ const ProductCard = ({ viewMode }) => {
         <ul className={`${scss.list} ${scss[viewMode]}`}>
           {loading
             ? renderSkeletons(6)
-            : products.map((product) => {
+            : approvedProducts.map((product) => {
                 const isInCart = cartItems.some(
                   (item) => item._id === product._id
                 );

@@ -6,6 +6,7 @@ import Notification from '../Notification';
 import { useSelector } from 'react-redux';
 import AdditionalInfo from './AdditionalInfo';
 import UserInfo from './UserInfo';
+import SubmitButton from '../SubmitButton';
 import scss from './UserProfile.module.scss';
 
 const UserProfile = ({ user }) => {
@@ -177,13 +178,12 @@ const UserProfile = ({ user }) => {
 
               <AdditionalInfo formData={formData} handleChange={handleChange} />
             </div>
-            <button
+            <SubmitButton
+              buttonText={isSubmitting ? 'Збереження...' : 'Зберегти зміни'}
               type="submit"
               className={scss.button}
               disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Збереження...' : 'Зберегти зміни'}
-            </button>
+            />
           </form>
         </div>
       </div>

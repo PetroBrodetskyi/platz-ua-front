@@ -15,11 +15,6 @@
   &:hover {
     background-color: var(--gold);
   }
-
-  @include media-rules(notebook) {
-    width: 100%;
-    font-size: 16px;
-  }
 }
 
 .enter {
@@ -90,7 +85,7 @@
   width: 260px;
   border: none;
   border-radius: 44px;
-  background-color: var(--grafite);
+  background-color: var(--red);
   margin-right: auto;
   margin-left: auto;
   color: #fff;

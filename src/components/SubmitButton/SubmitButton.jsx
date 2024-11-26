@@ -9,7 +9,13 @@ const SubmitButton = ({
   let buttonClass = scss.button;
 
   switch (true) {
-    case ['Реєстрація', 'Логін', 'Розмістити'].includes(buttonText):
+    case [
+      'Реєстрація',
+      'Логін',
+      'Розмістити',
+      'Збереження...',
+      'Зберегти зміни'
+    ].includes(buttonText):
       buttonClass = scss.button;
       type = 'submit';
       break;
@@ -42,7 +48,9 @@ const SubmitButton = ({
       'Підтвердити',
       'Ок',
       'Не зараз',
-      'Увійти'
+      'Увійти',
+      'VIP',
+      'Архів'
     ].includes(buttonText):
       buttonClass = scss.followSend;
       break;
