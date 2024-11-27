@@ -154,7 +154,7 @@
       flex-direction: column;
       justify-content: space-between;
       flex: 1;
-      padding: 0 4px 4px;
+      padding: 0 8px 8px;
 
       @include media-rules(tablet) {
         padding: 0 10px 10px;
