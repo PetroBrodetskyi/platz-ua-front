@@ -1,21 +1,12 @@
-$padding-desktop: 40px;
-$padding-tablet: 16px;
-$padding-mobile: 24px 0;
-
-.productListWrapper {
-  padding: $padding-mobile;
-
-  @include media-rules(tablet) {
-    padding: $padding-tablet;
-  }
-
-  @include media-rules(notebook) {
-    padding: $padding-desktop;
-  }
+.productList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .title {
   padding: 0 10px;
+  margin: 0;
 
   @include media-rules(notebook) {
     padding: 0;

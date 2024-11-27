@@ -1,19 +1,28 @@
 .list {
   display: flex;
-  gap: 4px;
-  padding: 10px 0;
+  gap: 8px;
+
   overflow-x: auto;
   scroll-snap-type: x mandatory;
 
   &::-webkit-scrollbar {
-    height: 8px;
-    background-color: var(--light-bg);
-    border-radius: 10px;
+    visibility: hidden;
   }
 
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--dark-grey);
-    border-radius: 10px;
+  @include media-rules(notebook) {
+    padding-bottom: 20px;
+    &::-webkit-scrollbar {
+      visibility: visible;
+      height: 8px;
+      background-color: var(--light-bg);
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--dark-grey);
+      border-radius: 10px;
+    }
   }
 
   & > li {

@@ -1,17 +1,11 @@
 $padding-desktop: 40px;
-$padding-tablet: 16px;
-$padding-mobile: 24px 0;
+$padding-tablet: 10px;
+$padding-mobile: 10px 0;
 
 .productListWrapper {
   display: flex;
-  padding: $padding-mobile;
-
-  @include media-rules(tablet) {
-    padding: $padding-tablet;
-  }
 
   @include media-rules(notebook) {
-    padding: $padding-desktop;
     justify-content: space-between;
   }
 }

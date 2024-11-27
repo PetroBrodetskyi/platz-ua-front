@@ -1,4 +1,4 @@
-.random {
+.container {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -7,14 +7,5 @@
   @include media-rules(notebook) {
     padding: 0 40px 40px;
     gap: 20px;
-  }
-
-  .title {
-    margin: 0;
-    padding: 0 10px;
-
-    @include media-rules(notebook) {
-      padding: 0;
-    }
   }
 }

@@ -1,15 +1,14 @@
 import CreateAdButton from '../../components/CreateAdButton/CreateAdButton';
 import ProductDetail from '../../components/ProductDetails/ProductDetails';
-import RandomCards from '../../components/RandomCards/RandomCards';
+import VipList from '../../components/VipList';
 import scss from './ProductDetailPage.module.scss';
 
 const ProductDetailPage = () => {
   return (
     <div>
       <ProductDetail />
-      {/* <div className={scss.random}>
-        <h3 className={scss.title}>Вас можуть зацікавити</h3>
-        <RandomCards />
+      {/* <div className={scss.container}>
+        <VipList />
       </div> */}
       <CreateAdButton />
     </div>
