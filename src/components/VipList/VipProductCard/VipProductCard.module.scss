@@ -1,7 +1,7 @@
 .list {
   display: flex;
   gap: 8px;
-
+  padding-left: 10px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
 
@@ -10,7 +10,8 @@
   }
 
   @include media-rules(notebook) {
-    padding-bottom: 20px;
+    padding: 20px 0;
+
     &::-webkit-scrollbar {
       visibility: visible;
       height: 8px;
@@ -42,7 +43,7 @@
     gap: 12px;
 
     & > li {
-      width: 300px;
+      width: 320px;
     }
   }
 }
