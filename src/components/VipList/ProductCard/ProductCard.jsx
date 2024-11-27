@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import {
   fetchProducts,
   fetchExchangeRate,
@@ -23,33 +22,23 @@ import scss from './ProductCard.module.scss';
 const ProductCard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { products, exchangeRate, totalProducts } = useSelector(
-    (state) => state.products
-  );
+  const { products, exchangeRate } = useSelector((state) => state.products);
   const favorites = useSelector((state) => state.favorites.items);
   const cartItems = useSelector((state) => state.cart.items);
 
   const [notification, setNotification] = useState('');
-  const [endOfListNotification, setEndOfListNotification] = useState(false);
   const [showDescriptions, setShowDescriptions] = useState({});
   const [owners, setOwners] = useState(
     () => JSON.parse(localStorage.getItem('owners')) || {}
   );
   const [loadingOwners, setLoadingOwners] = useState({});
-  const [currentPage, setCurrentPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadProducts = async () => {
       try {
-        const response = await dispatch(
-          fetchProducts({ page: currentPage, limit: 6 })
-        ).unwrap();
-        if (response.length === 0 || products.length >= totalProducts) {
-          setHasMore(false);
-          setEndOfListNotification(true);
-        }
+        await dispatch(fetchProducts()).unwrap();
+        dispatch(fetchExchangeRate());
       } catch (error) {
         console.error('Failed to fetch products:', error);
       } finally {
@@ -58,8 +47,7 @@ const ProductCard = () => {
     };
 
     loadProducts();
-    dispatch(fetchExchangeRate());
-  }, [dispatch, currentPage, products.length, totalProducts]);
+  }, [dispatch]);
 
   useEffect(() => {
     const fetchOwner = async (ownerId) => {
@@ -120,8 +108,6 @@ const ProductCard = () => {
     );
   };
 
-  const fetchMoreProducts = () => setCurrentPage((prevPage) => prevPage + 1);
-
   const renderSkeletons = (count) => {
     return Array.from({ length: count }).map((_, index) => (
       <li key={index}>
@@ -146,54 +132,39 @@ const ProductCard = () => {
 
   return (
     <>
-      <InfiniteScroll
-        dataLength={approvedProducts.length}
-        next={fetchMoreProducts}
-        hasMore={hasMore}
-        endMessage={null}
-      >
-        <ul className={scss.list}>
-          {loading
-            ? renderSkeletons(6)
-            : approvedProducts.map((product) => {
-                const isInCart = cartItems.some(
-                  (item) => item._id === product._id
-                );
-                const ownerData = owners[product.owner];
+      <ul className={scss.list}>
+        {loading
+          ? renderSkeletons(6)
+          : approvedProducts.map((product) => {
+              const isInCart = cartItems.some(
+                (item) => item._id === product._id
+              );
+              const ownerData = owners[product.owner];
 
-                return (
-                  <Card
-                    key={product._id}
-                    product={product}
-                    ownerData={ownerData}
-                    isInCart={isInCart}
-                    favorites={favorites}
-                    showDescription={showDescriptions[product._id]}
-                    exchangeRate={exchangeRate}
-                    onToggleDescription={() =>
-                      handleToggleDescription(product._id)
-                    }
-                    onAddToCart={() => handleAddToCart(product, isInCart)}
-                    onFavoriteToggle={() =>
-                      dispatch(toggleFavorite(product._id))
-                    }
-                    onProductClick={handleProductClick}
-                    onOwnerClick={handleOwnerClick}
-                  />
-                );
-              })}
-        </ul>
-      </InfiniteScroll>
+              return (
+                <Card
+                  key={product._id}
+                  product={product}
+                  ownerData={ownerData}
+                  isInCart={isInCart}
+                  favorites={favorites}
+                  showDescription={showDescriptions[product._id]}
+                  exchangeRate={exchangeRate}
+                  onToggleDescription={() =>
+                    handleToggleDescription(product._id)
+                  }
+                  onAddToCart={() => handleAddToCart(product, isInCart)}
+                  onFavoriteToggle={() => dispatch(toggleFavorite(product._id))}
+                  onProductClick={handleProductClick}
+                  onOwnerClick={handleOwnerClick}
+                />
+              );
+            })}
+      </ul>
       {notification && (
         <Notification
           message={notification}
           onClose={() => setNotification('')}
-        />
-      )}
-      {endOfListNotification && (
-        <Notification
-          message="Ви подивилися всі оголошення"
-          onClose={() => setEndOfListNotification(false)}
         />
       )}
     </>

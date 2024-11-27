@@ -1,4 +1,3 @@
-import React from 'react';
 import { HiOutlineEye } from 'react-icons/hi';
 import { IoChevronUpOutline } from 'react-icons/io5';
 import { RiPlayList2Fill } from 'react-icons/ri';

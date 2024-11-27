@@ -13,6 +13,7 @@ $padding-mobile: 24px 0;
   }
 
   @include media-rules(notebook) {
+    gap: 40px;
     padding: $padding-desktop;
   }
 }
