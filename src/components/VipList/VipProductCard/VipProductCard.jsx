@@ -5,10 +5,8 @@ import Skeleton from '@mui/material/Skeleton';
 import Notification from '../../Notification';
 import Card from './Card';
 import axiosInstance from '../../../redux/axiosConfig';
-import {
-  fetchProductById,
-  toggleFavorite
-} from '../../../redux/features/productsSlice';
+import { fetchProductById } from '../../../redux/features/productsSlice';
+import { toggleFavorite } from '../../../redux/features/favoritesSlice';
 import {
   addToCartBack,
   removeFromCartBack,
@@ -120,6 +118,7 @@ const VipProductCard = () => {
           <Skeleton variant="text" width="100%" animation="pulse" />
           <Skeleton variant="text" width="80%" animation="pulse" />
           <Skeleton variant="text" width="60%" animation="pulse" />
+          <Skeleton variant="text" width="100%" animation="pulse" />
         </div>
       </li>
     ));
