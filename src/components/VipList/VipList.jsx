@@ -1,4 +1,4 @@
-import ProductCard from '../VipList/ProductCard';
+import VipProductCard from '../VipList/VipProductCard';
 import scss from './VipList.module.scss';
 
 const VipList = () => {
@@ -9,7 +9,7 @@ const VipList = () => {
           <h3 className={scss.title}>VIP-оголошення</h3>
         </div>
         <div className={scss.container}>
-          <ProductCard />
+          <VipProductCard />
         </div>
       </div>
     </div>

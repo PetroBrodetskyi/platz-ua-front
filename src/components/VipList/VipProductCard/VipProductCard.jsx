@@ -1,67 +1,66 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import Skeleton from '@mui/material/Skeleton';
+import Notification from '../../Notification';
+import Card from './Card';
+import axiosInstance from '../../../redux/axiosConfig';
 import {
-  fetchProducts,
-  fetchExchangeRate,
-  fetchProductById
+  fetchProductById,
+  toggleFavorite
 } from '../../../redux/features/productsSlice';
-import { fetchUserById } from '../../../redux/features/authSlice';
-import { toggleFavorite } from '../../../redux/features/favoritesSlice';
 import {
   addToCartBack,
   removeFromCartBack,
   fetchProductsInCart,
   setCartItems
 } from '../../../redux/features/cartSlice';
-import { useNavigate } from 'react-router-dom';
-import Skeleton from '@mui/material/Skeleton';
-import Notification from '../../Notification';
-import Card from './Card';
-import scss from './ProductCard.module.scss';
+import scss from './VipProductCard.module.scss';
 
-const ProductCard = () => {
+const VipProductCard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { products, exchangeRate } = useSelector((state) => state.products);
+  const { exchangeRate } = useSelector((state) => state.products);
   const favorites = useSelector((state) => state.favorites.items);
   const cartItems = useSelector((state) => state.cart.items);
 
+  const [products, setProducts] = useState([]);
   const [notification, setNotification] = useState('');
   const [showDescriptions, setShowDescriptions] = useState({});
   const [owners, setOwners] = useState(
-    () => JSON.parse(localStorage.getItem('owners')) || {}
+    JSON.parse(localStorage.getItem('owners')) || {}
   );
   const [loadingOwners, setLoadingOwners] = useState({});
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const loadProducts = async () => {
-      try {
-        await dispatch(fetchProducts()).unwrap();
-        dispatch(fetchExchangeRate());
-      } catch (error) {
-        console.error('Failed to fetch products:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchProducts = async () => {
+    try {
+      const response = await axiosInstance.get('/products/public/?all=true');
+      setProducts(response.data);
+    } catch (error) {
+      console.error('Failed to load products:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    loadProducts();
-  }, [dispatch]);
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   useEffect(() => {
     const fetchOwner = async (ownerId) => {
       if (!owners[ownerId] && !loadingOwners[ownerId]) {
         setLoadingOwners((prev) => ({ ...prev, [ownerId]: true }));
         try {
-          const response = await dispatch(fetchUserById(ownerId)).unwrap();
+          const ownerData = await dispatch(fetchUserById(ownerId)).unwrap();
           setOwners((prev) => {
-            const updatedOwners = { ...prev, [ownerId]: response };
+            const updatedOwners = { ...prev, [ownerId]: ownerData };
             localStorage.setItem('owners', JSON.stringify(updatedOwners));
             return updatedOwners;
           });
         } catch (error) {
-          console.error('Failed to fetch owner:', error);
+          console.error('Failed to fetch owner data:', error);
         } finally {
           setLoadingOwners((prev) => ({ ...prev, [ownerId]: false }));
         }
@@ -88,28 +87,29 @@ const ProductCard = () => {
 
   const handleAddToCart = async (product, isInCart) => {
     const productWithOwner = { ...product, owner: owners[product.owner] };
-    if (isInCart) {
-      await dispatch(removeFromCartBack(product._id));
-      dispatch(fetchProductsInCart());
-      const updatedCartItems = cartItems.filter(
-        (item) => item._id !== product._id
+    try {
+      if (isInCart) {
+        await dispatch(removeFromCartBack(product._id));
+      } else {
+        await dispatch(addToCartBack(productWithOwner));
+      }
+      await dispatch(fetchProductsInCart());
+      const updatedCartItems = isInCart
+        ? cartItems.filter((item) => item._id !== product._id)
+        : [...cartItems, productWithOwner];
+      localStorage.setItem('cart', JSON.stringify(updatedCartItems));
+      dispatch(setCartItems(updatedCartItems));
+
+      setNotification(
+        `${product.name} ${isInCart ? 'видалено з кошика' : 'додано до кошика'}!`
       );
-      localStorage.setItem('cart', JSON.stringify(updatedCartItems));
-      dispatch(setCartItems(updatedCartItems));
-    } else {
-      await dispatch(addToCartBack(product));
-      dispatch(fetchProductsInCart());
-      const updatedCartItems = [...cartItems, product];
-      localStorage.setItem('cart', JSON.stringify(updatedCartItems));
-      dispatch(setCartItems(updatedCartItems));
+    } catch (error) {
+      console.error('Failed to update cart:', error);
     }
-    setNotification(
-      `${product.name} ${isInCart ? 'видалено з кошика' : 'додано до кошика'}!`
-    );
   };
 
-  const renderSkeletons = (count) => {
-    return Array.from({ length: count }).map((_, index) => (
+  const renderSkeletons = (count) =>
+    Array.from({ length: count }, (_, index) => (
       <li key={index}>
         <Skeleton
           variant="rectangular"
@@ -120,11 +120,9 @@ const ProductCard = () => {
           <Skeleton variant="text" width="100%" animation="pulse" />
           <Skeleton variant="text" width="80%" animation="pulse" />
           <Skeleton variant="text" width="60%" animation="pulse" />
-          <Skeleton variant="text" width="100%" animation="pulse" />
         </div>
       </li>
     ));
-  };
 
   const approvedProducts = products.filter(
     (product) => product.status === 'vip'
@@ -171,4 +169,4 @@ const ProductCard = () => {
   );
 };
 
-export default ProductCard;
+export default VipProductCard;
