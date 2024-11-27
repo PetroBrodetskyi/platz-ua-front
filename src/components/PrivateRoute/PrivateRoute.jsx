@@ -21,7 +21,7 @@ const PrivateRoute = ({ element }) => {
   }
 
   if (!loading && (!user || user.subscription !== 'admin')) {
-    return <NavLink to="/auth" replace />;
+    return <NavLink to="/" replace />;
   }
 
   return element;

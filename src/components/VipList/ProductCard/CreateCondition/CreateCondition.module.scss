@@ -1,0 +1,25 @@
+.container {
+  .condition {
+    font-size: 10px;
+
+    @include media-rules(tablet) {
+      font-size: 12px;
+    }
+
+    @include media-rules(notebook) {
+      font-size: 14px;
+    }
+  }
+
+  .addedDate {
+    font-size: 10px;
+
+    @include media-rules(tablet) {
+      font-size: 12px;
+    }
+
+    @include media-rules(notebook) {
+      font-size: 14px;
+    }
+  }
+}

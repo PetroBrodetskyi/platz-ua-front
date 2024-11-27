@@ -55,13 +55,17 @@ $padding-mobile: 10px;
     flex-direction: column;
     gap: 16px;
 
-    input,
-    textarea {
+    .input,
+    .textarea {
       padding: 10px;
       border-radius: 8px;
       border: 1px solid #ddd;
       font-family: var(--font-family);
       background-color: inherit;
+
+      &.darkMode {
+        color: var(--white);
+      }
 
       &::-webkit-scrollbar {
         display: none;

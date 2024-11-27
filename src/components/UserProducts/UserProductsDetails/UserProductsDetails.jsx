@@ -12,6 +12,7 @@ import {
 import Tooltip from '@mui/material/Tooltip';
 import Notification from '../../Notification/Notification';
 import SubmitButton from '../../SubmitButton';
+import { useTheme } from '../../../context/ThemeContext';
 import { selectCurrentUser } from '../../../redux/features/authSlice';
 import axiosInstance from '../../../redux/axiosConfig';
 import scss from './UserProductsDetails.module.scss';
@@ -110,6 +111,8 @@ const UserProductsDetails = ({ product }) => {
     }
   };
 
+  const { isDarkMode } = useTheme();
+
   return (
     <div className={scss.productDetails}>
       <div className={scss.container}>
@@ -145,6 +148,7 @@ const UserProductsDetails = ({ product }) => {
               value={editedProduct.name}
               onChange={handleInputChange}
               placeholder="Назва продукту"
+              className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
             />
             <textarea
               name="description"
@@ -152,6 +156,7 @@ const UserProductsDetails = ({ product }) => {
               onChange={handleInputChange}
               placeholder="Опис"
               rows="4"
+              className={`${scss.textarea} ${isDarkMode ? scss.darkMode : ''}`}
             />
             <input
               type="number"
@@ -159,6 +164,7 @@ const UserProductsDetails = ({ product }) => {
               value={editedProduct.price}
               onChange={handleInputChange}
               placeholder="Ціна (€)"
+              className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
             />
             <input
               type="text"
@@ -166,6 +172,7 @@ const UserProductsDetails = ({ product }) => {
               value={editedProduct.city}
               onChange={handleInputChange}
               placeholder="Місто"
+              className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
             />
             <input
               type="text"
@@ -173,6 +180,7 @@ const UserProductsDetails = ({ product }) => {
               value={editedProduct.PLZ}
               onChange={handleInputChange}
               placeholder="PLZ"
+              className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
             />
             <div className={scss.buttons}>
               <SubmitButton buttonText="Зберегти" onClick={handleSaveChanges} />
