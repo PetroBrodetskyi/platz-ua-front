@@ -19,7 +19,6 @@ $padding-mobile: 20px 10px;
 
   .title {
     margin: 0;
-    padding: 0 10px;
 
     @include media-rules(notebook) {
       padding: 0;
@@ -52,7 +51,6 @@ $padding-mobile: 20px 10px;
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 0 10px;
     gap: 20px;
 
     @include media-rules(tablet) {

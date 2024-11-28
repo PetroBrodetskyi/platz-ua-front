@@ -13,12 +13,6 @@ $padding-mobile: 10px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  background-color: var(--white);
-
-  &.darkMode {
-    background-color: var(--grafite);
-    color: var(--white);
-  }
 
   @include media-rules(tablet) {
     flex-direction: row;
@@ -29,6 +23,11 @@ $padding-mobile: 10px;
     flex-direction: row;
     gap: 40px;
     border-radius: 4px;
+
+    &.darkMode {
+      background-color: var(--grafite);
+      color: var(--white);
+    }
   }
 
   .productImage {
@@ -57,12 +56,12 @@ $padding-mobile: 10px;
       }
     }
   }
+
   .productInfo {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     flex: 1;
-    padding: 0 10px;
 
     @include media-rules(tablet) {
       padding: 20px 40px 20px 0;

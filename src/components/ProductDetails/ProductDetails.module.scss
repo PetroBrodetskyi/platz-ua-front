@@ -64,9 +64,11 @@ $padding-tablet: 0 20px;
   }
 
   .gallery {
+    padding: 0 10px;
     width: auto;
 
     @include media-rules(notebook) {
+      padding: 0;
       width: 500px;
     }
   }
