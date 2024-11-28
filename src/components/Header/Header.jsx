@@ -1,3 +1,4 @@
+import { AiOutlineHome } from 'react-icons/ai'; // Імпортуємо іконку Home
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -114,6 +115,19 @@ const Header = ({ onClick }) => {
               </NavLink>
             </Tooltip>
           ) : null}
+          <Tooltip
+            title="Головна"
+            slotProps={{
+              popper: { sx: createTooltipStyles(32) }
+            }}
+          >
+            <NavLink to="/">
+              <button type="button" className={scss.iconHome} onClick={onClick}>
+                <AiOutlineHome />
+                <span className={scss.userOptions}></span>
+              </button>
+            </NavLink>
+          </Tooltip>
           <Tooltip
             title="Кошик"
             slotProps={{

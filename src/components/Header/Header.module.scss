@@ -161,6 +161,16 @@
   }
 }
 
+.iconHome {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+
+  @include media-rules(tablet) {
+    display: none;
+  }
+}
+
 .iconUserMobile {
   display: flex;
   align-items: center;
