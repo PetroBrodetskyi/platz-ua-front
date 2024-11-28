@@ -169,21 +169,25 @@ const UserProfile = ({ user }) => {
         </div>
         <div>
           <form onSubmit={handleSubmit}>
-            <div className={scss.infoFlex}>
-              <UserInfo
-                formData={formData}
-                handleChange={handleChange}
-                hasPassword={hasPassword}
-              />
+            <div className={scss.infoBtn}>
+              <div className={scss.infoFlex}>
+                <UserInfo
+                  formData={formData}
+                  handleChange={handleChange}
+                  hasPassword={hasPassword}
+                />
 
-              <AdditionalInfo formData={formData} handleChange={handleChange} />
+                <AdditionalInfo
+                  formData={formData}
+                  handleChange={handleChange}
+                />
+              </div>
+              <SubmitButton
+                buttonText={isSubmitting ? 'Збереження...' : 'Зберегти зміни'}
+                type="submit"
+                disabled={isSubmitting}
+              />
             </div>
-            <SubmitButton
-              buttonText={isSubmitting ? 'Збереження...' : 'Зберегти зміни'}
-              type="submit"
-              className={scss.button}
-              disabled={isSubmitting}
-            />
           </form>
         </div>
       </div>

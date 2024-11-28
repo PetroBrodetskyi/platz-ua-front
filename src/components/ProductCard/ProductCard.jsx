@@ -141,7 +141,7 @@ const ProductCard = ({ viewMode }) => {
   };
 
   const approvedProducts = products.filter(
-    (product) => product.status === 'approved'
+    (product) => product.status === 'approved' || product.status === 'vip'
   );
 
   return (

@@ -44,6 +44,12 @@ $padding-mobile: 10px;
   }
 }
 
+.infoBtn {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
 .userProfile {
   display: flex;
   flex-direction: column;
@@ -131,31 +137,4 @@ $padding-mobile: 10px;
 .chars {
   padding: 4px 8px;
   font-size: 12px;
-}
-
-.button {
-  display: flex;
-  justify-content: center;
-  padding: 12px;
-  font-size: 14px;
-  width: 260px;
-  border: none;
-  border-radius: 4px;
-  background-color: var(--red);
-  margin-right: auto;
-  margin-left: auto;
-  color: #fff;
-  cursor: pointer;
-  margin-top: 20px;
-
-  &:hover {
-    background-color: var(--gold);
-  }
-
-  @include media-rules(notebook) {
-    font-size: 16px;
-    width: 100%;
-    font-weight: 600;
-    margin-top: 40px;
-  }
 }
