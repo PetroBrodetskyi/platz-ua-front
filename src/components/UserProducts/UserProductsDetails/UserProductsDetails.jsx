@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import CartPrice from '../../ProductCard/CartPrice/CartPrice';
+import CartPrice from '../../ProductCard/CartPrice';
 import { TbLocation } from 'react-icons/tb';
 import { fetchExchangeRate } from '../../../redux/features/productsSlice';
 import {
@@ -15,6 +15,7 @@ import SubmitButton from '../../SubmitButton';
 import { useTheme } from '../../../context/ThemeContext';
 import { selectCurrentUser } from '../../../redux/features/authSlice';
 import axiosInstance from '../../../redux/axiosConfig';
+import { Confirmation } from '../../Confirmation/Confirmation';
 import scss from './UserProductsDetails.module.scss';
 
 const UserProductsDetails = ({ product }) => {
@@ -27,6 +28,7 @@ const UserProductsDetails = ({ product }) => {
   );
   const [notification, setNotification] = useState('');
   const [isEditing, setIsEditing] = useState(false);
+  const [isDeleteConfirmVisible, setIsDeleteConfirmVisible] = useState(false); // Стан для відображення підтвердження
 
   const [editedProduct, setEditedProduct] = useState({
     name: product.name,
@@ -82,15 +84,9 @@ const UserProductsDetails = ({ product }) => {
     }
 
     try {
-      const response = await axiosInstance.patch(
-        `/products/${product._id}`,
-        fieldsToUpdate,
-        {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
-      );
+      await axiosInstance.patch(`/products/${product._id}`, fieldsToUpdate, {
+        headers: { 'Content-Type': 'application/json' }
+      });
       setNotification('Продукт успішно оновлено!');
       setIsEditing(false);
       setTimeout(() => setNotification(''), 3000);
@@ -98,6 +94,10 @@ const UserProductsDetails = ({ product }) => {
       console.error('Error updating product:', error);
       setNotification('Помилка при оновленні продукту');
     }
+  };
+
+  const confirmDeleteProduct = () => {
+    setIsDeleteConfirmVisible(true);
   };
 
   const handleDeleteProduct = async () => {
@@ -108,6 +108,8 @@ const UserProductsDetails = ({ product }) => {
     } catch (error) {
       console.error('Error deleting product:', error);
       setNotification('Помилка при видаленні продукту');
+    } finally {
+      setIsDeleteConfirmVisible(false);
     }
   };
 
@@ -201,7 +203,7 @@ const UserProductsDetails = ({ product }) => {
                 />
                 <SubmitButton
                   buttonText="Видалити"
-                  onClick={handleDeleteProduct}
+                  onClick={confirmDeleteProduct}
                   className={scss.deleteButton}
                 />
               </div>
@@ -214,6 +216,14 @@ const UserProductsDetails = ({ product }) => {
         <Notification
           message={notification}
           onClose={() => setNotification('')}
+        />
+      )}
+
+      {isDeleteConfirmVisible && (
+        <Confirmation
+          message="Ви впевнені, що хочете видалити цей продукт?"
+          onConfirm={handleDeleteProduct}
+          onCancel={() => setIsDeleteConfirmVisible(false)}
         />
       )}
     </div>

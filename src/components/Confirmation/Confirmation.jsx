@@ -3,8 +3,7 @@ import SubmitButton from '../SubmitButton';
 import { useTheme } from '../../context/ThemeContext';
 import scss from './Confirmation.module.scss';
 
-const Confirmation = ({ message, onConfirm, onCancel }) => {
-  const { isDarkMode } = useTheme();
+const Dialog = ({ message, buttons, onClose, darkModeClass }) => {
   return (
     <motion.div
       className={scss.dialogOverlay}
@@ -13,7 +12,7 @@ const Confirmation = ({ message, onConfirm, onCancel }) => {
       exit={{ opacity: 0 }}
     >
       <motion.div
-        className={`${scss.dialogBox} ${isDarkMode ? scss.darkMode : ''}`}
+        className={`${scss.dialogBox} ${darkModeClass}`}
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.8, opacity: 0 }}
@@ -21,72 +20,50 @@ const Confirmation = ({ message, onConfirm, onCancel }) => {
       >
         <p>{message}</p>
         <div className={scss.dialogButtons}>
-          <SubmitButton onClick={onConfirm} buttonText="Підтвердити" />
-          <SubmitButton onClick={onCancel} buttonText="Скасувати" />
+          {buttons.map(({ onClick, text }, index) => (
+            <SubmitButton key={index} onClick={onClick} buttonText={text} />
+          ))}
         </div>
       </motion.div>
     </motion.div>
+  );
+};
+
+const Confirmation = ({ message, onConfirm, onCancel }) => {
+  const { isDarkMode } = useTheme();
+  return (
+    <Dialog
+      message={message}
+      onClose={onCancel}
+      darkModeClass={isDarkMode ? scss.darkMode : ''}
+      buttons={[
+        { onClick: onConfirm, text: 'Підтвердити' },
+        { onClick: onCancel, text: 'Скасувати' }
+      ]}
+    />
   );
 };
 
 const ConfirmationOk = ({ message, onClose }) => {
   return (
-    <motion.div
-      className={scss.dialogOverlay}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      <motion.div
-        className={scss.dialogBox}
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.8, opacity: 0 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-      >
-        <p>{message}</p>
-        <div className={scss.dialogButtons}>
-          <SubmitButton
-            onClick={onClose}
-            buttonText="Ок"
-            className={scss.followSend} // Apply 'followSend' style
-          />
-        </div>
-      </motion.div>
-    </motion.div>
+    <Dialog
+      message={message}
+      onClose={onClose}
+      buttons={[{ onClick: onClose, text: 'Ок' }]}
+    />
   );
 };
 
 const ConfirmationLogin = ({ message, onConfirm, onCancel }) => {
   return (
-    <motion.div
-      className={scss.dialogOverlay}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      <motion.div
-        className={scss.dialogBox}
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.8, opacity: 0 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-      >
-        <p>{message}</p>
-        <div className={scss.dialogButtons}>
-          <SubmitButton
-            onClick={onConfirm}
-            buttonText="Увійти"
-            className={scss.followSend} // Apply 'followSend' style
-          />
-          <SubmitButton
-            onClick={onCancel}
-            buttonText="Не зараз"
-            className={scss.followSend} // Apply 'followSend' style
-          />
-        </div>
-      </motion.div>
-    </motion.div>
+    <Dialog
+      message={message}
+      onClose={onCancel}
+      buttons={[
+        { onClick: onConfirm, text: 'Увійти' },
+        { onClick: onCancel, text: 'Не зараз' }
+      ]}
+    />
   );
 };
 

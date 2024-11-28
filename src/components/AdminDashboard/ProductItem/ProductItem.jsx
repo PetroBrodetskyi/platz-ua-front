@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Confirmation } from '../../Confirmation/Confirmation';
 import axios from 'axios';
 import OwnerInfo from '../OwnerInfo';
 import SubmitButton from '../../SubmitButton';
@@ -13,6 +14,7 @@ const ProductItem = ({
   deleteProduct
 }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [editedProduct, setEditedProduct] = useState({
     name: product.name,
     price: product.price,
@@ -73,6 +75,15 @@ const ProductItem = ({
       status: product.status
     });
     setIsEditing(false);
+  };
+
+  const confirmDelete = () => {
+    setIsConfirmOpen(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    deleteProduct(product._id);
+    setIsConfirmOpen(false);
   };
 
   return (
@@ -187,13 +198,17 @@ const ProductItem = ({
               onClick={() => setIsEditing(true)}
               buttonText="Редагувати"
             />
-            <SubmitButton
-              onClick={() => deleteProduct(product._id)}
-              buttonText="Видалити"
-            />
+            <SubmitButton onClick={confirmDelete} buttonText="Видалити" />
           </div>
         )}
       </div>
+      {isConfirmOpen && (
+        <Confirmation
+          message="Ви впевнені, що хочете видалити цей продукт?"
+          onConfirm={handleDeleteConfirm}
+          onCancel={() => setIsConfirmOpen(false)}
+        />
+      )}
     </li>
   );
 };

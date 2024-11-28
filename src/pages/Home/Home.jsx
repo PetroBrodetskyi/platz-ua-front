@@ -6,15 +6,18 @@ import Following from '../../components/Following';
 import VipList from '../../components/VipList';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import { useNavigate } from 'react-router-dom';
 import scss from './Home.module.scss';
+import { ConfirmationLogin } from '../../components/Confirmation/Confirmation';
 
 const Home = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const isNotificationShown = sessionStorage.getItem('notificationShown');
-
     if (!isNotificationShown) {
       setOpenSnackbar(true);
       sessionStorage.setItem('notificationShown', 'true');
@@ -22,10 +25,25 @@ const Home = () => {
   }, []);
 
   const handleCloseSnackbar = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+    if (reason === 'clickaway') return;
     setOpenSnackbar(false);
+  };
+
+  const handleCreateAdClick = () => {
+    if (!user) {
+      setShowConfirmation(true);
+    } else {
+      navigate('/create');
+    }
+  };
+
+  const handleLoginConfirm = () => {
+    navigate('/auth');
+    setShowConfirmation(false);
+  };
+
+  const handleLoginCancel = () => {
+    setShowConfirmation(false);
   };
 
   return (
@@ -33,8 +51,14 @@ const Home = () => {
       {user && <Following />}
       <VipList />
       <ProductList />
-      <CreateAdButton />
-
+      <CreateAdButton onClick={handleCreateAdClick} />
+      {showConfirmation && (
+        <ConfirmationLogin
+          message="Для створення оголошення, будь ласка, увійдіть у свій акаунт"
+          onConfirm={handleLoginConfirm}
+          onCancel={handleLoginCancel}
+        />
+      )}
       <Snackbar
         open={openSnackbar}
         autoHideDuration={30000}

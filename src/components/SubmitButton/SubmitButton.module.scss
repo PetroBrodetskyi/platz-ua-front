@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   padding: 12px;
+  font-weight: 600;
   border: none;
   border-radius: 44px;
   background-color: var(--red);
@@ -14,6 +15,10 @@
 
   &:hover {
     background-color: var(--gold);
+  }
+
+  @include media-rules(notebook) {
+    font-size: 16px;
   }
 }
 
