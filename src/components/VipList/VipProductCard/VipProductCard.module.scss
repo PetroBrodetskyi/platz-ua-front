@@ -1,50 +1,21 @@
 .list {
-  display: flex;
-  gap: 8px;
-  padding-left: 10px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  display: grid;
+  gap: 12px;
+  padding: 0 10px;
+  list-style: none;
 
-  &::-webkit-scrollbar {
-    visibility: hidden;
-  }
-
-  @include media-rules(notebook) {
-    padding: 20px 0;
-
-    &::-webkit-scrollbar {
-      visibility: visible;
-      height: 8px;
-      background-color: var(--light-bg);
-      border-radius: 10px;
-      cursor: pointer;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: var(--dark-grey);
-      border-radius: 10px;
-    }
-  }
-
-  & > li {
-    flex: 0 0 auto;
-    width: 182px;
-  }
+  grid-template-columns: repeat(auto-fill, minmax(182px, 1fr));
+  gap: 4px;
 
   @include media-rules(tablet) {
+    padding: 0;
     gap: 8px;
-
-    & > li {
-      width: 220px;
-    }
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   }
 
   @include media-rules(notebook) {
     gap: 12px;
-
-    & > li {
-      width: 320px;
-    }
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }
 }
 
