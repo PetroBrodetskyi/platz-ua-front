@@ -3,9 +3,11 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 4px;
+  padding: 0 4px;
 
   @include media-rules(tablet) {
     gap: 8px;
+    padding: 0;
   }
 
   @include media-rules(notebook) {
@@ -16,10 +18,9 @@
 .productItem {
   display: flex;
   flex-direction: column;
-  min-width: 182px;
+  min-width: 172px;
   position: relative;
   overflow: visible;
-  border: 1px solid var(--light-grey);
   background-color: var(--white);
   animation: fadeIn 1s ease-in;
 
@@ -89,7 +90,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      padding: 8px;
+      padding: 4px;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -97,6 +98,10 @@
       width: 100%;
       color: var(--white);
       font-size: 16px;
+
+      @include media-rules(notebook) {
+        padding: 8px;
+      }
     }
 
     .ownerContainer {
@@ -107,7 +112,6 @@
 
       .avatar {
         border-radius: 50%;
-        border: 2px solid var(--white);
         width: 22px;
         height: 22px;
 
@@ -123,9 +127,8 @@
       }
 
       .name {
-        font-size: 10px;
-        background-color: rgba(0, 0, 0, 0.2);
-        padding: 2px 4px;
+        font-size: 12px;
+        font-weight: 500;
         cursor: pointer;
 
         @include media-rules(tablet) {
@@ -140,11 +143,9 @@
 
     .viewsQuantity {
       display: flex;
-      padding: 2px 4px;
       gap: 4px;
       align-items: center;
       font-size: 10px;
-      background-color: rgba(0, 0, 0, 0.2);
       text-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 
       @include media-rules(tablet) {

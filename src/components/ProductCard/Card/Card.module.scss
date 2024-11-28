@@ -143,13 +143,12 @@
         }
 
         .name {
-          font-size: 10px;
+          font-size: 12px;
           font-weight: 600;
-          padding: 2px 4px;
           cursor: pointer;
 
           &.listItem {
-            font-size: 12px;
+            font-size: 14px;
           }
 
           @include media-rules(tablet) {
@@ -164,7 +163,6 @@
 
       .viewsQuantity {
         display: flex;
-        padding: 2px 4px;
         gap: 4px;
         align-items: center;
         font-size: 10px;
