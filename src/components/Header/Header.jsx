@@ -1,6 +1,6 @@
-import { AiOutlineHome } from 'react-icons/ai'; // Імпортуємо іконку Home
+import { AiOutlineHome } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdOutlineFavorite, MdOutlineFavoriteBorder } from 'react-icons/md';
 import { PiShoppingCart, PiShoppingCartFill } from 'react-icons/pi';
@@ -11,6 +11,7 @@ import Logo from '../Logo/Logo';
 import UserMenu from '../UserMenu/UserMenu';
 import { fetchCurrentUser } from '../../redux/features/authSlice';
 import Catalog from '../Catalog';
+import { ConfirmationLogin } from '../../components/Confirmation/Confirmation';
 import scss from './Header.module.scss';
 
 const createTooltipStyles = (marginTop) => ({
@@ -22,9 +23,11 @@ const createTooltipStyles = (marginTop) => ({
 
 const Header = ({ onClick }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user, token } = useSelector((state) => state.auth);
   const favorites = useSelector((state) => state.favorites.items);
   const cartItems = useSelector((state) => state.cart.items);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [animateFavorite, setAnimateFavorite] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -49,14 +52,29 @@ const Header = ({ onClick }) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleLoginConfirm = () => {
+    setShowConfirmation(false);
+    navigate('/auth');
+  };
+
+  const handleLoginCancel = () => {
+    setShowConfirmation(false);
+  };
+
+  const handleActionClick = (action) => {
+    if (!user) {
+      setShowConfirmation(true);
+    } else {
+      navigate(action);
+    }
+  };
+
   const renderUserInfo = () =>
     user && (
       <Tooltip
         title={user.name}
         placement="bottom-end"
-        slotProps={{
-          popper: { sx: createTooltipStyles(24) }
-        }}
+        slotProps={{ popper: { sx: createTooltipStyles(24) } }}
       >
         <div className={scss.userInfo}>
           <img
@@ -103,9 +121,7 @@ const Header = ({ onClick }) => {
           {!user || !user.verify ? (
             <Tooltip
               title="Увійти"
-              slotProps={{
-                popper: { sx: createTooltipStyles(32) }
-              }}
+              slotProps={{ popper: { sx: createTooltipStyles(32) } }}
             >
               <NavLink to="/auth">
                 <button type="button" className={scss.icon} onClick={onClick}>
@@ -117,12 +133,10 @@ const Header = ({ onClick }) => {
           ) : null}
           <Tooltip
             title="Головна"
-            slotProps={{
-              popper: { sx: createTooltipStyles(32) }
-            }}
+            slotProps={{ popper: { sx: createTooltipStyles(32) } }}
           >
             <NavLink to="/">
-              <button type="button" className={scss.iconHome} onClick={onClick}>
+              <button type="button" className={scss.icon} onClick={onClick}>
                 <AiOutlineHome />
                 <span className={scss.userOptions}></span>
               </button>
@@ -130,28 +144,26 @@ const Header = ({ onClick }) => {
           </Tooltip>
           <Tooltip
             title="Кошик"
-            slotProps={{
-              popper: { sx: createTooltipStyles(32) }
-            }}
+            slotProps={{ popper: { sx: createTooltipStyles(32) } }}
           >
-            <NavLink to="/cart">
-              <button type="button" className={scss.icon} onClick={onClick}>
-                <div className={scss.navigateItem}>
-                  {cartItems.length > 0 ? (
-                    <PiShoppingCartFill />
-                  ) : (
-                    <PiShoppingCart />
-                  )}
-                  <span className={scss.userOptions}></span>
-                </div>
-              </button>
-            </NavLink>
+            <button
+              type="button"
+              className={scss.icon}
+              onClick={() => handleActionClick('/cart')}
+            >
+              <div className={scss.navigateItem}>
+                {cartItems.length > 0 ? (
+                  <PiShoppingCartFill />
+                ) : (
+                  <PiShoppingCart />
+                )}
+                <span className={scss.userOptions}></span>
+              </div>
+            </button>
           </Tooltip>
           <Tooltip
             title="Улюблені"
-            slotProps={{
-              popper: { sx: createTooltipStyles(32) }
-            }}
+            slotProps={{ popper: { sx: createTooltipStyles(32) } }}
           >
             <NavLink to="/favorites">
               <button
@@ -172,6 +184,14 @@ const Header = ({ onClick }) => {
           </Tooltip>
         </div>
       </div>
+
+      {showConfirmation && (
+        <ConfirmationLogin
+          message="Для перегляду кошика, будь ласка, увійдіть у свій акаунт"
+          onConfirm={handleLoginConfirm}
+          onCancel={handleLoginCancel}
+        />
+      )}
     </header>
   );
 };
