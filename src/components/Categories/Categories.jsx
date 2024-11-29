@@ -37,6 +37,8 @@ const Categories = ({ onSubcategoriesChange }) => {
   return (
     <div className={`${scss.categories} ${isDarkMode ? scss.darkMode : ''}`}>
       <div className={scss.container}>
+        <h3 className={scss.title}>Розділи та категорії</h3>
+
         <div className={scss.categoryButtons}>
           {sortedProducts.map((product, index) => (
             <button

@@ -3,10 +3,8 @@ import ProductCard from '../ProductCard/ProductCard';
 import scss from './ProductList.module.scss';
 import ViewToggle from './ViewToggle';
 
-import { useDispatch } from 'react-redux';
-
 const ProductList = () => {
-  const [viewMode, setViewMode] = useState('grid');
+  const [viewMode, setViewMode] = useState('list');
 
   useEffect(() => {
     const savedViewMode = localStorage.getItem('viewMode');

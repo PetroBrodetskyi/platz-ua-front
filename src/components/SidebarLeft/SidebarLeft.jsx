@@ -7,7 +7,6 @@ const SidebarLeft = () => {
 
   return (
     <div className={`${scss.sidebar} ${isDarkMode ? scss.darkMode : ''}`}>
-      <h3 className={scss.title}>Розділи та категорії</h3>
       <ul className={scss.cartSidebar}>
         <li>
           <div className={scss.cartContent}>
