@@ -4,14 +4,10 @@ $gap-mobile: 4px;
 
 .categories {
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
   gap: $gap-desktop;
-  padding: 40px 20px;
-  min-width: 98vw;
-  min-height: 90vh;
 
   &.darkMode {
-    background-color: var(--grafite);
     color: var(--white);
   }
 
@@ -20,12 +16,8 @@ $gap-mobile: 4px;
     flex-direction: column;
     gap: $gap-desktop;
 
-    @include media-rules(tablet) {
-      gap: $gap-tablet;
-    }
-
-    @include media-rules(notebook) {
-      flex-direction: row;
+    .title {
+      margin: 0;
     }
 
     .categoryButtons {
@@ -36,14 +28,6 @@ $gap-mobile: 4px;
       &.darkMode {
         background-color: var(--grafite);
         color: var(--white);
-      }
-
-      @include media-rules(tablet) {
-        width: 25%;
-      }
-
-      @include media-rules(notebook) {
-        flex-direction: column;
       }
 
       &::-webkit-scrollbar {
@@ -57,10 +41,9 @@ $gap-mobile: 4px;
       justify-content: flex-start;
       background-color: var(--white);
       color: var(--grey);
-      font-size: 14px;
       gap: 8px;
-      padding: 12px;
-      border-radius: 4px;
+      padding: 10px 20px;
+      border-radius: 44px;
       cursor: pointer;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
@@ -99,10 +82,9 @@ $gap-mobile: 4px;
       align-items: center;
       background-color: var(--white);
       gap: 4px;
-      padding: 8px;
+      padding: 2px 8px;
       cursor: pointer;
-      font-size: 14px;
-      border-radius: 4px;
+      border-radius: 44px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
       &.darkMode {
@@ -111,7 +93,7 @@ $gap-mobile: 4px;
       }
 
       @include media-rules(notebook) {
-        padding: 10px;
+        padding: 2px 8px;
       }
 
       &:hover {
@@ -141,8 +123,6 @@ $gap-mobile: 4px;
 
     .subcategories {
       display: flex;
-      flex-direction: column;
-      width: 70%;
 
       .subcategoryButtons {
         display: flex;

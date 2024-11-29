@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import ProductList from '../../components/ProductList';
 import CreateAdButton from '../../components/CreateAdButton';
 import Following from '../../components/Following';
+import Filter from '../../components/Filter';
 import VipList from '../../components/VipList';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
@@ -49,7 +50,10 @@ const Home = () => {
   return (
     <div className={scss.home}>
       {user && <Following />}
-      <VipList />
+      <div className={scss.filterVip}>
+        <Filter />
+        <VipList />
+      </div>
       <ProductList />
       <CreateAdButton onClick={handleCreateAdClick} />
       {showConfirmation && (

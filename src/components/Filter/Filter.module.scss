@@ -1,0 +1,7 @@
+.filter {
+  width: 24%;
+
+  @include media-rules-max(notebook) {
+    display: none;
+  }
+}

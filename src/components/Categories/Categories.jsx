@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTheme } from '../../context/ThemeContext';
 import data from './products.json';
-import { getCategoryIcon, getSubcategoryIcon } from './icons.jsx';
+import { getCategoryIcon } from './icons.jsx';
 import scss from './Categories.module.scss';
 
 const Categories = ({ onSubcategoriesChange }) => {
@@ -36,8 +36,9 @@ const Categories = ({ onSubcategoriesChange }) => {
 
   return (
     <div className={`${scss.categories} ${isDarkMode ? scss.darkMode : ''}`}>
-      <h4>Розділи та категорії</h4>
       <div className={scss.container}>
+        <h3 className={scss.title}>Розділи та категорії</h3>
+
         <div className={scss.categoryButtons}>
           {sortedProducts.map((product, index) => (
             <button
@@ -62,7 +63,6 @@ const Categories = ({ onSubcategoriesChange }) => {
                   className={`${scss.subcategoryButton} ${isDarkMode ? scss.darkMode : ''} ${selectedSubcategories.includes(subcategory) ? scss.active : ''}`}
                   onClick={() => handleSubcategoryClick(subcategory)}
                 >
-                  {getSubcategoryIcon(subcategory)}
                   {subcategory}
                 </button>
               ))}
