@@ -42,7 +42,9 @@ const SidebarCart = () => {
   return (
     <div className={`${scss.sidebarCart} ${isDarkMode ? scss.darkMode : ''}`}>
       {cartItems.length === 0 ? (
-        <p>Ваш кошик порожній</p>
+        <div>
+          <p>Ваш кошик порожній</p>
+        </div>
       ) : (
         <ul>
           <TransitionGroup className={scss.list}>

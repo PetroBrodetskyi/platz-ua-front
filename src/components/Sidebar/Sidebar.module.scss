@@ -3,20 +3,13 @@
   flex-direction: column;
   gap: 20px;
   width: 22%;
-  background-color: #f5f5f5;
-
-  &.darkMode {
-    background-color: var(--grafit);
-    color: var(--white);
-  }
 
   @include media-rules-max(notebook) {
     display: none;
   }
 }
 
-.office {
-  text-align: center;
+.title {
   margin: 0;
 }
 

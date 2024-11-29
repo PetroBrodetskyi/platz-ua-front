@@ -2,8 +2,13 @@
   display: flex;
   align-items: center;
   background-color: var(--white);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  gap: 10px;
+
   &:hover {
     background-color: var(--light-grey);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 
   &.darkMode {
@@ -21,8 +26,7 @@
 
 .productDetails {
   display: flex;
-  gap: 6px;
-  padding: 6px 10px;
+  gap: 16px;
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
@@ -32,7 +36,6 @@
   display: flex;
   justify-content: space-between;
   cursor: pointer;
-  font-size: 14px;
 
   .title {
     white-space: nowrap;
@@ -50,7 +53,7 @@
 }
 
 .buyButton {
-  background-color: var(--yellow);
+  background-color: var(--dark-violet);
   color: var(--white);
   border: none;
   padding: 4px 10px;
@@ -59,7 +62,7 @@
   font-size: 12px;
 
   &:hover {
-    background-color: #45a049;
+    background-color: var(--yellow);
   }
 }
 

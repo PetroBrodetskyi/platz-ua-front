@@ -7,7 +7,7 @@ const Sidebar = ({ handleRemoveFromCart }) => {
 
   return (
     <div className={`${scss.sidebar} ${isDarkMode ? scss.darkMode : ''}`}>
-      <h3 className={scss.office}>Кошик</h3>
+      <h3 className={scss.title}>Кошик</h3>
       <ul className={scss.cartSidebar}>
         <li>
           <div className={scss.cartContent}>
