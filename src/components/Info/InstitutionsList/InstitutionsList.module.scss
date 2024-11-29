@@ -1,0 +1,23 @@
+.institutionsList {
+  padding: 10px;
+  background-color: var(--white);
+
+  &.darkMode {
+    background-color: var(--grafite);
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .institutionLink {
+    color: var(--dark-violet);
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+  }
+}
