@@ -14,7 +14,6 @@
   }
 
   @include media-rules(notebook) {
-    width: 1140px;
     gap: 12px;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }

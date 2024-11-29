@@ -48,13 +48,12 @@ const ProductList = () => {
           <ProductCard viewMode={viewMode} />
         </div>
       </div>
-
-      <Sidebar
+      {/* <Sidebar
         cartItems={cartItems}
         selectedProducts={selectedProducts}
         handleRemoveFromCart={handleRemoveFromCart}
         handleProductClick={handleProductClick}
-      />
+      /> */}
     </div>
   );
 };

@@ -18,7 +18,7 @@ const Sidebar = ({ handleRemoveFromCart }) => {
 
   return (
     <div className={`${scss.sidebar} ${isDarkMode ? scss.darkMode : ''}`}>
-      <h3 className={scss.office}>Особистий кабінет</h3>
+      <h3 className={scss.office}>Кабінет</h3>
       <ul className={scss.cartSidebar}>
         <li>
           <h3 onClick={toggleCart} className={scss.toggleHeader}>

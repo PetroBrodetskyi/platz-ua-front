@@ -5,6 +5,7 @@ import CreateAdButton from '../../components/CreateAdButton';
 import Following from '../../components/Following';
 import Filter from '../../components/Filter';
 import VipList from '../../components/VipList';
+import Sidebar from '../../components/Sidebar';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +15,9 @@ import { ConfirmationLogin } from '../../components/Confirmation/Confirmation';
 const Home = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [selectedProducts, setSelectedProducts] = useState([]);
   const { user } = useSelector((state) => state.auth);
+  const cartItems = useSelector((state) => state.cart.items);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,12 +50,25 @@ const Home = () => {
     setShowConfirmation(false);
   };
 
+  const handleRemoveFromCart = async (productId) => {
+    try {
+      await dispatch(removeFromCartBack(productId)).unwrap();
+    } catch (error) {
+      console.error('Failed to remove product from cart:', error);
+    }
+  };
+
   return (
     <div className={scss.home}>
       {user && <Following />}
       <div className={scss.filterVip}>
         <Filter />
         <VipList />
+        <Sidebar
+          cartItems={cartItems}
+          selectedProducts={selectedProducts}
+          handleRemoveFromCart={handleRemoveFromCart}
+        />
       </div>
       <ProductList />
       <CreateAdButton onClick={handleCreateAdClick} />

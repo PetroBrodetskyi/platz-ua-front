@@ -1,7 +1,23 @@
+.productListWrapper {
+  display: flex;
+
+  @include media-rules(notebook) {
+    justify-content: space-between;
+  }
+}
+
 .vipProductList {
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @include media-rules(tablet) {
+    width: 100%;
+  }
+
+  @include media-rules(notebook) {
+    width: 800px;
+  }
 }
 
 .title {
