@@ -29,7 +29,6 @@ const Sidebar = ({ handleRemoveFromCart }) => {
               <SidebarCart handleRemoveFromCart={handleRemoveFromCart} />
             </div>
           )}
-          <div className={scss.divider}></div>
         </li>
 
         <li>
@@ -42,7 +41,6 @@ const Sidebar = ({ handleRemoveFromCart }) => {
               <SidebarFavorites />
             </div>
           )}
-          <div className={scss.divider}></div>
         </li>
 
         <li>
@@ -55,7 +53,6 @@ const Sidebar = ({ handleRemoveFromCart }) => {
               <SidebarMyAds />
             </div>
           )}
-          <div className={scss.divider}></div>
         </li>
       </ul>
     </div>

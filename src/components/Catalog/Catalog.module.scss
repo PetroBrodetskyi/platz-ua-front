@@ -16,8 +16,4 @@
   color: var(--red);
   cursor: pointer;
   @include transition(all);
-
-  &.hover {
-    background: #000;
-  }
 }

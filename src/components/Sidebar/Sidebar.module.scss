@@ -18,6 +18,9 @@
 }
 
 .cartSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   overflow-y: auto;
 }
 
@@ -45,9 +48,4 @@
   padding: 10px;
   margin-bottom: 10px;
   border-bottom: 1px solid #ddd;
-}
-
-.divider {
-  border-top: 1px solid #ddd;
-  margin: 10px 0;
 }

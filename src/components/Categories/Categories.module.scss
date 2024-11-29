@@ -3,10 +3,6 @@ $gap-tablet: 8px;
 $gap-mobile: 4px;
 
 .categories {
-  display: flex;
-  justify-content: space-around;
-  gap: $gap-desktop;
-
   &.darkMode {
     color: var(--white);
   }
