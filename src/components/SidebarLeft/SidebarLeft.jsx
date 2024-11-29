@@ -1,17 +1,17 @@
-import SidebarCart from './SidebarCart';
+import Filter from '../Filter';
 import { useTheme } from '../../context/ThemeContext';
-import scss from './Sidebar.module.scss';
+import scss from './SidebarLeft.module.scss';
 
-const Sidebar = ({ handleRemoveFromCart }) => {
+const SidebarLeft = () => {
   const { isDarkMode } = useTheme();
 
   return (
     <div className={`${scss.sidebar} ${isDarkMode ? scss.darkMode : ''}`}>
-      <h3 className={scss.title}>Кошик</h3>
+      <h3 className={scss.title}>Розділи та категорії</h3>
       <ul className={scss.cartSidebar}>
         <li>
           <div className={scss.cartContent}>
-            <SidebarCart handleRemoveFromCart={handleRemoveFromCart} />
+            <Filter />
           </div>
         </li>
       </ul>
@@ -19,4 +19,4 @@ const Sidebar = ({ handleRemoveFromCart }) => {
   );
 };
 
-export default Sidebar;
+export default SidebarLeft;

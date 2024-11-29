@@ -17,7 +17,7 @@ const Categories = ({ onSubcategoriesChange }) => {
     }
   }, [selectedSubcategories, onSubcategoriesChange]);
 
-  const handleCategoryHover = (category) => {
+  const handleCategoryClick = (category) => {
     setSelectedCategory(category);
     setSelectedSubcategories([]);
   };
@@ -37,14 +37,14 @@ const Categories = ({ onSubcategoriesChange }) => {
   return (
     <div className={`${scss.categories} ${isDarkMode ? scss.darkMode : ''}`}>
       <div className={scss.container}>
-        <h3 className={scss.title}>Розділи та категорії</h3>
-
         <div className={scss.categoryButtons}>
           {sortedProducts.map((product, index) => (
             <button
               key={index}
-              className={`${scss.categoryButton} ${isDarkMode ? scss.darkMode : ''} ${selectedCategory === product.name ? scss.active : ''}`}
-              onMouseEnter={() => handleCategoryHover(product.name)}
+              className={`${scss.categoryButton} ${
+                isDarkMode ? scss.darkMode : ''
+              } ${selectedCategory === product.name ? scss.active : ''}`}
+              onClick={() => handleCategoryClick(product.name)}
             >
               {getCategoryIcon(product.name)}
               {product.name}
@@ -60,7 +60,13 @@ const Categories = ({ onSubcategoriesChange }) => {
               .map((subcategory, index) => (
                 <button
                   key={index}
-                  className={`${scss.subcategoryButton} ${isDarkMode ? scss.darkMode : ''} ${selectedSubcategories.includes(subcategory) ? scss.active : ''}`}
+                  className={`${scss.subcategoryButton} ${
+                    isDarkMode ? scss.darkMode : ''
+                  } ${
+                    selectedSubcategories.includes(subcategory)
+                      ? scss.active
+                      : ''
+                  }`}
                   onClick={() => handleSubcategoryClick(subcategory)}
                 >
                   {subcategory}

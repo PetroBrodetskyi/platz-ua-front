@@ -29,6 +29,10 @@ $gap-mobile: 4px;
       &::-webkit-scrollbar {
         display: none;
       }
+
+      @include media-rules(tablet) {
+        gap: 8px;
+      }
     }
 
     .categoryButton {
@@ -126,7 +130,7 @@ $gap-mobile: 4px;
         gap: $gap-mobile;
 
         @include media-rules(tablet) {
-          gap: $gap-tablet;
+          gap: 8px;
         }
       }
     }

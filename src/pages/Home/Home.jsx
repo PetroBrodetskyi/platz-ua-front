@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import ProductList from '../../components/ProductList';
 import CreateAdButton from '../../components/CreateAdButton';
 import Following from '../../components/Following';
-import Filter from '../../components/Filter';
+import SidebarLeft from '../../components/SidebarLeft';
 import VipList from '../../components/VipList';
-import Sidebar from '../../components/Sidebar';
+import SidebarRight from '../../components/SidebarRight';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
@@ -62,15 +62,18 @@ const Home = () => {
     <div className={scss.home}>
       {user && <Following />}
       <div className={scss.filterVip}>
-        <Filter />
-        <VipList />
-        <Sidebar
+        <SidebarLeft />
+        <div className={scss.lists}>
+          <VipList />
+          <ProductList />
+        </div>
+        <SidebarRight
           cartItems={cartItems}
           selectedProducts={selectedProducts}
           handleRemoveFromCart={handleRemoveFromCart}
         />
       </div>
-      <ProductList />
+
       <CreateAdButton onClick={handleCreateAdClick} />
       {showConfirmation && (
         <ConfirmationLogin

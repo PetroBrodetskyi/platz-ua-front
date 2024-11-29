@@ -1,0 +1,38 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 22%;
+
+  @include media-rules-max(notebook) {
+    display: none;
+  }
+}
+
+.title {
+  margin: 0;
+}
+
+.cartSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.toggleHeader {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cartContent {
+  overflow: hidden;
+  @include transition(max-height);
+}
+
+.selectedProducts {
+  margin-bottom: 20px;
+}
