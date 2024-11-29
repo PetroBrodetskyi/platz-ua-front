@@ -72,11 +72,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 4px 8px;
+  padding: 8px 16px;
   border-radius: 44px;
   background-color: var(--grafite);
-  color: #fff;
-  font-size: 14px;
+  color: var(--white);
+  border: 1px solid #ddd;
 
   @include media-rules(desktop) {
     padding: 10px 20px;
@@ -113,11 +113,5 @@
   align-items: center;
   padding: 2px 8px;
   border-radius: 54px;
-  border: 1px solid #ddd;
-}
-
-.comments {
-  padding: 4px 8px;
-  border-radius: 8px;
   border: 1px solid #ddd;
 }

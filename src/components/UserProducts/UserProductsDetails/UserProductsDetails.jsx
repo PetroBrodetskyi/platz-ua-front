@@ -1,42 +1,51 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import CartPrice from '../../ProductCard/CartPrice';
 import { TbLocation } from 'react-icons/tb';
+import Tooltip from '@mui/material/Tooltip';
+import CartPrice from '../../ProductCard/CartPrice';
+import Notification from '../../Notification/Notification';
+import SubmitButton from '../../SubmitButton';
+import { useTheme } from '../../../context/ThemeContext';
 import { fetchExchangeRate } from '../../../redux/features/productsSlice';
 import {
   addToCartBack,
   removeFromCartBack,
   selectCartItems
 } from '../../../redux/features/cartSlice';
-import Tooltip from '@mui/material/Tooltip';
-import Notification from '../../Notification/Notification';
-import SubmitButton from '../../SubmitButton';
-import { useTheme } from '../../../context/ThemeContext';
 import { selectCurrentUser } from '../../../redux/features/authSlice';
 import axiosInstance from '../../../redux/axiosConfig';
 import { Confirmation } from '../../Confirmation/Confirmation';
 import scss from './UserProductsDetails.module.scss';
+
+const initialState = (product) => ({
+  name: product.name,
+  price: product.price,
+  description: product.description,
+  city: product.city,
+  PLZ: product.PLZ,
+  status: product.status
+});
+
+const reducer = (state, { field, value }) => ({ ...state, [field]: value });
 
 const UserProductsDetails = ({ product }) => {
   const dispatch = useDispatch();
   const exchangeRate = useSelector((state) => state.products.exchangeRate);
   const cartItems = useSelector(selectCartItems);
   const currentUser = useSelector(selectCurrentUser);
+  const [editedProduct, dispatchEdit] = useReducer(
+    reducer,
+    product,
+    initialState
+  );
   const [isInCart, setIsInCart] = useState(
     cartItems.some((item) => item._id === product._id)
   );
   const [notification, setNotification] = useState('');
   const [isEditing, setIsEditing] = useState(false);
-  const [isDeleteConfirmVisible, setIsDeleteConfirmVisible] = useState(false); // Стан для відображення підтвердження
-
-  const [editedProduct, setEditedProduct] = useState({
-    name: product.name,
-    price: product.price,
-    description: product.description,
-    city: product.city,
-    PLZ: product.PLZ
-  });
+  const [isDeleteConfirmVisible, setIsDeleteConfirmVisible] = useState(false);
+  const { isDarkMode } = useTheme();
 
   useEffect(() => {
     if (!exchangeRate) {
@@ -49,36 +58,36 @@ const UserProductsDetails = ({ product }) => {
   }, [cartItems, product._id]);
 
   const handleAddToCart = async () => {
-    if (isInCart) {
-      await dispatch(removeFromCartBack(product._id));
-      setNotification(`${product.name} видалено з кошика!`);
-      setIsInCart(false);
-    } else {
-      await dispatch(addToCartBack(product));
-      setNotification(`${product.name} додано до кошика!`);
-      setIsInCart(true);
+    try {
+      if (isInCart) {
+        await dispatch(removeFromCartBack(product._id));
+        setNotification(`${product.name} видалено з кошика!`);
+      } else {
+        await dispatch(addToCartBack(product));
+        setNotification(`${product.name} додано до кошика!`);
+      }
+      setIsInCart(!isInCart);
+    } catch (error) {
+      console.error('Error updating cart:', error);
+      setNotification('Помилка при оновленні кошика!');
+    } finally {
+      setTimeout(() => setNotification(''), 3000);
     }
-    setTimeout(() => setNotification(''), 3000);
-  };
-
-  const handleEditClick = () => {
-    setIsEditing(true);
   };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setEditedProduct((prev) => ({ ...prev, [name]: value }));
+    dispatchEdit({ field: e.target.name, value: e.target.value });
   };
 
   const handleSaveChanges = async () => {
-    const fieldsToUpdate = {};
-    for (const key in editedProduct) {
+    const fieldsToUpdate = Object.keys(editedProduct).reduce((acc, key) => {
       if (editedProduct[key] !== product[key]) {
-        fieldsToUpdate[key] = editedProduct[key];
+        acc[key] = editedProduct[key];
       }
-    }
+      return acc;
+    }, {});
 
-    if (Object.keys(fieldsToUpdate).length === 0) {
+    if (!Object.keys(fieldsToUpdate).length) {
       setNotification('Немає змін для оновлення!');
       return;
     }
@@ -89,31 +98,45 @@ const UserProductsDetails = ({ product }) => {
       });
       setNotification('Продукт успішно оновлено!');
       setIsEditing(false);
-      setTimeout(() => setNotification(''), 3000);
     } catch (error) {
       console.error('Error updating product:', error);
       setNotification('Помилка при оновленні продукту');
+    } finally {
+      setTimeout(() => setNotification(''), 3000);
     }
   };
 
-  const confirmDeleteProduct = () => {
-    setIsDeleteConfirmVisible(true);
+  const updateProductStatus = async (newStatus, successMessage) => {
+    try {
+      await axiosInstance.patch(
+        `/products/${product._id}`,
+        { status: newStatus },
+        {
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
+      dispatchEdit({ field: 'status', value: newStatus });
+      setNotification(successMessage);
+    } catch (error) {
+      console.error(`Error updating product status to ${newStatus}:`, error);
+      setNotification('Помилка при оновленні статусу продукту');
+    } finally {
+      setTimeout(() => setNotification(''), 3000);
+    }
   };
 
   const handleDeleteProduct = async () => {
     try {
       await axiosInstance.delete(`/products/${product._id}`);
       setNotification('Продукт успішно видалено!');
-      setTimeout(() => setNotification(''), 3000);
     } catch (error) {
       console.error('Error deleting product:', error);
       setNotification('Помилка при видаленні продукту');
     } finally {
       setIsDeleteConfirmVisible(false);
+      setTimeout(() => setNotification(''), 3000);
     }
   };
-
-  const { isDarkMode } = useTheme();
 
   return (
     <div className={scss.productDetails}>
@@ -132,26 +155,27 @@ const UserProductsDetails = ({ product }) => {
               </div>
             </div>
           </Tooltip>
-          <div>
-            <CartPrice
-              price={product.price}
-              exchangeRate={exchangeRate}
-              onAddToCart={handleAddToCart}
-              isInCart={isInCart}
-            />
-          </div>
+          <CartPrice
+            price={product.price}
+            exchangeRate={exchangeRate}
+            onAddToCart={handleAddToCart}
+            isInCart={isInCart}
+          />
         </div>
 
         {isEditing ? (
           <div className={scss.editForm}>
-            <input
-              type="text"
-              name="name"
-              value={editedProduct.name}
-              onChange={handleInputChange}
-              placeholder="Назва продукту"
-              className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
-            />
+            {['name', 'price', 'city', 'PLZ'].map((field) => (
+              <input
+                key={field}
+                type={field === 'price' ? 'number' : 'text'}
+                name={field}
+                value={editedProduct[field]}
+                onChange={handleInputChange}
+                placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+                className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
+              />
+            ))}
             <textarea
               name="description"
               value={editedProduct.description}
@@ -159,30 +183,6 @@ const UserProductsDetails = ({ product }) => {
               placeholder="Опис"
               rows="4"
               className={`${scss.textarea} ${isDarkMode ? scss.darkMode : ''}`}
-            />
-            <input
-              type="number"
-              name="price"
-              value={editedProduct.price}
-              onChange={handleInputChange}
-              placeholder="Ціна (€)"
-              className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
-            />
-            <input
-              type="text"
-              name="city"
-              value={editedProduct.city}
-              onChange={handleInputChange}
-              placeholder="Місто"
-              className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
-            />
-            <input
-              type="text"
-              name="PLZ"
-              value={editedProduct.PLZ}
-              onChange={handleInputChange}
-              placeholder="PLZ"
-              className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
             />
             <div className={scss.buttons}>
               <SubmitButton buttonText="Зберегти" onClick={handleSaveChanges} />
@@ -195,17 +195,40 @@ const UserProductsDetails = ({ product }) => {
         ) : (
           <div>
             <p className={scss.description}>{product.description}</p>
-            {currentUser && currentUser._id === product.owner && (
+            {currentUser?._id === product.owner && (
               <div className={scss.buttons}>
                 <SubmitButton
                   buttonText="Редагувати"
-                  onClick={handleEditClick}
+                  onClick={() => setIsEditing(true)}
                 />
                 <SubmitButton
                   buttonText="Видалити"
-                  onClick={confirmDeleteProduct}
+                  onClick={() => setIsDeleteConfirmVisible(true)}
                   className={scss.deleteButton}
                 />
+                {editedProduct.status === 'archive' ? (
+                  <SubmitButton
+                    buttonText="Активувати"
+                    onClick={() =>
+                      updateProductStatus(
+                        'approved',
+                        'Продукт успішно активовано!'
+                      )
+                    }
+                    className={scss.activateButton}
+                  />
+                ) : (
+                  <SubmitButton
+                    buttonText="Архівувати"
+                    onClick={() =>
+                      updateProductStatus(
+                        'archive',
+                        'Продукт успішно архівовано!'
+                      )
+                    }
+                    className={scss.archiveButton}
+                  />
+                )}
               </div>
             )}
           </div>
