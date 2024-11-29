@@ -262,7 +262,7 @@
 
       @include media-rules(notebook) {
         font-size: 14px;
-        max-width: 280px;
+        max-width: 200px;
 
         &.listItem {
           white-space: wrap;
