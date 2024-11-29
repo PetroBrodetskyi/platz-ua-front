@@ -38,6 +38,10 @@ const UserProducts = ({ products }) => {
     ? format(new Date(owner.createdAt), 'MMMM yyyy', { locale: uk })
     : '';
 
+  const filteredProducts = products.filter(
+    (product) => product.status === 'approved' || product.status === 'vip'
+  );
+
   useEffect(() => {
     const fetchData = async () => {
       if (products.length > 0 && !owner) {
@@ -146,10 +150,10 @@ const UserProducts = ({ products }) => {
           />
         )}
         <div>
-          {products.length ? (
+          {filteredProducts.length ? (
             <Suspense fallback={<Loader />}>
               <ul className={scss.productsList}>
-                {products.map((product) => (
+                {filteredProducts.map((product) => (
                   <ProductItem
                     key={product._id}
                     product={product}
