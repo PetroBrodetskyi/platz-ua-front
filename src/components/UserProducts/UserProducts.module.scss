@@ -40,6 +40,16 @@ $padding-mobile: 20px 10px;
     flex-direction: column;
     gap: 10px;
 
+    .filteredContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+
+      @include media-rules(notebook) {
+        gap: 200px;
+      }
+    }
+
     @include media-rules(notebook) {
       flex-direction: row;
       justify-content: center;

@@ -1,16 +1,1 @@
-.notFound {
-  padding: 40px 10px;
 
-  @include media-rules(tablet) {
-    padding: 40px;
-  }
-
-  .text {
-    font-size: 14px;
-    font-weight: 600;
-
-    @include media-rules(tablet) {
-      font-size: 16px;
-    }
-  }
-}

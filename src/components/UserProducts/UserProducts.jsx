@@ -18,6 +18,7 @@ import UserAvatars from '../UserProducts/UserAvatars';
 import scss from './UserProducts.module.scss';
 
 const ProductItem = lazy(() => import('./ProductItem'));
+const ArchiveProductItem = lazy(() => import('./ArchiveProductItem')); // Додано для архівних продуктів
 
 const UserProducts = ({ products }) => {
   const [notification, setNotification] = useState('');
@@ -40,6 +41,9 @@ const UserProducts = ({ products }) => {
 
   const filteredProducts = products.filter(
     (product) => product.status === 'approved' || product.status === 'vip'
+  );
+  const archiveProducts = products.filter(
+    (product) => product.status === 'archive'
   );
 
   useEffect(() => {
@@ -149,8 +153,8 @@ const UserProducts = ({ products }) => {
             formattedDate={formattedDate}
           />
         )}
-        <div>
-          {filteredProducts.length ? (
+        <div className={scss.filteredContainer}>
+          {filteredProducts.length > 0 ? (
             <Suspense fallback={<Loader />}>
               <ul className={scss.productsList}>
                 {filteredProducts.map((product) => (
@@ -165,14 +169,30 @@ const UserProducts = ({ products }) => {
           ) : (
             <ProductsNotFound />
           )}
-          {notification && (
-            <Notification
-              message={notification}
-              onClose={() => setNotification('')}
-            />
+          {archiveProducts.length > 0 && (
+            <div>
+              <h3 className={scss.sectionTitle}>Архів</h3>
+              <Suspense fallback={<Loader />}>
+                <ul className={scss.productsList}>
+                  {archiveProducts.map((product) => (
+                    <ArchiveProductItem
+                      key={product._id}
+                      product={product}
+                      exchangeRate={exchangeRate}
+                    />
+                  ))}
+                </ul>
+              </Suspense>
+            </div>
           )}
         </div>
       </div>
+      {notification && (
+        <Notification
+          message={notification}
+          onClose={() => setNotification('')}
+        />
+      )}
     </div>
   );
 };
