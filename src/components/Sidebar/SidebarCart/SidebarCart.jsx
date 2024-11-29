@@ -8,7 +8,7 @@ import {
   selectCartLoading,
   addToCart
 } from '../../../redux/features/cartSlice';
-import SidebarCartItem from './SidebarCartItem/SidebarCartItem';
+import SidebarCartItem from './SidebarCartItem';
 import { Collapse } from '@mui/material';
 import { TransitionGroup } from 'react-transition-group';
 import { useTheme } from '../../../../src/context/ThemeContext';
