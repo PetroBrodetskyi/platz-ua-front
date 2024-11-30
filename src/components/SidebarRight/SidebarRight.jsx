@@ -1,4 +1,5 @@
 import SidebarCart from './SidebarCart';
+import ExchangeRateBanner from '../Info/ExchangeRateBanner'; // Імпорт банера
 import { useTheme } from '../../context/ThemeContext';
 import scss from './SidebarRight.module.scss';
 
@@ -13,6 +14,9 @@ const SidebarRight = ({ handleRemoveFromCart }) => {
           <div className={scss.cartContent}>
             <SidebarCart handleRemoveFromCart={handleRemoveFromCart} />
           </div>
+        </li>
+        <li>
+          <ExchangeRateBanner />
         </li>
       </ul>
     </div>

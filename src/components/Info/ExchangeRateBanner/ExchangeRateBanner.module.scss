@@ -1,0 +1,42 @@
+.banner {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background-color: var(--white);
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--light-grey);
+  }
+
+  &.darkMode {
+    background-color: var(--grafite);
+    color: var(--white);
+  }
+
+  .logoContainer {
+    display: flex;
+    justify-content: space-between;
+
+    .icon {
+      font-size: 20px;
+    }
+  }
+
+  .logo {
+    width: 50%;
+  }
+
+  .rate {
+    display: flex;
+    flex-direction: column;
+
+    .value {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--dark-violet);
+    }
+  }
+}
