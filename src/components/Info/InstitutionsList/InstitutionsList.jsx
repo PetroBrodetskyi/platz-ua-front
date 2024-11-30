@@ -3,7 +3,7 @@ import scss from './InstitutionsList.module.scss';
 
 const institutions = [
   {
-    name: 'Посольство у Федеративній Республіці Німеччина',
+    name: 'Посольство України в Німеччині',
     website: 'https://germany.mfa.gov.ua/',
     address: 'Albrechtstrasse 26, 10117 Berlin',
     phone: '+49 30 28887128',

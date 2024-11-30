@@ -10,6 +10,7 @@ import {
 import SidebarCartItem from './SidebarCartItem';
 import { Collapse } from '@mui/material';
 import { TransitionGroup } from 'react-transition-group';
+import { PiShoppingCart } from 'react-icons/pi';
 import { useTheme } from '../../../../src/context/ThemeContext';
 import scss from './SidebarCart.module.scss';
 
@@ -40,8 +41,9 @@ const SidebarCart = () => {
 
   if (!cartItems.length) {
     return (
-      <div className={`${scss.sidebarCart} ${isDarkMode ? scss.darkMode : ''}`}>
-        <p>Ваш кошик порожній</p>
+      <div className={`${scss.noProducts} ${isDarkMode ? scss.darkMode : ''}`}>
+        <h4>Ваш кошик порожній</h4>
+        <PiShoppingCart className={scss.icon} />
       </div>
     );
   }

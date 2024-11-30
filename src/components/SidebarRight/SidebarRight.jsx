@@ -1,5 +1,6 @@
 import SidebarCart from './SidebarCart';
-import ExchangeRateBanner from '../Info/ExchangeRateBanner'; // Імпорт банера
+import ExchangeRateBanner from '../Info/ExchangeRateBanner';
+import TelegramGroups from '../Info/TelegramGroups';
 import { useTheme } from '../../context/ThemeContext';
 import scss from './SidebarRight.module.scss';
 import ResourcesList from '../Info/ResourcesList';
@@ -21,6 +22,9 @@ const SidebarRight = ({ handleRemoveFromCart }) => {
         </li>
         <li>
           <ResourcesList />
+        </li>
+        <li>
+          <TelegramGroups />
         </li>
       </ul>
     </div>
