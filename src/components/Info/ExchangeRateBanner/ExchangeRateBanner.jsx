@@ -4,8 +4,8 @@ import { Skeleton } from '@mui/material';
 import { fetchExchangeRate } from '../../../redux/features/productsSlice';
 import { useTheme } from '../../../context/ThemeContext.jsx';
 import { RiExternalLinkLine } from 'react-icons/ri';
-import scss from './ExchangeRateBanner.module.scss';
 import privatLogo from '../../../assets/images/logo_PrivatBank.png';
+import scss from './ExchangeRateBanner.module.scss';
 
 const ExchangeRateBanner = () => {
   const dispatch = useDispatch();
