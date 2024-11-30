@@ -1,6 +1,7 @@
 .institutionsList {
   padding: 10px;
   background-color: var(--white);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 
   &.darkMode {
     background-color: var(--grafite);
