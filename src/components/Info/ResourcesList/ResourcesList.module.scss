@@ -1,4 +1,4 @@
-.institutionsList {
+.resourcesList {
   padding: 10px;
   background-color: var(--white);
 
@@ -12,9 +12,8 @@
     gap: 8px;
   }
 
-  .institutionLink {
+  .resourceLink {
     color: var(--dark-violet);
-    font-weight: 600;
   }
 
   .details {

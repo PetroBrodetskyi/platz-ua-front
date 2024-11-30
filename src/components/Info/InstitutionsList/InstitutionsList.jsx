@@ -3,33 +3,34 @@ import scss from './InstitutionsList.module.scss';
 
 const institutions = [
   {
-    name: 'Посольство України в Німеччині',
+    name: 'Посольство у Федеративній Республіці Німеччина',
     website: 'https://germany.mfa.gov.ua/',
-    address: 'Albrechtstraße 26, 10117 Berlin',
-    phone: '+49 30 2888710',
-    mapsLink: 'https://www.google.com/maps?q=Albrechtstraße+26,+10117+Berlin'
+    address: 'Albrechtstrasse 26, 10117 Berlin',
+    phone: '+49 30 28887128',
+    mapsLink: 'https://www.google.com/maps?q=Albrechtstrasse+26,+10117+Berlin'
   },
   {
     name: 'Генеральне консульство у Франкфурті',
     website: 'https://frankfurt.mfa.gov.ua/',
-    address: 'Eschersheimer Landstraße 454, 60431 Frankfurt am Main',
-    phone: '+49 69 4786237',
+    address: 'Vilbeler Str. 29, 60313 Frankfurt am Main',
+    phone: '+49 69 29720920',
     mapsLink:
-      'https://www.google.com/maps?q=Eschersheimer+Landstraße+454,+60431+Frankfurt+am+Main'
+      'https://www.google.com/maps?q=Vilbeler+Str.+29,+60313+Frankfurt+am+Main'
   },
   {
-    name: 'Генеральне консульство у Гамбурзі',
+    name: 'Генеральне консульство в Гамбурзі',
     website: 'https://hamburg.mfa.gov.ua/',
-    address: 'Bornstraße 1, 20146 Hamburg',
-    phone: '+49 40 4502060',
-    mapsLink: 'https://www.google.com/maps?q=Bornstraße+1,+20146+Hamburg'
+    address: 'Mundsburger Damm 1, 22087 Hamburg',
+    phone: '+49 40 22949811',
+    mapsLink: 'https://www.google.com/maps?q=Mundsburger+Damm+1,+22087+Hamburg'
   },
   {
-    name: 'Генеральне консульство у Мюнхені',
+    name: 'Генеральне консульство в Мюнхені',
     website: 'https://munich.mfa.gov.ua/',
-    address: 'Lessingstraße 14, 80336 München',
-    phone: '+49 89 5519240',
-    mapsLink: 'https://www.google.com/maps?q=Lessingstraße+14,+80336+München'
+    address: 'Riedenburger Straße 2, 81677 München',
+    phone: '+49 89 55273718',
+    mapsLink:
+      'https://www.google.com/maps?q=Riedenburger+Straße+2,+81677+München'
   }
 ];
 
