@@ -10,12 +10,12 @@ const TelegramGroups = () => {
       link: 'https://t.me/deutscheukraine'
     },
     {
-      name: 'Українці в Мюнхені та Баварії',
-      link: 'https://t.me/UkraineinMunich'
+      name: 'Земля Хессен',
+      link: 'https://t.me/hessenUA'
     },
     {
-      name: 'Земля Хессен | Land Hessen',
-      link: 'https://t.me/hessenUA'
+      name: 'Українці в Мюнхені та Баварії',
+      link: 'https://t.me/UkraineinMunich'
     }
   ];
 
@@ -27,7 +27,8 @@ const TelegramGroups = () => {
           <li key={index} className={scss.link}>
             <a href={group.link} target="_blank" rel="noopener noreferrer">
               {group.name}
-            </a>
+            </a>{' '}
+            |
           </li>
         ))}
       </ul>

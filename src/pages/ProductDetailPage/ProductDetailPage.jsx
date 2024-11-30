@@ -7,9 +7,9 @@ const ProductDetailPage = () => {
   return (
     <div>
       <ProductDetail />
-      {/* <div className={scss.container}>
+      <div className={scss.container}>
         <VipList />
-      </div> */}
+      </div>
       <CreateAdButton />
     </div>
   );

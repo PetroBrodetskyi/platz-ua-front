@@ -15,6 +15,11 @@
   background-color: var(--white);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 
+  &.darkMode {
+    background-color: var(--grey);
+    color: var(--white);
+  }
+
   .icon {
     font-size: 20px;
   }

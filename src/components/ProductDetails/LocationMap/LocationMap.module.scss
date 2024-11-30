@@ -11,18 +11,22 @@
 .mapContainer {
   display: flex;
   flex-direction: column;
+
   padding: 20px 10px;
   gap: 10px;
   background-color: var(--white);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   &.darkMode {
     background-color: var(--grafite);
   }
 
   @include media-rules(notebook) {
-    padding: 40px;
-    border-radius: 0 44px 44px 44px;
+    padding: 20px;
+    border-radius: 0 0 0 44px;
     gap: 20px;
+    width: 80%;
+    margin: 0 auto;
   }
 }
 
@@ -34,7 +38,6 @@
   @include media-rules(notebook) {
     width: 100%;
     flex-direction: row;
-    gap: 40px;
   }
 }
 

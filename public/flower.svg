@@ -1,0 +1,19 @@
+<svg width="128" height="128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Центральне коло -->
+  <circle cx="64" cy="64" r="20" fill="#FFD700" />
+  
+  <!-- Пелюстки -->
+  <!-- Німеччина -->
+  <circle cx="64" cy="20" r="14" fill="#0D0D0E" />
+  <circle cx="92" cy="36" r="14" fill="#DD0000" />
+  <circle cx="108" cy="64" r="14" fill="#FFCE00" />
+
+  <!-- Україна -->
+  <circle cx="92" cy="92" r="18" fill="#0057B7" />
+  <circle cx="64" cy="108" r="14" fill="#FFD700" />
+  <circle cx="36" cy="92" r="14" fill="#FFCE00" />
+
+  <!-- Додаткові елементи -->
+  <circle cx="20" cy="64" r="14" fill="#DD0000" />
+  <circle cx="36" cy="36" r="18" fill="#0D0D0E" />
+</svg>

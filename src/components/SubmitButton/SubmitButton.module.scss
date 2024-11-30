@@ -11,6 +11,7 @@
   margin-left: auto;
   color: var(--white);
   cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   @include transition(background-color);
 
   &:hover {
@@ -31,6 +32,7 @@
   font-size: 14px;
   width: 160px;
   border-radius: 44px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .search {
@@ -44,6 +46,7 @@
   margin-left: auto;
   color: #fff;
   cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
   &:hover {
     background-color: var(--gold);
@@ -77,6 +80,7 @@
   background-color: var(--grafite);
   color: var(--white);
   border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
   @include media-rules(desktop) {
     padding: 10px 20px;
@@ -95,6 +99,7 @@
   margin-left: auto;
   color: #fff;
   cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   @include transition(background-color);
 
   &:hover {
@@ -114,4 +119,5 @@
   padding: 2px 8px;
   border-radius: 54px;
   border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

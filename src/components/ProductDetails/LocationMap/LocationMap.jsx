@@ -1,6 +1,6 @@
 import React from 'react';
 import Skeleton from '@mui/material/Skeleton';
-import { FaMapMarkedAlt } from 'react-icons/fa'; // Імпорт іконки
+import { FaMapMarkedAlt } from 'react-icons/fa';
 import Map from '../../Map';
 import { useTheme } from '../../../context/ThemeContext';
 import scss from './LocationMap.module.scss';
@@ -28,7 +28,7 @@ const LocationMap = ({ loadingCoordinates, coordinates, plz, city }) => {
                 variant="rectangular"
                 animation="pulse"
                 width="100%"
-                height="400px"
+                height="320px"
                 style={{ borderRadius: '8px' }}
               />
             ) : coordinates ? (
