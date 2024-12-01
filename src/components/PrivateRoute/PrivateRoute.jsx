@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { fetchCurrentUser } from '../../redux/features/authSlice';
-import Loader from '../Loader/Loader';
+import Loader from '../Loader';
 
 const PrivateRoute = ({ element }) => {
   const dispatch = useDispatch();

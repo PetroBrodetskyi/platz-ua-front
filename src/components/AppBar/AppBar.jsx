@@ -5,12 +5,12 @@ import {
   useNavigationType,
   useLocation
 } from 'react-router-dom';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
-import LinearDeterminate from '../LinearDeterminate/LinearDeterminate';
-import ScrollToTop from '../ScrollToTop/ScrollToTop';
-import CookieBanner from '../CookieBanner/CookieBanner';
-import Loader from '../Loader/Loader';
+import Header from '../Header';
+import Footer from '../Footer';
+import LinearDeterminate from '../LinearDeterminate';
+import ScrollToTop from '../ScrollToTop';
+import CookieBanner from '../CookieBanner';
+import Loader from '../Loader';
 import { routes } from './routes';
 import scss from './AppBar.module.scss';
 

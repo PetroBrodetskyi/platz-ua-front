@@ -18,7 +18,7 @@ import UserAvatars from '../UserProducts/UserAvatars';
 import scss from './UserProducts.module.scss';
 
 const ProductItem = lazy(() => import('./ProductItem'));
-const ArchiveProductItem = lazy(() => import('./ArchiveProductItem')); // Додано для архівних продуктів
+const ArchiveProductItem = lazy(() => import('./ArchiveProductItem'));
 
 const UserProducts = ({ products }) => {
   const [notification, setNotification] = useState('');

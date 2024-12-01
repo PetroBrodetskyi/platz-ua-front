@@ -58,7 +58,7 @@ $gap-mobile: 4px;
       }
 
       &.active {
-        background-color: var(--dark-violet);
+        background-color: var(--grafite);
         color: var(--white);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }
@@ -92,31 +92,19 @@ $gap-mobile: 4px;
       }
 
       @include media-rules(notebook) {
-        padding: 2px 8px;
+        padding: 4px 10px;
       }
 
       &:hover {
-        background-color: var(--dark-violet);
+        background-color: var(--blue);
         color: var(--white);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }
 
       &.active {
-        background-color: var(--yellow);
+        background-color: var(--grafite);
         color: var(--white);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      }
-
-      svg {
-        @include media-rules(tablet) {
-          width: 16px;
-          height: 16px;
-        }
-
-        @include media-rules(notebook) {
-          width: 20px;
-          height: 20px;
-        }
       }
     }
 

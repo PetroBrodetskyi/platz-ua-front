@@ -41,7 +41,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 130px;
+    max-width: 100px;
   }
 }
 
@@ -53,13 +53,12 @@
 }
 
 .buyButton {
-  background-color: var(--dark-violet);
+  background-color: var(--grafite);
   color: var(--white);
-  border: none;
+  border: 1px solid var(--white);
   padding: 4px 10px;
   border-radius: 44px;
   cursor: pointer;
-  font-size: 12px;
 
   &:hover {
     background-color: var(--yellow);
@@ -69,11 +68,9 @@
 .removeButton {
   background-color: var(--red);
   color: var(--white);
-  border: none;
   padding: 4px 10px;
   border-radius: 44px;
   cursor: pointer;
-  font-size: 12px;
 
   &:hover {
     background-color: #ff3333;

@@ -6,7 +6,7 @@ import { MdOutlineFavorite, MdOutlineFavoriteBorder } from 'react-icons/md';
 import { PiShoppingCart, PiShoppingCartFill } from 'react-icons/pi';
 import { RiLoginCircleLine } from 'react-icons/ri';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
-import SearchLocation from '../SearchLocation/SearchLocation';
+import SearchLocation from '../SearchLocation';
 import Logo from '../Logo/Logo';
 import UserMenu from '../UserMenu/UserMenu';
 import { fetchCurrentUser } from '../../redux/features/authSlice';
