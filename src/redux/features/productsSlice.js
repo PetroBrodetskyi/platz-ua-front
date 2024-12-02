@@ -1,9 +1,12 @@
+// productsSlice.js
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../axiosConfig.js';
 import { createSelector } from 'reselect';
 
 const initialState = {
   products: [],
+  selectedCategory: '',
   userProducts: [],
   favorites: [],
   exchangeRate: null,
@@ -17,6 +20,7 @@ const fetchProductsWithParams = async (url, params) => {
   return response.data;
 };
 
+// Thunks
 export const fetchProductsByLocation = createAsyncThunk(
   'products/fetchProductsByLocation',
   async ({ PLZ, city, page = 1 }) =>
@@ -59,6 +63,21 @@ export const fetchUsersPublicProducts = createAsyncThunk(
   }
 );
 
+export const fetchProductsByCategoryAndSubcategories = createAsyncThunk(
+  'products/fetchProductsByCategoryAndSubcategories',
+  async ({ category, subcategories = [] }) => {
+    const params = {
+      category,
+      ...subcategories.reduce((acc, subcategory, index) => {
+        if (subcategory) acc[`subcategory${index + 1}`] = subcategory;
+        return acc;
+      }, {})
+    };
+
+    return fetchProductsWithParams('/products/public/category', params);
+  }
+);
+
 export const fetchProductsByCategory = createAsyncThunk(
   'products/fetchProductsByCategory',
   async (category) =>
@@ -73,6 +92,7 @@ export const fetchExchangeRate = createAsyncThunk(
   }
 );
 
+// Slice
 const productsSlice = createSlice({
   name: 'products',
   initialState,
@@ -88,6 +108,9 @@ const productsSlice = createSlice({
     },
     clearProducts(state) {
       state.products = [];
+    },
+    setCategory(state, action) {
+      state.selectedCategory = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -139,6 +162,15 @@ const productsSlice = createSlice({
         state.loading = false;
         state.userProducts = action.payload;
       })
+      .addCase(fetchProductsByCategoryAndSubcategories.pending, handlePending)
+      .addCase(
+        fetchProductsByCategoryAndSubcategories.fulfilled,
+        (state, action) => {
+          state.loading = false;
+          state.products = action.payload;
+        }
+      )
+      .addCase(fetchProductsByCategoryAndSubcategories.rejected, handleRejected)
       .addCase(fetchUserProducts.rejected, handleRejected)
       .addCase(fetchUsersPublicProducts.pending, handlePending)
       .addCase(fetchUsersPublicProducts.fulfilled, (state, action) => {
@@ -183,7 +215,25 @@ export const selectProductsByLocation = createSelector(
     )
 );
 
-export const { toggleFavorite, setLocation, clearProducts } =
+export const selectFilteredProducts = createSelector(
+  [
+    selectProducts,
+    (state, { category, subcategories }) => ({ category, subcategories })
+  ],
+  (products, { category, subcategories }) => {
+    return products.filter((product) => {
+      const matchesCategory = product.category === category;
+      const matchesSubcategories = subcategories.every((subcategory, index) => {
+        if (!subcategory) return true;
+        return product[`subcategory${index + 1}`] === subcategory;
+      });
+
+      return matchesCategory && matchesSubcategories;
+    });
+  }
+);
+
+export const { toggleFavorite, setLocation, clearProducts, setCategory } =
   productsSlice.actions;
 
 export default productsSlice.reducer;

@@ -1,13 +1,19 @@
 import { useState, useEffect } from 'react';
-import { useTheme } from '../../context/ThemeContext';
-import data from './products.json';
+import { useDispatch, useSelector } from 'react-redux';
 import { getCategoryIcon } from './icons.jsx';
 import scss from './Categories.module.scss';
+import {
+  fetchProductsByCategoryAndSubcategories,
+  setCategory
+} from '../../redux/features/productsSlice';
+import { useTheme } from '../../context/ThemeContext';
 
 const Categories = ({ onSubcategoriesChange }) => {
-  const [selectedCategory, setSelectedCategory] = useState(
-    data.products[0].name
+  const dispatch = useDispatch();
+  const selectedCategory = useSelector(
+    (state) => state.products.selectedCategory
   );
+  const products = useSelector((state) => state.products.products);
   const [selectedSubcategories, setSelectedSubcategories] = useState([]);
   const { isDarkMode } = useTheme();
 
@@ -18,7 +24,7 @@ const Categories = ({ onSubcategoriesChange }) => {
   }, [selectedSubcategories, onSubcategoriesChange]);
 
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
+    dispatch(setCategory(category));
     setSelectedSubcategories([]);
   };
 
@@ -30,9 +36,25 @@ const Categories = ({ onSubcategoriesChange }) => {
     );
   };
 
-  const sortedProducts = data.products.sort((a, b) =>
-    a.name.localeCompare(b.name)
-  );
+  useEffect(() => {
+    if (selectedCategory) {
+      dispatch(
+        fetchProductsByCategoryAndSubcategories({
+          category: selectedCategory,
+          subcategories: selectedSubcategories
+        })
+      );
+    }
+  }, [selectedCategory, selectedSubcategories, dispatch]);
+
+  const categories = [...new Set(products.map((product) => product.category))];
+
+  const subcategories = selectedCategory
+    ? products
+        .filter((product) => product.category === selectedCategory)
+        .flatMap((product) => product.categories)
+        .filter((value, index, self) => self.indexOf(value) === index)
+    : [];
 
   return (
     <div className={`${scss.categories} ${isDarkMode ? scss.darkMode : ''}`}>
@@ -40,41 +62,32 @@ const Categories = ({ onSubcategoriesChange }) => {
         <h3 className={scss.title}>Розділи та категорії</h3>
 
         <div className={scss.categoryButtons}>
-          {sortedProducts.map((product, index) => (
+          {categories.sort().map((category, index) => (
             <button
               key={index}
-              className={`${scss.categoryButton} ${
-                isDarkMode ? scss.darkMode : ''
-              } ${selectedCategory === product.name ? scss.active : ''}`}
-              onClick={() => handleCategoryClick(product.name)}
+              className={`${scss.categoryButton} ${isDarkMode ? scss.darkMode : ''} ${selectedCategory === category ? scss.active : ''}`}
+              onClick={() => handleCategoryClick(category)}
             >
-              {getCategoryIcon(product.name)}
-              {product.name}
+              {getCategoryIcon(category)}
+              {category}
             </button>
           ))}
         </div>
 
         <div className={scss.subcategories}>
-          <div className={scss.subcategoryButtons}>
-            {sortedProducts
-              .find((product) => product.name === selectedCategory)
-              .categories.sort((a, b) => a.localeCompare(b))
-              .map((subcategory, index) => (
+          {selectedCategory && (
+            <div className={scss.subcategoryButtons}>
+              {subcategories.sort().map((subcategory, index) => (
                 <button
                   key={index}
-                  className={`${scss.subcategoryButton} ${
-                    isDarkMode ? scss.darkMode : ''
-                  } ${
-                    selectedSubcategories.includes(subcategory)
-                      ? scss.active
-                      : ''
-                  }`}
+                  className={`${scss.subcategoryButton} ${isDarkMode ? scss.darkMode : ''} ${selectedSubcategories.includes(subcategory) ? scss.active : ''}`}
                   onClick={() => handleSubcategoryClick(subcategory)}
                 >
                   {subcategory}
                 </button>
               ))}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
