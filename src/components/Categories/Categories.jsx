@@ -1,19 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useTheme } from '../../context/ThemeContext';
+import data from './products.json';
 import { getCategoryIcon } from './icons.jsx';
 import scss from './Categories.module.scss';
-import {
-  fetchProductsByCategoryAndSubcategories,
-  setCategory
-} from '../../redux/features/productsSlice';
-import { useTheme } from '../../context/ThemeContext';
 
 const Categories = ({ onSubcategoriesChange }) => {
-  const dispatch = useDispatch();
-  const selectedCategory = useSelector(
-    (state) => state.products.selectedCategory
+  const [selectedCategory, setSelectedCategory] = useState(
+    data.products[0].name
   );
-  const products = useSelector((state) => state.products.products);
   const [selectedSubcategories, setSelectedSubcategories] = useState([]);
   const { isDarkMode } = useTheme();
 
@@ -23,8 +17,8 @@ const Categories = ({ onSubcategoriesChange }) => {
     }
   }, [selectedSubcategories, onSubcategoriesChange]);
 
-  const handleCategoryClick = (category) => {
-    dispatch(setCategory(category));
+  const handleCategoryHover = (category) => {
+    setSelectedCategory(category);
     setSelectedSubcategories([]);
   };
 
@@ -36,25 +30,9 @@ const Categories = ({ onSubcategoriesChange }) => {
     );
   };
 
-  useEffect(() => {
-    if (selectedCategory) {
-      dispatch(
-        fetchProductsByCategoryAndSubcategories({
-          category: selectedCategory,
-          subcategories: selectedSubcategories
-        })
-      );
-    }
-  }, [selectedCategory, selectedSubcategories, dispatch]);
-
-  const categories = [...new Set(products.map((product) => product.category))];
-
-  const subcategories = selectedCategory
-    ? products
-        .filter((product) => product.category === selectedCategory)
-        .flatMap((product) => product.categories)
-        .filter((value, index, self) => self.indexOf(value) === index)
-    : [];
+  const sortedProducts = data.products.sort((a, b) =>
+    a.name.localeCompare(b.name)
+  );
 
   return (
     <div className={`${scss.categories} ${isDarkMode ? scss.darkMode : ''}`}>
@@ -62,22 +40,24 @@ const Categories = ({ onSubcategoriesChange }) => {
         <h3 className={scss.title}>Розділи та категорії</h3>
 
         <div className={scss.categoryButtons}>
-          {categories.sort().map((category, index) => (
+          {sortedProducts.map((product, index) => (
             <button
               key={index}
-              className={`${scss.categoryButton} ${isDarkMode ? scss.darkMode : ''} ${selectedCategory === category ? scss.active : ''}`}
-              onClick={() => handleCategoryClick(category)}
+              className={`${scss.categoryButton} ${isDarkMode ? scss.darkMode : ''} ${selectedCategory === product.name ? scss.active : ''}`}
+              onMouseEnter={() => handleCategoryHover(product.name)}
             >
-              {getCategoryIcon(category)}
-              {category}
+              {getCategoryIcon(product.name)}
+              {product.name}
             </button>
           ))}
         </div>
 
         <div className={scss.subcategories}>
-          {selectedCategory && (
-            <div className={scss.subcategoryButtons}>
-              {subcategories.sort().map((subcategory, index) => (
+          <div className={scss.subcategoryButtons}>
+            {sortedProducts
+              .find((product) => product.name === selectedCategory)
+              .categories.sort((a, b) => a.localeCompare(b))
+              .map((subcategory, index) => (
                 <button
                   key={index}
                   className={`${scss.subcategoryButton} ${isDarkMode ? scss.darkMode : ''} ${selectedSubcategories.includes(subcategory) ? scss.active : ''}`}
@@ -86,8 +66,7 @@ const Categories = ({ onSubcategoriesChange }) => {
                   {subcategory}
                 </button>
               ))}
-            </div>
-          )}
+          </div>
         </div>
       </div>
     </div>

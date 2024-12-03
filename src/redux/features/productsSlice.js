@@ -1,5 +1,3 @@
-// productsSlice.js
-
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../axiosConfig.js';
 import { createSelector } from 'reselect';
@@ -65,16 +63,26 @@ export const fetchUsersPublicProducts = createAsyncThunk(
 
 export const fetchProductsByCategoryAndSubcategories = createAsyncThunk(
   'products/fetchProductsByCategoryAndSubcategories',
-  async ({ category, subcategories = [] }) => {
-    const params = {
-      category,
-      ...subcategories.reduce((acc, subcategory, index) => {
-        if (subcategory) acc[`subcategory${index + 1}`] = subcategory;
-        return acc;
-      }, {})
-    };
+  async ({ category, subcategory1, subcategory2, subcategory3 }) => {
+    if (!category) {
+      throw new Error('Необхідно вказати категорію');
+    }
 
-    return fetchProductsWithParams('/products/public/category', params);
+    const params = { category };
+
+    if (subcategory1) params.subcategory1 = subcategory1;
+    if (subcategory2) params.subcategory2 = subcategory2;
+    if (subcategory3) params.subcategory3 = subcategory3;
+
+    console.log('Запит до API:', params);
+
+    try {
+      const response = await axios.get('/products/category', { params });
+      return response.data;
+    } catch (error) {
+      console.error('Помилка при запиті:', error);
+      throw error;
+    }
   }
 );
 
@@ -216,17 +224,18 @@ export const selectProductsByLocation = createSelector(
 );
 
 export const selectFilteredProducts = createSelector(
-  [
-    selectProducts,
-    (state, { category, subcategories }) => ({ category, subcategories })
-  ],
+  [selectProducts, (state, filters) => filters],
   (products, { category, subcategories }) => {
     return products.filter((product) => {
-      const matchesCategory = product.category === category;
-      const matchesSubcategories = subcategories.every((subcategory, index) => {
-        if (!subcategory) return true;
-        return product[`subcategory${index + 1}`] === subcategory;
-      });
+      const matchesCategory = !category || product.category === category;
+      const matchesSubcategories =
+        !subcategories.length ||
+        subcategories.every(
+          (subcategory) =>
+            product.subcategory1 === subcategory ||
+            product.subcategory2 === subcategory ||
+            product.subcategory3 === subcategory
+        );
 
       return matchesCategory && matchesSubcategories;
     });

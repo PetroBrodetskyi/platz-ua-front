@@ -8,6 +8,9 @@ const Filter = () => {
   const selectedCategory = useSelector(
     (state) => state.products.selectedCategory
   );
+  const selectedSubcategories = useSelector(
+    (state) => state.products.selectedSubcategories
+  );
 
   const handleSubcategoriesChange = (subcategories) => {
     dispatch(
