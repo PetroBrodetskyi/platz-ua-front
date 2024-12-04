@@ -1,10 +1,15 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchProductsByCategoryAndSubcategories } from '../../redux/features/productsSlice';
+import {
+  fetchProductsByCategoryAndSubcategories,
+  setCategory,
+  setSubcategories
+} from '../../redux/features/productsSlice';
 import Categories from '../Categories';
 import scss from './Filter.module.scss';
 
 const Filter = () => {
   const dispatch = useDispatch();
+
   const selectedCategory = useSelector(
     (state) => state.products.selectedCategory
   );
@@ -12,7 +17,19 @@ const Filter = () => {
     (state) => state.products.selectedSubcategories
   );
 
+  const handleCategoryChange = (category) => {
+    dispatch(setCategory(category));
+    dispatch(setSubcategories([]));
+    dispatch(
+      fetchProductsByCategoryAndSubcategories({
+        category,
+        subcategories: []
+      })
+    );
+  };
+
   const handleSubcategoriesChange = (subcategories) => {
+    dispatch(setSubcategories(subcategories));
     dispatch(
       fetchProductsByCategoryAndSubcategories({
         category: selectedCategory,
@@ -23,7 +40,12 @@ const Filter = () => {
 
   return (
     <div className={scss.filter}>
-      <Categories onSubcategoriesChange={handleSubcategoriesChange} />
+      <Categories
+        selectedCategory={selectedCategory}
+        selectedSubcategories={selectedSubcategories}
+        onCategoryChange={handleCategoryChange}
+        onSubcategoriesChange={handleSubcategoriesChange}
+      />
     </div>
   );
 };

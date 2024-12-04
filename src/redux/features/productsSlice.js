@@ -5,6 +5,7 @@ import { createSelector } from 'reselect';
 const initialState = {
   products: [],
   selectedCategory: '',
+  selectedSubcategories: [],
   userProducts: [],
   favorites: [],
   exchangeRate: null,
@@ -63,18 +64,15 @@ export const fetchUsersPublicProducts = createAsyncThunk(
 
 export const fetchProductsByCategoryAndSubcategories = createAsyncThunk(
   'products/fetchProductsByCategoryAndSubcategories',
-  async ({ category, subcategory1, subcategory2, subcategory3 }) => {
+  async ({ category, subcategories, page = 1 }) => {
     if (!category) {
       throw new Error('Необхідно вказати категорію');
     }
 
-    const params = { category };
-
-    if (subcategory1) params.subcategory1 = subcategory1;
-    if (subcategory2) params.subcategory2 = subcategory2;
-    if (subcategory3) params.subcategory3 = subcategory3;
-
-    console.log('Запит до API:', params);
+    const params = { category, page };
+    if (subcategories?.length) {
+      params.subcategories = subcategories.join(',');
+    }
 
     try {
       const response = await axios.get('/products/category', { params });
@@ -119,6 +117,10 @@ const productsSlice = createSlice({
     },
     setCategory(state, action) {
       state.selectedCategory = action.payload;
+      state.selectedSubcategories = [];
+    },
+    setSubcategories(state, action) {
+      state.selectedSubcategories = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -170,15 +172,24 @@ const productsSlice = createSlice({
         state.loading = false;
         state.userProducts = action.payload;
       })
-      .addCase(fetchProductsByCategoryAndSubcategories.pending, handlePending)
+      .addCase(fetchProductsByCategoryAndSubcategories.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(
         fetchProductsByCategoryAndSubcategories.fulfilled,
         (state, action) => {
           state.loading = false;
-          state.products = action.payload;
+          state.products = action.payload.products;
         }
       )
-      .addCase(fetchProductsByCategoryAndSubcategories.rejected, handleRejected)
+      .addCase(
+        fetchProductsByCategoryAndSubcategories.rejected,
+        (state, action) => {
+          state.loading = false;
+          state.error = action.error.message;
+        }
+      )
       .addCase(fetchUserProducts.rejected, handleRejected)
       .addCase(fetchUsersPublicProducts.pending, handlePending)
       .addCase(fetchUsersPublicProducts.fulfilled, (state, action) => {
@@ -224,17 +235,16 @@ export const selectProductsByLocation = createSelector(
 );
 
 export const selectFilteredProducts = createSelector(
-  [selectProducts, (state, filters) => filters],
-  (products, { category, subcategories }) => {
+  [selectProducts, (state) => state.products],
+  (products, { selectedCategory, selectedSubcategories }) => {
     return products.filter((product) => {
-      const matchesCategory = !category || product.category === category;
+      const matchesCategory =
+        !selectedCategory || product.category === selectedCategory;
+
       const matchesSubcategories =
-        !subcategories.length ||
-        subcategories.every(
-          (subcategory) =>
-            product.subcategory1 === subcategory ||
-            product.subcategory2 === subcategory ||
-            product.subcategory3 === subcategory
+        !selectedSubcategories.length ||
+        selectedSubcategories.every((subcategory) =>
+          product.subcategories.includes(subcategory)
         );
 
       return matchesCategory && matchesSubcategories;
@@ -242,7 +252,12 @@ export const selectFilteredProducts = createSelector(
   }
 );
 
-export const { toggleFavorite, setLocation, clearProducts, setCategory } =
-  productsSlice.actions;
+export const {
+  toggleFavorite,
+  setLocation,
+  clearProducts,
+  setCategory,
+  setSubcategories
+} = productsSlice.actions;
 
 export default productsSlice.reducer;
