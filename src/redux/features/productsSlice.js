@@ -28,7 +28,20 @@ export const fetchProductsByLocation = createAsyncThunk(
 
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
-  async ({ page = 1 }) => fetchProductsWithParams(`/products/public`, { page })
+  async ({ page = 1, category, subcategories = [] }) => {
+    const params = { page };
+    if (category) {
+      params.category = category;
+      console.log('Category:', category); // Логування вибраної категорії
+    }
+    if (subcategories.length) {
+      params.subcategories = subcategories.join(',');
+      console.log('Subcategories:', subcategories); // Логування підкатегорій
+    }
+    console.log('Params for fetch:', params); // Логування параметрів
+
+    return fetchProductsWithParams('/products/public', params);
+  }
 );
 
 export const fetchProductById = createAsyncThunk(
@@ -74,11 +87,14 @@ export const fetchProductsByCategoryAndSubcategories = createAsyncThunk(
       params.subcategories = subcategories.join(',');
     }
 
+    console.log('Fetching with params:', params);
+
     try {
       const response = await axios.get('/products/category', { params });
+      console.log('Received products:', response.data);
       return response.data;
     } catch (error) {
-      console.error('Помилка при запиті:', error);
+      console.error('Error fetching products:', error);
       throw error;
     }
   }
