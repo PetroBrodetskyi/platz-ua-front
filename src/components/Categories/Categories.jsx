@@ -8,37 +8,50 @@ const Categories = ({ onSubcategoriesChange }) => {
   const [selectedCategory, setSelectedCategory] = useState(
     data.products[0]?.name || ''
   );
-  const [selectedSubcategories, setSelectedSubcategories] = useState([]);
+  const [subcategoriesByCategory, setSubcategoriesByCategory] = useState({});
   const { isDarkMode } = useTheme();
 
   useEffect(() => {
     if (onSubcategoriesChange) {
-      console.log('Виклик onSubcategoriesChange з даними:', {
-        category: selectedCategory,
-        subcategories: selectedSubcategories
-      });
-      onSubcategoriesChange({
-        category: selectedCategory,
-        subcategories: selectedSubcategories
-      });
+      const currentSubcategories =
+        subcategoriesByCategory[selectedCategory] || [];
+      if (currentSubcategories.length !== 0 || selectedCategory === '') {
+        console.log('Виклик onSubcategoriesChange з даними:', {
+          category: selectedCategory,
+          subcategories: currentSubcategories
+        });
+        onSubcategoriesChange({
+          category: selectedCategory,
+          subcategories: currentSubcategories
+        });
+      }
     }
-  }, [selectedCategory, selectedSubcategories, onSubcategoriesChange]);
+  }, [selectedCategory, subcategoriesByCategory, onSubcategoriesChange]);
 
   const handleCategorySelect = (category) => {
     console.log('Категорія вибрана:', category);
     setSelectedCategory(category);
-    setSelectedSubcategories([]);
+
+    setSubcategoriesByCategory((prevState) => ({
+      ...prevState,
+      [category]: prevState[category] || []
+    }));
   };
 
   const handleSubcategoryClick = (subcategory) => {
-    const newSubcategories = selectedSubcategories.includes(subcategory)
-      ? selectedSubcategories.filter((item) => item !== subcategory)
-      : [...selectedSubcategories, subcategory];
+    const updatedSubcategories =
+      subcategoriesByCategory[selectedCategory] || [];
+    const newSubcategories = updatedSubcategories.includes(subcategory)
+      ? updatedSubcategories.filter((item) => item !== subcategory)
+      : [...updatedSubcategories, subcategory];
 
     console.log('Підкатегорія вибрана/знята:', subcategory);
     console.log('Новий список підкатегорій:', newSubcategories);
 
-    setSelectedSubcategories(newSubcategories);
+    setSubcategoriesByCategory({
+      ...subcategoriesByCategory,
+      [selectedCategory]: newSubcategories
+    });
   };
 
   const sortedProducts =
@@ -82,10 +95,16 @@ const Categories = ({ onSubcategoriesChange }) => {
               <button
                 key={index}
                 className={`${scss.subcategoryButton} ${isDarkMode ? scss.darkMode : ''} ${
-                  selectedSubcategories.includes(subcategory) ? scss.active : ''
+                  (subcategoriesByCategory[selectedCategory] || []).includes(
+                    subcategory
+                  )
+                    ? scss.active
+                    : ''
                 }`}
                 onClick={() => handleSubcategoryClick(subcategory)}
-                aria-pressed={selectedSubcategories.includes(subcategory)}
+                aria-pressed={(
+                  subcategoriesByCategory[selectedCategory] || []
+                ).includes(subcategory)}
               >
                 {subcategory}
               </button>
