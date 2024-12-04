@@ -4,70 +4,66 @@ import data from './products.json';
 import { getCategoryIcon } from './icons.jsx';
 import scss from './Categories.module.scss';
 
-const Categories = ({ onSubcategoriesChange }) => {
-  const [selectedCategory, setSelectedCategory] = useState(
-    data.products[0]?.name || ''
+const Categories = ({
+  selectedCategory,
+  selectedSubcategories,
+  onCategoryChange,
+  onSubcategoriesChange
+}) => {
+  const [localSelectedCategory, setLocalSelectedCategory] = useState(
+    selectedCategory || data.products[0]?.name
   );
-  const [subcategoriesByCategory, setSubcategoriesByCategory] = useState({});
+  const [localSelectedSubcategories, setLocalSelectedSubcategories] = useState(
+    selectedSubcategories || []
+  );
   const { isDarkMode } = useTheme();
 
   useEffect(() => {
     if (onSubcategoriesChange) {
-      const currentSubcategories =
-        subcategoriesByCategory[selectedCategory] || [];
-      if (currentSubcategories.length !== 0 || selectedCategory === '') {
-        console.log('Виклик onSubcategoriesChange з даними:', {
-          category: selectedCategory,
-          subcategories: currentSubcategories
-        });
-        onSubcategoriesChange({
-          category: selectedCategory,
-          subcategories: currentSubcategories
-        });
-      }
+      onSubcategoriesChange(localSelectedSubcategories);
     }
-  }, [selectedCategory, subcategoriesByCategory, onSubcategoriesChange]);
+    if (onCategoryChange) {
+      onCategoryChange(localSelectedCategory, localSelectedSubcategories);
+    }
+  }, [
+    localSelectedCategory,
+    localSelectedSubcategories,
+    onCategoryChange,
+    onSubcategoriesChange
+  ]);
 
   const handleCategorySelect = (category) => {
-    console.log('Категорія вибрана:', category);
-    setSelectedCategory(category);
-
-    setSubcategoriesByCategory((prevState) => ({
-      ...prevState,
-      [category]: prevState[category] || []
-    }));
+    console.log('Обрана категорія:', category);
+    setLocalSelectedCategory(category);
+    setLocalSelectedSubcategories([]);
+    if (onCategoryChange) {
+      onCategoryChange(category, []);
+    }
   };
 
   const handleSubcategoryClick = (subcategory) => {
-    const updatedSubcategories =
-      subcategoriesByCategory[selectedCategory] || [];
-    const newSubcategories = updatedSubcategories.includes(subcategory)
-      ? updatedSubcategories.filter((item) => item !== subcategory)
-      : [...updatedSubcategories, subcategory];
+    const updatedSubcategories = localSelectedSubcategories.includes(
+      subcategory
+    )
+      ? localSelectedSubcategories.filter((item) => item !== subcategory)
+      : [...localSelectedSubcategories, subcategory];
 
-    console.log('Підкатегорія вибрана/знята:', subcategory);
-    console.log('Новий список підкатегорій:', newSubcategories);
-
-    setSubcategoriesByCategory({
-      ...subcategoriesByCategory,
-      [selectedCategory]: newSubcategories
-    });
+    console.log('Обрані підкатегорії після кліку:', updatedSubcategories);
+    setLocalSelectedSubcategories(updatedSubcategories);
+    if (onSubcategoriesChange) {
+      onSubcategoriesChange(updatedSubcategories);
+    }
   };
 
   const sortedProducts =
     data.products?.sort((a, b) => a.name.localeCompare(b.name)) || [];
 
   const currentCategory = sortedProducts.find(
-    (product) => product.name === selectedCategory
-  );
-
-  const allSubcategories = sortedProducts.flatMap(
-    (product) => product.categories || []
+    (product) => product.name === localSelectedCategory
   );
 
   const subcategories =
-    currentCategory?.categories?.sort((a, b) => a.localeCompare(b)) ||
-    allSubcategories.sort((a, b) => a.localeCompare(b));
+    currentCategory?.categories?.sort((a, b) => a.localeCompare(b)) || [];
 
   return (
     <div className={`${scss.categories} ${isDarkMode ? scss.darkMode : ''}`}>
@@ -79,7 +75,7 @@ const Categories = ({ onSubcategoriesChange }) => {
             <button
               key={index}
               className={`${scss.categoryButton} ${isDarkMode ? scss.darkMode : ''} ${
-                selectedCategory === product.name ? scss.active : ''
+                localSelectedCategory === product.name ? scss.active : ''
               }`}
               onClick={() => handleCategorySelect(product.name)}
             >
@@ -95,16 +91,12 @@ const Categories = ({ onSubcategoriesChange }) => {
               <button
                 key={index}
                 className={`${scss.subcategoryButton} ${isDarkMode ? scss.darkMode : ''} ${
-                  (subcategoriesByCategory[selectedCategory] || []).includes(
-                    subcategory
-                  )
+                  localSelectedSubcategories.includes(subcategory)
                     ? scss.active
                     : ''
                 }`}
                 onClick={() => handleSubcategoryClick(subcategory)}
-                aria-pressed={(
-                  subcategoriesByCategory[selectedCategory] || []
-                ).includes(subcategory)}
+                aria-pressed={localSelectedSubcategories.includes(subcategory)}
               >
                 {subcategory}
               </button>

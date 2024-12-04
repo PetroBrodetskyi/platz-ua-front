@@ -17,25 +17,23 @@ const Filter = () => {
     (state) => state.products.selectedSubcategories
   );
 
-  const handleCategoryChange = (category) => {
+  const fetchFilteredProducts = (category, subcategories) => {
+    if (category && subcategories.length) {
+      dispatch(
+        fetchProductsByCategoryAndSubcategories({ category, subcategories })
+      );
+    }
+  };
+
+  const handleCategoryChange = (category, subcategories) => {
     dispatch(setCategory(category));
     dispatch(setSubcategories([]));
-    dispatch(
-      fetchProductsByCategoryAndSubcategories({
-        category,
-        subcategories: []
-      })
-    );
+    fetchFilteredProducts(category, subcategories);
   };
 
   const handleSubcategoriesChange = (subcategories) => {
     dispatch(setSubcategories(subcategories));
-    dispatch(
-      fetchProductsByCategoryAndSubcategories({
-        category: selectedCategory,
-        subcategories
-      })
-    );
+    fetchFilteredProducts(selectedCategory, subcategories);
   };
 
   return (
