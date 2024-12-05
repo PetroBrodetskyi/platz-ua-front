@@ -16,8 +16,6 @@ const initialState = {
 
 const fetchProductsWithParams = async (url, params) => {
   const response = await axios.get(url, { params });
-  console.log('Response data:', response.data); // Лог відповіді
-  console.log('Response data type:', typeof response.data);
   return response.data;
 };
 
@@ -32,27 +30,11 @@ export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
   async ({ page = 1, category, subcategories = [], PLZ, city }) => {
     const params = { page };
+    if (category) params.category = category;
+    if (subcategories.length) params.subcategories = subcategories.join(',');
+    if (PLZ) params.plz = PLZ;
+    if (city) params.city = city;
 
-    if (category) {
-      params.category = category;
-      console.log('Category:', category);
-    }
-
-    if (subcategories.length) {
-      params.subcategories = subcategories.join(',');
-      console.log('Subcategories:', subcategories);
-    }
-
-    if (PLZ) {
-      params.PLZ = PLZ;
-      console.log('PLZ:', PLZ);
-    }
-    if (city) {
-      params.city = city;
-      console.log('City:', city);
-    }
-
-    console.log('Params for fetch:', params);
     return fetchProductsWithParams('/products/public', params);
   }
 );
@@ -176,6 +158,7 @@ const productsSlice = createSlice({
         state.loading = false;
         state.userProducts = action.payload;
       })
+
       .addCase(fetchUserProducts.rejected, handleRejected)
       .addCase(fetchUsersPublicProducts.pending, handlePending)
       .addCase(fetchUsersPublicProducts.fulfilled, (state, action) => {
@@ -221,20 +204,18 @@ export const selectProductsByLocation = createSelector(
 );
 
 export const selectFilteredProducts = createSelector(
-  [selectProducts, (state) => state.products],
-  (products, { selectedCategory, selectedSubcategories }) => {
-    return products.filter((product) => {
-      const matchesCategory =
-        !selectedCategory || product.category === selectedCategory;
-
-      const matchesSubcategories =
-        !selectedSubcategories.length ||
-        selectedSubcategories.every((subcategory) =>
-          product.subcategories.includes(subcategory)
-        );
-
-      return matchesCategory && matchesSubcategories;
-    });
+  [
+    selectProducts,
+    (state, category, subcategories) => ({ category, subcategories })
+  ],
+  (products, { category, subcategories }) => {
+    return products.filter(
+      (product) =>
+        (category ? product.category === category : true) &&
+        (subcategories.length > 0
+          ? subcategories.every((sub) => product.subcategories.includes(sub))
+          : true)
+    );
   }
 );
 

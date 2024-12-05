@@ -8,14 +8,8 @@ import {
 } from '../../redux/features/productsSlice';
 import { fetchUserById } from '../../redux/features/authSlice';
 import { toggleFavorite } from '../../redux/features/favoritesSlice';
-import {
-  addToCartBack,
-  removeFromCartBack,
-  fetchProductsInCart,
-  setCartItems
-} from '../../redux/features/cartSlice';
+import { handleAddToCart, renderSkeletons } from './variables';
 import { useNavigate } from 'react-router-dom';
-import Skeleton from '@mui/material/Skeleton';
 import Notification from '../Notification/Notification';
 import Card from './Card';
 import scss from './ProductCard.module.scss';
@@ -98,47 +92,7 @@ const ProductCard = ({ viewMode }) => {
     setShowDescriptions((prev) => ({ ...prev, [productId]: !prev[productId] }));
   };
 
-  const handleAddToCart = async (product, isInCart) => {
-    const productWithOwner = { ...product, owner: owners[product.owner] };
-    if (isInCart) {
-      await dispatch(removeFromCartBack(product._id));
-      dispatch(fetchProductsInCart());
-      const updatedCartItems = cartItems.filter(
-        (item) => item._id !== product._id
-      );
-      localStorage.setItem('cart', JSON.stringify(updatedCartItems));
-      dispatch(setCartItems(updatedCartItems));
-    } else {
-      await dispatch(addToCartBack(product));
-      dispatch(fetchProductsInCart());
-      const updatedCartItems = [...cartItems, product];
-      localStorage.setItem('cart', JSON.stringify(updatedCartItems));
-      dispatch(setCartItems(updatedCartItems));
-    }
-    setNotification(
-      `${product.name} ${isInCart ? 'видалено з кошика' : 'додано до кошика'}!`
-    );
-  };
-
   const fetchMoreProducts = () => setCurrentPage((prevPage) => prevPage + 1);
-
-  const renderSkeletons = (count) => {
-    return Array.from({ length: count }).map((_, index) => (
-      <li key={index}>
-        <Skeleton
-          variant="rectangular"
-          animation="pulse"
-          className={`${scss.skelet} ${viewMode === 'grid' ? scss.gridItem : scss.listItem}`}
-        />
-        <div>
-          <Skeleton variant="text" width="100%" animation="pulse" />
-          <Skeleton variant="text" width="80%" animation="pulse" />
-          <Skeleton variant="text" width="60%" animation="pulse" />
-          <Skeleton variant="text" width="100%" animation="pulse" />
-        </div>
-      </li>
-    ));
-  };
 
   const approvedProducts = products.filter(
     (product) => product.status === 'approved' || product.status === 'vip'
@@ -154,7 +108,7 @@ const ProductCard = ({ viewMode }) => {
       >
         <ul className={`${scss.list} ${scss[viewMode]}`}>
           {loading
-            ? renderSkeletons(6)
+            ? renderSkeletons(6, viewMode)
             : approvedProducts.map((product) => {
                 const isInCart = cartItems.some(
                   (item) => item._id === product._id
@@ -173,7 +127,16 @@ const ProductCard = ({ viewMode }) => {
                     onToggleDescription={() =>
                       handleToggleDescription(product._id)
                     }
-                    onAddToCart={() => handleAddToCart(product, isInCart)}
+                    onAddToCart={() =>
+                      handleAddToCart(
+                        product,
+                        isInCart,
+                        owners,
+                        cartItems,
+                        dispatch,
+                        setNotification
+                      )
+                    }
                     onFavoriteToggle={() =>
                       dispatch(toggleFavorite(product._id))
                     }

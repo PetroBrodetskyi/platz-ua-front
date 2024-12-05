@@ -10,9 +10,7 @@ const Categories = ({
   onCategoryChange,
   onSubcategoriesChange
 }) => {
-  const [localSelectedCategory, setLocalSelectedCategory] = useState(
-    selectedCategory || data.products[0]?.name
-  );
+  const [localSelectedCategory, setLocalSelectedCategory] = useState(null);
   const [localSelectedSubcategories, setLocalSelectedSubcategories] = useState(
     selectedSubcategories || []
   );
