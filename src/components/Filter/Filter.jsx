@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  fetchProductsByCategoryAndSubcategories,
+  fetchProducts,
   setCategory,
   setSubcategories
 } from '../../redux/features/productsSlice';
@@ -18,9 +18,12 @@ const Filter = () => {
   );
 
   const fetchFilteredProducts = (category, subcategories) => {
-    if (category && subcategories.length) {
+    if (category || subcategories.length) {
       dispatch(
-        fetchProductsByCategoryAndSubcategories({ category, subcategories })
+        fetchProducts({
+          category,
+          subcategories
+        })
       );
     }
   };

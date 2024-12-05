@@ -16,6 +16,8 @@ const initialState = {
 
 const fetchProductsWithParams = async (url, params) => {
   const response = await axios.get(url, { params });
+  console.log('Response data:', response.data); // Лог відповіді
+  console.log('Response data type:', typeof response.data);
   return response.data;
 };
 
@@ -28,18 +30,29 @@ export const fetchProductsByLocation = createAsyncThunk(
 
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
-  async ({ page = 1, category, subcategories = [] }) => {
+  async ({ page = 1, category, subcategories = [], PLZ, city }) => {
     const params = { page };
+
     if (category) {
       params.category = category;
-      console.log('Category:', category); // Логування вибраної категорії
+      console.log('Category:', category);
     }
+
     if (subcategories.length) {
       params.subcategories = subcategories.join(',');
-      console.log('Subcategories:', subcategories); // Логування підкатегорій
+      console.log('Subcategories:', subcategories);
     }
-    console.log('Params for fetch:', params); // Логування параметрів
 
+    if (PLZ) {
+      params.PLZ = PLZ;
+      console.log('PLZ:', PLZ);
+    }
+    if (city) {
+      params.city = city;
+      console.log('City:', city);
+    }
+
+    console.log('Params for fetch:', params);
     return fetchProductsWithParams('/products/public', params);
   }
 );
@@ -72,31 +85,6 @@ export const fetchUsersPublicProducts = createAsyncThunk(
   async (userId) => {
     if (!userId) throw new Error('User ID is required');
     return fetchProductsWithParams(`/products/user/${userId}`);
-  }
-);
-
-export const fetchProductsByCategoryAndSubcategories = createAsyncThunk(
-  'products/fetchProductsByCategoryAndSubcategories',
-  async ({ category, subcategories, page = 1 }) => {
-    if (!category) {
-      throw new Error('Необхідно вказати категорію');
-    }
-
-    const params = { category, page };
-    if (subcategories?.length) {
-      params.subcategories = subcategories.join(',');
-    }
-
-    console.log('Fetching with params:', params);
-
-    try {
-      const response = await axios.get('/products/category', { params });
-      console.log('Received products:', response.data);
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      throw error;
-    }
   }
 );
 
@@ -188,24 +176,6 @@ const productsSlice = createSlice({
         state.loading = false;
         state.userProducts = action.payload;
       })
-      .addCase(fetchProductsByCategoryAndSubcategories.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(
-        fetchProductsByCategoryAndSubcategories.fulfilled,
-        (state, action) => {
-          state.loading = false;
-          state.products = action.payload.products;
-        }
-      )
-      .addCase(
-        fetchProductsByCategoryAndSubcategories.rejected,
-        (state, action) => {
-          state.loading = false;
-          state.error = action.error.message;
-        }
-      )
       .addCase(fetchUserProducts.rejected, handleRejected)
       .addCase(fetchUsersPublicProducts.pending, handlePending)
       .addCase(fetchUsersPublicProducts.fulfilled, (state, action) => {
