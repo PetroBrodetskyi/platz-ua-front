@@ -23,8 +23,12 @@ const Following = () => {
     <div className={scss.following}>
       <div className={scss.userList}>
         {followingUsers.map((user) => (
-          <Tooltip title="Перейти на сторінку автора" placement="bottom-start">
-            <div key={user._id} className={scss.userItem}>
+          <Tooltip
+            key={user._id}
+            title="Перейти на сторінку автора"
+            placement="bottom-start"
+          >
+            <div className={scss.userItem}>
               <Link to={`/user/${user._id}`}>
                 <img
                   src={user.avatarURL}
