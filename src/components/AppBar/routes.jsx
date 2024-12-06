@@ -38,6 +38,8 @@ const AdminPage = lazy(() => import('../../pages/AdminPage/AdminPage'));
 
 export const routes = [
   { path: '/', element: <Home /> },
+  { path: '/category/:category', element: <Home /> },
+  { path: '/category/:category/:subcategory', element: <Home /> },
   { path: '/cart', element: <Cart /> },
   { path: '/auth', element: <AuthPage /> },
   { path: '/create', element: <AddProductPage /> },

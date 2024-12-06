@@ -15,8 +15,8 @@ const initialState = {
 };
 
 const fetchProductsWithParams = async (url, params) => {
-  const response = await axios.get(url, { params });
-  return response.data;
+  const { data } = await axios.get(url, { params });
+  return data;
 };
 
 // Thunks
@@ -29,12 +29,13 @@ export const fetchProductsByLocation = createAsyncThunk(
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
   async ({ page = 1, category, subcategories = [], PLZ, city }) => {
-    const params = { page };
-    if (category) params.category = category;
-    if (subcategories.length) params.subcategories = subcategories.join(',');
-    if (PLZ) params.plz = PLZ;
-    if (city) params.city = city;
-
+    const params = {
+      page,
+      category,
+      subcategories: subcategories.join(','),
+      plz: PLZ,
+      city
+    };
     return fetchProductsWithParams('/products/public', params);
   }
 );
@@ -54,8 +55,8 @@ export const fetchUserProducts = createAsyncThunk(
     }
 
     try {
-      const response = await axios.get('/products');
-      return response.data.reverse();
+      const { data } = await axios.get('/products');
+      return data.reverse();
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);
     }
@@ -79,8 +80,8 @@ export const fetchProductsByCategory = createAsyncThunk(
 export const fetchExchangeRate = createAsyncThunk(
   'products/fetchExchangeRate',
   async () => {
-    const response = await axios.get('/exchange-rate');
-    return parseFloat(response.data.sale);
+    const { data } = await axios.get('/exchange-rate');
+    return parseFloat(data.sale);
   }
 );
 
@@ -91,9 +92,11 @@ const productsSlice = createSlice({
   reducers: {
     toggleFavorite: (state, action) => {
       const productId = action.payload;
-      state.favorites = state.favorites.includes(productId)
-        ? state.favorites.filter((id) => id !== productId)
-        : [...state.favorites, productId];
+      const favoritesSet = new Set(state.favorites);
+      favoritesSet.has(productId)
+        ? favoritesSet.delete(productId)
+        : favoritesSet.add(productId);
+      state.favorites = Array.from(favoritesSet);
     },
     setLocation(state, action) {
       state.location = action.payload;
@@ -117,18 +120,21 @@ const productsSlice = createSlice({
 
     const handleFulfilled = (state, action) => {
       state.loading = false;
-      state.products = [
-        ...state.products,
-        ...action.payload.filter(
-          (product) => !state.products.some((p) => p._id === product._id)
-        )
-      ];
 
+      // Merge products without duplicates using Set
+      const newProducts = new Set(state.products.map((p) => p._id));
+      const filteredProducts = action.payload.filter(
+        (product) => !newProducts.has(product._id)
+      );
+      state.products = [...state.products, ...filteredProducts];
+
+      // Update favorites
+      const favoriteProducts = action.payload.filter(
+        (product) => product.favorite
+      );
       state.favorites = [
         ...state.favorites,
-        ...action.payload
-          .filter((product) => product.favorite)
-          .map((product) => product._id)
+        ...favoriteProducts.map((product) => product._id)
       ];
     };
 
@@ -158,7 +164,6 @@ const productsSlice = createSlice({
         state.loading = false;
         state.userProducts = action.payload;
       })
-
       .addCase(fetchUserProducts.rejected, handleRejected)
       .addCase(fetchUsersPublicProducts.pending, handlePending)
       .addCase(fetchUsersPublicProducts.fulfilled, (state, action) => {

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
 import data from './products.json';
 import { getCategoryIcon } from './icons.jsx';
@@ -15,6 +16,7 @@ const Categories = ({
     selectedSubcategories || []
   );
   const { isDarkMode } = useTheme();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (onSubcategoriesChange) {
@@ -31,9 +33,9 @@ const Categories = ({
   ]);
 
   const handleCategorySelect = (category) => {
-    console.log('Обрана категорія:', category);
     setLocalSelectedCategory(category);
     setLocalSelectedSubcategories([]);
+    navigate(`/category/${category}`);
     if (onCategoryChange) {
       onCategoryChange(category, []);
     }
@@ -45,9 +47,12 @@ const Categories = ({
     )
       ? localSelectedSubcategories.filter((item) => item !== subcategory)
       : [...localSelectedSubcategories, subcategory];
-
-    console.log('Обрані підкатегорії після кліку:', updatedSubcategories);
     setLocalSelectedSubcategories(updatedSubcategories);
+
+    navigate(
+      `/category/${localSelectedCategory}?subcategories=${updatedSubcategories.join(',')}`
+    );
+
     if (onSubcategoriesChange) {
       onSubcategoriesChange(updatedSubcategories);
     }
