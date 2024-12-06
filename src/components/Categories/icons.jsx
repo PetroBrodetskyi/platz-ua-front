@@ -45,14 +45,14 @@ export const getCategoryLabel = (name) => {
     : categoryIcons['default'].label;
 };
 
-export const getSubcategoryIcon = (name) => {
-  return subcategoryIcons[name]
-    ? subcategoryIcons[name].icon
-    : subcategoryIcons['default'].icon;
-};
+// export const getSubcategoryIcon = (name) => {
+//   return subcategoryIcons[name]
+//     ? subcategoryIcons[name].icon
+//     : subcategoryIcons['default'].icon;
+// };
 
-export const getSubcategoryLabel = (name) => {
-  return subcategoryIcons[name]
-    ? subcategoryIcons[name].label
-    : subcategoryIcons['default'].label;
-};
+// export const getSubcategoryLabel = (name) => {
+//   return subcategoryIcons[name]
+//     ? subcategoryIcons[name].label
+//     : subcategoryIcons['default'].label;
+// };

@@ -17,14 +17,12 @@ const Filter = () => {
   );
 
   const fetchFilteredProducts = (category, subcategories) => {
-    if (category || subcategories.length) {
-      dispatch(
-        fetchProducts({
-          category,
-          subcategories
-        })
-      );
-    }
+    dispatch(
+      fetchProducts({
+        category,
+        subcategories
+      })
+    );
   };
 
   const handleCategoryChange = (category, subcategories) => {

@@ -7,7 +7,7 @@ const initialState = {
   selectedCategory: '',
   selectedSubcategories: [],
   userProducts: [],
-  favorites: [],
+  favorites: new Set(),
   exchangeRate: null,
   loading: false,
   location: '',
@@ -23,7 +23,7 @@ const fetchProductsWithParams = async (url, params) => {
 export const fetchProductsByLocation = createAsyncThunk(
   'products/fetchProductsByLocation',
   async ({ PLZ, city, page = 1 }) =>
-    fetchProductsWithParams(`/products/public`, { plz: PLZ, city, page })
+    fetchProductsWithParams('/products/public', { plz: PLZ, city, page })
 );
 
 export const fetchProducts = createAsyncThunk(
@@ -92,11 +92,11 @@ const productsSlice = createSlice({
   reducers: {
     toggleFavorite: (state, action) => {
       const productId = action.payload;
-      const favoritesSet = new Set(state.favorites);
-      favoritesSet.has(productId)
-        ? favoritesSet.delete(productId)
-        : favoritesSet.add(productId);
-      state.favorites = Array.from(favoritesSet);
+      if (state.favorites.has(productId)) {
+        state.favorites.delete(productId);
+      } else {
+        state.favorites.add(productId);
+      }
     },
     setLocation(state, action) {
       state.location = action.payload;
@@ -120,22 +120,18 @@ const productsSlice = createSlice({
 
     const handleFulfilled = (state, action) => {
       state.loading = false;
-
-      // Merge products without duplicates using Set
       const newProducts = new Set(state.products.map((p) => p._id));
       const filteredProducts = action.payload.filter(
         (product) => !newProducts.has(product._id)
       );
       state.products = [...state.products, ...filteredProducts];
 
-      // Update favorites
-      const favoriteProducts = action.payload.filter(
-        (product) => product.favorite
-      );
-      state.favorites = [
-        ...state.favorites,
-        ...favoriteProducts.map((product) => product._id)
-      ];
+      // Update favorites (handle duplicates in a Set)
+      action.payload.forEach((product) => {
+        if (product.favorite) {
+          state.favorites.add(product._id);
+        }
+      });
     };
 
     const handleRejected = (state, action) => {
@@ -188,7 +184,7 @@ const productsSlice = createSlice({
 
 // Selectors
 export const selectProducts = (state) => state.products.products;
-export const selectFavorites = (state) => state.products.favorites;
+export const selectFavorites = (state) => Array.from(state.products.favorites);
 export const selectExchangeRate = (state) => state.products.exchangeRate;
 export const selectLoading = (state) => state.products.loading;
 export const selectError = (state) => state.products.error;
@@ -216,10 +212,9 @@ export const selectFilteredProducts = createSelector(
   (products, { category, subcategories }) => {
     return products.filter(
       (product) =>
-        (category ? product.category === category : true) &&
-        (subcategories.length > 0
-          ? subcategories.every((sub) => product.subcategories.includes(sub))
-          : true)
+        (!category || product.category === category) &&
+        (subcategories.length === 0 ||
+          subcategories.every((sub) => product.subcategories.includes(sub)))
     );
   }
 );
