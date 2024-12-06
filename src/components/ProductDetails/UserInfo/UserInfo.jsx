@@ -5,6 +5,7 @@ import scss from './UserInfo.module.scss';
 
 const UserInfo = ({ owner }) => {
   const navigate = useNavigate();
+  const { isDarkMode } = useTheme();
 
   if (!owner) {
     return <p>Користувач не знайдений</p>;
@@ -20,8 +21,6 @@ const UserInfo = ({ owner }) => {
       section.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
-  const { isDarkMode } = useTheme();
 
   return (
     <div className={scss.menu}>
