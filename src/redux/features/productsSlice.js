@@ -207,15 +207,20 @@ export const selectProductsByLocation = createSelector(
 export const selectFilteredProducts = createSelector(
   [
     selectProducts,
-    (state, category, subcategories) => ({ category, subcategories })
+    (state) => state.products.selectedCategory,
+    (state) => state.products.selectedSubcategories || []
   ],
-  (products, { category, subcategories }) => {
-    return products.filter(
-      (product) =>
-        (!category || product.category === category) &&
-        (subcategories.length === 0 ||
-          subcategories.every((sub) => product.subcategories.includes(sub)))
-    );
+  (products = [], selectedCategory, selectedSubcategories) => {
+    return products.filter((product) => {
+      const matchesCategory =
+        !selectedCategory || product.category === selectedCategory;
+      const matchesSubcategories =
+        selectedSubcategories.length === 0 ||
+        selectedSubcategories.some((sub) =>
+          product.subcategories?.includes(sub)
+        );
+      return matchesCategory && matchesSubcategories;
+    });
   }
 );
 

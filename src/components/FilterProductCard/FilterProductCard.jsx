@@ -1,87 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import {
   fetchProducts,
-  fetchExchangeRate,
-  fetchProductById
+  fetchExchangeRate
 } from '../../redux/features/productsSlice';
-import { fetchUserById } from '../../redux/features/authSlice';
 import { toggleFavorite } from '../../redux/features/favoritesSlice';
 import { handleAddToCart, renderSkeletons } from '../ProductCard/variables';
 import { useNavigate } from 'react-router-dom';
 import Notification from '../Notification/Notification';
 import Card from '../ProductCard/Card';
+import useOwners from '../../hooks/useOwners';
 import scss from '../ProductCard/ProductCard.module.scss';
 
 const FilterProductCard = ({ viewMode }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { products, exchangeRate, totalProducts } = useSelector(
-    (state) => state.products
-  );
+
+  const { products, exchangeRate } = useSelector((state) => state.products);
   const favorites = useSelector((state) => state.favorites.items);
   const cartItems = useSelector((state) => state.cart.items);
 
-  const [notification, setNotification] = useState('');
-  const [endOfListNotification, setEndOfListNotification] = useState(false);
-  const [showDescriptions, setShowDescriptions] = useState({});
-  const [owners, setOwners] = useState(
-    () => JSON.parse(localStorage.getItem('owners')) || {}
-  );
-  const [loadingOwners, setLoadingOwners] = useState({});
+  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [loading, setLoading] = useState(true);
+  const [notification, setNotification] = useState('');
+  const [showDescriptions, setShowDescriptions] = useState({});
+
+  const owners = useOwners(products);
 
   useEffect(() => {
-    const loadProducts = async () => {
-      try {
-        const response = await dispatch(
-          fetchProducts({ page: currentPage, limit: 6 })
-        ).unwrap();
-        if (response.length === 0 || products.length >= totalProducts) {
-          setHasMore(false);
-          setEndOfListNotification(true);
-        }
-      } catch (error) {
-        console.error('Failed to fetch products:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadProducts();
     dispatch(fetchExchangeRate());
-  }, [dispatch, currentPage, products.length, totalProducts]);
+  }, [dispatch]);
+
+  const loadProducts = async () => {
+    setLoading(true);
+
+    try {
+      const response = await dispatch(
+        fetchProducts({ page: currentPage, limit: 6 })
+      ).unwrap();
+    } catch (error) {
+      console.error('Failed to load products:', error);
+      setNotification('Помилка завантаження продуктів');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchOwner = async (ownerId) => {
-      if (!owners[ownerId] && !loadingOwners[ownerId]) {
-        setLoadingOwners((prev) => ({ ...prev, [ownerId]: true }));
-        try {
-          const response = await dispatch(fetchUserById(ownerId)).unwrap();
-          setOwners((prev) => {
-            const updatedOwners = { ...prev, [ownerId]: response };
-            localStorage.setItem('owners', JSON.stringify(updatedOwners));
-            return updatedOwners;
-          });
-        } catch (error) {
-          console.error('Failed to fetch owner:', error);
-        } finally {
-          setLoadingOwners((prev) => ({ ...prev, [ownerId]: false }));
-        }
-      }
-    };
-
-    products.forEach(({ owner }) => {
-      if (owner) fetchOwner(owner);
-    });
-  }, [products, owners, loadingOwners, dispatch]);
+    loadProducts();
+  }, [currentPage]);
 
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
-    dispatch(fetchProductById(productId));
   };
 
   const handleOwnerClick = (ownerId) => {
@@ -92,72 +62,56 @@ const FilterProductCard = ({ viewMode }) => {
     setShowDescriptions((prev) => ({ ...prev, [productId]: !prev[productId] }));
   };
 
-  const fetchMoreProducts = () => setCurrentPage((prevPage) => prevPage + 1);
-
   const approvedProducts = products.filter(
     (product) => product.status === 'approved' || product.status === 'vip'
   );
 
   return (
     <>
-      <InfiniteScroll
-        dataLength={approvedProducts.length}
-        next={fetchMoreProducts}
-        hasMore={hasMore}
-        endMessage={null}
-      >
-        <ul className={`${scss.list} ${scss[viewMode]}`}>
-          {loading
-            ? renderSkeletons(6, viewMode)
-            : approvedProducts.map((product) => {
-                const isInCart = cartItems.some(
-                  (item) => item._id === product._id
-                );
-                const ownerData = owners[product.owner];
+      {/* Основний список продуктів */}
+      <ul className={`${scss.list} ${scss[viewMode]}`}>
+        {loading
+          ? renderSkeletons(6, viewMode)
+          : approvedProducts.map((product) => {
+              const isInCart = cartItems.some(
+                (item) => item._id === product._id
+              );
+              const ownerData = owners[product.owner];
 
-                return (
-                  <Card
-                    key={product._id}
-                    product={product}
-                    ownerData={ownerData}
-                    isInCart={isInCart}
-                    favorites={favorites}
-                    showDescription={showDescriptions[product._id]}
-                    exchangeRate={exchangeRate}
-                    onToggleDescription={() =>
-                      handleToggleDescription(product._id)
-                    }
-                    onAddToCart={() =>
-                      handleAddToCart(
-                        product,
-                        isInCart,
-                        owners,
-                        cartItems,
-                        dispatch,
-                        setNotification
-                      )
-                    }
-                    onFavoriteToggle={() =>
-                      dispatch(toggleFavorite(product._id))
-                    }
-                    onProductClick={handleProductClick}
-                    onOwnerClick={handleOwnerClick}
-                    viewMode={viewMode}
-                  />
-                );
-              })}
-        </ul>
-      </InfiniteScroll>
+              return (
+                <Card
+                  key={product._id}
+                  product={product}
+                  ownerData={ownerData}
+                  isInCart={isInCart}
+                  favorites={favorites}
+                  showDescription={showDescriptions[product._id]}
+                  exchangeRate={exchangeRate}
+                  onToggleDescription={() =>
+                    handleToggleDescription(product._id)
+                  }
+                  onAddToCart={() =>
+                    handleAddToCart(
+                      product,
+                      isInCart,
+                      owners,
+                      cartItems,
+                      dispatch,
+                      setNotification
+                    )
+                  }
+                  onFavoriteToggle={() => dispatch(toggleFavorite(product._id))}
+                  onProductClick={handleProductClick}
+                  onOwnerClick={handleOwnerClick}
+                  viewMode={viewMode}
+                />
+              );
+            })}
+      </ul>
       {notification && (
         <Notification
           message={notification}
           onClose={() => setNotification('')}
-        />
-      )}
-      {endOfListNotification && (
-        <Notification
-          message="Ви подивилися всі оголошення"
-          onClose={() => setEndOfListNotification(false)}
         />
       )}
     </>
