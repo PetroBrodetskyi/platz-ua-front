@@ -13,42 +13,41 @@ import useOwners from '../../hooks/useOwners';
 import scss from '../ProductCard/ProductCard.module.scss';
 
 const FilterProductCard = ({ viewMode }) => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const { products, exchangeRate } = useSelector((state) => state.products);
+  const { products, totalProducts, exchangeRate, exchangeRateLoading } =
+    useSelector((state) => state.products);
   const favorites = useSelector((state) => state.favorites.items);
   const cartItems = useSelector((state) => state.cart.items);
 
-  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [hasMore, setHasMore] = useState(true);
   const [notification, setNotification] = useState('');
   const [showDescriptions, setShowDescriptions] = useState({});
 
   const owners = useOwners(products);
 
   useEffect(() => {
-    dispatch(fetchExchangeRate());
-  }, [dispatch]);
+    const loadProducts = async () => {
+      try {
+        const response = await dispatch(
+          fetchProducts({ page: currentPage, limit: 6 })
+        ).unwrap();
+        if (response.length === 0 || products.length >= totalProducts) {
+          setHasMore(false);
+        }
+      } catch (error) {
+        console.error('Failed to fetch products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const loadProducts = async () => {
-    setLoading(true);
-
-    try {
-      const response = await dispatch(
-        fetchProducts({ page: currentPage, limit: 6 })
-      ).unwrap();
-    } catch (error) {
-      console.error('Failed to load products:', error);
-      setNotification('Помилка завантаження продуктів');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
     loadProducts();
-  }, [currentPage]);
+    dispatch(fetchExchangeRate());
+  }, [dispatch, currentPage, products.length, totalProducts]);
 
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
@@ -66,48 +65,53 @@ const FilterProductCard = ({ viewMode }) => {
     (product) => product.status === 'approved' || product.status === 'vip'
   );
 
+  const fetchMoreProducts = () => setCurrentPage((prev) => prev + 1);
+
+  const renderProducts = () => {
+    if (loading || exchangeRateLoading) {
+      return renderSkeletons(6, viewMode);
+    }
+
+    if (!exchangeRate) {
+      return <p className={scss.error}>Помилка завантаження курсу валют.</p>;
+    }
+
+    return approvedProducts.map((product) => {
+      const isInCart = cartItems.some((item) => item._id === product._id);
+      const ownerData = owners[product.owner];
+
+      return (
+        <Card
+          key={product._id}
+          product={product}
+          ownerData={ownerData}
+          isInCart={isInCart}
+          favorites={favorites}
+          showDescription={showDescriptions[product._id]}
+          exchangeRate={exchangeRate}
+          onToggleDescription={() => handleToggleDescription(product._id)}
+          onAddToCart={() =>
+            handleAddToCart(
+              product,
+              isInCart,
+              owners,
+              cartItems,
+              dispatch,
+              setNotification
+            )
+          }
+          onFavoriteToggle={() => dispatch(toggleFavorite(product._id))}
+          onProductClick={handleProductClick}
+          onOwnerClick={handleOwnerClick}
+          viewMode={viewMode}
+        />
+      );
+    });
+  };
+
   return (
     <>
-      {/* Основний список продуктів */}
-      <ul className={`${scss.list} ${scss[viewMode]}`}>
-        {loading
-          ? renderSkeletons(6, viewMode)
-          : approvedProducts.map((product) => {
-              const isInCart = cartItems.some(
-                (item) => item._id === product._id
-              );
-              const ownerData = owners[product.owner];
-
-              return (
-                <Card
-                  key={product._id}
-                  product={product}
-                  ownerData={ownerData}
-                  isInCart={isInCart}
-                  favorites={favorites}
-                  showDescription={showDescriptions[product._id]}
-                  exchangeRate={exchangeRate}
-                  onToggleDescription={() =>
-                    handleToggleDescription(product._id)
-                  }
-                  onAddToCart={() =>
-                    handleAddToCart(
-                      product,
-                      isInCart,
-                      owners,
-                      cartItems,
-                      dispatch,
-                      setNotification
-                    )
-                  }
-                  onFavoriteToggle={() => dispatch(toggleFavorite(product._id))}
-                  onProductClick={handleProductClick}
-                  onOwnerClick={handleOwnerClick}
-                  viewMode={viewMode}
-                />
-              );
-            })}
-      </ul>
+      <ul className={`${scss.list} ${scss[viewMode]}`}>{renderProducts()}</ul>
       {notification && (
         <Notification
           message={notification}
