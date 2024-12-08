@@ -4,7 +4,7 @@ import scss from '../ProductList/ProductList.module.scss';
 import ViewToggle from '../ProductList/ViewToggle';
 
 const FilterProductList = () => {
-  const [viewMode, setViewMode] = useState('list');
+  const [viewMode, setViewMode] = useState('grid');
 
   useEffect(() => {
     const savedViewMode = localStorage.getItem('viewMode');
@@ -22,7 +22,7 @@ const FilterProductList = () => {
     <div className={scss.productListWrapper}>
       <div className={`${scss.productList} ${scss[viewMode]}`}>
         <div className={scss.header}>
-          <h3 className={scss.title}>Найновіші</h3>
+          <h3 className={scss.title}>Знайдено</h3>
           <ViewToggle viewMode={viewMode} setViewMode={handleViewModeChange} />
         </div>
         <div className={scss.container}>
