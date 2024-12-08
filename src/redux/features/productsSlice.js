@@ -28,13 +28,9 @@ export const fetchProductsByLocation = createAsyncThunk(
 
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
-  async ({ page = 1, category, subcategories = [], PLZ, city }) => {
+  async ({ page = 1 }) => {
     const params = {
-      page,
-      category,
-      subcategories: subcategories.join(','),
-      plz: PLZ,
-      city
+      page
     };
     return fetchProductsWithParams('/products/public', params);
   }
@@ -73,8 +69,23 @@ export const fetchUsersPublicProducts = createAsyncThunk(
 
 export const fetchProductsByCategory = createAsyncThunk(
   'products/fetchProductsByCategory',
-  async (category) =>
-    fetchProductsWithParams('/products/public/category', { category })
+  async ({ category, subcategories = [] }, { rejectWithValue }) => {
+    if (!category) {
+      return rejectWithValue('Категорія не задана');
+    }
+
+    try {
+      const params = new URLSearchParams();
+      params.append('category', category);
+      if (subcategories.length > 0) {
+        params.append('subcategories', subcategories.join(','));
+      }
+      const { data } = await axios.get(`/products/category?${params}`);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
 );
 
 export const fetchExchangeRate = createAsyncThunk(
