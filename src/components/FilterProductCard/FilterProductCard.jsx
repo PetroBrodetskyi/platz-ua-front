@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  fetchProducts,
+  fetchProductsByCategory,
   fetchExchangeRate
 } from '../../redux/features/productsSlice';
 import { toggleFavorite } from '../../redux/features/favoritesSlice';
@@ -12,18 +12,17 @@ import Card from '../ProductCard/Card';
 import useOwners from '../../hooks/useOwners';
 import scss from '../ProductCard/ProductCard.module.scss';
 
-const FilterProductCard = ({ viewMode }) => {
+const FilterProductCard = ({ viewMode, category }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { products, totalProducts, exchangeRate, exchangeRateLoading } =
-    useSelector((state) => state.products);
+  const { products, exchangeRate, exchangeRateLoading } = useSelector(
+    (state) => state.products
+  );
   const favorites = useSelector((state) => state.favorites.items);
   const cartItems = useSelector((state) => state.cart.items);
 
-  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  const [hasMore, setHasMore] = useState(true);
   const [notification, setNotification] = useState('');
   const [showDescriptions, setShowDescriptions] = useState({});
 
@@ -32,14 +31,10 @@ const FilterProductCard = ({ viewMode }) => {
   useEffect(() => {
     const loadProducts = async () => {
       try {
-        const response = await dispatch(
-          fetchProducts({ page: currentPage, limit: 6 })
-        ).unwrap();
-        if (response.length === 0 || products.length >= totalProducts) {
-          setHasMore(false);
-        }
+        setLoading(true);
+        await dispatch(fetchProductsByCategory({ category })).unwrap();
       } catch (error) {
-        console.error('Failed to fetch products:', error);
+        console.error('Failed to fetch products by category:', error);
       } finally {
         setLoading(false);
       }
@@ -47,7 +42,7 @@ const FilterProductCard = ({ viewMode }) => {
 
     loadProducts();
     dispatch(fetchExchangeRate());
-  }, [dispatch, currentPage, products.length, totalProducts]);
+  }, [dispatch, category]);
 
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
@@ -64,8 +59,6 @@ const FilterProductCard = ({ viewMode }) => {
   const approvedProducts = products.filter(
     (product) => product.status === 'approved' || product.status === 'vip'
   );
-
-  const fetchMoreProducts = () => setCurrentPage((prev) => prev + 1);
 
   const renderProducts = () => {
     if (loading || exchangeRateLoading) {
@@ -101,8 +94,8 @@ const FilterProductCard = ({ viewMode }) => {
             )
           }
           onFavoriteToggle={() => dispatch(toggleFavorite(product._id))}
-          onProductClick={handleProductClick}
-          onOwnerClick={handleOwnerClick}
+          onProductClick={() => handleProductClick(product._id)}
+          onOwnerClick={() => handleOwnerClick(product.owner)}
           viewMode={viewMode}
         />
       );
