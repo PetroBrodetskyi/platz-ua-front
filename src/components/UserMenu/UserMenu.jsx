@@ -4,6 +4,13 @@ import ThemeSwitcher from '../ThemeSwitcher';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/features/authSlice';
 import Notification from '../Notification';
+import { GoPerson, GoTasklist } from 'react-icons/go';
+import { RiChatSmile2Line, RiLoginCircleLine } from 'react-icons/ri';
+import { PiShoppingCart } from 'react-icons/pi';
+import { FiPlusCircle } from 'react-icons/fi';
+import { MdOutlineFavoriteBorder, MdOutlineClose } from 'react-icons/md';
+
+import { useTheme } from '../../context/ThemeContext.jsx';
 import scss from './UserMenu.module.scss';
 
 const UserMenu = ({ onClose, getUserProfileUrl }) => {
@@ -11,6 +18,7 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showNotification, setShowNotification] = useState(false);
+  const { isDarkMode } = useTheme();
 
   const currentUser = useSelector((state) => state.auth.user);
 
@@ -34,40 +42,82 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
     onClose();
   };
 
+  const handleClose = () => {
+    onClose();
+  };
+
   return (
-    <>
-      <div className={scss.menuContainer} ref={menuRef}>
+    <div className={scss.menu}>
+      <div
+        className={`${scss.menuContainer} ${isDarkMode ? scss.darkMode : ''}`}
+        ref={menuRef}
+      >
         <ul className={scss.menuList}>
-          <li className={scss.item}>
-            <NavLink to={getUserProfileUrl()} onClick={onClose}>
-              Мій профіль
-            </NavLink>
-          </li>
-          {currentUser && (
-            <li className={scss.item}>
-              <NavLink to={`/user/${currentUser._id}`} onClick={onClose}>
-                Мої оголошення
-              </NavLink>
+          {currentUser ? (
+            <>
+              <li className={scss.userInfo}>
+                <img
+                  src={currentUser.avatarURL || '/path/to/default/avatar.png'}
+                  alt={currentUser.name || 'Користувач'}
+                  className={scss.avatar}
+                />
+                <div>
+                  <h4>{currentUser.name}</h4>
+                  <p>{currentUser.email}</p>
+                </div>
+              </li>
+              <li className={scss.item}>
+                <NavLink to={getUserProfileUrl()} onClick={onClose}>
+                  <div className={scss.iconItem}>
+                    <GoPerson className={scss.icon} />
+                    <p>Ваші дані</p>
+                  </div>
+                </NavLink>
+              </li>
+              <li className={scss.item}>
+                <NavLink to={`/user/${currentUser._id}`} onClick={onClose}>
+                  <div className={scss.iconItem}>
+                    <GoTasklist className={scss.icon} />
+                    <p>Мої оголошення</p>
+                  </div>
+                </NavLink>
+              </li>
+            </>
+          ) : (
+            <li className={scss.userInfo}>
+              <p>Будь ласка, увійдіть, щоб побачити свій профіль</p>
             </li>
           )}
           <li className={scss.item}>
             <NavLink to="/chats" onClick={onClose}>
-              Мої чати
+              <div className={scss.iconItem}>
+                <RiChatSmile2Line className={scss.icon} />
+                <p>Мої чати</p>
+              </div>
             </NavLink>
           </li>
           <li className={scss.item}>
             <NavLink to="/cart" onClick={onClose}>
-              Кошик
+              <div className={scss.iconItem}>
+                <PiShoppingCart className={scss.icon} />
+                <p>Кошик</p>
+              </div>
             </NavLink>
           </li>
           <li className={scss.item}>
             <NavLink to="/favorites" onClick={onClose}>
-              Обрані
+              <div className={scss.iconItem}>
+                <MdOutlineFavoriteBorder className={scss.icon} />
+                <p>Обрані</p>
+              </div>
             </NavLink>
           </li>
           <li className={scss.item}>
             <NavLink to="/create" onClick={onClose}>
-              Додати оголошення
+              <div className={scss.iconItem}>
+                <FiPlusCircle className={scss.icon} />
+                <p>Додати оголошення</p>
+              </div>
             </NavLink>
           </li>
           <li className={scss.item}>
@@ -75,7 +125,19 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
           </li>
           <li className={scss.item}>
             <button className={scss.exitButton} onClick={handleLogout}>
-              Вийти
+              <div className={scss.iconItem}>
+                <RiLoginCircleLine className={scss.icon} />
+                <p>Вийти</p>
+              </div>
+            </button>
+          </li>
+          <li className={scss.divider}></li>
+          <li className={scss.item}>
+            <button className={scss.exitButton} onClick={handleClose}>
+              <div className={scss.iconItem}>
+                <MdOutlineClose className={scss.icon} />
+                <p>Закрити</p>
+              </div>
             </button>
           </li>
         </ul>
@@ -86,7 +148,7 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
           onClose={() => setShowNotification(false)}
         />
       )}
-    </>
+    </div>
   );
 };
 

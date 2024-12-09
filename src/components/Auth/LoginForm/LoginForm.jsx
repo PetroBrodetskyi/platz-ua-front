@@ -104,8 +104,9 @@ const LoginForm = () => {
                     message: 'Невірний формат email адреси'
                   }
                 })}
-                type="text"
+                type="email"
                 placeholder="Введіть ваш email"
+                autoComplete="email"
               />
               {errors.email && (
                 <p className={scss.error}>{errors.email.message}</p>

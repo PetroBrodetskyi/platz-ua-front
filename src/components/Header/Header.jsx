@@ -2,7 +2,11 @@ import { AiOutlineHome } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { MdOutlineFavorite, MdOutlineFavoriteBorder } from 'react-icons/md';
+import {
+  MdOutlineFavorite,
+  MdOutlineFavoriteBorder,
+  MdOutlineMenu
+} from 'react-icons/md';
 import { PiShoppingCart, PiShoppingCartFill } from 'react-icons/pi';
 import { RiLoginCircleLine } from 'react-icons/ri';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
@@ -90,6 +94,7 @@ const Header = ({ onClick }) => {
     <header className={scss.header}>
       <div className={scss.container}>
         <div className={scss.logoUserMobile}>
+          <MdOutlineMenu className={scss.icon} onClick={onClick} />
           <Logo />
           <button
             type="button"

@@ -196,14 +196,6 @@ const RegisterForm = () => {
               <p className={scss.error}>{errors.confirmPassword.message}</p>
             )}
           </div>
-
-          <div className={scss.buttonWrapper}>
-            <SubmitButton
-              buttonText="Реєстрація"
-              onSubmit={onSubmit}
-              disabled={loading || !isAgreed}
-            />
-          </div>
           <div className={scss.checkboxContainer}>
             <label htmlFor="privacyPolicy" className={scss.checkboxLabel}>
               <input
@@ -228,6 +220,15 @@ const RegisterForm = () => {
               </a>
             </label>
           </div>
+
+          <div className={scss.buttonWrapper}>
+            <SubmitButton
+              buttonText="Реєстрація"
+              onSubmit={onSubmit}
+              disabled={loading || !isAgreed}
+            />
+          </div>
+
           {error && <p className={scss.error}>{error}</p>}
         </form>
       </div>
