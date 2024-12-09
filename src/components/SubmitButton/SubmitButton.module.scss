@@ -79,7 +79,7 @@
   border-radius: 44px;
   background-color: var(--grafite);
   color: var(--white);
-  border: 1px solid #ddd;
+  border: 1px solid var(--light-grey);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
   @include media-rules(desktop) {

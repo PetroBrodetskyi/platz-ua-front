@@ -28,8 +28,9 @@ const useOwners = (products) => {
       }
     };
 
-    products.forEach(({ owner }) => {
-      if (owner) fetchOwner(owner);
+    const uniqueOwners = [...new Set(products.map(({ owner }) => owner))];
+    uniqueOwners.forEach((ownerId) => {
+      if (ownerId) fetchOwner(ownerId);
     });
   }, [products, owners, loadingOwners, dispatch]);
 

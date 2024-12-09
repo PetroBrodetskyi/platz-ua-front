@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchProducts,
   fetchExchangeRate,
   fetchProductById
 } from '../../redux/features/productsSlice';
-import { fetchUserById } from '../../redux/features/authSlice';
 import { toggleFavorite } from '../../redux/features/favoritesSlice';
 import { addToCart, removeFromCart } from '../../redux/features/cartSlice';
 import { useNavigate } from 'react-router-dom';
@@ -15,6 +14,7 @@ import CartPrice from '../ProductCard/CartPrice/CartPrice';
 import CreateCondition from '../ProductCard/CreateCondition/CreateCondition';
 import { useTheme } from '../../context/ThemeContext.jsx';
 import Notification from '../Notification/Notification';
+import useOwners from '../../hooks/useOwners';
 import scss from './RandomCards.module.scss';
 
 const MemoizedTitleFavorite = React.memo(TitleFavorite);
@@ -28,33 +28,23 @@ const RandomCards = () => {
   const cartItems = useSelector((state) => state.cart.items);
   const navigate = useNavigate();
   const [notification, setNotification] = useState('');
-  const [owners, setOwners] = useState(() => {
-    const savedOwners = localStorage.getItem('owners');
-    return savedOwners ? JSON.parse(savedOwners) : {};
-  });
-  const [loadingOwners, setLoadingOwners] = useState({});
   const [randomProducts, setRandomProducts] = useState([]);
+
+  const owners = useOwners(products);
 
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(fetchExchangeRate());
   }, [dispatch]);
 
-  const fetchOwner = useCallback(
-    async (ownerId) => {
-      if (!owners[ownerId] && !loadingOwners[ownerId]) {
-        setLoadingOwners((prev) => ({ ...prev, [ownerId]: true }));
-        const response = await dispatch(fetchUserById(ownerId));
-        setOwners((prev) => {
-          const newOwners = { ...prev, [ownerId]: response.payload };
-          localStorage.setItem('owners', JSON.stringify(newOwners));
-          return newOwners;
-        });
-        setLoadingOwners((prev) => ({ ...prev, [ownerId]: false }));
-      }
-    },
-    [dispatch, owners, loadingOwners]
-  );
+  useEffect(() => {
+    if (products.length > 0 && randomProducts.length === 0) {
+      const shuffled = [...products]
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 4);
+      setRandomProducts(shuffled);
+    }
+  }, [products, randomProducts]);
 
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
@@ -80,20 +70,6 @@ const RandomCards = () => {
       setNotification(`${product.name} додано до кошика!`);
     }
   };
-
-  useEffect(() => {
-    const uniqueOwners = [...new Set(products.map((product) => product.owner))];
-    uniqueOwners.forEach((ownerId) => fetchOwner(ownerId));
-  }, [products, fetchOwner]);
-
-  useEffect(() => {
-    if (products.length > 0 && randomProducts.length === 0) {
-      const shuffled = [...products]
-        .sort(() => 0.5 - Math.random())
-        .slice(0, 4);
-      setRandomProducts(shuffled);
-    }
-  }, [products, randomProducts]);
 
   const { isDarkMode } = useTheme();
 

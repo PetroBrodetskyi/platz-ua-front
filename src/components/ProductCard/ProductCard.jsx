@@ -3,15 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import {
   fetchProducts,
-  fetchExchangeRate,
-  fetchProductById
+  fetchExchangeRate
 } from '../../redux/features/productsSlice';
-import { fetchUserById } from '../../redux/features/authSlice';
 import { toggleFavorite } from '../../redux/features/favoritesSlice';
 import { handleAddToCart, renderSkeletons } from './variables';
 import { useNavigate } from 'react-router-dom';
 import Notification from '../Notification/Notification';
 import Card from './Card';
+import useOwners from '../../hooks/useOwners';
 import scss from './ProductCard.module.scss';
 
 const ProductCard = ({ viewMode }) => {
@@ -26,13 +25,11 @@ const ProductCard = ({ viewMode }) => {
   const [notification, setNotification] = useState('');
   const [endOfListNotification, setEndOfListNotification] = useState(false);
   const [showDescriptions, setShowDescriptions] = useState({});
-  const [owners, setOwners] = useState(
-    () => JSON.parse(localStorage.getItem('owners')) || {}
-  );
-  const [loadingOwners, setLoadingOwners] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(true);
+
+  const owners = useOwners(products);
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -55,33 +52,8 @@ const ProductCard = ({ viewMode }) => {
     dispatch(fetchExchangeRate());
   }, [dispatch, currentPage, products.length, totalProducts]);
 
-  useEffect(() => {
-    const fetchOwner = async (ownerId) => {
-      if (!owners[ownerId] && !loadingOwners[ownerId]) {
-        setLoadingOwners((prev) => ({ ...prev, [ownerId]: true }));
-        try {
-          const response = await dispatch(fetchUserById(ownerId)).unwrap();
-          setOwners((prev) => {
-            const updatedOwners = { ...prev, [ownerId]: response };
-            localStorage.setItem('owners', JSON.stringify(updatedOwners));
-            return updatedOwners;
-          });
-        } catch (error) {
-          console.error('Failed to fetch owner:', error);
-        } finally {
-          setLoadingOwners((prev) => ({ ...prev, [ownerId]: false }));
-        }
-      }
-    };
-
-    products.forEach(({ owner }) => {
-      if (owner) fetchOwner(owner);
-    });
-  }, [products, owners, loadingOwners, dispatch]);
-
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
-    dispatch(fetchProductById(productId));
   };
 
   const handleOwnerClick = (ownerId) => {
@@ -156,7 +128,7 @@ const ProductCard = ({ viewMode }) => {
       )}
       {endOfListNotification && (
         <Notification
-          message="Ви подивилися всі оголошення"
+          message="Це всі оголошення"
           onClose={() => setEndOfListNotification(false)}
         />
       )}

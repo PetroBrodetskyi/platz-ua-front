@@ -10,7 +10,6 @@ import SearchLocation from '../SearchLocation';
 import Logo from '../Logo/Logo';
 import UserMenu from '../UserMenu/UserMenu';
 import { fetchCurrentUser } from '../../redux/features/authSlice';
-import Catalog from '../Catalog';
 import { ConfirmationLogin } from '../../components/Confirmation/Confirmation';
 import scss from './Header.module.scss';
 
@@ -100,10 +99,7 @@ const Header = ({ onClick }) => {
             {user && user.verify && renderUserInfo()}
           </button>
         </div>
-        <div className={scss.menu}>
-          <Catalog />
-          <SearchLocation onSearch={(products) => products} />
-        </div>
+        <SearchLocation onSearch={(products) => products} />
         <div className={scss.userMenu}>
           <button
             type="button"

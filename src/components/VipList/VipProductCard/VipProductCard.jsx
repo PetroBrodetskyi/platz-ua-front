@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserById } from '../../../redux/features/authSlice';
 import { useNavigate } from 'react-router-dom';
 import Skeleton from '@mui/material/Skeleton';
 import Notification from '../../Notification';
@@ -14,6 +13,7 @@ import {
   fetchProductsInCart,
   setCartItems
 } from '../../../redux/features/cartSlice';
+import useOwners from '../../../hooks/useOwners';
 import scss from './VipProductCard.module.scss';
 
 const VipProductCard = () => {
@@ -26,11 +26,9 @@ const VipProductCard = () => {
   const [products, setProducts] = useState([]);
   const [notification, setNotification] = useState('');
   const [showDescriptions, setShowDescriptions] = useState({});
-  const [owners, setOwners] = useState(
-    JSON.parse(localStorage.getItem('owners')) || {}
-  );
-  const [loadingOwners, setLoadingOwners] = useState({});
   const [loading, setLoading] = useState(true);
+
+  const owners = useOwners(products);
 
   const fetchProducts = async () => {
     try {
@@ -46,30 +44,6 @@ const VipProductCard = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
-
-  useEffect(() => {
-    const fetchOwner = async (ownerId) => {
-      if (!owners[ownerId] && !loadingOwners[ownerId]) {
-        setLoadingOwners((prev) => ({ ...prev, [ownerId]: true }));
-        try {
-          const ownerData = await dispatch(fetchUserById(ownerId)).unwrap();
-          setOwners((prev) => {
-            const updatedOwners = { ...prev, [ownerId]: ownerData };
-            localStorage.setItem('owners', JSON.stringify(updatedOwners));
-            return updatedOwners;
-          });
-        } catch (error) {
-          console.error('Failed to fetch owner data:', error);
-        } finally {
-          setLoadingOwners((prev) => ({ ...prev, [ownerId]: false }));
-        }
-      }
-    };
-
-    products.forEach(({ owner }) => {
-      if (owner) fetchOwner(owner);
-    });
-  }, [products, owners, loadingOwners, dispatch]);
 
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);

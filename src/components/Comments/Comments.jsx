@@ -12,14 +12,7 @@ import Notification from '../Notification';
 import SubmitButton from '../SubmitButton';
 import Modal from '../Modal';
 import { TbGhost } from 'react-icons/tb';
-import {
-  MdOutlineEmojiEmotions,
-  MdOutlineEdit,
-  MdOutlineCancel,
-  MdOutlineSaveAs,
-  MdReply,
-  MdOutlineDelete
-} from 'react-icons/md';
+import { MdOutlineEmojiEmotions } from 'react-icons/md';
 import { LuArrowUpCircle } from 'react-icons/lu';
 import { nanoid } from 'nanoid';
 import { useTheme } from '../../context/ThemeContext';
@@ -270,7 +263,7 @@ const Comments = ({ productId }) => {
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             onInput={handleInput}
-            placeholder="Додати коментар..."
+            placeholder="Додайте коментар..."
             className={`${scss.textarea} ${isDarkMode ? scss.darkMode : ''}`}
           />
           <div className={scss.emoji}>
