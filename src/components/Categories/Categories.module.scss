@@ -21,11 +21,6 @@ $gap-mobile: 4px;
       flex-wrap: wrap;
       gap: $gap-mobile;
 
-      &.darkMode {
-        background-color: var(--grafite);
-        color: var(--white);
-      }
-
       &::-webkit-scrollbar {
         display: none;
       }
@@ -49,6 +44,7 @@ $gap-mobile: 4px;
       &.darkMode {
         background-color: var(--grafite);
         color: var(--white);
+        border: 1px solid var(--light-grey);
       }
 
       &:hover {
@@ -89,6 +85,7 @@ $gap-mobile: 4px;
       &.darkMode {
         background-color: var(--grey);
         color: var(--white);
+        border: 1px solid var(--light-grey);
       }
 
       @include media-rules(notebook) {

@@ -268,7 +268,7 @@ const Comments = ({ productId }) => {
           />
           <div className={scss.emoji}>
             <button
-              className={`${scss.add} ${isDarkMode ? scss.darkMode : ''}`}
+              className={` ${isDarkMode ? scss.darkMode : ''}`}
               onClick={() => setShowEmojiPicker(!showEmojiPicker)}
             >
               <MdOutlineEmojiEmotions className={scss.icon} />
@@ -289,7 +289,7 @@ const Comments = ({ productId }) => {
               className={`${scss.add} ${isDarkMode ? scss.darkMode : ''}`}
               onClick={handleAddComment}
             >
-              <LuArrowUpCircle className={scss.icon} />
+              Коментувати
             </button>
           </div>
         </div>

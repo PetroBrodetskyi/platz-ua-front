@@ -3,10 +3,10 @@ import { IoChevronUpOutline } from 'react-icons/io5';
 import { RiPlayList2Fill } from 'react-icons/ri';
 import Skeleton from '@mui/material/Skeleton';
 import Tooltip from '@mui/material/Tooltip';
-import CreateCondition from '../CreateCondition';
-import ProductDescription from '../ProductDescription';
-import TitleFavorite from '../TitleFavorite';
-import CartPrice from '../CartPrice';
+import CreateCondition from '../../../ProductCard/CreateCondition';
+import ProductDescription from '../../../ProductCard/ProductDescription';
+import TitleFavorite from '../../../ProductCard/TitleFavorite';
+import CartPrice from '../../../ProductCard/CartPrice';
 import { useTheme } from '../../../../context/ThemeContext.jsx';
 import scss from './Card.module.scss';
 

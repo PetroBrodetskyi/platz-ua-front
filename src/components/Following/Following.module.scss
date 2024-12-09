@@ -14,10 +14,6 @@
     &::-webkit-scrollbar {
       display: none;
     }
-
-    @include media-rules(desktop) {
-      gap: 40px;
-    }
   }
 
   .userItem {
@@ -29,8 +25,8 @@
     flex-shrink: 0;
 
     .avatar {
-      width: 64px;
-      height: 64px;
+      width: 54px;
+      height: 54px;
       border-radius: 50%;
       object-fit: cover;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);

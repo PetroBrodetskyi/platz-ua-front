@@ -81,8 +81,7 @@ $padding-tablet: 0 20px;
     font-size: 12px;
     padding: 10px;
     border-radius: 4px;
-    color: var(--white);
-    background-color: var(--grafite);
+    border: 1px solid var(--light-grey);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
     @include media-rules(notebook) {
@@ -90,8 +89,6 @@ $padding-tablet: 0 20px;
       font-size: 16px;
       padding: 10px;
       border-radius: 4px;
-      color: var(--white);
-      background-color: var(--grafite);
     }
 
     .icon {

@@ -85,13 +85,8 @@
 
 .addComment {
   display: flex;
-  width: 90%;
   position: relative;
-  display: flex;
-  border-bottom: 1px solid var(--grey);
   gap: 20px;
-  padding: 0 0 10px 0;
-  margin: 0 auto;
 
   &.darkMode {
     border-bottom: 1px solid var(--light-grey);
@@ -100,13 +95,13 @@
   @include media-rules(notebook) {
     gap: 20px;
     width: 80%;
-    padding: 0 0 20px 0;
+    margin: 0 auto;
   }
 }
 
 .add {
-  padding: 4px;
-  border-radius: 50%;
+  padding: 10px 20px;
+  border-radius: 44px;
   background-color: var(--grafite);
   color: var(--white);
 }
@@ -131,9 +126,10 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  border-radius: 0 44px;
   align-self: flex-start;
   max-width: 90%;
+  border-bottom: 1px solid var(--light-grey);
+  padding-bottom: 10px;
 
   @include media-rules(notebook) {
     gap: 8px;
@@ -172,6 +168,7 @@
   outline: none;
   color: var(--black);
   transition: height 0.2s ease-in-out;
+  padding-bottom: 10px;
 
   &.darkMode {
     color: var(--white);
@@ -180,6 +177,7 @@
   @include media-rules(desktop) {
     font-size: 16px;
     height: auto;
+    padding-bottom: 20px;
   }
 }
 
@@ -198,7 +196,6 @@
   display: flex;
   justify-content: space-between;
   padding: 4px;
-  border: 1px solid #ddd;
 
   @include media-rules(notebook) {
     padding: 10px;
@@ -223,9 +220,8 @@
 
 .emoji {
   display: flex;
-  flex-direction: column;
   gap: 10px;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   cursor: pointer;
 }

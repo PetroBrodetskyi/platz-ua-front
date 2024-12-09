@@ -1,16 +1,27 @@
 .notification {
   position: fixed;
-  top: 50%;
+  top: 90%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #333;
+  background-color: var(--grey);
   color: var(--white);
-  padding: 16px 24px;
-  border-radius: 8px;
+  padding: 10px 24px;
+  border-radius: 44px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--light-grey);
   opacity: 0;
   animation: fadeInOut 3s forwards;
   z-index: 200;
+
+  &.darkMode {
+    background-color: var(--white);
+    color: var(--grey);
+  }
+
+  @include media-rules(notebook) {
+    top: 90%;
+    left: 10%;
+  }
 
   .message {
     font-size: 12px;

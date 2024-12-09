@@ -68,18 +68,14 @@
       }
 
       @include media-rules(tablet) {
-        width: auto;
+        width: 240px;
         padding: 10px 10px 10px 14px;
       }
 
       @include media-rules(notebook) {
-        width: auto;
+        width: 440px;
         padding: 10px 10px 10px 20px;
         font-size: 16px;
-      }
-
-      @include media-rules(desktop) {
-        width: 500px;
       }
     }
 
