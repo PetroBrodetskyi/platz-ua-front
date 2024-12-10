@@ -26,9 +26,6 @@ const UserProfilePage = lazy(
 const ChatPage = lazy(() => import('../../pages/ChatPage/ChatPage'));
 const ChatsPage = lazy(() => import('../../pages/ChatsPage/ChatsPage'));
 const FollowPage = lazy(() => import('../../pages/FollowPage/FollowPage'));
-const HowItWorksPage = lazy(
-  () => import('../../pages/HowItWorksPage/HowItWorksPage')
-);
 const InfoPage = lazy(() => import('../../pages/InfoPage/InfoPage'));
 const AdminPage = lazy(() => import('../../pages/AdminPage/AdminPage'));
 
@@ -47,9 +44,10 @@ export const routes = [
   { path: '/follow', element: <FollowPage /> },
   { path: '/chats', element: <ChatsPage /> },
   { path: '/chat/:chatId', element: <ChatPage /> },
-  { path: '/how-it-works', element: <HowItWorksPage /> },
   { path: '/info/terms-of-service', element: <InfoPage /> },
   { path: '/info/privacy-policy', element: <InfoPage /> },
+  { path: '/info/how-it-works', element: <InfoPage /> },
+
   {
     path: '/admin',
     element: <PrivateRoute element={<AdminPage />} />

@@ -5,7 +5,7 @@ import woman from '/src/assets/images/woman.png';
 import boyandphone from '/src/assets/images/boyandphone.png';
 import card from '/src/assets/images/card.png';
 import { FaSearch, FaInfoCircle, FaPhone, FaGift } from 'react-icons/fa';
-import SubmitButton from '../../SubmitButton';
+import SubmitButton from '../../../SubmitButton';
 
 const Buyers = () => {
   const navigate = useNavigate();

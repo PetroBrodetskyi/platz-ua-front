@@ -5,7 +5,7 @@ import shopping from '/src/assets/images/shopping.png';
 import womantalking from '/src/assets/images/womantalking.png';
 import creditcard from '/src/assets/images/creditcard.png';
 import { FaCamera, FaBullhorn, FaComments, FaTruck } from 'react-icons/fa';
-import SubmitButton from '../../SubmitButton';
+import SubmitButton from '../../../SubmitButton';
 
 const Sellers = () => {
   const navigate = useNavigate();

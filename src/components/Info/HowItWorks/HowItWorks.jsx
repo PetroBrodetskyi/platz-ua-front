@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import scss from './HowItWorks.module.scss';
-import Tabs from '../Tabs';
+import Tabs from '../../Tabs';
 import Buyers from './Buyers';
 import Sellers from './Sellers';
 

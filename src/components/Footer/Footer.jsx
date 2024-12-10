@@ -36,7 +36,7 @@ const Footer = () => {
             <li className={scss.link}>
               <button
                 className={scss.linkButton}
-                onClick={() => handleNavigation('/how-it-works')}
+                onClick={() => handleNavigation('/info/how-it-works')}
               >
                 Покупцям та продавцям
               </button>
