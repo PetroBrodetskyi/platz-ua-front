@@ -6,7 +6,7 @@ import {
   Typography
 } from '@mui/material';
 import { MdKeyboardArrowDown } from 'react-icons/md';
-import { useTheme } from '../../context/ThemeContext.jsx';
+import { useTheme } from '../../../context/ThemeContext.jsx';
 import scss from './TermsOfService.module.scss';
 
 const TermsOfService = () => {

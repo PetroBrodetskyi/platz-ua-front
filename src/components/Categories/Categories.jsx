@@ -33,7 +33,7 @@ const Categories = ({
 
   const handleCategorySelect = (category) => {
     setLocalSelectedCategory(category);
-    setLocalSelectedSubcategories([]); // Скидаємо вибір підкатегорій
+    setLocalSelectedSubcategories([]);
     navigate(`/category/${category}`);
   };
 

@@ -5,7 +5,7 @@ import {
   Typography
 } from '@mui/material';
 import { MdKeyboardArrowDown } from 'react-icons/md';
-import { useTheme } from '../../context/ThemeContext.jsx';
+import { useTheme } from '../../../context/ThemeContext.jsx';
 import scss from './PrivacyPolicy.module.scss';
 
 const PrivacyPolicy = () => {
@@ -149,8 +149,11 @@ const PrivacyPolicy = () => {
         <>
           <p className={scss.text}>
             8.1 Якщо у вас виникли запитання або побажання щодо цієї політики
-            конфіденційності, будь ласка, зв'яжіться з нами за допомогою форми
-            зворотного зв'язку.
+            конфіденційності, будь ласка, зв'яжіться з нами за електронною
+            адресою{' '}
+            <a className={scss.mailTo} href="mailto:petro.brodetskyi@gmail.com">
+              petro.brodetskyi@gmail.com
+            </a>
           </p>
         </>
       )

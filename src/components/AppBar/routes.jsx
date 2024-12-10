@@ -29,12 +29,7 @@ const FollowPage = lazy(() => import('../../pages/FollowPage/FollowPage'));
 const HowItWorksPage = lazy(
   () => import('../../pages/HowItWorksPage/HowItWorksPage')
 );
-const PrivacyPolicyPage = lazy(
-  () => import('../../pages/PrivacyPolicyPage/PrivacyPolicyPage')
-);
-const TermsOfServicePage = lazy(
-  () => import('../../pages/TermsOfServicePage/TermsOfServicePage')
-);
+const InfoPage = lazy(() => import('../../pages/InfoPage/InfoPage'));
 const AdminPage = lazy(() => import('../../pages/AdminPage/AdminPage'));
 
 export const routes = [
@@ -53,8 +48,8 @@ export const routes = [
   { path: '/chats', element: <ChatsPage /> },
   { path: '/chat/:chatId', element: <ChatPage /> },
   { path: '/how-it-works', element: <HowItWorksPage /> },
-  { path: '/terms-of-service', element: <TermsOfServicePage /> },
-  { path: '/privacy-policy', element: <PrivacyPolicyPage /> },
+  { path: '/info/terms-of-service', element: <InfoPage /> },
+  { path: '/info/privacy-policy', element: <InfoPage /> },
   {
     path: '/admin',
     element: <PrivateRoute element={<AdminPage />} />
