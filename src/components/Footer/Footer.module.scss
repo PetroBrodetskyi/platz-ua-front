@@ -3,6 +3,7 @@
   color: var(--white);
   padding: 40px 10px;
   width: 100%;
+  min-height: 300px;
 
   @include media-rules(notebook) {
     padding: 40px;

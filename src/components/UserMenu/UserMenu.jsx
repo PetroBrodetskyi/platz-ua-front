@@ -66,11 +66,12 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
                   <p>{currentUser.email}</p>
                 </div>
               </li>
+              <li className={scss.divider}></li>
               <li className={scss.item}>
                 <NavLink to={getUserProfileUrl()} onClick={onClose}>
                   <div className={scss.iconItem}>
                     <GoPerson className={scss.icon} />
-                    <p>Ваші дані</p>
+                    <p>Мій профіль</p>
                   </div>
                 </NavLink>
               </li>

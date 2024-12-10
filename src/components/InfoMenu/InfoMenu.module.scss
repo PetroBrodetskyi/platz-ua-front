@@ -2,10 +2,10 @@
   position: fixed;
   gap: 20px;
   top: 0;
-  right: 0;
+  left: 0;
   background-color: var(--white);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
+  padding: 10px 30px;
   width: 80%;
   height: 100vh;
   z-index: 100;
@@ -19,7 +19,16 @@
     color: var(--white);
   }
 
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 10px;
+  }
+
   @include media-rules(notebook) {
+    top: 0;
+    right: 0;
     width: 330px;
     border-radius: 44px;
   }
@@ -28,24 +37,21 @@
 .menuList {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 8px;
   list-style: none;
-  padding: 20px;
   margin: 0;
 
   .item {
     gap: 10px;
     width: 100%;
+    padding: 10px;
+    border-radius: 44px;
     @include transition(color);
 
     .iconItem {
       display: flex;
       align-items: center;
       gap: 10px;
-
-      .icon {
-        font-size: 24px;
-      }
     }
 
     @include media-rules(notebook) {
@@ -53,9 +59,19 @@
     }
 
     &:hover {
-      color: var(--red);
+      background-color: var(--grafite);
+      color: var(--white);
+
+      &.darkMode:hover {
+        background-color: var(--light-grey);
+        color: var(--white);
+      }
     }
   }
+}
+
+.icon {
+  font-size: 24px;
 }
 
 .divider {

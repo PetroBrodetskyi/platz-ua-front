@@ -13,8 +13,10 @@ import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import SearchLocation from '../SearchLocation';
 import Logo from '../Logo/Logo';
 import UserMenu from '../UserMenu/UserMenu';
+import InfoMenu from '../InfoMenu/InfoMenu';
 import { fetchCurrentUser } from '../../redux/features/authSlice';
 import { ConfirmationLogin } from '../../components/Confirmation/Confirmation';
+import { useTheme } from '../../context/ThemeContext.jsx';
 import scss from './Header.module.scss';
 
 const createTooltipStyles = (marginTop) => ({
@@ -33,6 +35,9 @@ const Header = ({ onClick }) => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [animateFavorite, setAnimateFavorite] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLeftMenuOpen, setIsLeftMenuOpen] = useState(false);
+  const [isRightMenuOpen, setIsRightMenuOpen] = useState(false);
+  const { isDarkMode } = useTheme();
 
   useEffect(() => {
     if (token) {
@@ -53,6 +58,20 @@ const Header = ({ onClick }) => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const toggleLeftMenu = () => {
+    setIsLeftMenuOpen((prev) => !prev);
+    if (isRightMenuOpen) {
+      setIsRightMenuOpen(false);
+    }
+  };
+
+  const toggleRightMenu = () => {
+    setIsRightMenuOpen((prev) => !prev);
+    if (isLeftMenuOpen) {
+      setIsLeftMenuOpen(false);
+    }
   };
 
   const handleLoginConfirm = () => {
@@ -91,10 +110,15 @@ const Header = ({ onClick }) => {
     );
 
   return (
-    <header className={scss.header}>
+    <header className={`${scss.header} ${isDarkMode ? scss.darkMode : ''}`}>
       <div className={scss.container}>
         <div className={scss.logoUserMobile}>
-          <MdOutlineMenu className={scss.icon} onClick={onClick} />
+          <button onClick={toggleLeftMenu}>
+            <MdOutlineMenu className={scss.icon} />
+          </button>
+          {isLeftMenuOpen && (
+            <InfoMenu onClose={() => setIsLeftMenuOpen(false)} />
+          )}
           <Logo />
           <button
             type="button"
@@ -109,13 +133,13 @@ const Header = ({ onClick }) => {
           <button
             type="button"
             className={scss.iconUserDesktop}
-            onClick={onClick}
+            onClick={toggleRightMenu}
           >
             {user && user.verify && renderUserInfo()}
           </button>
-          {isMenuOpen && (
+          {isRightMenuOpen && (
             <UserMenu
-              onClose={() => setIsMenuOpen(false)}
+              onClose={() => setIsRightMenuOpen(false)}
               getUserProfileUrl={getUserProfileUrl}
             />
           )}
