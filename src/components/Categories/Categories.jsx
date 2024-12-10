@@ -11,7 +11,8 @@ const Categories = ({
   onCategoryChange,
   onSubcategoriesChange
 }) => {
-  const [localSelectedCategory, setLocalSelectedCategory] = useState(null);
+  const [localSelectedCategory, setLocalSelectedCategory] =
+    useState(selectedCategory);
   const [localSelectedSubcategories, setLocalSelectedSubcategories] = useState(
     selectedSubcategories || []
   );
@@ -19,26 +20,21 @@ const Categories = ({
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (onSubcategoriesChange) {
+    if (localSelectedCategory !== selectedCategory) {
+      onCategoryChange(localSelectedCategory);
+    }
+  }, [localSelectedCategory]);
+
+  useEffect(() => {
+    if (localSelectedSubcategories !== selectedSubcategories) {
       onSubcategoriesChange(localSelectedSubcategories);
     }
-    if (onCategoryChange) {
-      onCategoryChange(localSelectedCategory, localSelectedSubcategories);
-    }
-  }, [
-    localSelectedCategory,
-    localSelectedSubcategories,
-    onCategoryChange,
-    onSubcategoriesChange
-  ]);
+  }, [localSelectedSubcategories]);
 
   const handleCategorySelect = (category) => {
     setLocalSelectedCategory(category);
-    setLocalSelectedSubcategories([]);
+    setLocalSelectedSubcategories([]); // Скидаємо вибір підкатегорій
     navigate(`/category/${category}`);
-    if (onCategoryChange) {
-      onCategoryChange(category, []);
-    }
   };
 
   const handleSubcategoryClick = (subcategory) => {
@@ -47,15 +43,11 @@ const Categories = ({
     )
       ? localSelectedSubcategories.filter((item) => item !== subcategory)
       : [...localSelectedSubcategories, subcategory];
-    setLocalSelectedSubcategories(updatedSubcategories);
 
+    setLocalSelectedSubcategories(updatedSubcategories);
     navigate(
       `/category/${localSelectedCategory}?subcategories=${updatedSubcategories.join(',')}`
     );
-
-    if (onSubcategoriesChange) {
-      onSubcategoriesChange(updatedSubcategories);
-    }
   };
 
   const sortedProducts =
@@ -88,24 +80,28 @@ const Categories = ({
           ))}
         </div>
 
-        <div className={scss.subcategories}>
-          <div className={scss.subcategoryButtons}>
-            {subcategories.map((subcategory, index) => (
-              <button
-                key={index}
-                className={`${scss.subcategoryButton} ${isDarkMode ? scss.darkMode : ''} ${
-                  localSelectedSubcategories.includes(subcategory)
-                    ? scss.active
-                    : ''
-                }`}
-                onClick={() => handleSubcategoryClick(subcategory)}
-                aria-pressed={localSelectedSubcategories.includes(subcategory)}
-              >
-                {subcategory}
-              </button>
-            ))}
+        {subcategories.length > 0 && (
+          <div className={scss.subcategories}>
+            <div className={scss.subcategoryButtons}>
+              {subcategories.map((subcategory, index) => (
+                <button
+                  key={index}
+                  className={`${scss.subcategoryButton} ${isDarkMode ? scss.darkMode : ''} ${
+                    localSelectedSubcategories.includes(subcategory)
+                      ? scss.active
+                      : ''
+                  }`}
+                  onClick={() => handleSubcategoryClick(subcategory)}
+                  aria-pressed={localSelectedSubcategories.includes(
+                    subcategory
+                  )}
+                >
+                  {subcategory}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
