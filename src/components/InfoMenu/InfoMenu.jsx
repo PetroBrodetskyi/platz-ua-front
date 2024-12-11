@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import ThemeSwitcher from '../ThemeSwitcher/index.js';
 import { RiChatSmile2Line, RiLoginCircleLine } from 'react-icons/ri';
 import { PiShoppingCart } from 'react-icons/pi';
+import { AiOutlineHome } from 'react-icons/ai';
 import { FiPlusCircle } from 'react-icons/fi';
 import {
   MdOutlineFavoriteBorder,
@@ -47,12 +48,14 @@ const LeftMenu = ({ onClose }) => {
             </button>
             <Logo />
           </li>
-          <li className={scss.divider}></li>
+          <li
+            className={`${scss.divider} ${isDarkMode ? scss.darkMode : ''}`}
+          ></li>
           <li className={`${scss.item} ${isDarkMode ? scss.darkMode : ''}`}>
-            <NavLink to="/chats" onClick={onClose}>
+            <NavLink to="/" onClick={onClose}>
               <div className={scss.iconItem}>
-                <RiChatSmile2Line className={scss.icon} />
-                <p>Інфо</p>
+                <AiOutlineHome className={scss.icon} />
+                <p>Головна</p>
               </div>
             </NavLink>
           </li>
@@ -80,16 +83,24 @@ const LeftMenu = ({ onClose }) => {
               </div>
             </NavLink>
           </li>
+
+          <li className={`${scss.item} ${isDarkMode ? scss.darkMode : ''}`}>
+            <NavLink to="/create" onClick={onClose}>
+              <div className={scss.iconItem}>
+                <FiPlusCircle className={scss.icon} />
+                <p>Інфо</p>
+              </div>
+            </NavLink>
+          </li>
+          <li
+            className={`${scss.divider} ${isDarkMode ? scss.darkMode : ''}`}
+          ></li>
           <li className={`${scss.item} ${isDarkMode ? scss.darkMode : ''}`}>
             <ThemeSwitcher />
           </li>
-          <li className={`${scss.item} ${isDarkMode ? scss.darkMode : ''}`}>
-            <div className={scss.iconItem}>
-              <RiLoginCircleLine className={scss.icon} />
-              <p>Інфо</p>
-            </div>
-          </li>
-          <li className={scss.divider}></li>
+          <li
+            className={`${scss.divider} ${isDarkMode ? scss.darkMode : ''}`}
+          ></li>
           <li className={`${scss.item} ${isDarkMode ? scss.darkMode : ''}`}>
             <button className={scss.close} onClick={handleClose}>
               <div className={scss.iconItem}>

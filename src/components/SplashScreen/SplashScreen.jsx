@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useTheme } from '../../context/ThemeContext.jsx';
 import scss from '../Logo/Logo.module.scss';
 
 const SplashScreen = ({ onFinish, message }) => {
   const [visible, setVisible] = useState(true);
+  const { isDarkMode } = useTheme();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -15,7 +17,9 @@ const SplashScreen = ({ onFinish, message }) => {
 
   return (
     visible && (
-      <div className={scss.splashScreen}>
+      <div
+        className={`${scss.splashScreen} ${isDarkMode ? scss.darkMode : ''}`}
+      >
         <div className={scss.logoSplash}>
           <div className={scss.imgLogo}>
             <img src="/logo.svg" alt="Logo" className={scss.logoImage} />
@@ -29,8 +33,12 @@ const SplashScreen = ({ onFinish, message }) => {
               </h1>
             </div>
           </div>
-          <h2 className={scss.message}>{message.title}</h2>
-          <p className={scss.message}>{message.text}</p>
+          <h2 className={`${scss.message} ${isDarkMode ? scss.darkMode : ''}`}>
+            {message.title}
+          </h2>
+          <p className={`${scss.message} ${isDarkMode ? scss.darkMode : ''}`}>
+            {message.text}
+          </p>
         </div>
       </div>
     )

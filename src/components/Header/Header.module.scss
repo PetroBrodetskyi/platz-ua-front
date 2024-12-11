@@ -6,7 +6,7 @@
   padding: 10px;
 
   &.darkMode {
-    background-color: var(--grey);
+    background-color: var(--black);
   }
 
   @include media-rules(tablet) {
@@ -126,6 +126,12 @@
   align-items: center;
   cursor: pointer;
   font-size: 20px;
+
+  @include transition(transform);
+
+  &:hover {
+    transform: scale(1.2);
+  }
 
   @include media-rules-max(tablet) {
     font-size: 20px;

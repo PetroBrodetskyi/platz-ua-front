@@ -82,6 +82,8 @@
   border: 1px solid var(--light-grey);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
+  @include transition(transform);
+
   @include media-rules(desktop) {
     padding: 10px 20px;
   }

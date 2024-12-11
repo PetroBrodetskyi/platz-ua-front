@@ -28,7 +28,7 @@
 .menuList {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 8px;
   list-style: none;
   padding: 20px;
   margin: 0;
@@ -36,6 +36,8 @@
   .item {
     gap: 10px;
     width: 100%;
+    padding: 10px;
+    border-radius: 44px;
     @include transition(color);
 
     .iconItem {
@@ -53,15 +55,25 @@
     }
 
     &:hover {
-      color: var(--red);
+      background-color: var(--grafite);
+      color: var(--white);
+
+      &.darkMode:hover {
+        background-color: var(--light-grey);
+        color: var(--white);
+      }
     }
   }
 }
 
 .divider {
   height: 1px;
-  background-color: var(--light-grey);
+  background-color: var(--dark-grey);
   width: 100%;
+
+  &.darkMode {
+    background-color: var(--light-grey);
+  }
 }
 
 .userInfo {

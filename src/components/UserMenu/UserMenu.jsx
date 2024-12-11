@@ -66,8 +66,10 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
                   <p>{currentUser.email}</p>
                 </div>
               </li>
-              <li className={scss.divider}></li>
-              <li className={scss.item}>
+              <li
+                className={`${scss.divider} ${isDarkMode ? scss.darkMode : ''}`}
+              ></li>
+              <li className={`${scss.item} ${isDarkMode ? scss.darkMode : ''}`}>
                 <NavLink to={getUserProfileUrl()} onClick={onClose}>
                   <div className={scss.iconItem}>
                     <GoPerson className={scss.icon} />
@@ -75,7 +77,7 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
                   </div>
                 </NavLink>
               </li>
-              <li className={scss.item}>
+              <li className={`${scss.item} ${isDarkMode ? scss.darkMode : ''}`}>
                 <NavLink to={`/user/${currentUser._id}`} onClick={onClose}>
                   <div className={scss.iconItem}>
                     <GoTasklist className={scss.icon} />
@@ -89,7 +91,7 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
               <p>Будь ласка, увійдіть, щоб побачити свій профіль</p>
             </li>
           )}
-          <li className={scss.item}>
+          <li className={`${scss.item} ${isDarkMode ? scss.darkMode : ''}`}>
             <NavLink to="/chats" onClick={onClose}>
               <div className={scss.iconItem}>
                 <RiChatSmile2Line className={scss.icon} />
@@ -97,7 +99,7 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
               </div>
             </NavLink>
           </li>
-          <li className={scss.item}>
+          <li className={`${scss.item} ${isDarkMode ? scss.darkMode : ''}`}>
             <NavLink to="/cart" onClick={onClose}>
               <div className={scss.iconItem}>
                 <PiShoppingCart className={scss.icon} />
@@ -105,7 +107,7 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
               </div>
             </NavLink>
           </li>
-          <li className={scss.item}>
+          <li className={`${scss.item} ${isDarkMode ? scss.darkMode : ''}`}>
             <NavLink to="/favorites" onClick={onClose}>
               <div className={scss.iconItem}>
                 <MdOutlineFavoriteBorder className={scss.icon} />
@@ -113,7 +115,7 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
               </div>
             </NavLink>
           </li>
-          <li className={scss.item}>
+          <li className={`${scss.item} ${isDarkMode ? scss.darkMode : ''}`}>
             <NavLink to="/create" onClick={onClose}>
               <div className={scss.iconItem}>
                 <FiPlusCircle className={scss.icon} />
@@ -121,10 +123,13 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
               </div>
             </NavLink>
           </li>
+          <li
+            className={`${scss.divider} ${isDarkMode ? scss.darkMode : ''}`}
+          ></li>
           <li className={scss.item}>
             <ThemeSwitcher />
           </li>
-          <li className={scss.item}>
+          <li className={`${scss.item} ${isDarkMode ? scss.darkMode : ''}`}>
             <button className={scss.exitButton} onClick={handleLogout}>
               <div className={scss.iconItem}>
                 <RiLoginCircleLine className={scss.icon} />
@@ -132,8 +137,10 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
               </div>
             </button>
           </li>
-          <li className={scss.divider}></li>
-          <li className={scss.item}>
+          <li
+            className={`${scss.divider} ${isDarkMode ? scss.darkMode : ''}`}
+          ></li>
+          <li className={`${scss.item} ${isDarkMode ? scss.darkMode : ''}`}>
             <button className={scss.exitButton} onClick={handleClose}>
               <div className={scss.iconItem}>
                 <MdOutlineClose className={scss.icon} />

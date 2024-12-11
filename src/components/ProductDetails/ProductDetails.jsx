@@ -28,12 +28,13 @@ import { GrLocation } from 'react-icons/gr';
 import { HiOutlineEye } from 'react-icons/hi';
 import { MdOutlineDateRange } from 'react-icons/md';
 import { FaRegFaceSmile, FaRegFaceMeh } from 'react-icons/fa6';
+import { useTheme } from '../../context/ThemeContext.jsx';
 import scss from './ProductDetails.module.scss';
 
 const ProductDetails = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
-
+  const { isDarkMode } = useTheme();
   const [notification, setNotification] = useState('');
   const [coordinates, setCoordinates] = useState(null);
   const [loadingCoordinates, setLoadingCoordinates] = useState(true);
@@ -110,17 +111,17 @@ const ProductDetails = () => {
       <div className={scss.container}>
         <div className={scss.infoContainer}>
           <Tooltip title="PLZ / індекс" placement="left">
-            <p className={scss.detail}>
+            <p className={`${scss.detail} ${isDarkMode ? scss.darkMode : ''}`}>
               <TbLocation className={scss.icon} /> {product.PLZ}
             </p>
           </Tooltip>
           <Tooltip title="Місто" placement="left">
-            <p className={scss.detail}>
+            <p className={`${scss.detail} ${isDarkMode ? scss.darkMode : ''}`}>
               <GrLocation className={scss.icon} /> {product.city}
             </p>
           </Tooltip>
           <Tooltip title="Стан" placement="left">
-            <p className={scss.detail}>
+            <p className={`${scss.detail} ${isDarkMode ? scss.darkMode : ''}`}>
               {product.condition === 'новий' ? (
                 <>
                   <FaRegFaceSmile className={scss.icon} /> новий
@@ -133,12 +134,12 @@ const ProductDetails = () => {
             </p>
           </Tooltip>
           <Tooltip title="Переглядів" placement="left">
-            <p className={scss.detail}>
+            <p className={`${scss.detail} ${isDarkMode ? scss.darkMode : ''}`}>
               <HiOutlineEye className={scss.icon} /> {product.views || 'N/A'}
             </p>
           </Tooltip>
           <Tooltip title="Дата розміщення" placement="left">
-            <p className={scss.detail}>
+            <p className={`${scss.detail} ${isDarkMode ? scss.darkMode : ''}`}>
               <MdOutlineDateRange className={scss.icon} />{' '}
               {new Date(product.createdAt).toLocaleDateString()}
             </p>

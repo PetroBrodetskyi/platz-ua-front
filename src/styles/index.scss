@@ -49,7 +49,7 @@ body {
   color: var(--grafite);
 
   &.darkMode {
-    background: linear-gradient(to bottom right, var(--grey), var(--grafite));
+    background: linear-gradient(to bottom right, var(--black), var(--grafite));
     color: var(--white);
   }
 }

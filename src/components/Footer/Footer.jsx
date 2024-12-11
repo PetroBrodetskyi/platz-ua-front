@@ -1,15 +1,17 @@
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '../../context/ThemeContext.jsx';
 import scss from './Footer.module.scss';
 
 const Footer = () => {
   const navigate = useNavigate();
+  const { isDarkMode } = useTheme();
 
   const handleNavigation = (path) => {
     navigate(path);
   };
 
   return (
-    <footer className={scss.footer}>
+    <footer className={`${scss.footer} ${isDarkMode ? scss.darkMode : ''}`}>
       <div className={scss.container}>
         <div className={scss.title}>
           <p>&copy; {new Date().getFullYear()} PlatzUA</p>

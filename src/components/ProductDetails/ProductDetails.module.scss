@@ -81,8 +81,12 @@ $padding-tablet: 0 20px;
     font-size: 12px;
     padding: 10px;
     border-radius: 4px;
-    border: 1px solid var(--light-grey);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: var(--white);
+    // box-shadow: 0 2px 4px rgba(177, 177, 177, 0.786);
+
+    &.darkMode {
+      background-color: var(--grafite);
+    }
 
     @include media-rules(notebook) {
       gap: 8px;
