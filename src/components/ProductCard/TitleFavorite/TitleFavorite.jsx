@@ -100,6 +100,8 @@ const TitleFavorite = ({
           show={isCommentsOpen}
           onToggle={toggleCommentsModal}
           productId={id}
+          image={image}
+          name={name}
         />
       )}
       <ShareModal

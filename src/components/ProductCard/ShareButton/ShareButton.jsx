@@ -11,15 +11,15 @@ const icons = {
   messenger: (
     <PiMessengerLogoBold className={`${scss.icon} ${scss.messenger}`} />
   ),
-  instagram: <FaInstagram className={`${scss.icon} ${scss.instagram}`} />,
-  linkedin: <FaLinkedin className={`${scss.icon} ${scss.linkedin}`} />,
-  gmail: <SiGmail className={`${scss.icon} ${scss.gmail}`} />,
-  email: <GrMailOption className={`${scss.icon} ${scss.email}`} />,
-  sms: <BiMessageSquareDetail className={`${scss.icon} ${scss.sms}`} />,
-  viber: <SiViber className={`${scss.icon} ${scss.viber}`} />,
-  telegram: <PiTelegramLogoFill className={`${scss.icon} ${scss.telegram}`} />,
-  whatsapp: <FaWhatsapp className={`${scss.icon} ${scss.whatsapp}`} />,
-  copy: <FaRegCopy className={`${scss.icon} ${scss.copy}`} />
+  instagram: <FaInstagram className={scss.icon} />,
+  linkedin: <FaLinkedin className={scss.icon} />,
+  gmail: <SiGmail className={scss.icon} />,
+  email: <GrMailOption className={scss.icon} />,
+  sms: <BiMessageSquareDetail className={scss.icon} />,
+  viber: <SiViber className={scss.icon} />,
+  telegram: <PiTelegramLogoFill className={scss.icon} />,
+  whatsapp: <FaWhatsapp className={scss.icon} />,
+  copy: <FaRegCopy className={scss.icon} />
 };
 
 const ShareButton = ({ platform, onClick }) => {

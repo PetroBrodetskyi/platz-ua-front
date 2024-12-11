@@ -105,27 +105,37 @@ const ShareModal = ({
         isOpen={show}
         onRequestClose={onToggle}
         overlayClassName={scss.modalOverlay}
-        className={`${scss.shareModal} ${isDarkMode ? scss.darkMode : ''}`}
+        className={`${scss.modal} ${isDarkMode ? scss.darkMode : ''}`}
         contentLabel="Поділитися"
         shouldCloseOnOverlayClick={true}
       >
         <div className={`${scss.container} ${isDarkMode ? scss.darkMode : ''}`}>
           <div className={scss.header}>
-            <h2>{name}</h2>
+            <h3>{name}</h3>
             <button onClick={onToggle}>
-              <FiX className={scss.closeIcon} />
+              <FiX className={scss.icon} />
             </button>
           </div>
-          <ul className={scss.buttons}>
-            {Object.keys(sharePlatforms).map((platform) => (
-              <li key={platform}>
-                <ShareButton
-                  platform={platform}
-                  onClick={() => handleShare(platform)}
-                />
-              </li>
-            ))}
-          </ul>
+          <div className={scss.content}>
+            <div className={scss.imageContainer}>
+              <img
+                src={image}
+                alt="product photo"
+                loading="lazy"
+                className={scss.image}
+              />
+            </div>
+            <ul className={scss.buttons}>
+              {Object.keys(sharePlatforms).map((platform) => (
+                <li key={platform}>
+                  <ShareButton
+                    platform={platform}
+                    onClick={() => handleShare(platform)}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </Modal>
     </>

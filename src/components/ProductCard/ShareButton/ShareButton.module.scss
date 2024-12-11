@@ -2,68 +2,17 @@
 
 .button {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
   gap: 10px;
-  cursor: pointer;
   padding: 10px;
-  width: 100px;
+  cursor: pointer;
 }
 
 .icon {
-  font-size: 26px;
-  @include transition(color);
-
-  @include media-rules(tablet) {
-    font-size: 30px;
-  }
+  font-size: 20px;
 
   @include media-rules(notebook) {
-    font-size: 40px;
+    width: 28px;
   }
-}
-
-.facebook {
-  color: #3b5998;
-}
-
-.messenger {
-  color: #006aff;
-}
-
-.instagram {
-  color: #e1306c;
-}
-
-.linkedin {
-  color: #0077b5;
-}
-
-.gmail {
-  color: #d44638;
-}
-
-.email {
-  color: #777;
-}
-
-.sms {
-  color: #4caf50;
-}
-
-.viber {
-  color: #665cac;
-}
-
-.telegram {
-  color: #0088cc;
-}
-
-.whatsapp {
-  color: #25d366;
-}
-
-.copy {
-  color: #777;
 }

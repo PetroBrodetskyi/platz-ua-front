@@ -13,7 +13,7 @@ import SubmitButton from '../SubmitButton';
 import Modal from '../Modal';
 import { TbGhost } from 'react-icons/tb';
 import { MdOutlineEmojiEmotions } from 'react-icons/md';
-import { LuArrowUpCircle } from 'react-icons/lu';
+import { LuSmilePlus } from 'react-icons/lu';
 import { nanoid } from 'nanoid';
 import { useTheme } from '../../context/ThemeContext';
 import scss from './Comments.module.scss';
@@ -115,7 +115,6 @@ const Comments = ({ productId }) => {
 
   return (
     <div className={scss.comments}>
-      <h3 className={scss.title}>Коментарі</h3>
       {notification && <Notification message={notification} />}
       <div className={scss.commentList}>
         {loading ? (
@@ -271,7 +270,7 @@ const Comments = ({ productId }) => {
               className={` ${isDarkMode ? scss.darkMode : ''}`}
               onClick={() => setShowEmojiPicker(!showEmojiPicker)}
             >
-              <MdOutlineEmojiEmotions className={scss.icon} />
+              <LuSmilePlus className={scss.icon} />
             </button>
             <Modal
               isOpen={showEmojiPicker}
