@@ -20,10 +20,17 @@
   flex-direction: column;
   gap: 8px;
   flex: 1;
+  max-height: 400px;
   overflow-y: auto;
 
+  @include media-rules(tablet) {
+    max-height: 700px;
+    gap: 10px;
+  }
+
   @include media-rules(notebook) {
-    gap: 20px;
+    max-height: 300px;
+    gap: 10px;
   }
 
   &::-webkit-scrollbar {
@@ -81,11 +88,13 @@
 
 .addComment {
   display: flex;
+  flex-direction: column;
   position: relative;
-  gap: 20px;
+  gap: 10px;
 
-  &.darkMode {
-    border-bottom: 1px solid var(--light-grey);
+  .userText {
+    display: flex;
+    gap: 10px;
   }
 
   @include media-rules(notebook) {
@@ -163,16 +172,17 @@
   outline: none;
   color: var(--black);
   transition: height 0.2s ease-in-out;
-  padding-bottom: 10px;
+  // padding-bottom: 10px;
+  max-height: 100px;
 
   &.darkMode {
     color: var(--white);
+    border-bottom: 1px solid var(--light-grey);
   }
 
   @include media-rules(desktop) {
     font-size: 16px;
     height: auto;
-    padding-bottom: 20px;
   }
 }
 

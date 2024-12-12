@@ -104,6 +104,18 @@ $padding-tablet: 0 20px;
     }
   }
 
+  .comments {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0 auto;
+
+    @include media-rules(notebook) {
+      width: 80%;
+      gap: 20px;
+    }
+  }
+
   .buttonWrapper {
     padding: 0 10px;
 

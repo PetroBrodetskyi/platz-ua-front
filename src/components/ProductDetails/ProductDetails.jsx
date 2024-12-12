@@ -164,7 +164,7 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
-
+      <h3>Коментарі</h3>
       <div className={scss.comments} id="comments-section">
         <Comments productId={productId} />
       </div>

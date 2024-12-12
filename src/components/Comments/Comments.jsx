@@ -247,24 +247,26 @@ const Comments = ({ productId }) => {
         <div
           className={`${scss.addComment} ${isDarkMode ? scss.darkMode : ''}`}
         >
-          {currentUser.avatarURL ? (
-            <img
-              src={currentUser.avatarURL}
-              alt={currentUser.name}
-              className={scss.avatar}
+          <div className={scss.userText}>
+            {currentUser.avatarURL ? (
+              <img
+                src={currentUser.avatarURL}
+                alt={currentUser.name}
+                className={scss.avatar}
+              />
+            ) : (
+              <div className={scss.iconContainer}>
+                <TbGhost className={scss.icon} />
+              </div>
+            )}
+            <textarea
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              onInput={handleInput}
+              placeholder="Додайте коментар..."
+              className={`${scss.textarea} ${isDarkMode ? scss.darkMode : ''}`}
             />
-          ) : (
-            <div className={scss.iconContainer}>
-              <TbGhost className={scss.icon} />
-            </div>
-          )}
-          <textarea
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            onInput={handleInput}
-            placeholder="Додайте коментар..."
-            className={`${scss.textarea} ${isDarkMode ? scss.darkMode : ''}`}
-          />
+          </div>
           <div className={scss.emoji}>
             <button
               className={` ${isDarkMode ? scss.darkMode : ''}`}
