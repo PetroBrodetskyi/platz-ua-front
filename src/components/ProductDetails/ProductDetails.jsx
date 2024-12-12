@@ -164,9 +164,11 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
-      <h3>Коментарі</h3>
-      <div className={scss.comments} id="comments-section">
-        <Comments productId={productId} />
+      <div>
+        <h3 className={scss.title}>Коментарі</h3>
+        <div className={scss.comments} id="comments-section">
+          <Comments productId={productId} />
+        </div>
       </div>
       <div className={scss.mapContainer} id="location-section">
         <LocationMap

@@ -136,8 +136,13 @@
   gap: 4px;
   align-self: flex-start;
   max-width: 90%;
-  border-bottom: 1px solid var(--light-grey);
+  border-bottom: 1px solid var(--dark-grey);
   padding-bottom: 10px;
+
+  &.darkMode {
+    color: var(--white);
+    border-bottom: 1px solid var(--light-grey);
+  }
 
   @include media-rules(notebook) {
     gap: 8px;
@@ -176,6 +181,7 @@
   outline: none;
   color: var(--black);
   transition: height 0.2s ease-in-out;
+  border-bottom: 1px solid var(--dark-grey);
   max-height: 60px;
 
   &.darkMode {
