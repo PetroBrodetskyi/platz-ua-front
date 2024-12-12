@@ -111,7 +111,7 @@ const ShareModal = ({
       >
         <div className={`${scss.container} ${isDarkMode ? scss.darkMode : ''}`}>
           <div className={scss.header}>
-            <h3>{name}</h3>
+            <h3 className={scss.title}>{name}</h3>
             <button onClick={onToggle}>
               <FiX className={scss.icon} />
             </button>
@@ -126,7 +126,6 @@ const ShareModal = ({
               />
             </div>
             <div className={scss.description}>
-              <p className={scss.text}>{description}</p>
               <ul className={scss.buttons}>
                 {Object.keys(sharePlatforms).map((platform) => (
                   <li key={platform}>
@@ -137,6 +136,7 @@ const ShareModal = ({
                   </li>
                 ))}
               </ul>
+              <p className={scss.text}>{description}</p>
             </div>
           </div>
         </div>
