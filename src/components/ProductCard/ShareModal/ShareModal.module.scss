@@ -97,12 +97,6 @@
     width: 50%;
     justify-content: space-evenly;
   }
-
-  .text {
-    @include media-rules(notebook) {
-      font-size: 16px;
-    }
-  }
 }
 
 .buttons {

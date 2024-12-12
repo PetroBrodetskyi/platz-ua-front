@@ -136,7 +136,6 @@ const ShareModal = ({
                   </li>
                 ))}
               </ul>
-              <p className={scss.text}>{description}</p>
             </div>
           </div>
         </div>

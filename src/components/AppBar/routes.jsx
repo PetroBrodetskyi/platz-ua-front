@@ -5,7 +5,6 @@ import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 import { useNavigate } from 'react-router-dom';
 
 const Home = lazy(() => import('../../pages/Home/Home'));
-const FilterPage = lazy(() => import('../../pages/FilterPage/FilterPage'));
 const Cart = lazy(() => import('../Cart/Cart'));
 const AuthPage = lazy(() => import('../../pages/AuthPage/AuthPage'));
 const AddProductPage = lazy(
@@ -31,7 +30,6 @@ const AdminPage = lazy(() => import('../../pages/AdminPage/AdminPage'));
 
 export const routes = [
   { path: '/', element: <Home /> },
-  { path: '/filter', element: <FilterPage /> },
   { path: '/category/:category', element: <Home /> },
   { path: '/category/:category/:subcategory', element: <Home /> },
   { path: '/cart', element: <Cart /> },

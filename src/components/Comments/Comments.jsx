@@ -12,7 +12,6 @@ import Notification from '../Notification';
 import SubmitButton from '../SubmitButton';
 import Modal from '../Modal';
 import { TbGhost } from 'react-icons/tb';
-import { MdOutlineEmojiEmotions } from 'react-icons/md';
 import { LuSmilePlus } from 'react-icons/lu';
 import { nanoid } from 'nanoid';
 import { useTheme } from '../../context/ThemeContext';
