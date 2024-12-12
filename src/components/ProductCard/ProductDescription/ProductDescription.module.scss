@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,7 +13,6 @@
 
 .container {
   display: flex;
-  flex-direction: column;
   gap: 20px;
 
   &.darkMode {
@@ -24,12 +23,11 @@
 
 .productDescription {
   background: var(--white);
-  border: 1px solid var(--light-grey);
   border-radius: 8px;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
   padding: 20px;
-  width: 90%;
-  max-width: 600px;
+  width: 90vi;
+  height: 90vh;
 
   &.darkMode {
     background-color: var(--grey);

@@ -125,16 +125,19 @@ const ShareModal = ({
                 className={scss.image}
               />
             </div>
-            <ul className={scss.buttons}>
-              {Object.keys(sharePlatforms).map((platform) => (
-                <li key={platform}>
-                  <ShareButton
-                    platform={platform}
-                    onClick={() => handleShare(platform)}
-                  />
-                </li>
-              ))}
-            </ul>
+            <div className={scss.description}>
+              <p className={scss.text}>{description}</p>
+              <ul className={scss.buttons}>
+                {Object.keys(sharePlatforms).map((platform) => (
+                  <li key={platform}>
+                    <ShareButton
+                      platform={platform}
+                      onClick={() => handleShare(platform)}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </Modal>

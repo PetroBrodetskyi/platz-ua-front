@@ -1,18 +1,14 @@
-// ShareButton.module.scss
-
 .button {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 10px;
-  padding: 10px;
+  padding: 10px 20px;
+  border: 1px solid var(--light-grey);
+  border-radius: 44px;
   cursor: pointer;
 }
 
 .icon {
   font-size: 20px;
-
-  @include media-rules(notebook) {
-    width: 28px;
-  }
 }
