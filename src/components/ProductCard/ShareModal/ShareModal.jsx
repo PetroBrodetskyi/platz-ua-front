@@ -120,7 +120,7 @@ const ShareModal = ({
             <div className={scss.imageContainer}>
               <img
                 src={image}
-                alt="product photo"
+                alt={name}
                 loading="lazy"
                 className={scss.image}
               />

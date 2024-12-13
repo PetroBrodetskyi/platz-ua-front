@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { IoClose } from 'react-icons/io5';
-import scss from './Modal.module.scss';
+import scss from './EmojiModal.module.scss';
 
-const Modal = ({ isOpen, onClose, children }) => {
+const EmojiModal = ({ isOpen, onClose, children }) => {
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === 'Escape') onClose();
@@ -25,4 +25,4 @@ const Modal = ({ isOpen, onClose, children }) => {
   );
 };
 
-export default Modal;
+export default EmojiModal;

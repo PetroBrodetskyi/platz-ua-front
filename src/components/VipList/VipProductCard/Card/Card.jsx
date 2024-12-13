@@ -153,6 +153,7 @@ const Card = ({
             show={showDescription}
             name={name}
             description={description}
+            image={image1}
             PLZ={PLZ}
             city={city}
             onToggle={onToggleDescription}

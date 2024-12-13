@@ -48,12 +48,7 @@ const CommentsModal = ({ show, onToggle, productId, image, name }) => {
         </div>
         <div className={scss.imageComments}>
           <div className={scss.imageContainer}>
-            <img
-              src={image}
-              alt="product photo"
-              loading="lazy"
-              className={scss.image}
-            />
+            <img src={image} alt={name} loading="lazy" className={scss.image} />
           </div>
           <div className={scss.comments}>
             <Comments productId={productId} />

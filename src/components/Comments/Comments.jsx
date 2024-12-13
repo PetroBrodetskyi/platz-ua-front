@@ -10,7 +10,7 @@ import {
 } from '../../redux/features/commentsSlice';
 import Notification from '../Notification';
 import SubmitButton from '../SubmitButton';
-import Modal from '../Modal';
+import Modal from '../EmojiModal';
 import { TbGhost } from 'react-icons/tb';
 import { LuSmilePlus } from 'react-icons/lu';
 import { nanoid } from 'nanoid';

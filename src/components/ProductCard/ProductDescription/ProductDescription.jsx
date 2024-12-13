@@ -12,6 +12,7 @@ const ProductDescription = ({
   show,
   name,
   description,
+  image,
   PLZ,
   city,
   onToggle
@@ -41,28 +42,35 @@ const ProductDescription = ({
       isOpen={show}
       onRequestClose={onToggle}
       overlayClassName={scss.modalOverlay}
-      className={`${scss.productDescription} ${isDarkMode ? scss.darkMode : ''}`}
+      className={`${scss.modal} ${isDarkMode ? scss.darkMode : ''}`}
       contentLabel="Product Description"
       shouldCloseOnOverlayClick={true}
     >
       <div className={`${scss.container} ${isDarkMode ? scss.darkMode : ''}`}>
-        <div className={scss.titleContainer}>
+        <div className={scss.header}>
           <h3 className={scss.title}>{name}</h3>
           <button onClick={onToggle}>
             <FiX className={scss.icon} />
           </button>
         </div>
-        <div>
-          <p className={scss.desc}>{description}</p>
-        </div>
-        <div className={scss.locationContainer}>
-          <div className={scss.locationItem}>
-            <TbLocation className={scss.icon} />
-            <p>{PLZ}</p>
+        <div className={scss.imageDescription}>
+          <div className={scss.imageContainer}>
+            <img src={image} alt={name} className={scss.image} />
           </div>
-          <div className={scss.locationItem}>
-            <SlLocationPin className={scss.icon} />
-            <p>{city}</p>
+          <div className={scss.description}>
+            <div>
+              <p className={scss.desc}>{description}</p>
+            </div>
+            <div className={scss.locationContainer}>
+              <div className={scss.locationItem}>
+                <TbLocation className={scss.icon} />
+                <p>{PLZ}</p>
+              </div>
+              <div className={scss.locationItem}>
+                <SlLocationPin className={scss.icon} />
+                <p>{city}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
