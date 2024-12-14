@@ -8,13 +8,6 @@ import {
 } from '../../../redux/features/commentsSlice';
 import { useTheme } from '../../../context/ThemeContext';
 import { TbGhost } from 'react-icons/tb';
-import {
-  MdOutlineEdit,
-  MdOutlineSaveAs,
-  MdOutlineDelete,
-  MdOutlineCancel
-} from 'react-icons/md';
-import { LuArrowUpCircle } from 'react-icons/lu';
 import { formatDistanceToNow } from 'date-fns';
 import { uk } from 'date-fns/locale';
 import scss from './Reply.module.scss';

@@ -1,0 +1,68 @@
+.cookieBanner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--white);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  width: 90%;
+
+  &.darkMode {
+    background-color: var(--grafite);
+    color: var(--white);
+  }
+
+  @include media-rules(notebook) {
+    max-width: 50%;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .logoContainer {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    justify-content: space-between;
+
+    .icon {
+      font-size: 20px;
+    }
+  }
+
+  .logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .title {
+    margin: 0;
+    font-weight: 400;
+    text-align: center;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+
+  .item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .link {
+    text-decoration: underline;
+  }
+}

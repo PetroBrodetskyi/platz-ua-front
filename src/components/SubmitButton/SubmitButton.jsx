@@ -52,7 +52,8 @@ const SubmitButton = ({
       'VIP',
       'Архів',
       'Архівувати',
-      'Активувати'
+      'Активувати',
+      'Прийняти всі'
     ].includes(buttonText):
       buttonClass = scss.followSend;
       break;
