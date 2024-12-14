@@ -5,18 +5,17 @@
   right: 0;
   background-color: var(--white);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
   width: 80%;
   height: 100vh;
   z-index: 100;
 
-  @include media-rules(tablet) {
-    width: 50%;
-  }
-
   &.darkMode {
     background-color: var(--grafite);
     color: var(--white);
+  }
+
+  @include media-rules(tablet) {
+    width: 50%;
   }
 
   @include media-rules(notebook) {

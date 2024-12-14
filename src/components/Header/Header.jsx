@@ -123,7 +123,7 @@ const Header = ({ onClick }) => {
           <button
             type="button"
             className={scss.iconUserMobile}
-            onClick={onClick}
+            onClick={toggleRightMenu}
           >
             {user && user.verify && renderUserInfo()}
           </button>

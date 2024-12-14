@@ -5,7 +5,7 @@ import { RiPlayList2Fill } from 'react-icons/ri';
 import Skeleton from '@mui/material/Skeleton';
 import Tooltip from '@mui/material/Tooltip';
 import CreateCondition from '../CreateCondition';
-import ProductDescription from '../ProductDescription';
+import DescriptionModal from '../DescriptionModal';
 import TitleFavorite from '../TitleFavorite';
 import CartPrice from '../CartPrice';
 import { useTheme } from '../../../context/ThemeContext.jsx';
@@ -113,6 +113,7 @@ const Card = ({
                 description={description}
                 image={image1}
                 city={city}
+                plz={PLZ}
                 id={_id}
                 onFavoriteToggle={onFavoriteToggle}
                 isFavorite={favorites.includes(_id)}
@@ -164,7 +165,7 @@ const Card = ({
               )}
             </div>
           </div>
-          <ProductDescription
+          <DescriptionModal
             show={showDescription}
             name={name}
             description={description}

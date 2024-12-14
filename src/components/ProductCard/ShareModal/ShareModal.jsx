@@ -1,21 +1,17 @@
-import Modal from 'react-modal';
-import { FiX } from 'react-icons/fi';
 import { Helmet } from 'react-helmet-async';
 import ShareButton from '../ShareButton';
-import { useTheme } from '../../../context/ThemeContext';
-import { useEffect } from 'react';
+import BaseModal from '../../BaseModal';
 import scss from './ShareModal.module.scss';
-
-Modal.setAppElement('#root');
 
 const ShareModal = ({
   show,
-  description,
   onToggle,
   name,
+  description,
   productUrl,
   price,
   city,
+  plz,
   image
 }) => {
   const maxDescriptionLength = 80;
@@ -27,7 +23,7 @@ const ShareModal = ({
 
   const trimmedDescription = getTrimmedDescription(description);
 
-  const message = `${name} \nЦіна: ${price} \nЛокація: ${city} ${trimmedDescription} \nДеталі: ${productUrl} ${image}`;
+  const message = `${name} \nЦіна: ${price} \nЛокація: ${city} ${plz} ${trimmedDescription} \nДеталі: ${productUrl} ${image}`;
 
   const sharePlatforms = {
     facebook: (message) =>
@@ -59,7 +55,7 @@ const ShareModal = ({
   };
 
   const handleShare = (platform) => {
-    const shareMessage = `${name} \nЦіна: ${price} \nЛокація: ${city} ${trimmedDescription} \nДеталі: ${productUrl}`;
+    const shareMessage = `${name} \nЦіна: ${price}€ \nЛокація: ${city} ${plz}  ${trimmedDescription} \nДеталі: ${productUrl}`;
 
     const shareUrl = sharePlatforms[platform](shareMessage);
 
@@ -68,25 +64,13 @@ const ShareModal = ({
     }
   };
 
-  useEffect(() => {
-    if (show) {
-      document.body.classList.add(scss.noScroll);
-    } else {
-      document.body.classList.remove(scss.noScroll);
-    }
-
-    return () => document.body.classList.remove(scss.noScroll);
-  }, [show]);
-
-  const { isDarkMode } = useTheme();
-
   return (
     <>
       <Helmet>
         <meta property="og:title" content={name} />
         <meta
           property="og:description"
-          content={description || `Ціна: ${price}, Локація: ${city}`}
+          content={description || `Ціна: ${price}, Локація: ${city} ${plz}`}
         />
         <meta property="og:image" content={image} />
         <meta property="og:url" content={productUrl} />
@@ -95,51 +79,36 @@ const ShareModal = ({
         <meta name="twitter:title" content={name} />
         <meta
           name="twitter:description"
-          content={description || `Ціна: ${price}, Локація: ${city}`}
+          content={description || `Ціна: ${price}, Локація: ${city} ${plz}`}
         />
         <meta name="twitter:image" content={image} />
         <meta name="twitter:url" content={productUrl} />
       </Helmet>
 
-      <Modal
-        isOpen={show}
-        onRequestClose={onToggle}
-        overlayClassName={scss.modalOverlay}
-        className={`${scss.modal} ${isDarkMode ? scss.darkMode : ''}`}
+      <BaseModal
+        show={show}
+        onToggle={onToggle}
         contentLabel="Поділитися"
-        shouldCloseOnOverlayClick={true}
+        title={name}
       >
-        <div className={`${scss.container} ${isDarkMode ? scss.darkMode : ''}`}>
-          <div className={scss.header}>
-            <h3 className={scss.title}>{name}</h3>
-            <button onClick={onToggle}>
-              <FiX className={scss.icon} />
-            </button>
+        <div className={scss.content}>
+          <div className={scss.imageContainer}>
+            <img src={image} alt={name} className={scss.image} />
           </div>
-          <div className={scss.content}>
-            <div className={scss.imageContainer}>
-              <img
-                src={image}
-                alt={name}
-                loading="lazy"
-                className={scss.image}
-              />
-            </div>
-            <div className={scss.description}>
-              <ul className={scss.buttons}>
-                {Object.keys(sharePlatforms).map((platform) => (
-                  <li key={platform}>
-                    <ShareButton
-                      platform={platform}
-                      onClick={() => handleShare(platform)}
-                    />
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className={scss.description}>
+            <ul className={scss.buttons}>
+              {Object.keys(sharePlatforms).map((platform) => (
+                <li key={platform}>
+                  <ShareButton
+                    platform={platform}
+                    onClick={() => handleShare(platform)}
+                  />
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-      </Modal>
+      </BaseModal>
     </>
   );
 };

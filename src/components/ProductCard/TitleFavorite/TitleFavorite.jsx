@@ -14,6 +14,7 @@ const TitleFavorite = ({
   image,
   price,
   city,
+  plz,
   onFavoriteToggle,
   isFavorite,
   viewMode
@@ -111,6 +112,7 @@ const TitleFavorite = ({
         productUrl={productUrl}
         price={price}
         city={city}
+        plz={plz}
         description={description}
         image={image}
       />

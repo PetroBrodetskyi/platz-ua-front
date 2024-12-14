@@ -1,4 +1,4 @@
-.imageComments {
+.imageDescription {
   display: flex;
   gap: 40px;
 }
@@ -19,17 +19,28 @@
   border-radius: 8px;
 }
 
-.comments {
+.description {
   width: 100%;
-  overflow-y: auto;
-  scroll-snap-type: y mandatory;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  justify-content: space-between;
 
   @include media-rules(notebook) {
     width: 50%;
+    gap: 0;
   }
+}
 
-  &::-webkit-scrollbar {
-    display: none;
+.locationContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .locationItem {
+    display: flex;
+    gap: 10px;
+    align-items: center;
   }
 }
 
