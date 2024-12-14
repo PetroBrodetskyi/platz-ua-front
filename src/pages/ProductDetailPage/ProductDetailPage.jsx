@@ -7,6 +7,7 @@ const ProductDetailPage = () => {
   return (
     <div>
       <ProductDetail />
+      <h3 className={scss.title}>VIP-оголошення</h3>
       <div className={scss.container}>
         <VipList />
       </div>

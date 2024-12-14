@@ -5,9 +5,6 @@ const VipList = () => {
   return (
     <div className={scss.productListWrapper}>
       <div className={scss.vipProductList}>
-        <div className={scss.header}>
-          <h3 className={scss.title}>VIP-оголошення</h3>
-        </div>
         <div className={scss.container}>
           <VipProductCard />
         </div>

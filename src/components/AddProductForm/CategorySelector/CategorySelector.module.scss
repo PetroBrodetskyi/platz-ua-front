@@ -1,11 +1,16 @@
 .formGroup {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
+
+  @include media-rules(tablet) {
+    gap: 10px;
+  }
 
   .info {
     display: flex;
     gap: 4px;
+    justify-content: center;
 
     .icon {
       font-size: 16px;
@@ -13,17 +18,24 @@
   }
 
   select {
-    background-color: var(--grafite);
-    color: var(--white);
-    border: none;
     width: 100%;
-    padding: 10px;
-    border-radius: 4px;
+    padding: 14px 20px;
+    background-color: inherit;
     font-size: 14px;
+    border-radius: 44px;
+    background-color: var(--grafite);
+    border: none;
+    color: var(--white);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     appearance: none;
 
-    @include media-rules(notebook) {
-      padding: 14px;
+    &::placeholder {
+      color: var(--white);
+    }
+
+    &:focus {
+      border-color: var(--white);
+      outline: none;
     }
   }
 

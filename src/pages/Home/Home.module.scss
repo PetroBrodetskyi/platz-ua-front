@@ -1,4 +1,4 @@
-$padding-desktop: 120px 40px;
+$padding-desktop: 100px 40px;
 $padding-tablet: 16px;
 $padding-mobile: 24px 0;
 
@@ -27,4 +27,19 @@ $padding-mobile: 24px 0;
   flex-direction: column;
   gap: 40px;
   width: 100%;
+}
+
+.vipList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.title {
+  padding: 10px;
+  margin: 0;
+
+  @include media-rules(notebook) {
+    padding: 0;
+  }
 }

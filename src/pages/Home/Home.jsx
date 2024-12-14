@@ -64,7 +64,10 @@ const Home = () => {
       <div className={scss.filterVip}>
         <SidebarLeft />
         <div className={scss.lists}>
-          <VipList />
+          <div className={scss.vipList}>
+            <h3 className={scss.title}>VIP-оголошення</h3>
+            <VipList />
+          </div>
           <ProductList />
         </div>
         <SidebarRight

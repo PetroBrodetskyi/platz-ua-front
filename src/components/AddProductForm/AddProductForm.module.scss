@@ -1,4 +1,4 @@
-$padding-desktop: 120px 40px;
+$padding-desktop: 100px 40px;
 $padding-tablet: 20px;
 $padding-mobile: 20px 10px;
 
@@ -54,14 +54,17 @@ $padding-mobile: 20px 10px;
   .inputs {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
+
+    @include media-rules(tablet) {
+      gap: 10px;
+    }
   }
 }
 
 .formGroup {
   display: flex;
   flex-direction: column;
-  gap: 10px;
 
   span {
     color: var(--red);
@@ -78,6 +81,23 @@ $padding-mobile: 20px 10px;
     font-size: 14px;
     border-radius: 4px;
     border: none;
+
+    &::placeholder {
+      color: var(--white);
+    }
+
+    &:focus {
+      border-color: var(--white);
+      outline: none;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    @include media-rules(desktop) {
+      padding: 20px;
+    }
   }
 
   .chars {
@@ -134,7 +154,7 @@ $padding-mobile: 20px 10px;
 
 .imageDescription {
   display: flex;
-  gap: 20px;
+  gap: 10px;
   flex-direction: column;
   justify-content: space-between;
 

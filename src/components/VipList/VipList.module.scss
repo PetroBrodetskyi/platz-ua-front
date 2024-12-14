@@ -19,12 +19,3 @@
     width: 100%;
   }
 }
-
-.title {
-  padding: 0 10px;
-  margin: 0;
-
-  @include media-rules(notebook) {
-    padding: 0;
-  }
-}

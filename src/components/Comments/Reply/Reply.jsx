@@ -25,6 +25,7 @@ const Reply = ({
   const dispatch = useDispatch();
   const [replyText, setReplyText] = useState('');
   const [editing, setEditing] = useState({ id: null, text: '' });
+  const { isDarkMode } = useTheme();
 
   const handleAddReply = useCallback(async () => {
     if (replyText.trim()) {
@@ -98,10 +99,10 @@ const Reply = ({
     target.style.height = `${target.scrollHeight}px`;
   };
 
-  const { isDarkMode } = useTheme();
-
   return (
-    <div className={scss.replyContainer}>
+    <div
+      className={`${scss.replyContainer} ${isDarkMode ? scss.darkMode : ''}`}
+    >
       {replyTo === commentId && (
         <div className={scss.replyInput}>
           <div className={scss.avatarText}>

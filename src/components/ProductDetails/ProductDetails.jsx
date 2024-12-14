@@ -166,7 +166,10 @@ const ProductDetails = () => {
       </div>
       <div>
         <h3 className={scss.title}>Коментарі</h3>
-        <div className={scss.comments} id="comments-section">
+        <div
+          className={`${scss.comments} ${isDarkMode ? scss.darkMode : ''}`}
+          id="comments-section"
+        >
           <Comments productId={productId} />
         </div>
       </div>

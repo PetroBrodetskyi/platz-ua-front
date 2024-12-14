@@ -226,6 +226,9 @@ const AddProductForm = () => {
         </div>
         <div className={scss.imageDescription}>
           <ImageUploader register={register} watch={watch} />
+          <p className={scss.info}>
+            Додайте до 4 фотографій. Максимальний розмір файлу 5 МБ
+          </p>
           <div className={scss.formGroup}>
             <label htmlFor="description"></label>
             <textarea

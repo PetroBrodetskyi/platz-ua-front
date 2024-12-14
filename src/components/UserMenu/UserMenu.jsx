@@ -126,7 +126,7 @@ const UserMenu = ({ onClose, getUserProfileUrl }) => {
           <li
             className={`${scss.divider} ${isDarkMode ? scss.darkMode : ''}`}
           ></li>
-          <li className={scss.item}>
+          <li className={`${scss.item} ${isDarkMode ? scss.darkMode : ''}`}>
             <ThemeSwitcher />
           </li>
           <li className={`${scss.item} ${isDarkMode ? scss.darkMode : ''}`}>

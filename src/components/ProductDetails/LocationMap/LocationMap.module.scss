@@ -1,7 +1,6 @@
 .locationMap {
   display: flex;
   flex-direction: column;
-  gap: 20px;
 
   @include media-rules(notebook) {
     gap: 40px;
@@ -17,7 +16,7 @@
   background-color: var(--white);
 
   &.darkMode {
-    background-color: var(--grafite);
+    background-color: var(--grey);
   }
 
   @include media-rules(notebook) {
@@ -42,7 +41,7 @@
 
 .title {
   margin: 0;
-  padding: 0 10px;
+  padding: 20px 10px;
 
   @include media-rules(notebook) {
     padding: 0;

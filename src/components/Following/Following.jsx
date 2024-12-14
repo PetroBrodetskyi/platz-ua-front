@@ -6,12 +6,14 @@ import {
 } from '../../redux/features/authSlice';
 import Tooltip from '@mui/material/Tooltip';
 import { Link } from 'react-router-dom';
+import { useTheme } from '../../context/ThemeContext';
 import scss from './Following.module.scss';
 
 const Following = () => {
   const dispatch = useDispatch();
   const followingUsers = useSelector(selectFollowingUsers);
   const currentUserId = useSelector((state) => state.auth.user?._id);
+  const { isDarkMode } = useTheme();
 
   useEffect(() => {
     if (currentUserId) {
@@ -20,7 +22,7 @@ const Following = () => {
   }, [currentUserId, dispatch]);
 
   return (
-    <div className={scss.following}>
+    <div className={`${scss.following} ${isDarkMode ? scss.darkMode : ''}`}>
       <div className={scss.userList}>
         {followingUsers.map((user) => (
           <Tooltip
