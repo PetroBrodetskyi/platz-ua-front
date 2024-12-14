@@ -84,12 +84,18 @@
 
     .logoUserMobile {
       display: flex;
-      gap: 10px;
+      width: 100%;
       align-items: center;
-      justify-content: space-between;
+      justify-content: space-around;
+
+      @include media-rules(tablet) {
+        width: auto;
+        gap: 10px;
+      }
 
       @include media-rules(notebook) {
         width: auto;
+        gap: 10px;
       }
     }
 
@@ -125,7 +131,6 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  font-size: 20px;
 
   @include transition(transform);
 
@@ -134,7 +139,7 @@
   }
 
   @include media-rules-max(tablet) {
-    font-size: 20px;
+    font-size: 24px;
   }
 
   @include media-rules(notebook) {
