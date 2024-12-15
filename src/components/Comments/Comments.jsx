@@ -10,7 +10,7 @@ import {
 } from '../../redux/features/commentsSlice';
 import Notification from '../Notification';
 import SubmitButton from '../SubmitButton';
-import Modal from '../EmojiModal';
+import BaseModal from '../BaseModal';
 import { TbGhost } from 'react-icons/tb';
 import { LuSmilePlus } from 'react-icons/lu';
 import { nanoid } from 'nanoid';
@@ -273,24 +273,23 @@ const Comments = ({ productId }) => {
             >
               <LuSmilePlus className={scss.icon} />
             </button>
-            <Modal
-              isOpen={showEmojiPicker}
-              onClose={() => setShowEmojiPicker(false)}
+            <BaseModal
+              show={showEmojiPicker}
+              onToggle={() => setShowEmojiPicker(false)}
+              title={'Виберіть емодзі'}
+              className={scss.emojiPickerModal}
             >
-              <div className={scss.emojiPickerContainer}>
+              <div
+                className={`${scss.emojiPickerContainer} ${isDarkMode ? scss.darkMode : ''}`}
+              >
                 <EmojiPicker
                   onEmojiClick={onEmojiClick}
                   emojiStyle="google"
-                  className={scss.EmojiPickerReact}
+                  className={`${scss.EmojiPickerReact} ${isDarkMode ? scss.darkMode : ''}`}
                 />
               </div>
-            </Modal>
-            <button
-              className={`${scss.add} ${isDarkMode ? scss.darkMode : ''}`}
-              onClick={handleAddComment}
-            >
-              Коментувати
-            </button>
+            </BaseModal>
+            <SubmitButton buttonText="Коментувати" onClick={handleAddComment} />
           </div>
         </div>
       ) : (
