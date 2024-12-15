@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { MdOutlinePhotoLibrary } from 'react-icons/md';
 import scss from './ImageButton.module.scss';
 
-const ImageButton = ({ id, register, watch }) => {
+const ImageButton = ({ id, register, watch, isDarkMode }) => {
   const [preview, setPreview] = useState(null);
   const selectedFile = watch(id);
 
@@ -31,7 +31,11 @@ const ImageButton = ({ id, register, watch }) => {
         {...register(id)}
         className={scss.hiddenInput}
       />
-      <button type="button" className={scss.customButton} onClick={handleClick}>
+      <button
+        type="button"
+        className={`${scss.customButton} ${isDarkMode ? scss.darkMode : ''}`}
+        onClick={handleClick}
+      >
         {preview ? (
           <img src={preview} alt="Selected" className={scss.previewImage} />
         ) : (

@@ -1,6 +1,11 @@
 import scss from './SubcategoriesSelect.module.scss';
 
-const SubcategoriesSelect = ({ subcategories, register, errors }) => {
+const SubcategoriesSelect = ({
+  subcategories,
+  register,
+  isDarkMode,
+  errors
+}) => {
   return (
     <div className={scss.formGroup}>
       <div>
@@ -9,7 +14,7 @@ const SubcategoriesSelect = ({ subcategories, register, errors }) => {
           id="subcategory1"
           {...register('subcategory1', { required: true })}
           autoComplete="off"
-          className={scss.select}
+          className={`${scss.select} ${isDarkMode ? scss.darkMode : ''}`}
         >
           <option value="">Виберіть категорію</option>
           {subcategories.map((subcat) => (
@@ -26,7 +31,7 @@ const SubcategoriesSelect = ({ subcategories, register, errors }) => {
           id="subcategory2"
           {...register('subcategory2')}
           autoComplete="off"
-          className={scss.select}
+          className={`${scss.select} ${isDarkMode ? scss.darkMode : ''}`}
         >
           <option value="">Виберіть категорію</option>
           {subcategories.map((subcat) => (
@@ -42,7 +47,7 @@ const SubcategoriesSelect = ({ subcategories, register, errors }) => {
           id="subcategory3"
           {...register('subcategory3')}
           autoComplete="off"
-          className={scss.select}
+          className={`${scss.select} ${isDarkMode ? scss.darkMode : ''}`}
         >
           <option value="">Виберіть категорію</option>
           {subcategories.map((subcat) => (

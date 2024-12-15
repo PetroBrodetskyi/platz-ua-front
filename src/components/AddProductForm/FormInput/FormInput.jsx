@@ -8,6 +8,7 @@ const FormInput = ({
   placeholder,
   onChange,
   value,
+  isDarkMode,
   type = 'text'
 }) => (
   <div className={scss.formGroup}>
@@ -20,7 +21,7 @@ const FormInput = ({
       autoComplete="on"
       onChange={onChange}
       value={value}
-      className={scss.input}
+      className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
     />
     {errors[id] && <span>Це поле обов&apos;язкове</span>}
   </div>

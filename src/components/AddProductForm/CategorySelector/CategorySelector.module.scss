@@ -23,13 +23,14 @@
     background-color: inherit;
     font-size: 14px;
     border-radius: 44px;
-    background-color: var(--grafite);
+    background-color: var(--white);
+    color: var(--black);
     border: none;
-    color: var(--white);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     appearance: none;
 
-    &::placeholder {
+    &.darkMode {
+      background-color: var(--grafite);
       color: var(--white);
     }
 

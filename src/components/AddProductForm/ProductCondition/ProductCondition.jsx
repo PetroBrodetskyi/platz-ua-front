@@ -1,11 +1,13 @@
 import scss from './ProductCondition.module.scss';
 
-const ProductCondition = ({ register, errors }) => {
+const ProductCondition = ({ register, errors, isDarkMode }) => {
   return (
     <div className={scss.stateGroup}>
       <div className={scss.state}>
         <label htmlFor="new">
-          <div className={scss.stateButton}>
+          <div
+            className={`${scss.stateButton} ${isDarkMode ? scss.darkMode : ''}`}
+          >
             <input
               type="radio"
               id="new"
@@ -18,7 +20,9 @@ const ProductCondition = ({ register, errors }) => {
       </div>
       <div className={scss.state}>
         <label htmlFor="used">
-          <div className={scss.stateButton}>
+          <div
+            className={`${scss.stateButton} ${isDarkMode ? scss.darkMode : ''}`}
+          >
             <input
               type="radio"
               id="used"

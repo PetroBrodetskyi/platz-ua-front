@@ -5,11 +5,15 @@
   .stateButton {
     display: flex;
     gap: 4px;
-    background-color: var(--grafite);
-    color: var(--white);
+    background-color: var(--white);
     padding: 6px 10px;
     border-radius: 50px;
     cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+    &.darkMode {
+      background-color: var(--grafite);
+    }
 
     @include media-rules(notebook) {
       padding: 8px 10px;

@@ -10,6 +10,7 @@ import LocationInput from './LocationInput/LocationInput';
 import ImageUploader from './ImageUploader/ImageUploader';
 import CategorySelector from './CategorySelector/CategorySelector';
 import ProductCondition from './ProductCondition/ProductCondition';
+import { useTheme } from '../../context/ThemeContext';
 import Loader from '../Loader/Loader';
 import scss from './AddProductForm.module.scss';
 
@@ -29,7 +30,7 @@ const AddProductForm = () => {
   const [filteredCities, setFilteredCities] = useState([]);
   const selectedCategory = watch('category');
   const token = useSelector((state) => state.auth.token);
-
+  const { isDarkMode } = useTheme();
   const maxChars = 800;
 
   useEffect(() => {
@@ -170,6 +171,7 @@ const AddProductForm = () => {
               register={register}
               errors={errors}
               placeholder="Назва"
+              isDarkMode={isDarkMode}
             />
             <FormInput
               id="price"
@@ -179,9 +181,14 @@ const AddProductForm = () => {
               placeholder="Ціна €"
               onChange={handlePriceChange}
               value={watch('price')}
+              isDarkMode={isDarkMode}
             />
           </div>
-          <ProductCondition register={register} errors={errors} />
+          <ProductCondition
+            register={register}
+            errors={errors}
+            isDarkMode={isDarkMode}
+          />
           <div className={scss.locationGroup}>
             <LocationInput
               id="PLZ"
@@ -191,6 +198,7 @@ const AddProductForm = () => {
               onChange={handlePLZChange}
               onClear={handleClearField}
               value={watch('PLZ')}
+              isDarkMode={isDarkMode}
             />
             <LocationInput
               id="city"
@@ -200,6 +208,7 @@ const AddProductForm = () => {
               onChange={handleCityChange}
               onClear={handleClearField}
               value={watch('city')}
+              isDarkMode={isDarkMode}
             />
           </div>
           <div className={scss.results}>
@@ -221,11 +230,16 @@ const AddProductForm = () => {
             categories={categories}
             subcategories={subcategories}
             register={register}
+            isDarkMode={isDarkMode}
             errors={errors}
           />
         </div>
         <div className={scss.imageDescription}>
-          <ImageUploader register={register} watch={watch} />
+          <ImageUploader
+            register={register}
+            watch={watch}
+            isDarkMode={isDarkMode}
+          />
           <p className={scss.info}>
             Додайте до 4 фотографій. Максимальний розмір файлу 5 МБ
           </p>
@@ -236,7 +250,7 @@ const AddProductForm = () => {
               {...register('description', { required: true })}
               placeholder="Опис"
               autoComplete="off"
-              className={scss.textarea}
+              className={`${scss.textarea} ${isDarkMode ? scss.darkMode : ''}`}
               onInput={handleDescriptionChange}
               value={watch('description')}
             ></textarea>

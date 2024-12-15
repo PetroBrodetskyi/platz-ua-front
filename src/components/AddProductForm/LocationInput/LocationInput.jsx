@@ -8,7 +8,8 @@ const LocationInput = ({
   placeholder,
   onChange,
   onClear,
-  value
+  value,
+  isDarkMode
 }) => (
   <div className={scss.formGroup}>
     <div className={scss.inputPlz}>
@@ -19,7 +20,9 @@ const LocationInput = ({
         placeholder={placeholder}
         autoComplete="off"
         onChange={onChange}
+        isDarkMode={isDarkMode}
         value={value}
+        className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
       />
       {value && (
         <button

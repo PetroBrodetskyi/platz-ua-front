@@ -1,17 +1,23 @@
 import SubcategoriesSelect from '../SubcategoriesSelect/SubcategoriesSelect';
-import scss from './CategorySelector.module.scss';
 import { IoMdInformationCircleOutline } from 'react-icons/io';
+import scss from './CategorySelector.module.scss';
 
-const CategorySelector = ({ categories, subcategories, register, errors }) => (
+const CategorySelector = ({
+  categories,
+  subcategories,
+  register,
+  isDarkMode,
+  errors
+}) => (
   <div className={scss.formGroup}>
     <div className={scss.info}>
-      <h4>Виберіть розділ та від 1 до 3 категорій</h4>
+      <p>Виберіть розділ та від 1 до 3 категорій</p>
       <IoMdInformationCircleOutline className={scss.icon} />
     </div>
     <select
       id="category"
       {...register('category', { required: true })}
-      className={scss.select}
+      className={`${scss.select} ${isDarkMode ? scss.darkMode : ''}`}
     >
       <option value="">Виберіть розділ</option>
       {categories.map((cat) => (
@@ -24,6 +30,7 @@ const CategorySelector = ({ categories, subcategories, register, errors }) => (
     <SubcategoriesSelect
       subcategories={subcategories}
       register={register}
+      isDarkMode={isDarkMode}
       errors={errors}
     />
   </div>

@@ -12,14 +12,19 @@
     align-items: center;
     width: 174px;
     height: 174px;
-    background-color: var(--grafite);
-    color: var(--white);
+    background-color: var(--white);
     border-radius: 4px;
     cursor: pointer;
     overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+    &.darkMode {
+      background-color: var(--grafite);
+      color: var(--white);
+    }
 
     &:hover {
-      background-color: var(--grey);
+      background-color: var(--light-grey);
     }
 
     @include media-rules(tablet) {

@@ -49,6 +49,7 @@ $padding-mobile: 20px 10px;
 
   @include media-rules(notebook) {
     justify-content: space-between;
+    width: 380px;
   }
 
   .inputs {
@@ -72,7 +73,7 @@ $padding-mobile: 20px 10px;
   }
 
   .textarea {
-    background-color: var(--grafite);
+    background-color: var(--white);
     color: var(--white);
     height: 200px;
     padding: 10px;
@@ -81,9 +82,18 @@ $padding-mobile: 20px 10px;
     font-size: 14px;
     border-radius: 4px;
     border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+    &.darkMode {
+      background-color: var(--grafite);
+
+      &::placeholder {
+        color: var(--white);
+      }
+    }
 
     &::placeholder {
-      color: var(--white);
+      color: var(--black);
     }
 
     &:focus {
@@ -103,6 +113,7 @@ $padding-mobile: 20px 10px;
   .chars {
     display: flex;
     justify-content: flex-end;
+    padding-top: 4px;
     font-size: 12px;
   }
 }
