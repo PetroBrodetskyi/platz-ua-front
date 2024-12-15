@@ -3,7 +3,7 @@ import { RiEyeCloseLine } from 'react-icons/ri';
 import { HiOutlineEye } from 'react-icons/hi';
 import scss from './UserInfo.module.scss';
 
-const UserInfo = ({ formData, handleChange, hasPassword }) => {
+const UserInfo = ({ formData, handleChange, hasPassword, isDarkMode }) => {
   const [showpassword, setShowpassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -32,6 +32,7 @@ const UserInfo = ({ formData, handleChange, hasPassword }) => {
             value={formData.name}
             onChange={handleChange}
             disabled={!hasPassword}
+            className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
           />
         </div>
         <div className={scss.formGroup}>
@@ -43,6 +44,7 @@ const UserInfo = ({ formData, handleChange, hasPassword }) => {
             placeholder="Номер телефону"
             value={formData.phone}
             onChange={handleChange}
+            className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
           />
         </div>
         <div className={scss.formGroup}>
@@ -54,6 +56,7 @@ const UserInfo = ({ formData, handleChange, hasPassword }) => {
             value={formData.email}
             onChange={handleChange}
             disabled={!hasPassword}
+            className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
           />
         </div>
         <div className={scss.formGroup}>
@@ -67,6 +70,7 @@ const UserInfo = ({ formData, handleChange, hasPassword }) => {
               value={formData.password}
               onChange={handleChange}
               disabled={!hasPassword}
+              className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
             />
             <button
               type="button"
@@ -92,6 +96,7 @@ const UserInfo = ({ formData, handleChange, hasPassword }) => {
               value={formData.newPassword}
               onChange={handleChange}
               disabled={!hasPassword}
+              className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
             />
             <button
               type="button"
@@ -117,6 +122,7 @@ const UserInfo = ({ formData, handleChange, hasPassword }) => {
               value={formData.confirmPassword}
               onChange={handleChange}
               disabled={!hasPassword}
+              className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
             />
             <button
               type="button"

@@ -8,6 +8,7 @@ import { login } from '../../../redux/features/authSlice';
 import { addToCartBack } from '../../../redux/features/cartSlice';
 import SplashScreen from '../../SplashScreen/SplashScreen';
 import SubmitButton from '../../SubmitButton/SubmitButton';
+import { useTheme } from '../../../context/ThemeContext';
 import scss from './LoginForm.module.scss';
 
 const LoginForm = () => {
@@ -23,6 +24,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { loading, error } = useSelector((state) => state.auth);
+  const { isDarkMode } = useTheme();
 
   const passwordVisibility = () => {
     setShowPassword(!showPassword);
@@ -107,6 +109,7 @@ const LoginForm = () => {
                 type="email"
                 placeholder="Введіть ваш email"
                 autoComplete="email"
+                className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
               />
               {errors.email && (
                 <p className={scss.error}>{errors.email.message}</p>
@@ -124,6 +127,8 @@ const LoginForm = () => {
                 })}
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Введіть ваш пароль"
+                autoComplete="current-password"
+                className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
               />
               <button
                 type="button"

@@ -118,21 +118,29 @@ $padding-mobile: 10px;
   resize: none;
   border: none;
   border-radius: 44px;
-  color: var(--white);
-  background-color: var(--grafite);
+  background-color: var(--white);
   font-family: var(--font-family);
   font-size: 14px;
   outline: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 
+  &.darkMode {
+    background-color: var(--grafite);
+    color: var(--white);
+
+    &::placeholder {
+      color: var(--white);
+    }
+  }
+
+  &::placeholder {
+    color: var(--black);
+  }
+
   @include media-rules(notebook) {
     padding: 20px;
     width: 300px;
     height: 140px;
-  }
-
-  &::placeholder {
-    color: var(--white);
   }
 }
 

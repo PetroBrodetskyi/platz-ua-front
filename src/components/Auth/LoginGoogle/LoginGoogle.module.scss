@@ -4,6 +4,10 @@
   align-items: center;
   padding: 10px;
   border-radius: 44px;
-  background-color: var(--grafite);
+  background-color: var(--white);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+  &.darkMode {
+    background-color: var(--grafite);
+  }
 }

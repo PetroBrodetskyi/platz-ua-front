@@ -46,18 +46,26 @@
   gap: 20px;
   width: 100%;
 
-  input {
+  .input {
     width: 100%;
     padding: 14px 20px;
     font-size: 14px;
     border-radius: 44px;
-    background-color: var(--grafite);
-    color: var(--white);
+    background-color: var(--white);
     border: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 
-    &::placeholder {
+    &.darkMode {
+      background-color: var(--grafite);
       color: var(--white);
+
+      &::placeholder {
+        color: var(--white);
+      }
+    }
+
+    &::placeholder {
+      color: var(--black);
     }
 
     &:focus {

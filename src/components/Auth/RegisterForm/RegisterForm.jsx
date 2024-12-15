@@ -10,6 +10,8 @@ import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import SplashScreen from '../../SplashScreen/SplashScreen';
+import { useTheme } from '../../../context/ThemeContext';
+import './register.css';
 import scss from './RegisterForm.module.scss';
 
 const RegisterForm = () => {
@@ -30,7 +32,7 @@ const RegisterForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, error } = useSelector((state) => state.auth);
-
+  const { isDarkMode } = useTheme();
   const passwordVisibility = () => setShowPassword(!showPassword);
 
   const onSubmit = async (data) => {
@@ -95,6 +97,7 @@ const RegisterForm = () => {
               {...register('firstName', { required: "Ім'я є обов'язковим" })}
               type="text"
               placeholder="Введіть ваше ім'я"
+              className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
             />
             {errors.firstName && (
               <p className={scss.error}>{errors.firstName.message}</p>
@@ -106,6 +109,7 @@ const RegisterForm = () => {
               {...register('lastName', { required: "Прізвище є обов'язковим" })}
               type="text"
               placeholder="Введіть ваше прізвище"
+              className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
             />
             {errors.lastName && (
               <p className={scss.error}>{errors.lastName.message}</p>
@@ -120,6 +124,7 @@ const RegisterForm = () => {
               defaultCountry="DE"
               international
               onBlur={() => setPhoneTouched(true)}
+              className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
             />
             {!phoneValid && phoneTouched && (
               <p className={scss.error}>Невірний номер телефону</p>
@@ -137,6 +142,7 @@ const RegisterForm = () => {
               })}
               type="text"
               placeholder="Введіть ваш email"
+              className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
             />
             {errors.email && (
               <p className={scss.error}>{errors.email.message}</p>
@@ -154,6 +160,7 @@ const RegisterForm = () => {
               })}
               type={showPassword ? 'text' : 'password'}
               placeholder="Введіть ваш пароль"
+              className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
             />
             <button
               type="button"
@@ -180,6 +187,7 @@ const RegisterForm = () => {
               })}
               type={showPassword ? 'text' : 'password'}
               placeholder="Підтвердіть ваш пароль"
+              className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
             />
             <button
               type="button"

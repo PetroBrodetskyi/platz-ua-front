@@ -1,7 +1,7 @@
 import React from 'react';
 import scss from './AdditionalInfo.module.scss';
 
-const AdditionalInfo = ({ formData, handleChange }) => {
+const AdditionalInfo = ({ formData, handleChange, isDarkMode }) => {
   return (
     <div className={scss.additionalInfo}>
       <div className={scss.formGroup}>
@@ -13,6 +13,7 @@ const AdditionalInfo = ({ formData, handleChange }) => {
           placeholder="Введіть індекс"
           value={formData.plz}
           onChange={handleChange}
+          className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
         />
       </div>
       <div className={scss.formGroup}>
@@ -24,6 +25,7 @@ const AdditionalInfo = ({ formData, handleChange }) => {
           placeholder="Введіть ваше місто"
           value={formData.city}
           onChange={handleChange}
+          className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
         />
       </div>
       <div className={scss.formGroup}>
@@ -35,6 +37,7 @@ const AdditionalInfo = ({ formData, handleChange }) => {
           placeholder="Посилання на Facebook"
           value={formData.facebook}
           onChange={handleChange}
+          className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
         />
       </div>
       <div className={scss.formGroup}>
@@ -46,6 +49,7 @@ const AdditionalInfo = ({ formData, handleChange }) => {
           placeholder="Посилання на Instagram"
           value={formData.instagram}
           onChange={handleChange}
+          className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
         />
       </div>
       <div className={scss.formGroup}>
@@ -57,6 +61,7 @@ const AdditionalInfo = ({ formData, handleChange }) => {
           placeholder="Посилання на LinkedIn"
           value={formData.linkedin}
           onChange={handleChange}
+          className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
         />
       </div>
       <div className={scss.formGroup}>
@@ -68,6 +73,7 @@ const AdditionalInfo = ({ formData, handleChange }) => {
           placeholder="Посилання на Telegram"
           value={formData.telegram}
           onChange={handleChange}
+          className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
         />
       </div>
       <div className={scss.formGroup}>
@@ -79,6 +85,7 @@ const AdditionalInfo = ({ formData, handleChange }) => {
           placeholder="Посилання на ваш сайт"
           value={formData.site}
           onChange={handleChange}
+          className={`${scss.input} ${isDarkMode ? scss.darkMode : ''}`}
         />
       </div>
     </div>

@@ -5,7 +5,7 @@
   padding: 0 0 40px 0;
   margin: 0 auto;
 
-  @include media-rules(desktop) {
+  @include media-rules(notebook) {
     width: 80%;
     padding: 40px;
   }

@@ -1,5 +1,5 @@
 .PhoneInput {
-  --PhoneInputCountryFlag-height: 2rem;
+  --PhoneInputCountryFlag-height: 1.2rem;
   --PhoneInputCountryFlag-borderColor: #ffffff4d;
   --PhoneInputCountryFlag-borderColor--focus: #000;
   --PhoneInputCountrySelectArrow-color: #000;
@@ -9,4 +9,19 @@
   background: #25292ef5;
   color: #fff;
   padding: 10px;
+}
+
+.PhoneInputInput {
+  background-color: inherit;
+  border: none;
+  color: inherit;
+
+  &::placeholder {
+    font-size: 14px;
+    color: inherit;
+  }
+
+  &:focus {
+    outline: none;
+  }
 }

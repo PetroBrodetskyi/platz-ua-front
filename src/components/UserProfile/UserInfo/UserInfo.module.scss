@@ -24,23 +24,27 @@
     display: block;
   }
 
-  input {
+  .input {
     padding: 14px 20px;
     width: 100%;
     background-color: inherit;
     font-size: 14px;
     border-radius: 44px;
-    background-color: var(--grafite);
+    background-color: var(--white);
     border: none;
-    color: var(--white);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+    &.darkMode {
+      background-color: var(--grafite);
+      color: var(--white);
+
+      &::placeholder {
+        color: var(--white);
+      }
+    }
 
     @include media-rules(notebook) {
       width: 280px;
-    }
-
-    &::placeholder {
-      color: var(--white);
     }
 
     &:focus {

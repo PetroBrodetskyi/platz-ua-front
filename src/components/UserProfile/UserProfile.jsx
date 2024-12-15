@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import AdditionalInfo from './AdditionalInfo';
 import UserInfo from './UserInfo';
 import SubmitButton from '../SubmitButton';
+import { useTheme } from '../../context/ThemeContext';
 import scss from './UserProfile.module.scss';
 
 const UserProfile = ({ user }) => {
@@ -35,6 +36,7 @@ const UserProfile = ({ user }) => {
   const [hasPassword, setHasPassword] = useState(true);
   const [charCount, setCharCount] = useState(0);
   const token = useSelector((state) => state.auth.token);
+  const { isDarkMode } = useTheme();
   const maxChars = 150;
 
   useEffect(() => {
@@ -159,7 +161,7 @@ const UserProfile = ({ user }) => {
               value={formData.about}
               onChange={handleChange}
               placeholder="Напишіть кілька слів про себе"
-              className={scss.about}
+              className={`${scss.about} ${isDarkMode ? scss.darkMode : ''}`}
               maxLength={maxChars}
             />
             <p className={scss.chars}>
@@ -175,11 +177,13 @@ const UserProfile = ({ user }) => {
                   formData={formData}
                   handleChange={handleChange}
                   hasPassword={hasPassword}
+                  isDarkMode={isDarkMode}
                 />
 
                 <AdditionalInfo
                   formData={formData}
                   handleChange={handleChange}
+                  isDarkMode={isDarkMode}
                 />
               </div>
               <SubmitButton
