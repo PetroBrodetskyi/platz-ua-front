@@ -45,6 +45,8 @@ const Categories = ({
       : [...localSelectedSubcategories, subcategory];
 
     setLocalSelectedSubcategories(updatedSubcategories);
+    onSubcategoriesChange(updatedSubcategories);
+
     navigate(
       `/category/${localSelectedCategory}?subcategories=${updatedSubcategories.join(',')}`
     );

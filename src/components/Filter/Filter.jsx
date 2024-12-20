@@ -11,7 +11,6 @@ import scss from './Filter.module.scss';
 
 const Filter = () => {
   const dispatch = useDispatch();
-
   const selectedCategory = useSelector(
     (state) => state.products.selectedCategory
   );
