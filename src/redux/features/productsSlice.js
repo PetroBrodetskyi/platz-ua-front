@@ -70,17 +70,14 @@ export const fetchUsersPublicProducts = createAsyncThunk(
 export const fetchProductsByCategory = createAsyncThunk(
   'products/fetchProductsByCategory',
   async ({ category, subcategories = [] }, { rejectWithValue }) => {
-    if (!category) {
-      return rejectWithValue('Категорія не задана');
-    }
-
     try {
-      const params = new URLSearchParams();
-      params.append('category', category);
-      if (subcategories.length > 0) {
-        params.append('subcategories', subcategories.join(','));
-      }
-      const { data } = await axios.get(`/products/category?${params}`);
+      const params = new URLSearchParams({
+        category,
+        subcategories: subcategories.join(',')
+      });
+      const { data } = await axios.get(
+        `/products/category?${params.toString()}`
+      );
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);

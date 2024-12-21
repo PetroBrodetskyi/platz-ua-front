@@ -38,18 +38,10 @@ const Categories = ({
   };
 
   const handleSubcategoryClick = (subcategory) => {
-    const updatedSubcategories = localSelectedSubcategories.includes(
-      subcategory
-    )
-      ? localSelectedSubcategories.filter((item) => item !== subcategory)
-      : [...localSelectedSubcategories, subcategory];
+    setLocalSelectedSubcategories([subcategory]);
+    onSubcategoriesChange([subcategory]);
 
-    setLocalSelectedSubcategories(updatedSubcategories);
-    onSubcategoriesChange(updatedSubcategories);
-
-    navigate(
-      `/category/${localSelectedCategory}?subcategories=${updatedSubcategories.join(',')}`
-    );
+    navigate(`/category/${localSelectedCategory}/${subcategory}`);
   };
 
   const sortedProducts =

@@ -1,15 +1,16 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   setCategory,
   setSubcategories,
-  clearProducts,
   fetchProductsByCategory
 } from '../../redux/features/productsSlice';
 import Categories from '../Categories';
 import scss from './Filter.module.scss';
 
 const Filter = () => {
+  const { category, subcategory } = useParams();
   const dispatch = useDispatch();
   const selectedCategory = useSelector(
     (state) => state.products.selectedCategory
@@ -18,28 +19,31 @@ const Filter = () => {
     (state) => state.products.selectedSubcategories
   );
 
-  const fetchFilteredProducts = (category, subcategories) => {
-    if (!category) return;
-    dispatch(clearProducts());
-    dispatch(fetchProductsByCategory({ category, subcategories }));
-  };
-
-  const handleCategoryChange = (category) => {
-    dispatch(setCategory(category));
-    dispatch(setSubcategories([]));
-    fetchFilteredProducts(category, []);
-  };
-
-  const handleSubcategoriesChange = (subcategories) => {
-    dispatch(setSubcategories(subcategories));
-    fetchFilteredProducts(selectedCategory, subcategories);
-  };
-
   useEffect(() => {
-    if (selectedCategory) {
-      fetchFilteredProducts(selectedCategory, selectedSubcategories);
+    if (category) {
+      dispatch(setCategory(category));
     }
-  }, [selectedCategory, selectedSubcategories]);
+    if (subcategory) {
+      dispatch(setSubcategories([subcategory]));
+    }
+    if (category || subcategory) {
+      dispatch(
+        fetchProductsByCategory({
+          category,
+          subcategories: subcategory ? [subcategory] : []
+        })
+      );
+    }
+  }, [category, subcategory, dispatch]);
+
+  const handleCategoryChange = (newCategory) => {
+    dispatch(setCategory(newCategory));
+    dispatch(setSubcategories([]));
+  };
+
+  const handleSubcategoriesChange = (newSubcategories) => {
+    dispatch(setSubcategories(newSubcategories));
+  };
 
   return (
     <div className={scss.filter}>
