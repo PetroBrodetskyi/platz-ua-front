@@ -32,6 +32,14 @@ $padding-mobile: 24px 0;
   }
 }
 
+.sidebarRight {
+  @include media-rules(notebook) {
+    position: sticky;
+    top: 12%;
+    height: fit-content;
+  }
+}
+
 .lists {
   display: flex;
   flex-direction: column;

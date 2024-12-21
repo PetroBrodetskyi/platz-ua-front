@@ -4,10 +4,10 @@ export const scrollToSection = (e, isMobile) => {
   if (targetId && targetId !== '#') {
     const targetElement = document.querySelector(targetId);
     if (targetElement) {
+      const headerHeight = document.querySelector('header')?.offsetHeight || 0;
       const offsetTop = targetElement.offsetTop;
-      const scrollOffset = isMobile ? 50 : 150;
       window.scrollTo({
-        top: offsetTop - scrollOffset,
+        top: offsetTop - headerHeight - (isMobile ? 20 : 50),
         behavior: 'smooth'
       });
     }

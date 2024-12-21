@@ -78,11 +78,13 @@ const Home = () => {
             <ProductList />
           </div>
         </div>
-        <SidebarRight
-          cartItems={cartItems}
-          selectedProducts={selectedProducts}
-          handleRemoveFromCart={handleRemoveFromCart}
-        />
+        <div className={scss.sidebarRight}>
+          <SidebarRight
+            cartItems={cartItems}
+            selectedProducts={selectedProducts}
+            handleRemoveFromCart={handleRemoveFromCart}
+          />
+        </div>
       </div>
 
       <CreateAdButton onClick={handleCreateAdClick} />
