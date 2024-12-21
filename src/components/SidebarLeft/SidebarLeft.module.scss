@@ -30,6 +30,11 @@
 .cartContent {
   overflow: hidden;
   @include transition(max-height);
+
+  width: 276px;
+  @include media-rules-max(notebook) {
+    display: none;
+  }
 }
 
 .selectedProducts {

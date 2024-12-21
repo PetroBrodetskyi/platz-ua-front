@@ -11,6 +11,7 @@ import Alert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
 import scss from './Home.module.scss';
 import { ConfirmationLogin } from '../../components/Confirmation/Confirmation';
+import Filter from '../../components/Filter';
 
 const Home = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -67,6 +68,9 @@ const Home = () => {
           <div className={scss.vipList}>
             <h3 className={scss.title}>VIP-оголошення</h3>
             <VipList />
+          </div>
+          <div className={scss.filter}>
+            <Filter />
           </div>
           <ProductList />
         </div>

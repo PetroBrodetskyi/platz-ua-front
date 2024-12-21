@@ -43,3 +43,10 @@ $padding-mobile: 24px 0;
     padding: 0;
   }
 }
+
+.filter {
+  padding: 0 10px;
+  @include media-rules(notebook) {
+    display: none;
+  }
+}
