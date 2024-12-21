@@ -34,10 +34,8 @@ const Filter = () => {
           subcategories: subcategory ? [subcategory] : []
         })
       );
-      // Після вибору категорії чи підкатегорії прокручуємо до ProductList
       const productListSection = document.querySelector('#productList');
       if (productListSection) {
-        // Викликаємо scrollToSection без типізації
         scrollToSection(
           { currentTarget: { getAttribute: () => '#productList' } },
           false
