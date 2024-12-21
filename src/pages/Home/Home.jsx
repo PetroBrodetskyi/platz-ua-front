@@ -72,7 +72,9 @@ const Home = () => {
           <div className={scss.filter}>
             <Filter />
           </div>
-          <ProductList />
+          <div id="productList">
+            <ProductList />
+          </div>
         </div>
         <SidebarRight
           cartItems={cartItems}

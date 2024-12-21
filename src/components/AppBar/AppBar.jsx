@@ -8,7 +8,7 @@ import {
 import Header from '../Header';
 import Footer from '../Footer';
 import LinearDeterminate from '../LinearDeterminate';
-import ScrollToTop from '../ScrollToTop';
+import { ScrollToTop } from '../../helpers/ScrollToTop';
 import CookieBanner from '../Info/CookieBanner';
 import Loader from '../Loader';
 import { routes } from './routes';

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
 import { useTheme } from '../../../context/ThemeContext';
+import { scrollToSection } from '../../../helpers/scrollToSection';
 import scss from './UserInfo.module.scss';
 
 const UserInfo = ({ owner }) => {
@@ -15,13 +16,6 @@ const UserInfo = ({ owner }) => {
     navigate(`/user/${owner._id}`);
   };
 
-  const handleScrollTo = (id) => {
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <div className={scss.menu}>
       <div className={scss.userInfo} onClick={handleOwnerClick}>
@@ -33,13 +27,23 @@ const UserInfo = ({ owner }) => {
       <div className={scss.navigation}>
         <button
           className={`${scss.navigate} ${isDarkMode ? scss.darkMode : ''}`}
-          onClick={() => handleScrollTo('comments-section')}
+          onClick={(e) =>
+            scrollToSection(
+              { currentTarget: { getAttribute: () => '#comments-section' } },
+              false
+            )
+          }
         >
           <p>Коментарі</p>
         </button>
         <button
           className={`${scss.navigate} ${isDarkMode ? scss.darkMode : ''}`}
-          onClick={() => handleScrollTo('location-section')}
+          onClick={(e) =>
+            scrollToSection(
+              { currentTarget: { getAttribute: () => '#location-section' } },
+              false
+            )
+          }
         >
           <p>Локація</p>
         </button>
