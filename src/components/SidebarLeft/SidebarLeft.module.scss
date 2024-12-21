@@ -17,6 +17,12 @@
   flex-direction: column;
   gap: 40px;
   overflow-y: auto;
+  max-height: 100vh;
+  scroll-snap-type: y mandatory;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .toggleHeader {

@@ -18,8 +18,18 @@ $padding-mobile: 24px 0;
 }
 
 .filterVip {
-  display: flex;
-  gap: 20px;
+  @include media-rules(notebook) {
+    display: flex;
+    gap: 20px;
+  }
+}
+
+.sidebarLeft {
+  @include media-rules(notebook) {
+    position: sticky;
+    top: 12%;
+    height: fit-content;
+  }
 }
 
 .lists {

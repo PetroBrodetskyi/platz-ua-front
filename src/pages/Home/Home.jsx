@@ -63,7 +63,9 @@ const Home = () => {
     <div className={scss.home}>
       {user && <Following />}
       <div className={scss.filterVip}>
-        <SidebarLeft />
+        <div className={scss.sidebarLeft}>
+          <SidebarLeft />
+        </div>
         <div className={scss.lists}>
           <div className={scss.vipList}>
             <h3 className={scss.title}>VIP-оголошення</h3>
