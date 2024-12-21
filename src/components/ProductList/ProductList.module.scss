@@ -1,11 +1,3 @@
-.productListWrapper {
-  display: flex;
-
-  @include media-rules(notebook) {
-    justify-content: space-between;
-  }
-}
-
 .productList {
   display: flex;
   flex-direction: column;
