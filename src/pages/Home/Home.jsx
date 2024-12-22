@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import ProductList from '../../components/ProductList';
-import CreateAdButton from '../../components/CreateAdButton';
 import Following from '../../components/Following';
 import SidebarLeft from '../../components/SidebarLeft';
 import VipList from '../../components/VipList';
@@ -83,11 +82,11 @@ const Home = () => {
             cartItems={cartItems}
             selectedProducts={selectedProducts}
             handleRemoveFromCart={handleRemoveFromCart}
+            onCreateAdClick={handleCreateAdClick}
           />
         </div>
       </div>
 
-      <CreateAdButton onClick={handleCreateAdClick} />
       {showConfirmation && (
         <ConfirmationLogin
           message="Для створення оголошення, будь ласка, увійдіть у свій акаунт"

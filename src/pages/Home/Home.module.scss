@@ -24,21 +24,21 @@ $padding-mobile: 24px 0;
   }
 }
 
-.sidebarLeft {
-  @include media-rules(notebook) {
-    position: sticky;
-    top: 12%;
-    height: fit-content;
-  }
-}
+// .sidebarLeft {
+//   @include media-rules(notebook) {
+//     position: sticky;
+//     top: 14%;
+//     height: fit-content;
+//   }
+// }
 
-.sidebarRight {
-  @include media-rules(notebook) {
-    position: sticky;
-    top: 12%;
-    height: fit-content;
-  }
-}
+// .sidebarRight {
+//   @include media-rules(notebook) {
+//     position: sticky;
+//     top: 14%;
+//     height: fit-content;
+//   }
+// }
 
 .lists {
   display: flex;

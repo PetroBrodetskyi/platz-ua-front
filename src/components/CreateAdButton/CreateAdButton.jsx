@@ -1,14 +1,19 @@
 import { AiOutlinePlus } from 'react-icons/ai';
-import Tooltip from '@mui/material/Tooltip';
+import { useTheme } from '../../context/ThemeContext.jsx';
 import scss from './CreateAdButton.module.scss';
 
 const CreateAdButton = ({ onClick }) => {
+  const { isDarkMode } = useTheme();
   return (
-    <Tooltip title="Додати оголошення" placement="left">
-      <button className={scss.createAdButton} onClick={onClick}>
+    <div>
+      <button
+        className={`${scss.createAdButton} ${isDarkMode ? scss.darkMode : ''}`}
+        onClick={onClick}
+      >
+        <h4>Додати оголошення</h4>
         <AiOutlinePlus className={scss.icon} />
       </button>
-    </Tooltip>
+    </div>
   );
 };
 

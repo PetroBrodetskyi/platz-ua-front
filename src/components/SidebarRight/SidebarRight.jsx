@@ -1,11 +1,12 @@
 import SidebarCart from './SidebarCart';
 import ExchangeRateBanner from '../Info/ExchangeRateBanner';
 import TelegramGroups from '../Info/TelegramGroups';
+import ResourcesList from '../Info/ResourcesList';
+import CreateAdButton from '../CreateAdButton';
 import { useTheme } from '../../context/ThemeContext';
 import scss from './SidebarRight.module.scss';
-import ResourcesList from '../Info/ResourcesList';
 
-const SidebarRight = ({ handleRemoveFromCart }) => {
+const SidebarRight = ({ handleRemoveFromCart, onCreateAdClick }) => {
   const { isDarkMode } = useTheme();
 
   return (
@@ -16,6 +17,9 @@ const SidebarRight = ({ handleRemoveFromCart }) => {
           <div className={scss.cartContent}>
             <SidebarCart handleRemoveFromCart={handleRemoveFromCart} />
           </div>
+        </li>
+        <li>
+          <CreateAdButton onClick={onCreateAdClick} />
         </li>
         <li>
           <ExchangeRateBanner />
