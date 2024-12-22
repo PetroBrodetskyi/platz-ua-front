@@ -1,4 +1,3 @@
-import CreateAdButton from '../../components/CreateAdButton/CreateAdButton';
 import ProductDetail from '../../components/ProductDetails/ProductDetails';
 import VipList from '../../components/VipList';
 import scss from './ProductDetailPage.module.scss';
@@ -11,7 +10,6 @@ const ProductDetailPage = () => {
       <div className={scss.container}>
         <VipList />
       </div>
-      <CreateAdButton />
     </div>
   );
 };

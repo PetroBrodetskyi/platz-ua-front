@@ -5,33 +5,17 @@ import Following from '../../components/Following';
 import SidebarLeft from '../../components/SidebarLeft';
 import VipList from '../../components/VipList';
 import SidebarRight from '../../components/SidebarRight';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
 import scss from './Home.module.scss';
 import { ConfirmationLogin } from '../../components/Confirmation/Confirmation';
 import Filter from '../../components/Filter';
 
 const Home = () => {
-  const [openSnackbar, setOpenSnackbar] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const { user } = useSelector((state) => state.auth);
   const cartItems = useSelector((state) => state.cart.items);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const isNotificationShown = sessionStorage.getItem('notificationShown');
-    if (!isNotificationShown) {
-      setOpenSnackbar(true);
-      sessionStorage.setItem('notificationShown', 'true');
-    }
-  }, []);
-
-  const handleCloseSnackbar = (event, reason) => {
-    if (reason === 'clickaway') return;
-    setOpenSnackbar(false);
-  };
 
   const handleCreateAdClick = () => {
     if (!user) {
@@ -94,23 +78,6 @@ const Home = () => {
           onCancel={handleLoginCancel}
         />
       )}
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={30000}
-        onClose={handleCloseSnackbar}
-      >
-        <Alert
-          onClose={handleCloseSnackbar}
-          severity="info"
-          sx={{ width: '100%' }}
-        >
-          Зараз ми активно працюємо, щоб створити для вас цей сайт. Наша мета —
-          розробити зручну та зрозумілу платформу для українців в Німеччині, яка
-          стане корисним та надійним ресурсом. Вона надасть можливість зручно
-          купувати, продавати, знаходити друзів, спілкуватися та отримувати
-          підтримку
-        </Alert>
-      </Snackbar>
     </div>
   );
 };
