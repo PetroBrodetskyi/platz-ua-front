@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { MdOutlineFavorite, MdOutlineFavoriteBorder } from 'react-icons/md';
+import { MdOutlineFavoriteBorder } from 'react-icons/md';
 import { fetchProducts } from '../../redux/features/productsSlice';
-import { FaTrash } from 'react-icons/fa';
 import scss from './Favorites.module.scss';
 import { toggleFavorite } from '../../redux/features/favoritesSlice';
 import RandomCards from '../RandomCards/RandomCards';
@@ -42,20 +41,27 @@ const Favorites = () => {
           <RandomCards />
         </div>
       ) : (
-        <ul>
+        <ul className={scss.favoriteList}>
           {favoriteProducts.map((product) => (
             <li key={product._id} className={scss.favoriteItem}>
-              <Link to={`/product/${product._id}`}>
-                <h2>{product.name}</h2>
+              <Link
+                className={scss.favoriteItemInfo}
+                to={`/product/${product._id}`}
+              >
+                <h4>{product.name}</h4>
                 <img
                   src={product.image1}
                   alt={product.name}
                   className={scss.productImage}
                 />
               </Link>
-              <p>{product.description}</p>
-              <p>{product.PLZ}</p>
-              <p>{product.city}</p>
+              <div className={scss.description}>
+                <p>{product.description}</p>
+              </div>
+              <div>
+                <p>{product.PLZ}</p>
+                <p>{product.city}</p>
+              </div>
               <div>
                 <p>Ціна: {product.price}</p>
                 <p>Стан: {product.condition}</p>
@@ -63,7 +69,7 @@ const Favorites = () => {
                   onClick={() => handleRemoveFromFavorites(product._id)}
                   className={scss.removeButton}
                 >
-                  Видалити <FaTrash className={scss.trashIcon} />
+                  Видалити
                 </button>
               </div>
             </li>

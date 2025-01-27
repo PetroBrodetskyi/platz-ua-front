@@ -46,10 +46,50 @@
   }
 }
 
+.favoriteList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.favoriteItem {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.description {
+  width: 800px;
+}
+
+.favoriteItemInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.productImage {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
 .icon {
   font-size: 40px;
 
   @include media-rules(notebook) {
     font-size: 140px;
   }
+}
+
+.removeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--red);
 }
